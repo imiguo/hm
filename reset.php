@@ -19,14 +19,13 @@ if ('init_db' == $frm['a']) {
     $mysqli->multi_query($sql) OR die(1);
 }
 
-$settings['site_url'] = (is_SSL() ? 'https://' : 'http://').$settings['site_name'].preg_replace('/\\/reset.php/', '', $_SERVER['SCRIPT_NAME']);
-$settings['site_url_alt'] = (is_SSL() ? 'https://' : 'http://').$settings['site_name'];
+$settings['site_name'] = $_SERVER['HTTP_HOST'];
 
-$mddomain = $settings['site_name'];
-$mddomain = preg_replace('/^www\\./', '', $mddomain);
-$mdscriptname = $_SERVER['SCRIPT_NAME'];
-$mdscriptname = preg_replace('/reset\\.php/', '', $mdscriptname);
-$settings['key'] = strtoupper(get_rand_md5(100).md5($mddomain.'asdfds89ufsdkfnsjfdksh').md5($mdscriptname.'8hbfnbdnf').md5('grv'.$mddomain).get_rand_md5(200));
+$domain = $_SERVER['HTTP_HOST'];
+$domain = preg_replace('/^www\\./', '', $domain);
+$scriptname = $_SERVER['SCRIPT_NAME'];
+$scriptname = preg_replace('/reset\\.php/', '', $scriptname);
+$settings['key'] = strtoupper(get_rand_md5(100).md5($domain.'asdfds89ufsdkfnsjfdksh').md5($scriptname.'8hbfnbdnf').md5('grv'.$domain).get_rand_md5(200));
 save_settings();
 
 define('THE_GC_SCRIPT_V2005_04_01', 'answer');
