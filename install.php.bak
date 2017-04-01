@@ -538,9 +538,6 @@ Thank you.
         $q = ''.'INSERT INTO hm2_users VALUES (1,\'admin name\',\'admin\',\''.$admin_password.'\',NULL,0, \'\',\''.$admin_email.'\',\'on\',\'     \',0,0.00,\'\',\'\',now(),\'localhost\', \'\', 1, 0, 0, \'\', 0, 0, \'\', \'\', \'\', \'20017-01-01\', \'\', 0, \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\',\'\',0, 0, \'\')';
         db_query($q) OR print mysql_error().', line:'.__LINE__.'<br>';
         $settings['site_name'] = $frm_env['HTTP_HOST'];
-        $settings['site_url'] = 'http://'.$frm_env['HTTP_HOST'].preg_replace('/\\/install.php/', '',
-                $frm_env['SCRIPT_NAME']);
-        $settings['site_url_alt'] = 'http://'.$frm_env['HTTP_HOST'];
         $settings['hostname'] = $frm['mysql_host'];
         $settings['database'] = $frm['mysql_db'];
         $settings['db_login'] = $frm['mysql_username'];
