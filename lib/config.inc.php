@@ -143,7 +143,7 @@ foreach ($exchange_systems as $id => $data) {
     }
 }
 
-$settings['site_url'] = $settings['site_url_alt'] = (is_SSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'];
+$settings['site_url'] = (is_SSL() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
 
 $ip = $frm_env['REMOTE_ADDR'];
 $time = time();
