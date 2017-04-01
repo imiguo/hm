@@ -19,8 +19,6 @@ if ('init_db' == $frm['a']) {
     $mysqli->multi_query($sql) OR die(1);
 }
 
-$settings['site_name'] = $_SERVER['HTTP_HOST'];
-
 $domain = $_SERVER['HTTP_HOST'];
 $domain = preg_replace('/^www\\./', '', $domain);
 $scriptname = $_SERVER['SCRIPT_NAME'];
