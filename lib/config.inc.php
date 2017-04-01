@@ -1,12 +1,12 @@
 <?php
 // ini_set('display_errors', '1');
 ini_set('error_reporting', 'E_ALL & ~E_NOTICE & ~E_DEPRECATED');
-define(ROOT, dirname(__DIR__));
+define(ROOT, dirname(dirname(__DIR__)));
 define(SUBDOMAIN, !empty($_SERVER['SUBDOMAIN']) ? $_SERVER['SUBDOMAIN'] : '');
-if (SUBDOMAIN && is_dir(ROOT . '/themes/' . SUBDOMAIN . '/tmpl/')) {
-    define(TMPL_PATH, ROOT . '/themes/' . SUBDOMAIN . '/tmpl/');
+if (SUBDOMAIN && is_dir(ROOT . '/templates/' . SUBDOMAIN . '/tmpl/')) {
+    define(TMPL_PATH, ROOT . '/templates/' . SUBDOMAIN . '/tmpl/');
 } else {
-    define(TMPL_PATH, ROOT . '/tmpl/');
+    define(TMPL_PATH, dirname(__DIR__) . '/tmpl/');
 }
 if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
     define(HTTPS, true);
