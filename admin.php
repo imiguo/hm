@@ -1394,7 +1394,6 @@ if (($frm['a'] == 'settings' AND $frm['action'] == 'settings')) {
         }
 
         $settings['site_name'] = $frm['site_name'];
-        $settings['site_url'] = $frm['site_url'];
         $settings['reverse_columns'] = sprintf('%d', $frm['reverse_columns']);
         $settings['site_start_day'] = $frm['site_start_day'];
         $settings['site_start_month'] = $frm['site_start_month'];

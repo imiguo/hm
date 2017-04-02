@@ -1,16 +1,4 @@
-<?
-/***********************************************************************/
-/*                                                                     */
-/*  This file is created by deZender                                   */
-/*                                                                     */
-/*  deZender (Decoder for Zend Encoder/SafeGuard):                     */
-/*    Version:      0.9.3.1                                            */
-/*    Author:       qinvent.com                                        */
-/*    Release on:   2005.12.5                                          */
-/*                                                                     */
-/***********************************************************************/
-
-
+<?php
   if ($frm['say'] == 'invalid_passphrase')
   {
     echo '<b style="color:red">Invalid Alternative Passphrase. No data has been updated.</b><br><br>
@@ -65,17 +53,17 @@ E-mail:<br>
   $dirs = array ();
   if (!file_exists ('./inc/.htaccess'))
   {
-    array_push (&$dirs, './inc');
+    array_push ($dirs, './inc');
   }
 
   if (!file_exists ('./tmpl/.htaccess'))
   {
-    array_push (&$dirs, './tmpl');
+    array_push ($dirs, './tmpl');
   }
 
   if (!file_exists ('./tmpl_c/.htaccess'))
   {
-    array_push (&$dirs, './tmpl_c');
+    array_push ($dirs, './tmpl_c');
   }
 
   if (0 < sizeof ($dirs))
