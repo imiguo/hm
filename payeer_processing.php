@@ -41,10 +41,10 @@ if ($frm['a'] == 'checkpayment') {
      // If the signatures match and payment status is “Complete”
     if ($_POST['m_sign'] == $sign_hash && $_POST['m_status'] == 'success')
     {
-        $desc = base64_decode($_POST['m_desc']);
-        parse_str($desc, $output);
-        $h_id = empty($desc['h_id']) ? $desc['h_id'] : 0;
-        add_deposit(10, $_POST['m_orderid'], $_POST['m_amount'], $_POST['m_operation_id'], $_POST['client_account'], $h_id, 0);
+        $arr = explode('-', $_POST['m_orderid']);
+        $user_id = $arr[0];
+        $h_id = $arr[2];
+        add_deposit(10, $user_id, $_POST['m_amount'], $_POST['m_operation_id'], $_POST['client_account'], $h_id, 0);
 
         // Here you can mark the invoice as paid or transfer funds to your customer
         // Returning that the payment was processed successfully

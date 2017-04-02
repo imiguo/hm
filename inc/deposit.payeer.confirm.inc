@@ -86,12 +86,11 @@ if (($settings['use_add_funds'] AND $h_id == -1)) {
             }
         }
 
-        // $m_desc = "Deposit to {$settings['site_name']} User {$userinfo['username']}";
-        $m_desc = "h_id={$h_id}";
+        $m_desc = "Deposit to {$settings['site_name']} User {$userinfo['username']}";
         $m_desc = base64_encode($m_desc);
         $arHash = [
             $settings['def_payee_account_payeer'], // m_shop
-            $userinfo['id'], // m_orderid
+            $userinfo['id'].'-'.time().'-'.$h_id, // m_orderid
             $amount, // m_amount
             'USD', // m_curr
             $m_desc, // m_desc
@@ -102,6 +101,7 @@ if (($settings['use_add_funds'] AND $h_id == -1)) {
         $smarty->assign('m_desc', $m_desc);
         $smarty->assign('m_sign', $m_sign);
 
+        $smarty->assign('m_orderid', $userinfo['id'].'-'.time().'-'.$h_id);
         $smarty->assign('h_id', $h_id);
         $smarty->assign('amount', $amount);
         $smarty->assign('amount_format', number_format($frm['amount'], 2, '.', ''));
