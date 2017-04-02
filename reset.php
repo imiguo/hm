@@ -1,4 +1,12 @@
 <?php
+require '../common/function.php';
+
+if (!validate()) {
+    header('HTTP/1.1 403 Forbidden');
+    echo "Invalid request.";
+    exit;
+}
+
 include 'lib/config.inc.php';
 include '../env/data.php';
 
