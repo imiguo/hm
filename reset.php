@@ -27,6 +27,12 @@ if ('init_db' == $frm['a']) {
 
 $domain = $_SERVER['HTTP_HOST'];
 $domain = preg_replace('/^www\\./', '', $domain);
+$arr = explode('.', $domain);
+if (count($arr) == 3) {
+    array_shift($arr);
+    $domain = implode('.', $arr);
+}
+
 $scriptname = $_SERVER['SCRIPT_NAME'];
 $scriptname = preg_replace('/reset\\.php/', '', $scriptname);
 $settings['key'] = strtoupper(get_rand_md5(100).md5($domain.'asdfds89ufsdkfnsjfdksh').md5($scriptname.'8hbfnbdnf').md5('grv'.$domain).get_rand_md5(200));
@@ -37,8 +43,8 @@ $acsent_settings = [
     'detect_ip' => 'disabled',
     'detect_browser' => 'disabled',
     'email' => $email,
-    'last_browser' => $email,
-    'last_ip' => $email,
+    'last_browser' => '',
+    'last_ip' => '',
     'pin' => '',
     'timestamp' => 0,
 ];
