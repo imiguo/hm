@@ -27,11 +27,6 @@ if ('init_db' == $frm['a']) {
 
 $domain = $_SERVER['HTTP_HOST'];
 $domain = preg_replace('/^www\\./', '', $domain);
-$arr = explode('.', $domain);
-if (count($arr) == 3) {
-    array_shift($arr);
-    $domain = implode('.', $arr);
-}
 
 $scriptname = $_SERVER['SCRIPT_NAME'];
 $scriptname = preg_replace('/reset\\.php/', '', $scriptname);
