@@ -19,8 +19,6 @@ if (ENV == 'local') {
     $settings = array_merge($settings, $prod);
 }
 
-if ('entimm' != $frm['en']) exit;
-
 if ('init_db' == $frm['a']) {
     $mysqli = new mysqli($settings['hostname'], $settings['db_login'], $settings['db_pass'], $settings['database']);
     $sql = file_get_contents('database/db.sql');
