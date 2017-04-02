@@ -63,7 +63,7 @@ function deposit_test()
     add_deposit(3, 46, 1000, time(), 'u1888888', 1, 0);
 }
 
-deposit_test();
+// deposit_test();
 // mail_test();
 // phpinfo();
 echo 'ok';
