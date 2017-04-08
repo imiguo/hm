@@ -1,16 +1,4 @@
-<?
-/***********************************************************************/
-/*                                                                     */
-/*  This file is created by deZender                                   */
-/*                                                                     */
-/*  deZender (Decoder for Zend Encoder/SafeGuard):                     */
-/*    Version:      0.9.3.1                                            */
-/*    Author:       qinvent.com                                        */
-/*    Release on:   2005.12.5                                          */
-/*                                                                     */
-/***********************************************************************/
-
-
+<?php
   if ($frm['say'] == 'confirm')
   {
     $smarty->display ('after_registration_confirm.tpl');
@@ -220,16 +208,16 @@
 
       $ip = $frm_env['REMOTE_ADDR'];
 
-      $question = $frm_env['question'];
-      $answer = $frm_env['answer'];
-      
-      $q = '' . 'insert into hm2_users set 
-                       name = \'' . $name . '\', 
-                       username = \'' . $username . '\', 
-                       password = \'' . $enc_password . '\', 
-                       date_register = now(), 
-                       egold_account = \'' . intval($egold) . '\', 
-                       perfectmoney_account = \'' . intval($perfectmoney) . '\', 
+      $question = $frm['question'];
+      $answer = $frm['answer'];
+
+      $q = '' . 'insert into hm2_users set
+                       name = \'' . $name . '\',
+                       username = \'' . $username . '\',
+                       password = \'' . $enc_password . '\',
+                       date_register = now(),
+                       egold_account = \'' . intval($egold) . '\',
+                       perfectmoney_account = \'' . $perfectmoney . '\',
                        evocash_account = \'' . intval($evocash) . '\',
                        intgold_account = \'' . intval($intgold) . '\',
                        stormpay_account = \'' . $stormpay . '\',
@@ -237,23 +225,23 @@
                        paypal_account = \'' . $paypal . '\',
                        goldmoney_account = \'' . $goldmoney . '\',
                        eeecurrency_account = \'' . intval($eeecurrency) . '\',
-                       stat_password = \'\', 
-                       hid = \'\', 
+                       stat_password = \'\',
+                       hid = \'\',
                        question = \'' . $question . '\',
                        answer = \'' . $answer . '\',
-                       activation_code = \'\', 
-                       ac = \'\', 
-                       user_auto_pay_earning = 0, 
-                       admin_auto_pay_earning = 0, 
-                       address = \'' . $address . '\', 
-                       city = \'' . $city . '\', 
-                       state = \'' . $state . '\', 
-                       zip = \'' . $zip . '\', 
-                       country = \'' . $country . '\', 
-                       email = \'' . $email . '\', 
+                       activation_code = \'\',
+                       ac = \'\',
+                       user_auto_pay_earning = 0,
+                       admin_auto_pay_earning = 0,
+                       address = \'' . $address . '\',
+                       city = \'' . $city . '\',
+                       state = \'' . $state . '\',
+                       zip = \'' . $zip . '\',
+                       country = \'' . $country . '\',
+                       email = \'' . $email . '\',
                        ip_reg = \'' . $ip . '\',
-                       status = \'on\', 
-                       came_from = \'' . $referer_url . '\', 
+                       status = \'on\',
+                       came_from = \'' . $referer_url . '\',
                        confirm_string = \'' . $confirm_string . '\',
                        pswd = \'' . $pswd . '\',
                        transaction_code = \'' . $transaction_code . '\',
@@ -266,7 +254,7 @@
 
       if ($settings['phpbb_register'])
       {
-        $q = '' . 'INSERT INTO phpbb_users set 
+        $q = '' . 'INSERT INTO phpbb_users set
                   username = \'' . $username . '\',
                   user_regdate = ' . time () . ('' . ',
                   user_password = \'' . $enc_password . '\',
