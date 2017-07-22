@@ -21,7 +21,7 @@ if ($action == 'pay_withdraw') {
     while ($row = mysql_fetch_array($sth)) {
         $q = ''.'delete from hm2_history where id = '.$id;
         (db_query($q) OR print mysql_error());
-        $q = 'insert into hm2_history set 
+        $q = 'insert into hm2_history set
 	user_id = '.$row['user_id'].',
 	amount = -'.abs($row['amount']).(''.',
 	type = \'withdrawal\',

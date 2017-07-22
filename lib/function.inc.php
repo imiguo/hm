@@ -121,14 +121,14 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
         $amount = $amount - $amount * 6.9 / 100 - 0.69;
     }
 
-    $q = ''.'insert into hm2_history set 
+    $q = ''.'insert into hm2_history set
         	user_id = '.$user_id.',
         	amount = \''.$amount.'\',
         	type = \'add_funds\',
         	description = \''.$desc.'\',
         	actual_amount = '.$amount.',
         	ec = '.$ec.',
-        	date = now()    
+        	date = now()
         	';
     (db_query($q) OR print mysql_error());
     $q = ''.'select * from hm2_types where id = '.$h_id;
@@ -191,7 +191,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
           	';
         (db_query($q) OR print mysql_error());
         $deposit_id = mysql_insert_id();
-        $q = ''.'insert into hm2_history set 
+        $q = ''.'insert into hm2_history set
           	user_id = '.$user_id.',
           	amount = \'-'.$amount.'\',
           	type = \'deposit\',
@@ -1386,8 +1386,8 @@ function count_earning($u_id)
         (db_query($q) OR print mysql_error());
         $lines = 1;
         while (0 < $lines) {
-            $q = ''.'select 
-              d.*, 
+            $q = ''.'select
+              d.*,
               t.period as period, t.use_compound as use_compound,
               t.compound_min_deposit, t.compound_max_deposit,
               t.compound_min_percent, t.compound_max_percent,
@@ -1400,14 +1400,14 @@ function count_earning($u_id)
               hm2_deposits as d,
               hm2_types as t,
               hm2_users as u
-            where 
-              u.id = '.$row_user_id.' and 
-              u.status = \'on\' and 
-              d.status=\'on\' and 
-              d.type_id = t.id and 
-              t.status = \'on\' and 
+            where
+              u.id = '.$row_user_id.' and
+              u.status = \'on\' and
+              d.status=\'on\' and
+              d.type_id = t.id and
+              t.status = \'on\' and
               u.id = d.user_id and
-              (t.q_days > to_days(d.last_pay_date) - to_days(d.deposit_date) or t.q_days = 0) and 
+              (t.q_days > to_days(d.last_pay_date) - to_days(d.deposit_date) or t.q_days = 0) and
               (
                 (d.last_pay_date + interval 1 day <= now() and t.period = \'d\')or
                 (d.last_pay_date + interval 7 day <= now() and t.period = \'w\') or
@@ -1417,10 +1417,10 @@ function count_earning($u_id)
                 (d.last_pay_date + interval 3 month <= now() and t.period = \'3m\') or
                 (d.last_pay_date + interval 6 month <= now() and t.period = \'6m\') or
                 (d.last_pay_date + interval 1 year <= now() and t.period = \'y\') or
-                (d.deposit_date + interval t.q_days day <= now() and t.period = \'end\') 
+                (d.deposit_date + interval t.q_days day <= now() and t.period = \'end\')
               ) and
-              ((t.q_days = 0) or 
-                (               
+              ((t.q_days = 0) or
+                (
                 (d.deposit_date + interval t.q_days day >= d.last_pay_date  and t.period = \'d\') or
                 (d.deposit_date + interval t.q_days day >= d.last_pay_date + interval 7 day and t.period = \'w\') or
                 (d.deposit_date + interval t.q_days day >= d.last_pay_date + interval 14 day  and t.period = \'b-w\') or
@@ -1429,7 +1429,7 @@ function count_earning($u_id)
                 (d.deposit_date + interval t.q_days day >= d.last_pay_date + interval 3 month  and t.period = \'3m\') or
                 (d.deposit_date + interval t.q_days day >= d.last_pay_date + interval 6 month  and t.period = \'6m\') or
                 (d.deposit_date + interval t.q_days day >= d.last_pay_date + interval 1 year and t.period = \'y\') or
-                (t.q_days > 0 and t.period = \'end\') 
+                (t.q_days > 0 and t.period = \'end\')
               ))';
             ($sth = db_query($q) OR print $q.'<br>'.mysql_error());
             $lines = 0;
@@ -1512,7 +1512,7 @@ function count_earning($u_id)
                     $dw = $row2['dw'];
                 }
 
-                $q = 'select count(*) as col from hm2_history where 
+                $q = 'select count(*) as col from hm2_history where
                 to_days(date) = to_days(\''.$row['last_pay_date'].(''.'\' + interval '.$interval.') and
                 deposit_id = ').$row['id'];
                 ($sth3 = db_query($q) OR print mysql_error());
@@ -1613,8 +1613,8 @@ function count_earning($u_id)
                     }
                 }
 
-                $q = ''.'update hm2_deposits set 
-      	q_pays = q_pays + 1, 
+                $q = ''.'update hm2_deposits set
+      	q_pays = q_pays + 1,
       	last_pay_date = last_pay_date + interval '.$interval.' '.$status.' where id ='.$row['id'];
                 (db_query($q) OR print mysql_error());
             }
@@ -1626,10 +1626,10 @@ function count_earning($u_id)
             $q_days = $row['q_days'];
             $id = $row['id'];
             if ($row['return_profit'] == 1) {
-                $q = ''.'select * from hm2_deposits where 
-                type_id = '.$id.' and 
-                status = \'on\' and 
-                user_id = '.$row_user_id.' and 
+                $q = ''.'select * from hm2_deposits where
+                type_id = '.$id.' and
+                status = \'on\' and
+                user_id = '.$row_user_id.' and
                 (deposit_date + interval '.$q_days.' day < last_pay_date or deposit_date + interval '.$q_days.' day < now()) and
                 (('.$row['withdraw_principal'].' = 0) || ('.$row['withdraw_principal'].' && (deposit_date + interval '.$row['withdraw_principal_duration'].' day < now())))
              ';
@@ -1647,8 +1647,8 @@ function count_earning($u_id)
                 }
             }
 
-            $q = ''.'update hm2_deposits set status=\'off\' where 
-             user_id = '.$row_user_id.' and 
+            $q = ''.'update hm2_deposits set status=\'off\' where
+             user_id = '.$row_user_id.' and
     	       (deposit_date + interval '.$q_days.' day < last_pay_date or deposit_date + interval '.$q_days.' day < now()) and
              (('.$row['withdraw_principal'].' = 0) || ('.$row['withdraw_principal'].' && (deposit_date + interval '.$row['withdraw_principal_duration'].' day < now()))) and
              type_id = '.$id.'

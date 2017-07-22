@@ -15,7 +15,7 @@ if ($frm['a'] == 'checkpayment') {
         '149.202.17.210'))) exit;
     if (isset($_POST['m_operation_id']) && isset($_POST['m_sign']))
     {
-        $m_key = 'Your secret key';
+        $m_key = 'aeb814a7f44a';
         // Forming an array for signature generation
         $arHash = array(
             $_POST['m_operation_id'],
