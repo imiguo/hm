@@ -4,7 +4,7 @@ function main()
 {
     global $frm_env;
     global $settingsFile;
-    if (!is_writeable($settingsFile)) {
+    if (!is_writable($settingsFile)) {
         echo '<br><br><br><br><center><h1>Please set the 666 permissions for the <b>'.$settingsFile.'</b> file!<br>';
         exit();
     }
