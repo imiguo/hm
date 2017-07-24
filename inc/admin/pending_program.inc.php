@@ -39,7 +39,7 @@
   $from = ($page - 1) * $onpage;
   $q = ''.'select *, date_format(date, \'%b-%e-%Y %r\') as d from hm2_history where type=\'withdraw_pending\' order by date desc, id desc limit '.$from.', '.$onpage;
   ($sth = db_query($q) or print mysql_error());
-  $trans = array();
+  $trans = [];
   while ($row = mysql_fetch_array($sth)) {
       $q = 'select username from hm2_users where id = '.$row['user_id'];
       $sth1 = db_query($q);
@@ -53,7 +53,7 @@
       array_push($trans, $row);
   }
 
-  $month = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+  $month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   $q = 'select sum(actual_amount) as periodsum from hm2_history where type=\'withdraw_pending\'';
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
@@ -72,8 +72,8 @@
  <td bgcolor=FFEA00 align=center width=170><b>Date</b></td>
 </tr>
 ';
-  if (0 < sizeof($trans)) {
-      for ($i = 0; $i < sizeof($trans); ++$i) {
+  if (0 < count($trans)) {
+      for ($i = 0; $i < count($trans); ++$i) {
           echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
  <td><b>';
           echo $trans[$i]['username'];

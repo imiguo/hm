@@ -27,7 +27,7 @@
       exit(mysql_error());
   }
 
-  $rates = array();
+  $rates = [];
   while ($row1 = mysql_fetch_array($sth)) {
       array_push($rates, $row1);
   }
@@ -37,7 +37,7 @@
       exit(mysql_error());
   }
 
-  $packages = array();
+  $packages = [];
   while ($row1 = mysql_fetch_array($sth)) {
       array_push($packages, $row1);
   }
@@ -112,7 +112,7 @@ function checkform() {
 </tr>
 ';
   $i = 0;
-  for ($i = 0; $i < sizeof($rates); ++$i) {
+  for ($i = 0; $i < count($rates); ++$i) {
       echo '<tr>
  <td>';
       echo $i + 1;
@@ -307,7 +307,7 @@ function checkform() {
   echo ' onclick="CalculateProfit();InitCalendar();"> <a href="javascript:alert(\'Earnings will accumulate on user accounts only  on Mon-Fri. Available for daily payment plans.\')" class=hlp>Earnings only on mon-fri</td>
 </tr>
 ';
-  if (0 < sizeof($packages)) {
+  if (0 < count($packages)) {
       echo '<tr>
  <td colspan=2><input type=checkbox name=parentch value=1 ';
       echo $row['parent'] == 0 ? '' : 'checked';
@@ -315,7 +315,7 @@ function checkform() {
       echo '<s';
       echo 'elect name=parent class=inpts><option value=0>Select
 	';
-      for ($i = 0; $i < sizeof($packages); ++$i) {
+      for ($i = 0; $i < count($packages); ++$i) {
           echo '	<option ';
           echo $row['parent'] == $packages[$i]['id'] ? 'selected' : '';
           echo ' value=';

@@ -100,15 +100,15 @@
           $row['stat'] = (0 < $row2['col'] ? 'Deposited' : 'Not deposited yet');
       }
 
-      $parents = array($row['id']);
-      $ref_stats = array();
+      $parents = [$row['id']];
+      $ref_stats = [];
       $i = 0;
       for ($i = 2; $i < 11; ++$i) {
-          $parents_string = join(',', $parents);
+          $parents_string = implode(',', $parents);
           $q_active = 0;
           $q = ''.'select id from hm2_users where ref in ('.$parents_string.')';
           $sth1 = db_query($q);
-          $parents = array();
+          $parents = [];
           while ($row1 = mysql_fetch_array($sth1)) {
               array_push($parents, $row1['id']);
               $q = 'select count(*) as col from hm2_deposits where user_id = '.$row1['id'];
@@ -129,7 +129,7 @@
               break;
           }
 
-          array_push($ref_stats, array('level' => $i - 1, 'cnt' => sizeof($parents), 'cnt_active' => $q_active));
+          array_push($ref_stats, ['level' => $i - 1, 'cnt' => count($parents), 'cnt_active' => $q_active]);
       }
 
       echo '  <tr>
@@ -155,14 +155,14 @@
           echo '  <tr>
    <td colspan=4>User referrals:
 ';
-          for ($i = 0; $i < sizeof($ref_stats); ++$i) {
+          for ($i = 0; $i < count($ref_stats); ++$i) {
               echo '<nobr>';
               echo $ref_stats[$i][cnt_active];
               echo ' active of ';
               echo $ref_stats[$i][cnt];
               echo ' on level ';
               echo $ref_stats[$i][level];
-              echo $i < sizeof($ref_stats) - 1 ? ';' : '';
+              echo $i < count($ref_stats) - 1 ? ';' : '';
               echo '</nobr>
 ';
           }

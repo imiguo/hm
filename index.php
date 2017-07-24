@@ -88,9 +88,9 @@ while ($row = mysql_fetch_array($sth)) {
     $sfx = strtolower($row['name']);
     $sfx = preg_replace('/([^\\w])/', '_', $sfx);
     $exchange_systems[$row['id']] = [
-        'name' => $row['name'],
-        'sfx' => $sfx,
-        status => $row['status'],
+        'name'        => $row['name'],
+        'sfx'         => $sfx,
+        status        => $row['status'],
         'has_account' => 0,
     ];
 }

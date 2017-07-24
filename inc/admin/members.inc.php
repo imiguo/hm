@@ -51,7 +51,7 @@
   $end = ($total < $end ? $total : $end);
   $q = 'select *, date_format(date_register + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y\') as dr from hm2_users where '.$where_status.' and id <> 1 '.$searchpart.' order by id desc limit ').(0 < $start ? $start : 0).(''.', '.$qonpage);
   ($sth = db_query($q) or print mysql_error());
-  $members = array();
+  $members = [];
   while ($row = mysql_fetch_array($sth)) {
       $ar = get_user_balance($row['id']);
       $row = array_merge($row, $ar);
@@ -134,8 +134,8 @@ function reverce(flag)
       <th bgcolor=FFEA00 align=center>Withdrew</th>
 </tr>
 ';
-  if (0 < sizeof($members)) {
-      for ($i = 0; $i < sizeof($members); ++$i) {
+  if (0 < count($members)) {
+      for ($i = 0; $i < count($members); ++$i) {
           echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
  <td>
 ';

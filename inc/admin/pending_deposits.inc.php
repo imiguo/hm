@@ -44,7 +44,7 @@
  <th bgcolor=FFEA00>-</th>
 </tr>
 ';
-  $processings = array();
+  $processings = [];
   $q = 'select * from hm2_processings';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {

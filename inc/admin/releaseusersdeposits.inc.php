@@ -14,10 +14,10 @@
   $user_id = sprintf('%d', $frm['u_id']);
   $q = 'select * from hm2_types where status = \'on\'';
   ($sth = db_query($q) or print mysql_error());
-  $plans = array();
+  $plans = [];
   $deposits_cnt = 0;
   while ($row = mysql_fetch_array($sth)) {
-      $row['deposits'] = array();
+      $row['deposits'] = [];
       $q = 'select
                 *,
                 date_format(deposit_date + interval '.$settings['time_dif'].' hour, \'%b-%e-%Y %r\') as date,
@@ -33,7 +33,7 @@
                 deposit_date
          ';
       $sth1 = db_query($q);
-      $d = array();
+      $d = [];
       while ($row1 = mysql_fetch_array($sth1)) {
           array_push($d, $row1[id]);
           $row1['can_withdraw'] = 1;
@@ -126,7 +126,7 @@ You cannot release deposits!
 <b>Release Active Deposits:</b><br><br>
 
 ';
-  for ($i = 0; $i < sizeof($plans); ++$i) {
+  for ($i = 0; $i < count($plans); ++$i) {
       echo '<b>';
       echo $plans[$i]['name'];
       echo '</b>
@@ -144,8 +144,8 @@ You cannot release deposits!
 </tr>
 
 ';
-      if (0 < sizeof($plans[$i][deposits])) {
-          for ($j = 0; $j < sizeof($plans[$i][deposits]); ++$j) {
+      if (0 < count($plans[$i][deposits])) {
+          for ($j = 0; $j < count($plans[$i][deposits]); ++$j) {
               echo '<tr>
  <td nowrap>';
               echo $plans[$i][deposits][$j]['date'];

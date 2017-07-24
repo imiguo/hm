@@ -11,7 +11,7 @@
 /*                                                                     */
 /***********************************************************************/
 
-  $stats = array();
+  $stats = [];
   $total_earned = 0;
   foreach ($exchange_systems as $id => $data) {
       if ($data['status'] == 1) {

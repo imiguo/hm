@@ -16,7 +16,7 @@
       exit(mysql_error());
   }
 
-  $packages = array();
+  $packages = [];
   while ($row1 = mysql_fetch_array($sth)) {
       array_push($packages, $row1);
   }
@@ -197,7 +197,7 @@ function checkform() {
         Earnings only on mon-fri</td>
 </tr>
 ';
-  if (0 < sizeof($packages)) {
+  if (0 < count($packages)) {
       echo '<tr>
  <td colspan=2><input type=checkbox name=parentch value=1 ';
       echo $row['parent'] == 0 ? '' : 'checked';
@@ -208,7 +208,7 @@ function checkform() {
       echo '<s';
       echo 'elect name=parent class=inpts><option value=0>Select
 	';
-      for ($i = 0; $i < sizeof($packages); ++$i) {
+      for ($i = 0; $i < count($packages); ++$i) {
           echo '	<option ';
           echo $row['parent'] == $packages[$i]['id'] ? 'selected' : '';
           echo ' value=';

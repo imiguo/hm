@@ -20,7 +20,7 @@
   ($row = mysql_fetch_array($sth) or print mysql_error());
   $act_c = sprintf('%d', $row['col']);
   $pas_c = $all_c - $act_c;
-  $types = array();
+  $types = [];
   $q = 'select * from hm2_types where status = \'on\'';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {

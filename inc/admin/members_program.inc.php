@@ -51,7 +51,7 @@
   $end = ($total < $end ? $total : $end);
   $q = ''.'select *, date_format(date_register, \'%b-%e-%Y\') as dr from hm2_users where status = \''.$qstatus.'\' and id <> 1 '.$searchpart.' order by id desc limit '.$start.', '.$qonpage;
   ($sth = db_query($q) or print mysql_error());
-  $members = array();
+  $members = [];
   while ($row = mysql_fetch_array($sth)) {
       $ar = get_user_balance($row['id']);
       $row = array_merge($row, $ar);
@@ -79,8 +79,8 @@
  <th bgcolor=FFEA00 align=center>Withdraw</th>
 </tr>
 ';
-  if (0 < sizeof($members)) {
-      for ($i = 0; $i < sizeof($members); ++$i) {
+  if (0 < count($members)) {
+      for ($i = 0; $i < count($members); ++$i) {
           echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
  <td>';
           echo '<s';

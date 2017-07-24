@@ -81,7 +81,7 @@ You cannot add/edit news!
       }
 
       $from = ($page - 1) * $onpage;
-      $edit_row = array();
+      $edit_row = [];
       $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as d from hm2_news order by date desc limit '.$from.', '.$onpage);
       ($sth = db_query($q) or peint(mysql_error()));
       while ($row = mysql_fetch_array($sth)) {

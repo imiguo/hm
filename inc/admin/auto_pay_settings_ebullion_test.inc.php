@@ -45,7 +45,7 @@
     curl_setopt($ch, CURLOPT_HEADER, 1);
     $a = curl_exec($ch);
     curl_close($ch);
-    $matches = array();
+    $matches = [];
     $verification = '';
     if (preg_match('/Location: .*?\\?ATIP_VERIFICATION=([^\\r\\n]+)%0A/', $a, $matches)) {
         $verification = $matches[1];

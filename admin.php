@@ -46,9 +46,9 @@ while ($row = mysql_fetch_array($sth)) {
     $sfx = strtolower($row['name']);
     $sfx = preg_replace('/([^\\w])/', '_', $sfx);
     $exchange_systems[$row['id']] = [
-        'name' => $row['name'],
-        'sfx' => $sfx,
-        status => $row['status'],
+        'name'        => $row['name'],
+        'sfx'         => $sfx,
+        status        => $row['status'],
         'has_account' => 0,
     ];
 }
@@ -2050,7 +2050,7 @@ if ($frm['action'] == 'add_hyip') {
     }
 
     sort($cps1);
-    $compound_percents = join(',', $cps1);
+    $compound_percents = implode(',', $cps1);
     $hold = sprintf('%d', $frm[hold]);
     $delay = sprintf('%d', $frm[delay]);
     $q = 'insert into hm2_types set
@@ -2159,7 +2159,7 @@ if ($frm['action'] == 'edit_hyip') {
     }
 
     sort($cps1);
-    $compound_percents = join(',', $cps1);
+    $compound_percents = implode(',', $cps1);
     $closed = ($frm['closed'] ? 1 : 0);
     $hold = sprintf('%d', $frm[hold]);
     $delay = sprintf('%d', $frm[delay]);
@@ -2290,7 +2290,7 @@ if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
     header('Content-type: text/coma-separated-values');
     echo '"Transaction Type","User","Amount","Currency","Date","Description"
 ';
-    for ($i = 0; $i < sizeof($trans); ++$i) {
+    for ($i = 0; $i < count($trans); ++$i) {
         echo '"'.$transtype[$trans[$i]['type']].'","'.$trans[$i]['username'].'","$'.number_format(abs($trans[$i]['actual_amount']),
                 2).'","'.$exchange_systems[$trans[$i]['ec']]['name'].'","'.$trans[$i]['d'].'","'.$trans[$i]['description'].'"'.'
 ';

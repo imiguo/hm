@@ -37,7 +37,7 @@
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       $a = curl_exec($ch);
       curl_close($ch);
-      $parts = array();
+      $parts = [];
       if (preg_match('/<INPUT TYPE="Hidden" NAME="Error" VALUE="(.*?)">/ims', $a, $parts)) {
           $txt = preg_replace('/&lt;/i', '<', $parts[1]);
           $txt = preg_replace('/&gt;/i', '>', $txt);

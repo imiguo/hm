@@ -398,13 +398,13 @@ function send_money_to_perfectmoney($e_password, $amount, $account, $memo, $erro
     $ch = curl_init();
     $memo = rawurlencode($memo);
     $params = [
-        'AccountID' => $settings['perfectmoney_from_account_id'],
-        'PassPhrase' => $perfectmoney_password,
+        'AccountID'     => $settings['perfectmoney_from_account_id'],
+        'PassPhrase'    => $perfectmoney_password,
         'Payer_Account' => $settings['perfectmoney_from_account'],
         'Payee_Account' => $account,
-        'Amount' => $amount,
-        'PAY_IN' => '1',
-        'Memo' => $memo,
+        'Amount'        => $amount,
+        'PAY_IN'        => '1',
+        'Memo'          => $memo,
     ];
     curl_setopt($ch, CURLOPT_URL, 'https://perfectmoney.is/acct/confirm.asp');
     curl_setopt($ch, CURLOPT_POST, 1);
@@ -449,13 +449,13 @@ function send_money_to_egold($e_password, $amount, $account, $memo, $error_txt)
     $ch = curl_init();
     $memo = rawurlencode($memo);
     $params = [
-        'AccountID' => $settings['egold_from_account'],
-        'PassPhrase' => $egold_password,
-        'Payee_Account' => $account,
-        'Amount' => $amount,
-        'PAY_IN' => 1,
-        'WORTH_OF' => 'Gold',
-        'Memo' => $memo,
+        'AccountID'          => $settings['egold_from_account'],
+        'PassPhrase'         => $egold_password,
+        'Payee_Account'      => $account,
+        'Amount'             => $amount,
+        'PAY_IN'             => 1,
+        'WORTH_OF'           => 'Gold',
+        'Memo'               => $memo,
         'IGNORE_RATE_CHANGE' => 'y',
     ];
     curl_setopt($ch, CURLOPT_URL, 'https://www.e-gold.com/acct/confirm.asp');
@@ -1111,7 +1111,7 @@ function encode_pass_for_mysql($string)
     $a = preg_split('//', $ret);
     $b = preg_split('//', md5($string).base64_encode($string));
     $ret = '';
-    for ($i = 0; $i < sizeof($a); ++$i) {
+    for ($i = 0; $i < count($a); ++$i) {
         $ret = $ret.$a[$i].$b[$i];
     }
 
@@ -1125,7 +1125,7 @@ function decode_pass_for_mysql($string)
     $string = str_replace('!!!^', '=', $string);
     $a = preg_split('//', $string);
     $string = '';
-    for ($i = 0; $i < sizeof($a); $i += 2) {
+    for ($i = 0; $i < count($a); $i += 2) {
         $string .= $a[$i - 1];
     }
 
@@ -1141,11 +1141,11 @@ function send_template_mail($email_id, $to, $from, $info)
     $sth = db_query($q);
     $row = mysql_fetch_array($sth);
     if (!$row) {
-        return null;
+        return;
     }
 
     if (!$row['status']) {
-        return null;
+        return;
     }
 
     $text = $row['text'];
@@ -1213,7 +1213,7 @@ function pay_direct_return_deposit($deposit_id, $amount)
         ($sth = db_query($q) or print mysql_error());
         $user = mysql_fetch_array($sth);
         if ($user['auto_withdraw'] != 1) {
-            return null;
+            return;
         }
 
         $q = 'select * from hm2_types where id = '.$dep['type_id'];
@@ -1240,7 +1240,7 @@ function pay_direct_earning($deposit_id, $amount, $date)
 {
     global $settings;
     if ($settings['demomode'] == 1) {
-        return null;
+        return;
     }
 
     if ($settings['use_auto_payment'] == 1) {
@@ -1248,14 +1248,14 @@ function pay_direct_earning($deposit_id, $amount, $date)
         ($sth = db_query($q) or print mysql_error());
         $dep = mysql_fetch_array($sth);
         if (!in_array($dep[ec], [0, 1, 2, 5])) {
-            return null;
+            return;
         }
 
         $q = 'select * from hm2_users where id = '.$dep['user_id'];
         ($sth = db_query($q) or print mysql_error());
         $user = mysql_fetch_array($sth);
         if (($user['admin_auto_pay_earning'] != 1 or $user['user_auto_pay_earning'] != 1)) {
-            return null;
+            return;
         }
 
         $amount = abs($amount);
@@ -1352,7 +1352,7 @@ function count_earning($u_id)
     global $settings;
     $types = [];
     if (($settings['use_crontab'] == 1 and $u_id != -2)) {
-        return null;
+        return;
     }
 
     $q = 'select hm2_plans.* from hm2_plans, hm2_types where hm2_types.status = \'on\' and hm2_types.id = hm2_plans.parent order by parent, min_deposit';
@@ -1666,7 +1666,7 @@ function get_settings()
     $file = fopen('./'.$settingsFile, 'r');
     if ($file) {
         while ($buf = fgets($file, 20000)) {
-            $buf = chop($buf);
+            $buf = rtrim($buf);
             if (($buf != '<?/*' and $buf != '*/?>')) {
                 $kk = $vv = '';
                 $arr = preg_split('/\s+/', $buf, 2);
@@ -1700,7 +1700,7 @@ function get_settings()
         $buf = decode_str($buf, $s['key']);
         $ar = split('
 ', $buf);
-        for ($i = 0; $i < sizeof($ar); ++$i) {
+        for ($i = 0; $i < count($ar); ++$i) {
             list($kk, $vv) = split('	', $ar[$i], 2);
             $s[$kk] = $vv;
         }
@@ -1724,13 +1724,13 @@ function save_settings()
 {
     global $settingsFile;
     global $settings;
-    if (!is_writeable($settingsFile)) {
+    if (!is_writable($settingsFile)) {
         echo '<br><br><br><br><center><h1>Your settings has not been saved.<br>Please set 666 permissions for <b>'.$settingsFile.'</b> file!<br>';
         exit();
     }
 
     if (file_exists('tmpl_c/.htdata')) {
-        if (!is_writeable('tmpl_c/.htdata')) {
+        if (!is_writable('tmpl_c/.htdata')) {
             echo '<br><br><br><br><center><h1>Your settings has not been saved.<br>Please set 666 permissions for <b>tmpl_c/.htdata</b> file!<br>';
             exit();
         }
@@ -1743,14 +1743,14 @@ function save_settings()
 
     $file = fopen('./'.$settingsFile, 'w');
     reset($settings);
-    fputs($file, '<?/*
+    fwrite($file, '<?/*
 ');
     $code = '';
     while (list($kk, $vv) = each($settings)) {
         if ($kk != 'logged') {
             if (($sflag == 0 or ($sflag == 1 and preg_match('/^key/', $kk)))) {
                 if (!preg_match('/_generated/', $kk)) {
-                    fputs($file, ((''.$kk.'	').$vv.'
+                    fwrite($file, ((''.$kk.'	').$vv.'
 '));
                     $code .= ((''.$kk.'	').$vv.'
 ');
@@ -1770,14 +1770,14 @@ function save_settings()
     }
 
     $confirm = $confirm * 15;
-    fputs($file, (''.'cnf	'.$confirm.'
+    fwrite($file, (''.'cnf	'.$confirm.'
 '));
-    fputs($file, '*/?>
+    fwrite($file, '*/?>
 ');
     fclose($file);
     if ($sflag == 1) {
         $file = fopen('./tmpl_c/.htdata', 'w');
-        fputs($file, $code);
+        fwrite($file, $code);
         fclose($file);
     }
 }
@@ -1887,7 +1887,7 @@ function gen_confirm_code($len, $md = 1)
     $i = 0;
     $str = '';
     for ($i = 0; $i < $len; ++$i) {
-        $str .= $a[rand(0, sizeof($a) - 1)];
+        $str .= $a[rand(0, count($a) - 1)];
     }
 
     if ($md) {
@@ -1903,7 +1903,7 @@ function get_rand_md5($len)
     $i = 0;
     $str = '';
     for ($i = 0; $i < $len; ++$i) {
-        $str .= $a[rand(0, sizeof($a) - 1)];
+        $str .= $a[rand(0, count($a) - 1)];
     }
 
     return $str;

@@ -11,7 +11,7 @@
 /*                                                                     */
 /***********************************************************************/
 
-  $processings = array();
+  $processings = [];
   $q = 'select * from hm2_processings';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
@@ -30,8 +30,8 @@
  <th bgcolor=FFEA00>Actions</th>
 </tr>
 ';
-  if (0 < sizeof($processings)) {
-      for ($i = 0; $i < sizeof($processings); ++$i) {
+  if (0 < count($processings)) {
+      for ($i = 0; $i < count($processings); ++$i) {
           echo '<tr>
 <td align=center><input type=checkbox name="status[';
           echo $processings[$i]['id'];
@@ -63,7 +63,7 @@
 
   echo '</table><br>
 ';
-  if (0 < sizeof($processings)) {
+  if (0 < count($processings)) {
       echo '<input type="submit" value="Update" class=sbmt> &nbsp;
 ';
   }
