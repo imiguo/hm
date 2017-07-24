@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,25 +11,24 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   echo '<b>Deposit Details:</b><br><br>
 
 ';
   $id = sprintf('%d', $frm['id']);
   $q = 'select 
           hm2_pending_deposits.*,
-          date_format(hm2_pending_deposits.date + interval ' . $settings['time_dif'] . ('' . ' hour, \'%b-%e-%Y %r\') as d,
+          date_format(hm2_pending_deposits.date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as d,
           hm2_users.username
         from
           hm2_pending_deposits,
           hm2_users
         where
-          hm2_pending_deposits.id = ' . $id . ' and
+          hm2_pending_deposits.id = '.$id.' and
           hm2_users.id = hm2_pending_deposits.user_id
        ');
   ($sth = db_query($q) or print mysql_error());
   $row = mysql_fetch_array($sth);
-  $q = 'select * from hm2_processings where id = ' . $row['ec'];
+  $q = 'select * from hm2_processings where id = '.$row['ec'];
   $sth = db_query($q);
   $processing = mysql_fetch_array($sth);
   $pfields = unserialize($processing['infofields']);
@@ -52,9 +52,9 @@
  <td>Amount:</td>
  <td>';
   if (($frm['action'] != 'movetodeposit' and $frm['action'] != 'movetoaccount')) {
-      print('' . '$') . number_format($row['amount'], 2);
+      echo(''.'$').number_format($row['amount'], 2);
   } else {
-      print '<input type=text name=amount value=\'' . sprintf('%0.2f', $row['amount']) . '\' class=inpts style=\'text-align: right;\'>';
+      echo '<input type=text name=amount value=\''.sprintf('%0.2f', $row['amount']).'\' class=inpts style=\'text-align: right;\'>';
   }
 
   echo '</td>
@@ -62,7 +62,7 @@
 <tr>
  <td>Currency:</td>
  <td>';
-  echo($exchange_systems[$row['ec']] ? $exchange_systems[$row['ec']]['name'] : 'Delated');
+  echo $exchange_systems[$row['ec']] ? $exchange_systems[$row['ec']]['name'] : 'Delated';
   echo '</td>
 </tr>
 ';

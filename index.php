@@ -1,4 +1,5 @@
 <?php
+
 $arr = get_defined_vars();
 while (list($kk, $vv) = each($arr)) {
     if (gettype($$kk) != 'array') {
@@ -8,7 +9,7 @@ while (list($kk, $vv) = each($arr)) {
 }
 
 if (file_exists('install.php')) {
-    print 'Delete install.php file for security reason please!';
+    echo 'Delete install.php file for security reason please!';
     exit();
 }
 
@@ -28,8 +29,8 @@ if (HTTPS) {
 }
 
 $dbconn = db_open();
-if (! $dbconn) {
-    print 'Cannot connect mysql';
+if (!$dbconn) {
+    echo 'Cannot connect mysql';
     exit();
 }
 
@@ -67,7 +68,7 @@ if (isset($frm['ref']) && $frm['ref'] != '') {
     }
 }
 
-if (! empty($frm_env['HTTPS'])) {
+if (!empty($frm_env['HTTPS'])) {
     $settings[SSL_USED] = 1;
 }
 
@@ -87,10 +88,10 @@ while ($row = mysql_fetch_array($sth)) {
     $sfx = strtolower($row['name']);
     $sfx = preg_replace('/([^\\w])/', '_', $sfx);
     $exchange_systems[$row['id']] = [
-        'name'        => $row['name'],
-        'sfx'         => $sfx,
-        status        => $row['status'],
-        'has_account' => 0
+        'name' => $row['name'],
+        'sfx' => $sfx,
+        status => $row['status'],
+        'has_account' => 0,
     ];
 }
 
@@ -133,7 +134,7 @@ if (($frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and $frm['TRANSACTION_ID'] !=
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 
-    print 1;
+    echo 1;
     db_close($dbconn);
     exit();
 }
@@ -177,7 +178,7 @@ if (($frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANSACTION_ID'] != '')) {
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 
-    print 1;
+    echo 1;
     db_close($dbconn);
     exit();
 }
@@ -221,7 +222,7 @@ if ((($frm['user3'] == 'pay_withdraw' and $frm['transaction_id'] != '') and $frm
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 
-    print 1;
+    echo 1;
     db_close($dbconn);
     exit();
 }
@@ -481,8 +482,8 @@ if ($frm['a'] == 'do_login') {
 
         // 这里可以开后门，给我发邮箱
 
-        print '<head><title>HYIP Manager</title><meta http-equiv=\'Refresh\' content=\'1; URL=admin.php\'></head>';
-        print '<body><center><a href=\'admin.php\'>Go to admin area</a></center></body>';
+        echo '<head><title>HYIP Manager</title><meta http-equiv=\'Refresh\' content=\'1; URL=admin.php\'></head>';
+        echo '<body><center><a href=\'admin.php\'>Go to admin area</a></center></body>';
         flush();
         db_close($dbconn);
         exit();
@@ -516,9 +517,8 @@ if ($frm['a'] == 'do_login') {
                 $userinfo = $row;
                 $userinfo['logged'] = 1;
                 $q = ''.'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
-                if (! (db_query($q))) {
+                if (!(db_query($q))) {
                     exit(mysql_error());
-                    ;
                 }
 
                 continue;
@@ -584,7 +584,7 @@ if ($userinfo['logged'] == 1) {
     $userinfo['balance'] = number_format(abs($balance), 2);
 }
 
-if (((((($frm['a'] != 'show_validation_image' and ! $userinfo['logged']) and extension_loaded('gd')) and $settings['graph_validation'] == 1) and 0 < $settings['graph_max_chars']) and $frm['action'] != 'signup')) {
+if (((((($frm['a'] != 'show_validation_image' and !$userinfo['logged']) and extension_loaded('gd')) and $settings['graph_validation'] == 1) and 0 < $settings['graph_max_chars']) and $frm['action'] != 'signup')) {
     $userinfo[validation_enabled] = 1;
     session_start();
     $validation_number = gen_confirm_code($settings['graph_max_chars'], 0);
@@ -635,7 +635,7 @@ if ($settings[banner_extension] == 1) {
         if ($f) {
             $contents = fread($f, filesize(''.'./tmpl_c/banners/'.$id));
             header('Content-type: image/gif');
-            print $contents;
+            echo $contents;
             fclose($fd);
         }
 

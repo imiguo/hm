@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,41 +11,38 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $q = 'select * from hm2_types order by id';
   if (!($sth = db_query($q))) {
       exit(mysql_error());
-      ;
   }
 
   $plans = array();
   $periods = array('d' => 'daily', 'w' => 'weekly', 'b-w' => 'bi-weekly', 'm' => 'monthly', '2m' => 'every 2 month', '3m' => 'every 3 month', '6m' => 'every 6 month', 'y' => 'yearly');
   while ($row = mysql_fetch_array($sth)) {
-      $q = 'select min(min_deposit) as min_amount, max(max_deposit) as max_amount, sum(max_deposit = 0) as nomax, min(percent) as min_percent, max(percent) as max_percent from hm2_plans where parent=' . $row['id'] . ' group by parent';
+      $q = 'select min(min_deposit) as min_amount, max(max_deposit) as max_amount, sum(max_deposit = 0) as nomax, min(percent) as min_percent, max(percent) as max_percent from hm2_plans where parent='.$row['id'].' group by parent';
       if (!($sth1 = db_query($q))) {
           exit(mysql_error());
-          ;
       }
 
       $row1 = mysql_fetch_array($sth1);
       if ($row1['nomax'] == 0) {
-          $row['deposit'] = '$' . $row1['min_amount'] . ('' . ' - $') . $row1['max_amount'];
+          $row['deposit'] = '$'.$row1['min_amount'].(''.' - $').$row1['max_amount'];
       } else {
-          $row['deposit'] = 'from $' . $row1['min_amount'];
+          $row['deposit'] = 'from $'.$row1['min_amount'];
       }
 
       $percent = $row1['min_percent'];
       if ($percent < $row1['max_percent']) {
-          $percent .= ' - ' . $row1['max_percent'];
+          $percent .= ' - '.$row1['max_percent'];
       }
 
       if ($row['period'] != 'end') {
-          $row['percent'] = $percent . '% / ' . $periods[$row['period']];
+          $row['percent'] = $percent.'% / '.$periods[$row['period']];
       } else {
-          $row['percent'] = $percent . '%';
+          $row['percent'] = $percent.'%';
       }
 
-      $q = 'select * from hm2_plans where parent=' . $row['id'] . ' order by id';
+      $q = 'select * from hm2_plans where parent='.$row['id'].' order by id';
       $sth1 = db_query($q);
       $row['plans'] = array();
       while ($row1 = mysql_fetch_array($sth1)) {
@@ -78,7 +76,7 @@
  <td bgcolor=FFF9B3>';
           echo htmlspecialchars($line['name']);
           echo ' ';
-          echo($line['status'] == 'off' ? '<small>(inactive)</small' : '');
+          echo $line['status'] == 'off' ? '<small>(inactive)</small' : '';
           echo '</td>
  <td bgcolor=FFF9B3>';
           echo $line['deposit'];
@@ -91,7 +89,7 @@
           echo '>[edit]</a> <a href=?a=deleterate&id=';
           echo $line['id'];
           echo ' onclick="return confirm(\'';
-          echo(($line['id'] < 3 and $settings['demomode'] == 1) ? 'Demo version restriction!\\nYou cannot delete this package!\\n\\n' : '');
+          echo ($line['id'] < 3 and $settings['demomode'] == 1) ? 'Demo version restriction!\\nYou cannot delete this package!\\n\\n' : '';
           echo 'Are you sure delete this package? All users deposits in this package will be lost!\');">[delete]</a></td>
 </tr>
 <tr>

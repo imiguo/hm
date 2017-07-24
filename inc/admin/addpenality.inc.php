@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,9 +11,8 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $id = sprintf('%d', $frm['id']);
-  $q = '' . 'select * from hm2_users where id = ' . $id;
+  $q = ''.'select * from hm2_users where id = '.$id;
   $sth = db_query($q);
   $userinfo = mysql_fetch_array($sth);
   if ($frm['say'] == 'done') {

@@ -1,7 +1,8 @@
 <?php
+
 function shop_pin_html()
 {
-    print '<html><body>Enter pin:<br>
+    echo '<html><body>Enter pin:<br>
 <form method=post>
 <input type=hidden name=a value=enter_pin>
 <input type=text name=pin value=""><br>
@@ -18,7 +19,7 @@ while (list($kk, $vv) = each($arr)) {
 }
 
 if (file_exists('install.php')) {
-    print 'Delete install.php file for security reason please!';
+    echo 'Delete install.php file for security reason please!';
     exit();
 }
 
@@ -34,8 +35,8 @@ if (HTTPS) {
 $userinfo = [];
 $userinfo['logged'] = 0;
 $dbconn = db_open();
-if (! $dbconn) {
-    print 'Cannot connect mysql';
+if (!$dbconn) {
+    echo 'Cannot connect mysql';
     exit();
 }
 
@@ -45,10 +46,10 @@ while ($row = mysql_fetch_array($sth)) {
     $sfx = strtolower($row['name']);
     $sfx = preg_replace('/([^\\w])/', '_', $sfx);
     $exchange_systems[$row['id']] = [
-        'name'        => $row['name'],
-        'sfx'         => $sfx,
-        status        => $row['status'],
-        'has_account' => 0
+        'name' => $row['name'],
+        'sfx' => $sfx,
+        status => $row['status'],
+        'has_account' => 0,
     ];
 }
 
@@ -67,7 +68,7 @@ if ($frm['a'] == 'showprogramstat') {
     }
 
     if ($flag == 0) {
-        print '<center>Wrong login or password</center>';
+        echo '<center>Wrong login or password</center>';
     } else {
         if ($frm['page'] == 'members') {
             include 'inc/admin/members_program.inc.php';
@@ -245,7 +246,7 @@ if ($acsent_settings[detect_ip] == 'disabled') {
                 exit();
             }
         } else {
-            print 'Settings broken. Contact script developer please';
+            echo 'Settings broken. Contact script developer please';
             exit();
         }
     }
@@ -264,7 +265,7 @@ if ($acsent_settings[detect_browser] == 'disabled') {
             exit();
         }
     } else {
-        print 'Settings broken. Contact script developer please';
+        echo 'Settings broken. Contact script developer please';
         exit();
     }
 }
@@ -277,7 +278,7 @@ if ($frm['a'] == 'encrypt_mysql') {
             exit();
         }
 
-        if (! file_exists('./tmpl_c/.htdata')) {
+        if (!file_exists('./tmpl_c/.htdata')) {
             $fp = fopen('./tmpl_c/.htdata', 'w');
             fclose($fp);
             save_settings();
@@ -391,9 +392,8 @@ if ($frm['a'] == 'test_ebullion_settings') {
 
 if ($userinfo['should_count'] == 1) {
     $q = ''.'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
-    if (! (db_query($q))) {
+    if (!(db_query($q))) {
         exit(mysql_error());
-        ;
     }
 
     count_earning(-1);
@@ -627,8 +627,8 @@ if ($frm['a'] == 'mass') {
 
     if ($frm['action2'] == 'masscsv') {
         $ids = $frm['pend'];
-        if (! $ids) {
-            print 'Nothing selected.';
+        if (!$ids) {
+            echo 'Nothing selected.';
             db_close($dbconn);
             exit();
         }
@@ -659,7 +659,7 @@ if ($frm['a'] == 'mass') {
             }
 
             if ($ec != $row['ec']) {
-                print '#'.$exchange_systems[$row['ec']]['name'].' transactions (account, amount)
+                echo '#'.$exchange_systems[$row['ec']]['name'].' transactions (account, amount)
 ';
                 $ec = $row['ec'];
             }
@@ -708,7 +708,7 @@ if ($frm['a'] == 'mass') {
             }
 
             $to_withdraw = sprintf('%.02f', floor($to_withdraw * 100) / 100);
-            print $ac.','.abs($to_withdraw).'
+            echo $ac.','.abs($to_withdraw).'
 ';
         }
 
@@ -876,7 +876,7 @@ if ($frm['a'] == 'mass') {
                         $row[ebullion_account],
                         $row[paypal_account],
                         $row[goldmoney_account],
-                        $row[eeecurrency_account]
+                        $row[eeecurrency_account],
                     ];
                     $q = 'insert into hm2_history set
               user_id = '.$row['user_id'].(''.',
@@ -895,9 +895,9 @@ if ($frm['a'] == 'mass') {
                     $info['batch'] = $batch;
                     $info['currency'] = $exchange_systems[$row['ec']]['name'];
                     send_template_mail('withdraw_user_notification', $row['email'], $settings['system_email'], $info);
-                    print ''.'Sent $ '.$to_withdraw.' to account'.$d_account[$row[ec]].' on '.$exchange_systems[$row['ec']]['name'].(''.'. Batch is '.$batch.'<br>');
+                    echo ''.'Sent $ '.$to_withdraw.' to account'.$d_account[$row[ec]].' on '.$exchange_systems[$row['ec']]['name'].(''.'. Batch is '.$batch.'<br>');
                 } else {
-                    print ''.$text.'<br>';
+                    echo ''.$text.'<br>';
                 }
 
                 flush();
@@ -1091,8 +1091,8 @@ if (($frm['a'] == 'newsletter' and $frm['action'] == 'newsletter')) {
 <body bgcolor="#FFFFF2" link="#666699" vlink="#666699" alink="#666699" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
 <center>
 ';
-    print '<br><br><br><br><br><div id=\'newsletterplace\'></div>';
-    print '<div id=self_menu0></div>';
+    echo '<br><br><br><br><br><div id=\'newsletterplace\'></div>';
+    echo '<div id=self_menu0></div>';
     $description = $frm['description'];
     if ($settings['demomode'] != 1) {
         set_time_limit(9999999);
@@ -1107,11 +1107,11 @@ if (($frm['a'] == 'newsletter' and $frm['action'] == 'newsletter')) {
             $mailcont = ereg_replace('#email#', $row['email'], $mailcont);
             send_mail($row['email'], $frm['subject'], $mailcont, 'From: '.$settings['system_email'].'
 Reply-To: '.$settings['system_email']);
-            print '<script>var obj = document.getElementById(\'newsletterplace\');
+            echo '<script>var obj = document.getElementById(\'newsletterplace\');
 var menulast = document.getElementById(\'self_menu'.($total - 1).'\');
 menulast.style.display=\'none\';</script>';
-            print ''.'<div id=\'self_menu'.$total.'\'>Just sent to '.$row[email].(''.'<br>Total '.$total.' messages sent.</div>');
-            print ''.'<script>var menu = document.getElementById(\'self_menu'.$total.'\');
+            echo ''.'<div id=\'self_menu'.$total.'\'>Just sent to '.$row[email].(''.'<br>Total '.$total.' messages sent.</div>');
+            echo ''.'<script>var menu = document.getElementById(\'self_menu'.$total.'\');
 obj.appendChild(menu);
 </script>
 ';
@@ -1123,7 +1123,7 @@ obj.appendChild(menu);
     }
 
     db_close($dbconn);
-    print ''.'<br><br><br>Sent '.$total.'.</center></body></html>';
+    echo ''.'<br><br><br>Sent '.$total.'.</center></body></html>';
     exit();
 }
 
@@ -1157,7 +1157,7 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
         $q = ''.'select * from hm2_types where id = '.$hyip_id.' and status = \'on\'';
         $sth = db_query($q);
         $type = mysql_fetch_array($sth);
-        if (! $type) {
+        if (!$type) {
             header('Location: ?a=send_bonuce&say=wrongplan');
             db_close($dbconn);
             exit();
@@ -1408,7 +1408,7 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
         $settings['def_payee_account_payeer'] = $frm['def_payee_account_payeer'];
         $settings['def_payee_key_payeer'] = $frm['def_payee_key_payeer'];
         $settings['def_payee_additionalkey_payeer'] = $frm['def_payee_additionalkey_payeer'];
-        
+
         $settings['def_payee_account_bitcoin'] = $frm['def_payee_account_bitcoin'];
         $settings['def_payee_qrcode_bitcoin'] = $frm['def_payee_qrcode_bitcoin'];
 
@@ -1438,7 +1438,7 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
         $settings['graph_bg_color'] = $frm['graph_bg_color'];
         $settings['use_number_validation_number'] = sprintf('%d', $frm['use_number_validation_number']);
         $settings['advanced_graph_validation'] = ($frm['advanced_graph_validation'] ? 1 : 0);
-        if (! function_exists('imagettfbbox')) {
+        if (!function_exists('imagettfbbox')) {
             $settings['advanced_graph_validation'] = 0;
         }
 
@@ -1469,7 +1469,7 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
         $atip_pl = $_FILES['atip_pl'];
         if ((0 < $atip_pl['size'] and $atip_pl['error'] == 0)) {
             $fp = fopen($atip_pl['tmp_name'], 'r');
-            while (! feof($fp)) {
+            while (!feof($fp)) {
                 $buf = fgets($fp, 4096);
                 if (preg_match('/my\\s+\\(\\$account\\)\\s+\\=\\s+\'([^\']+)\'/', $buf, $matches)) {
                     $frm['def_payee_account_ebullion'] = $matches[1];
@@ -1488,7 +1488,7 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
         $status_php = $_FILES['status_php'];
         if ((0 < $status_php['size'] and $status_php['error'] == 0)) {
             $fp = fopen($status_php['tmp_name'], 'r');
-            while (! feof($fp)) {
+            while (!feof($fp)) {
                 $buf = fgets($fp, 4096);
                 if (preg_match('/\\$eb_keyID\\s+\\=\\s+\'([^\']+)\'/', $buf, $matches)) {
                     $frm['ebullion_keyID'] = $matches[1];
@@ -1604,7 +1604,7 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
             if (($type['compound_min_deposit'] <= $amount and $amount <= $type['compound_max_deposit'])) {
                 if ($type['compound_percents_type'] == 1) {
                     $cps = preg_split('/\\s*,\\s*/', $type['compound_percents']);
-                    if (! in_array($compound, $cps)) {
+                    if (!in_array($compound, $cps)) {
                         $compound = $cps[0];
                     }
                 } else {
@@ -1671,7 +1671,7 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
         $q = ''.'select * from hm2_types where id = '.$hyip_id.' and status = \'on\'';
         $sth = db_query($q);
         $type = mysql_fetch_array($sth);
-        if (! $type) {
+        if (!$type) {
             header('Location: ?a=send_bonuce&say=wrongplan');
             db_close($dbconn);
             exit();
@@ -1694,9 +1694,8 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
               type = \'bonus\',
               date = now(),
               description = \''.$description.'\'';
-            if (! (db_query($q))) {
+            if (!(db_query($q))) {
                 exit(mysql_error());
-                ;
             }
 
             if ($deposit) {
@@ -1791,9 +1790,8 @@ if (($frm['a'] == 'addpenality' and $frm['action'] == 'addpenality')) {
 	type = \'penality\',
 	date = now(),
 	description = \''.$description.'\'';
-    if (! (db_query($q))) {
+    if (!(db_query($q))) {
         exit(mysql_error());
-        ;
     }
 
     if ($frm['inform'] == 1) {
@@ -2045,7 +2043,7 @@ if ($frm['action'] == 'add_hyip') {
     $cps = preg_split('/\\s*,\\s*/', $frm['compound_percents']);
     $cps1 = [];
     foreach ($cps as $cp) {
-        if (((! in_array($cp, $cps1) and 0 <= $cp) and $cp <= 100)) {
+        if (((!in_array($cp, $cps1) and 0 <= $cp) and $cp <= 100)) {
             array_push($cps1, sprintf('%d', $cp));
             continue;
         }
@@ -2080,9 +2078,8 @@ if ($frm['action'] == 'add_hyip') {
 	hold = '.$hold.',
 	delay = '.$delay.'
   ');
-    if (! (db_query($q))) {
+    if (!(db_query($q))) {
         exit(mysql_error());
-        ;
     }
 
     $parent = mysql_insert_id();
@@ -2099,9 +2096,8 @@ if ($frm['action'] == 'add_hyip') {
 		min_deposit = '.$min_amount.',
 		max_deposit = '.$max_amount.', 
 		percent = '.$percent;
-            if (! (db_query($q))) {
+            if (!(db_query($q))) {
                 exit(mysql_error());
-                ;
             }
 
             continue;
@@ -2156,7 +2152,7 @@ if ($frm['action'] == 'edit_hyip') {
     $cps = preg_split('/\\s*,\\s*/', $frm['compound_percents']);
     $cps1 = [];
     foreach ($cps as $cp) {
-        if (((! in_array($cp, $cps1) and 0 <= $cp) and $cp <= 100)) {
+        if (((!in_array($cp, $cps1) and 0 <= $cp) and $cp <= 100)) {
             array_push($cps1, sprintf('%d', $cp));
             continue;
         }
@@ -2196,16 +2192,14 @@ if ($frm['action'] == 'edit_hyip') {
 
 	 where id='.$id.'
   ');
-    if (! (db_query($q))) {
+    if (!(db_query($q))) {
         exit(mysql_error());
-        ;
     }
 
     $parent = $id;
     $q = ''.'delete from hm2_plans where parent = '.$id;
-    if (! (db_query($q))) {
+    if (!(db_query($q))) {
         exit(mysql_error());
-        ;
     }
 
     $rate_amount_active = $frm['rate_amount_active'];
@@ -2221,9 +2215,8 @@ if ($frm['action'] == 'edit_hyip') {
 		min_deposit = '.$min_amount.',
 		max_deposit = '.$max_amount.', 
 		percent = '.$percent;
-            if (! (db_query($q))) {
+            if (!(db_query($q))) {
                 exit(mysql_error());
-                ;
             }
 
             continue;
@@ -2295,10 +2288,10 @@ if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
     $to = $frm['month_to'].'_'.$frm['day_to'].'_'.$frm['year_to'];
     header('Content-Disposition: attachment; filename='.$frm['ttype'].(''.'history-'.$from.'-'.$to.'.csv'));
     header('Content-type: text/coma-separated-values');
-    print '"Transaction Type","User","Amount","Currency","Date","Description"
+    echo '"Transaction Type","User","Amount","Currency","Date","Description"
 ';
     for ($i = 0; $i < sizeof($trans); ++$i) {
-        print '"'.$transtype[$trans[$i]['type']].'","'.$trans[$i]['username'].'","$'.number_format(abs($trans[$i]['actual_amount']),
+        echo '"'.$transtype[$trans[$i]['type']].'","'.$trans[$i]['username'].'","$'.number_format(abs($trans[$i]['actual_amount']),
                 2).'","'.$exchange_systems[$trans[$i]['ec']]['name'].'","'.$trans[$i]['d'].'","'.$trans[$i]['description'].'"'.'
 ';
     }
@@ -2308,7 +2301,7 @@ if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
 }
 
 if (($frm[a] == 'add_processing' and $frm[action] == 'add_processing')) {
-    if (! $settings['demomode']) {
+    if (!$settings['demomode']) {
         $status = ($frm['status'] ? 1 : 0);
         $name = quote($frm['name']);
         $description = quote($frm_orig['description']);
@@ -2352,7 +2345,7 @@ if (($frm[a] == 'add_processing' and $frm[action] == 'add_processing')) {
 }
 
 if (($frm[a] == 'edit_processing' and $frm[action] == 'edit_processing')) {
-    if (! $settings['demomode']) {
+    if (!$settings['demomode']) {
         $pid = intval($frm['pid']);
         $status = ($frm['status'] ? 1 : 0);
         $name = quote($frm['name']);
@@ -2388,7 +2381,7 @@ if (($frm[a] == 'edit_processing' and $frm[action] == 'edit_processing')) {
 }
 
 if ($frm[a] == 'update_processings') {
-    if (! $settings['demomode']) {
+    if (!$settings['demomode']) {
         $q = 'update hm2_processings set status = 0';
         (db_query($q) or print mysql_error());
         $status = $frm['status'];
@@ -2406,7 +2399,7 @@ if ($frm[a] == 'update_processings') {
 }
 
 if ($frm[a] == 'delete_processing') {
-    if (! $settings['demomode']) {
+    if (!$settings['demomode']) {
         $pid = intval($frm['pid']);
         $q = ''.'delete from hm2_processings where id = '.$pid;
         (db_query($q) or print mysql_error());

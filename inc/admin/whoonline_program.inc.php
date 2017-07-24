@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   $q = 'select count(*) as col from hm2_online ';
   $sth = db_query($q);
@@ -36,9 +36,9 @@ Registered Uses:<br><br>
   $i = 0;
   while ($row = mysql_fetch_array($sth)) {
       if (0 < $i) {
-          print ', ';
+          echo ', ';
       }
 
-      print $row['username'];
+      echo $row['username'];
       ++$i;
   }

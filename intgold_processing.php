@@ -1,8 +1,9 @@
 <?php
+
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if (! $dbconn) {
-    print 'Cannot connect mysql';
+if (!$dbconn) {
+    echo 'Cannot connect mysql';
     exit();
 }
 
@@ -46,7 +47,7 @@ if ($frm['CUSTOM2'] == 'pay_withdraw') {
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 
-    print 1;
+    echo 1;
     db_close($dbconn);
     exit();
 }
@@ -69,5 +70,5 @@ if (($mymd5 == $frm['HASH'] and ($frm['TRANSACTION_ID'] != '' and $exchange_syst
 }
 
 db_close($dbconn);
-print '1';
+echo '1';
 exit();

@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,57 +11,56 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $stats = array();
   $total_earned = 0;
   foreach ($exchange_systems as $id => $data) {
       if ($data['status'] == 1) {
-          $q = '' . 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and to_days(now()) = to_days(date) and ec=' . $id;
+          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and to_days(now()) = to_days(date) and ec='.$id;
           ($sth = db_query($q) or print mysql_error());
           $row = mysql_fetch_array($sth);
           $in[$id]['today'] = abs($row['col']);
           $in['total']['today'] += abs($row['col']);
-          $q = '' . 'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and to_days(now()) = to_days(date) and ec=' . $id;
+          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and to_days(now()) = to_days(date) and ec='.$id;
           ($sth = db_query($q) or print mysql_error());
           $row = mysql_fetch_array($sth);
           $out[$id]['today'] = abs($row['col']);
           $out['total']['today'] += abs($row['col']);
-          $q = '' . 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and yearweek(now()) = yearweek(date) and ec=' . $id;
+          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and yearweek(now()) = yearweek(date) and ec='.$id;
           ($sth = db_query($q) or print mysql_error());
           $row = mysql_fetch_array($sth);
           $in[$id]['week'] = abs($row['col']);
           $in['total']['week'] += abs($row['col']);
-          $q = '' . 'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and yearweek(now()) = yearweek(date) and ec=' . $id;
+          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and yearweek(now()) = yearweek(date) and ec='.$id;
           ($sth = db_query($q) or print mysql_error());
           $row = mysql_fetch_array($sth);
           $out[$id]['week'] = abs($row['col']);
           $out['total']['week'] += abs($row['col']);
-          $q = '' . 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and EXTRACT(YEAR_MONTH FROM now()) = EXTRACT(YEAR_MONTH FROM date) and ec=' . $id;
+          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and EXTRACT(YEAR_MONTH FROM now()) = EXTRACT(YEAR_MONTH FROM date) and ec='.$id;
           ($sth = db_query($q) or print mysql_error());
           $row = mysql_fetch_array($sth);
           $in[$id]['month'] = abs($row['col']);
           $in['total']['month'] += abs($row['col']);
-          $q = '' . 'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and EXTRACT(YEAR_MONTH FROM now()) = EXTRACT(YEAR_MONTH FROM date) and ec=' . $id;
+          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and EXTRACT(YEAR_MONTH FROM now()) = EXTRACT(YEAR_MONTH FROM date) and ec='.$id;
           ($sth = db_query($q) or print mysql_error());
           $row = mysql_fetch_array($sth);
           $out[$id]['month'] = abs($row['col']);
           $out['total']['month'] += abs($row['col']);
-          $q = '' . 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and year(now()) = year(date) and ec=' . $id;
+          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and year(now()) = year(date) and ec='.$id;
           ($sth = db_query($q) or print mysql_error());
           $row = mysql_fetch_array($sth);
           $in[$id]['year'] = abs($row['col']);
           $in['total']['year'] += abs($row['col']);
-          $q = '' . 'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and year(now()) = year(date) and ec=' . $id;
+          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and year(now()) = year(date) and ec='.$id;
           ($sth = db_query($q) or print mysql_error());
           $row = mysql_fetch_array($sth);
           $out[$id]['year'] = abs($row['col']);
           $out['total']['year'] += abs($row['col']);
-          $q = '' . 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and ec=' . $id;
+          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and ec='.$id;
           ($sth = db_query($q) or print mysql_error());
           $row = mysql_fetch_array($sth);
           $in[$id]['total'] = abs($row['col']);
           $in['total']['total'] += abs($row['col']);
-          $q = '' . 'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and ec=' . $id;
+          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and ec='.$id;
           ($sth = db_query($q) or print mysql_error());
           $row = mysql_fetch_array($sth);
           $out[$id]['total'] = abs($row['col']);

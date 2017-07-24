@@ -1,8 +1,9 @@
 <?php
+
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if (! $dbconn) {
-    print 'Cannot connect mysql';
+if (!$dbconn) {
+    echo 'Cannot connect mysql';
     exit();
 }
 
@@ -46,7 +47,7 @@ if ($frm['a'] == 'pay_withdraw') {
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 
-    print 1;
+    echo 1;
     db_close($dbconn);
     exit();
 }
@@ -54,7 +55,7 @@ if ($frm['a'] == 'pay_withdraw') {
 $hash = strtoupper(md5($frm['PAYMENT_ID'].':'.$frm['PAYEE_ACCOUNT'].':'.$frm['PAYMENT_AMOUNT'].':'.$frm['PAYMENT_UNITS'].':'.$frm['PAYMENT_METAL_ID'].':'.$frm['PAYMENT_BATCH_NUM'].':'.$frm['PAYER_ACCOUNT'].':'.$mymd5.':'.$frm['ACTUAL_PAYMENT_OUNCES'].':'.$frm['USD_PER_OUNCE'].':'.$frm['FEEWEIGHT'].':'.$frm['TIMESTAMPGMT']));
 if (($hash == strtoupper($frm['V2_HASH']) and $exchange_systems[0]['status'] == 1)) {
     $ip = $frm_env['REMOTE_ADDR'];
-    if (! preg_match('/63\\.240\\.230\\.\\d/i', $ip)) {
+    if (!preg_match('/63\\.240\\.230\\.\\d/i', $ip)) {
         exit();
     }
 
@@ -70,5 +71,5 @@ if (($hash == strtoupper($frm['V2_HASH']) and $exchange_systems[0]['status'] == 
 }
 
 db_close($dbconn);
-print '1';
+echo '1';
 exit();

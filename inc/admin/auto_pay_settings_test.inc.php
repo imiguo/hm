@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -32,29 +32,29 @@
   if (function_exists('curl_init')) {
       ini_set('error_reporting', E_ALL);
       $ch = curl_init();
-      print curl_error($ch);
+      echo curl_error($ch);
       curl_setopt($ch, CURLOPT_URL, 'https://www.e-gold.com/acct/confirm.asp');
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
       curl_setopt($ch, CURLOPT_POST, 1);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, 'AccountID=' . $frm['acc'] . '&PassPhrase=' . $frm['pass'] . '&Payee_Account=' . $frm['acc'] . '&Amount=0.01&PAY_IN=1&WORTH_OF=Gold&Memo=Test+transaction&IGNORE_RATE_CHANGE=y');
+      curl_setopt($ch, CURLOPT_POSTFIELDS, 'AccountID='.$frm['acc'].'&PassPhrase='.$frm['pass'].'&Payee_Account='.$frm['acc'].'&Amount=0.01&PAY_IN=1&WORTH_OF=Gold&Memo=Test+transaction&IGNORE_RATE_CHANGE=y');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       $a = curl_exec($ch);
-      print '' . '<hr>' . $a . '<hr>';
+      echo ''.'<hr>'.$a.'<hr>';
       curl_close($ch);
       $parts = array();
       if (preg_match('/<input type=hidden name=PAYMENT_BATCH_NUM VALUE="(\\d+)">/ims', $a, $parts)) {
-          print 'Test status: OK<br>Batch id = ' . $parts[1];
+          echo 'Test status: OK<br>Batch id = '.$parts[1];
       } else {
           if (preg_match('/<input type=hidden name=ERROR VALUE="(.*?)">/ims', $a, $parts)) {
               $txt = preg_replace('/&lt;/i', '<', $parts[1]);
               $txt = preg_replace('/&gt;/i', '>', $txt);
-              print 'Test status: Failed<br>' . $txt;
+              echo 'Test status: Failed<br>'.$txt;
           } else {
-              print '' . 'Test status: Failed<br>Unknown Error:<BR>' . $a;
+              echo ''.'Test status: Failed<br>Unknown Error:<BR>'.$a;
           }
       }
   } else {
-      print 'Sorry, but curl does not installed on your server';
+      echo 'Sorry, but curl does not installed on your server';
   }
 
   echo '

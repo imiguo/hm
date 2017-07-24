@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.11.12                                         */
 /*    Modified by : Goldripper                                         */
 /***********************************************************************/
-
 
   echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>

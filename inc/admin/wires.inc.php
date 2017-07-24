@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,9 +11,8 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   echo '<b>';
-  echo($frm['type'] == 'problem' ? 'Problem' : 'New');
+  echo $frm['type'] == 'problem' ? 'Problem' : 'New';
   echo ' Wire Transfers:</b><br><br>
 <form method=post name=nform >
 

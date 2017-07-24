@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,7 +11,6 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $qonpage = 50;
   $qstatus = quote($frm['status']);
   if ($qstatus == '') {
@@ -20,15 +20,15 @@
   $searchpart = '';
   if ($frm['q'] != '') {
       $qsearch = quote($frm['q']);
-      $searchpart = '' . ' and (username like \'%' . $qsearch . '%\' or email like \'%' . $qsearch . '%\' or name like \'%' . $qsearch . '%\') ';
+      $searchpart = ''.' and (username like \'%'.$qsearch.'%\' or email like \'%'.$qsearch.'%\' or name like \'%'.$qsearch.'%\') ';
   }
 
-  $where_status = '' . 'status = \'' . $qstatus . '\'';
+  $where_status = ''.'status = \''.$qstatus.'\'';
   if ($qstatus == 'blocked') {
       $where_status = 'activation_code != ""';
   }
 
-  $q = '' . 'select count(*) from hm2_users where ' . $where_status . ' and id <> 1 ' . $searchpart . ' order by id desc';
+  $q = ''.'select count(*) from hm2_users where '.$where_status.' and id <> 1 '.$searchpart.' order by id desc';
   ($sth = db_query($q) or print mysql_error());
   $row = mysql_fetch_array($sth);
   $total = $row[0];
@@ -49,7 +49,7 @@
 
   $end = $page * $qonpage;
   $end = ($total < $end ? $total : $end);
-  $q = 'select *, date_format(date_register + interval ' . $settings['time_dif'] . ('' . ' hour, \'%b-%e-%Y\') as dr from hm2_users where ' . $where_status . ' and id <> 1 ' . $searchpart . ' order by id desc limit ') . (0 < $start ? $start : 0) . ('' . ', ' . $qonpage);
+  $q = 'select *, date_format(date_register + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y\') as dr from hm2_users where '.$where_status.' and id <> 1 '.$searchpart.' order by id desc limit ').(0 < $start ? $start : 0).(''.', '.$qonpage);
   ($sth = db_query($q) or print mysql_error());
   $members = array();
   while ($row = mysql_fetch_array($sth)) {
@@ -83,16 +83,16 @@ function reverce(flag)
   echo '<s';
   echo 'elect name=status class=inpts>
 		<option value=\'on\' ';
-  echo($qstatus == 'on' ? 'selected' : '');
+  echo $qstatus == 'on' ? 'selected' : '';
   echo '>Active
 		<option value=\'off\' ';
-  echo($qstatus == 'off' ? 'selected' : '');
+  echo $qstatus == 'off' ? 'selected' : '';
   echo '>Disabled
 		<option value=\'suspended\' ';
-  echo($qstatus == 'suspended' ? 'selected' : '');
+  echo $qstatus == 'suspended' ? 'selected' : '';
   echo '>Suspended
 		<option value=\'blocked\' ';
-  echo($qstatus == 'blocked' ? 'selected' : '');
+  echo $qstatus == 'blocked' ? 'selected' : '';
   echo '>Blocked
 	</select> <input type=submit value="Go" class=sbmt></form></td>
 </tr>
@@ -156,7 +156,7 @@ function reverce(flag)
           echo 'mall>';
           echo $members[$i]['dr'];
           echo ' ';
-          echo($members[$i]['confirm_string'] != '' ? '<br>not confirmed!' : '');
+          echo $members[$i]['confirm_string'] != '' ? '<br>not confirmed!' : '';
           echo '</small></td>
  <td>';
           echo '<s';
@@ -164,13 +164,13 @@ function reverce(flag)
           echo $members[$i]['id'];
           echo ']" class=inpts>
 	<option value=\'on\' ';
-          echo($members[$i]['status'] == 'on' ? 'selected' : '');
+          echo $members[$i]['status'] == 'on' ? 'selected' : '';
           echo '>Active
 	<option value=\'off\' ';
-          echo($members[$i]['status'] == 'off' ? 'selected' : '');
+          echo $members[$i]['status'] == 'off' ? 'selected' : '';
           echo '>Disabled
 	<option value=\'suspended\' ';
-          echo($members[$i]['status'] == 'suspended' ? 'selected' : '');
+          echo $members[$i]['status'] == 'suspended' ? 'selected' : '';
           echo '>Suspended</select>
  </td>
  <td align=right>';
@@ -242,7 +242,7 @@ function reverce(flag)
       echo 'mall>';
       for ($i = 1; $i <= $qpages; ++$i) {
           if ($page == $i) {
-              print '' . ' [' . $i . '] ';
+              echo ''.' ['.$i.'] ';
               continue;
           } else {
               echo ' <a href="?a=members&status=';

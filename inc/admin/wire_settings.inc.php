@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   echo '<b>Wire Transfer Settings.</b><br><br>
 
@@ -45,7 +45,7 @@ You cannot edit settings!
 <input type=hidden name=a value=wire_settings>
 <input type=hidden name=action value=wire_settings>
 <input type=checkbox name=enable_wire ';
-  echo($settings['enable_wire'] == 1 ? 'checked' : '');
+  echo $settings['enable_wire'] == 1 ? 'checked' : '';
   echo ' value=1> Use Wire Transfers for incoming deposits<br><br>
 
 Wire details:<br>

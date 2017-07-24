@@ -1,8 +1,9 @@
 <?php
+
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if (! $dbconn) {
-    print 'Cannot connect mysql';
+if (!$dbconn) {
+    echo 'Cannot connect mysql';
     exit();
 }
 
@@ -59,7 +60,7 @@ if ($frm['a'] == 'pay_withdraw') {
         }
     }
 
-    print 1;
+    echo 1;
     exit();
 }
 
@@ -76,13 +77,13 @@ $gpg_command = ''.'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --o
 $buf = '';
 $keyID = '';
 $fp = @popen(''.$gpg_command, 'r');
-if (! $fp) {
-    print 'GPG not found';
+if (!$fp) {
+    echo 'GPG not found';
     db_close($dbconn);
     exit();
 }
 
-while (! feof($fp)) {
+while (!feof($fp)) {
     $buf = fgets($fp, 4096);
     $pos = strstr($buf, 'key ID');
     if (0 < strlen($pos)) {
@@ -114,7 +115,7 @@ if (($keyID == $settings['ebullion_keyID'] and $exchange_systems[5]['status'] ==
 }
 
 db_close($dbconn);
-print '1';
+echo '1';
 unlink($tmpfile);
 unlink($xmlfile);
 exit();

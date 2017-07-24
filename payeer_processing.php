@@ -1,18 +1,19 @@
 <?php
+
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if (! $dbconn) {
-    print 'Cannot connect mysql';
+if (!$dbconn) {
+    echo 'Cannot connect mysql';
     exit();
 }
 
-file_put_contents('../log/payeer_processing_'.ENV.'.txt', json_encode($frm) . PHP_EOL, FILE_APPEND);
-file_put_contents('../log/payeer_processing_'.ENV.'.txt', 'IP:' . $frm_env['REMOTE_ADDR'] . PHP_EOL, FILE_APPEND);
+file_put_contents('../log/payeer_processing_'.ENV.'.txt', json_encode($frm).PHP_EOL, FILE_APPEND);
+file_put_contents('../log/payeer_processing_'.ENV.'.txt', 'IP:'.$frm_env['REMOTE_ADDR'].PHP_EOL, FILE_APPEND);
 
 if ($frm['a'] == 'checkpayment') {
     // Rejecting queries from IP addresses not belonging to Payeer
     if (!in_array($_SERVER['REMOTE_ADDR'], array('185.71.65.92', '185.71.65.189',
-        '149.202.17.210'))) {
+        '149.202.17.210', ))) {
         exit;
     }
     if (isset($_POST['m_operation_id']) && isset($_POST['m_sign'])) {
@@ -28,7 +29,7 @@ if ($frm['a'] == 'checkpayment') {
             $_POST['m_amount'],
             $_POST['m_curr'],
             $_POST['m_desc'],
-            $_POST['m_status']
+            $_POST['m_status'],
         );
     // Adding additional parameters to the array if such parameters have been transferred
     if (isset($_POST['m_params'])) {
@@ -54,6 +55,6 @@ if ($frm['a'] == 'checkpayment') {
     }
 
     db_close($dbconn);
-    print '1';
+    echo '1';
     exit();
 }

@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,9 +11,8 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   header('Content-type: text/vnd.wap.wml');
-  print '<?xml version="1.0"?>';
+  echo '<?xml version="1.0"?>';
   echo '<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml">
 
 <wml>
@@ -39,11 +39,11 @@
   }
 
   $from = ($page - 1) * $onpage;
-  $q = 'select *, date_format(date + interval ' . $settings['time_dif'] . ('' . ' hour, \'%b-%e-%Y %r\') as d from hm2_history where type=\'withdraw_pending\' order by date desc, id desc limit ' . $from . ', ' . $onpage);
+  $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as d from hm2_history where type=\'withdraw_pending\' order by date desc, id desc limit '.$from.', '.$onpage);
   ($sth = db_query($q) or print mysql_error());
   $trans = array();
   while ($row = mysql_fetch_array($sth)) {
-      $q = 'select username from hm2_users where id = ' . $row['user_id'];
+      $q = 'select username from hm2_users where id = '.$row['user_id'];
       $sth1 = db_query($q);
       $row1 = mysql_fetch_array($sth1);
       if ($row1) {

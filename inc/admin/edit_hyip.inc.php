@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,12 +11,10 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $id = sprintf('%d', $frm['id']);
-  $q = '' . 'select * from hm2_types where id= ' . $id;
+  $q = ''.'select * from hm2_types where id= '.$id;
   if (!($sth = db_query($q))) {
       exit(mysql_error());
-      ;
   }
 
   $row = mysql_fetch_array($sth);
@@ -23,10 +22,9 @@
       exit();
   }
 
-  $q = '' . 'select * from hm2_plans where parent = ' . $id . ' order by id';
+  $q = ''.'select * from hm2_plans where parent = '.$id.' order by id';
   if (!($sth = db_query($q))) {
       exit(mysql_error());
-      ;
   }
 
   $rates = array();
@@ -34,10 +32,9 @@
       array_push($rates, $row1);
   }
 
-  $q = '' . 'select * from hm2_types where status = \'on\' and id <> ' . $id;
+  $q = ''.'select * from hm2_types where status = \'on\' and id <> '.$id;
   if (!($sth = db_query($q))) {
       exit(mysql_error());
-      ;
   }
 
   $packages = array();
@@ -90,14 +87,14 @@ function checkform() {
   echo quote($row['q_days']);
   echo '"> in days
 	(<input type=checkbox name=hq_days_nolimit value=1 ';
-  echo(quote($row['q_days']) == 0 ? 'checked' : '');
+  echo quote($row['q_days']) == 0 ? 'checked' : '';
   echo ' onclick="checkb()"> no limit)
  </td>
 </tr><tr>
  <td><a href="javascript:alert(\'If the package is closed no users can deposit in it but all current deposits are working as usual.\')" class=hlp>Closed Package</a></td>
  <td>
 	<input type=checkbox name=closed value=1 ';
-  echo(quote($row['closed']) == 1 ? 'checked' : '');
+  echo quote($row['closed']) == 1 ? 'checked' : '';
   echo '>
  </td>
 </tr><tr>
@@ -137,7 +134,7 @@ function checkform() {
  <td><input type=text name="rate_max_amount[';
       echo $i;
       echo ']" value="';
-      echo($rates[$i]['max_deposit'] == 0 ? '' : $rates[$i]['max_deposit']);
+      echo $rates[$i]['max_deposit'] == 0 ? '' : $rates[$i]['max_deposit'];
       echo '" class=inpts size=10 style="text-align:right"></td>
  <td><input type=text name="rate_percent[';
       echo $i;
@@ -202,31 +199,31 @@ function checkform() {
   echo '<s';
   echo 'elect name=hperiod class=inpts onchange="CheckCompound();CalculateProfit();InitCalendar();">
 		<option value="d" ';
-  echo($row['period'] == 'd' ? 'selected' : '');
+  echo $row['period'] == 'd' ? 'selected' : '';
   echo '>Daily
 		<option value="w" ';
-  echo($row['period'] == 'w' ? 'selected' : '');
+  echo $row['period'] == 'w' ? 'selected' : '';
   echo '>Weekly
 		<option value="b-w" ';
-  echo($row['period'] == 'b-w' ? 'selected' : '');
+  echo $row['period'] == 'b-w' ? 'selected' : '';
   echo '>Bi-weekly
 		<option value="m" ';
-  echo($row['period'] == 'm' ? 'selected' : '');
+  echo $row['period'] == 'm' ? 'selected' : '';
   echo '>Monthly
 		<option value="2m" ';
-  echo($row['period'] == '2m' ? 'selected' : '');
+  echo $row['period'] == '2m' ? 'selected' : '';
   echo '>Every 2 months
 		<option value="3m" ';
-  echo($row['period'] == '3m' ? 'selected' : '');
+  echo $row['period'] == '3m' ? 'selected' : '';
   echo '>Every 3 months
 		<option value="6m" ';
-  echo($row['period'] == '6m' ? 'selected' : '');
+  echo $row['period'] == '6m' ? 'selected' : '';
   echo '>Every 6 months
 		<option value="y" ';
-  echo($row['period'] == 'y' ? 'selected' : '');
+  echo $row['period'] == 'y' ? 'selected' : '';
   echo '>Yearly
 		<option value="end" ';
-  echo($row['period'] == 'end' ? 'selected' : '');
+  echo $row['period'] == 'end' ? 'selected' : '';
   echo '>After the specified period</select>
  </td>
 </tr><tr>
@@ -236,19 +233,19 @@ function checkform() {
   echo '<s';
   echo 'elect name=hstatus class=inpts>
 		<option value=\'on\' ';
-  echo($row['status'] == 'on' ? 'selected' : '');
+  echo $row['status'] == 'on' ? 'selected' : '';
   echo '>Active
 		<option value=\'off\' ';
-  echo($row['status'] == 'off' ? 'selected' : '');
+  echo $row['status'] == 'off' ? 'selected' : '';
   echo '>Inactive</select>
  </td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=hreturn_profit value=1 ';
-  echo($row['return_profit'] == 1 ? 'checked' : '');
+  echo $row['return_profit'] == 1 ? 'checked' : '';
   echo ' onclick="CalculateProfit();InitCalendar();"> <a href="javascript:alert(\'You can return the principal to user account when the package is finished.\')" class=hlp>Return principal after the plan completion</td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=use_compound value=1 ';
-  echo($row['use_compound'] == 1 ? 'checked' : '');
+  echo $row['use_compound'] == 1 ? 'checked' : '';
   echo ' onclick="checkd();CalculateProfit();InitCalendar();"> <a href="javascript:alert(\'You can use the compounding for this package.\')" class=hlp>Use compounding</td>
 </tr><tr>
  <td rowspan=2> &nbsp; Compounding deposit amount limits:</td>
@@ -265,7 +262,7 @@ function checkform() {
       <td colspan=2> &nbsp; Compounding percent limits:</td>
 </tr><tr>
  <td> &nbsp; <input type=radio name=compound_percents_type value=0 ';
-  echo($row['compound_percents_type'] == 0 ? 'checked' : '');
+  echo $row['compound_percents_type'] == 0 ? 'checked' : '';
   echo ' onclick="checkd1()">
         Compounding percent:</td>
  <td>min: <input type=input name=compound_min_percent value="';
@@ -275,7 +272,7 @@ function checkform() {
   echo '" class=inpts size=6></td>
 </tr><tr>
  <td> &nbsp; <input type=radio name=compound_percents_type value=1 ';
-  echo($row['compound_percents_type'] == 1 ? 'checked' : '');
+  echo $row['compound_percents_type'] == 1 ? 'checked' : '';
   echo ' onclick="checkd1()">
         Compounding percent solid values:<br> &nbsp;  &nbsp;  &nbsp;  &nbsp;';
   echo '<s';
@@ -285,7 +282,7 @@ function checkform() {
   echo '" class=inpts></td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=withdraw_principal value=1 ';
-  echo($row['withdraw_principal'] == 1 ? 'checked' : '');
+  echo $row['withdraw_principal'] == 1 ? 'checked' : '';
   echo ' onclick="checkc()"> <a href="javascript:alert(\'You can allow users to return principal to user account and withdraw it. You can define a fee for this transaction and minimal deposit duration.\')" class=hlp>Allow principal withdrawal.</td>
 </tr><tr>
       <td> &nbsp; The principal withdrawal fee:</td>
@@ -306,21 +303,21 @@ function checkform() {
   echo 'mall>set 0 to skip limitation</small></td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=\'work_week\' value=1 ';
-  echo($row['work_week'] == 1 ? 'checked' : '');
+  echo $row['work_week'] == 1 ? 'checked' : '';
   echo ' onclick="CalculateProfit();InitCalendar();"> <a href="javascript:alert(\'Earnings will accumulate on user accounts only  on Mon-Fri. Available for daily payment plans.\')" class=hlp>Earnings only on mon-fri</td>
 </tr>
 ';
   if (0 < sizeof($packages)) {
       echo '<tr>
  <td colspan=2><input type=checkbox name=parentch value=1 ';
-      echo($row['parent'] == 0 ? '' : 'checked');
+      echo $row['parent'] == 0 ? '' : 'checked';
       echo '> <a href="javascript:alert(\'Administrator can select a \\\'parent\\\' package. Then users should deposit to parent package before depositing to this one.\')" class=hlp>Allow depositing only after the user have deposited to the following package:</a> <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;';
       echo '<s';
       echo 'elect name=parent class=inpts><option value=0>Select
 	';
       for ($i = 0; $i < sizeof($packages); ++$i) {
           echo '	<option ';
-          echo($row['parent'] == $packages[$i]['id'] ? 'selected' : '');
+          echo $row['parent'] == $packages[$i]['id'] ? 'selected' : '';
           echo ' value=';
           echo $packages[$i]['id'];
           echo '>';

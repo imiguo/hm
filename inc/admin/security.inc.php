@@ -22,21 +22,21 @@
 <input type=hidden name=act value="change">
 Detect IP Address Change Sensitivity<br>
 <input type=radio name=ip value=disabled ';
-  echo($acsent_settings['detect_ip'] == 'disabled' ? 'checked' : 'ddd');
+  echo $acsent_settings['detect_ip'] == 'disabled' ? 'checked' : 'ddd';
   echo '>Disabled<br>
 <input type=radio name=ip value=medium ';
-  echo($acsent_settings['detect_ip'] == 'medium' ? 'checked' : '');
+  echo $acsent_settings['detect_ip'] == 'medium' ? 'checked' : '';
   echo '>Medium<br>
 <input type=radio name=ip value=high ';
-  echo($acsent_settings['detect_ip'] == 'high' ? 'checked' : '');
+  echo $acsent_settings['detect_ip'] == 'high' ? 'checked' : '';
   echo '>High<br><br>
 
 Detect Browser Change<br>
 <input type=radio name=browser value=disabled ';
-  echo($acsent_settings['detect_browser'] == 'disabled' ? 'checked' : '');
+  echo $acsent_settings['detect_browser'] == 'disabled' ? 'checked' : '';
   echo '>Disabled<br>
 <input type=radio name=browser value=enabled ';
-  echo($acsent_settings['detect_browser'] == 'enabled' ? 'checked' : '');
+  echo $acsent_settings['detect_browser'] == 'enabled' ? 'checked' : '';
   echo '>Enabled<br><br>
 E-mail:<br>
 <input type=text name=email value="';
@@ -66,7 +66,7 @@ E-mail:<br>
 Please upload the .htaccess file to the following folders:<br>
 ';
       for ($i = 0; $i < sizeof($dirs); ++$i) {
-          print '<li>' . $dirs[$i] . '</li>';
+          echo '<li>'.$dirs[$i].'</li>';
       }
 
       echo 'You can find the .htaccess files in the latest archive with the hyip manager script. 

@@ -1,8 +1,9 @@
 <?php
+
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if (! $dbconn) {
-    print 'Cannot connect mysql';
+if (!$dbconn) {
+    echo 'Cannot connect mysql';
     exit();
 }
 

@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   if (($settings['demomode'] == 1 and $frm['type'] != '')) {
       echo start_info_table('100%');
@@ -38,7 +38,7 @@ You cannot change change e-mail templates!
   <td width=1%><input type="checkbox" name="emails[';
       echo $row['id'];
       echo ']" value=1 ';
-      echo($row['status'] == 1 ? 'checked' : '');
+      echo $row['status'] == 1 ? 'checked' : '';
       echo '></td>
   <td width=99%><li>
   ';
@@ -73,13 +73,13 @@ You cannot change change e-mail templates!
               $text = quote($frm['text']);
               $text = preg_replace('/
 /', '', $text);
-              $q = '' . 'update hm2_emails set subject=\'' . $subject . '\', text=\'' . $text . '\' where id=\'' . $frm['type'] . '\'';
+              $q = ''.'update hm2_emails set subject=\''.$subject.'\', text=\''.$text.'\' where id=\''.$frm['type'].'\'';
               ($sth = db_query($q) or print mysql_error());
               echo '<br><b>Template has been saved.</b></br>';
           }
       }
 
-      $q = 'select * from hm2_emails where id = \'' . $frm['type'] . '\'';
+      $q = 'select * from hm2_emails where id = \''.$frm['type'].'\'';
       ($sth = db_query($q) or print mysql_error());
       $row = mysql_fetch_array($sth);
       echo '<br><br>

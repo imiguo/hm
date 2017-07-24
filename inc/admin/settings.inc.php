@@ -1,4 +1,5 @@
 <?php
+
 $month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 $admin_stat_password = '';
 $q = 'select * from hm2_users where id=1';
@@ -14,7 +15,7 @@ $gpg_version = 0;
 $gpg_command = escapeshellcmd($settings['gpg_path']).' --version';
 $fp = popen(''.$gpg_command, 'r');
 if ($fp) {
-    while (! feof($fp)) {
+    while (!feof($fp)) {
         $buf = fgets($fp, 4096);
         $pos = strstr($buf, 'gpg (GnuPG)');
         if (0 < strlen($pos)) {
@@ -86,7 +87,7 @@ for ($i = 1; $i < 32; ++$i) {
     echo '<option value=';
     echo $i;
     echo ' ';
-    echo($i == $settings['site_start_day'] ? 'selected' : '');
+    echo $i == $settings['site_start_day'] ? 'selected' : '';
     echo '>';
     echo $i;
 }
@@ -98,7 +99,7 @@ for ($i = 0; $i < sizeof($month); ++$i) {
     echo '<option value=';
     echo $i + 1;
     echo ' ';
-    echo($i + 1 == $settings['site_start_month'] ? 'selected' : '');
+    echo $i + 1 == $settings['site_start_month'] ? 'selected' : '';
     echo '>';
     echo $month[$i];
 }
@@ -110,7 +111,7 @@ for ($i = date('Y') - 6; $i <= date('Y'); ++$i) {
     echo '<option value=';
     echo $i;
     echo ' ';
-    echo($i == $settings['site_start_year'] ? 'selected' : '');
+    echo $i == $settings['site_start_year'] ? 'selected' : '';
     echo '>';
     echo $i;
 }
@@ -119,7 +120,7 @@ echo '</select>
  </td>
 </tr><tr>
 <td colspan=2><input type=checkbox name=reverse_columns value=1 ';
-echo($settings['reverse_columns'] == 1 ? 'checked' : '');
+echo $settings['reverse_columns'] == 1 ? 'checked' : '';
 echo '> Reverse left and right columns</td>
 </tr>
 
@@ -309,7 +310,7 @@ echo quote($settings['stormpay_posturl']);
 echo '\' class=inpts size=30></td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=dec_stormpay_fee value=1 ';
-echo($settings['dec_stormpay_fee'] == 1 ? 'checked' : '');
+echo $settings['dec_stormpay_fee'] == 1 ? 'checked' : '';
 echo '> Decrease stormpay fee (6.9% plus 0.69)</td>
 </tr><tr>
  <td colspan=2>&nbsp;<br><b>e-Bullion settings</td>
@@ -318,7 +319,7 @@ echo '> Decrease stormpay fee (6.9% plus 0.69)</td>
  <td><input type=text name=\'gpg_path\' value=\'';
 echo quote($settings['gpg_path']);
 echo '\' class=inpts size=30> ';
-echo($gpg_version != '' ? ''.'Version: '.$gpg_version : '');
+echo $gpg_version != '' ? ''.'Version: '.$gpg_version : '';
 echo '</td>
 </tr><tr>';
 if ($gpg_version != '') {
@@ -353,16 +354,16 @@ if ($gpg_version != '') {
         Unpack the archive onto your local computer and choose the next files in the fields below:<br>
         <table cellspacing=0 cellpadding=2 border=0>
          <tr><td>atip.pl :</td><td><input type=file name=atip_pl class=inpts></td><td>';
-    echo(($settings['def_payee_account_ebullion'] and $settings['md5altphrase_ebullion']) ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>');
+    echo ($settings['def_payee_account_ebullion'] and $settings['md5altphrase_ebullion']) ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>';
     echo '</td></tr>
          <tr><td>status.php :</td><td><input type=file name=status_php class=inpts></td><td>';
-    echo($settings['ebullion_keyID'] ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>');
+    echo $settings['ebullion_keyID'] ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>';
     echo '</td></tr>
          <tr><td>pubring.gpg :</td><td><input type=file name=pubring_gpg class=inpts></td><td>';
-    echo(is_file('./tmpl_c/pubring.gpg') ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>');
+    echo is_file('./tmpl_c/pubring.gpg') ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>';
     echo '</tr>
          <tr><td>secring.gpg :</td><td><input type=file name=secring_gpg class=inpts></td><td>';
-    echo(is_file('./tmpl_c/secring.gpg') ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>');
+    echo is_file('./tmpl_c/secring.gpg') ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>';
     echo '</tr>
         </table>
         then save settings. The system will parse the selected files and will get the required information which you will see in the fields above. You will have to enter your e-Bullion account name then.<br><br>
@@ -472,9 +473,9 @@ echo '</td>
  <td>';
 echo '<s';
 echo 'elect name=deny_registration class=inpts><option value=1 ';
-echo($settings['deny_registration'] == 1 ? 'selected' : '');
+echo $settings['deny_registration'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['deny_registration'] == 0 ? 'selected' : '');
+echo $settings['deny_registration'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr>
 <tr>
@@ -482,9 +483,9 @@ echo '>No</select></td>
  <td>';
 echo '<s';
 echo 'elect name=use_opt_in class=inpts><option value=1 ';
-echo($settings['use_opt_in'] == 1 ? 'selected' : '');
+echo $settings['use_opt_in'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['use_opt_in'] == 0 ? 'selected' : '');
+echo $settings['use_opt_in'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr>
 <tr>
@@ -498,9 +499,9 @@ echo '\' class=inpts size=30>
  <td>';
 echo '<s';
 echo 'elect name=use_user_location class=inpts><option value=1 ';
-echo($settings['use_user_location'] == 1 ? 'selected' : '');
+echo $settings['use_user_location'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['use_user_location'] == 0 ? 'selected' : '');
+echo $settings['use_user_location'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr>
 <tr>
@@ -519,18 +520,18 @@ echo '\' class=inpts size=30>
  <td>';
 echo '<s';
 echo 'elect name=enable_calculator class=inpts><option value=1 ';
-echo($settings['enable_calculator'] == 1 ? 'selected' : '');
+echo $settings['enable_calculator'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['enable_calculator'] == 0 ? 'selected' : '');
+echo $settings['enable_calculator'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr><tr>
  <td>Use double entry accounting:</td>
  <td>';
 echo '<s';
 echo 'elect name=use_history_balance_mode class=inpts><option value=1 ';
-echo($settings['use_history_balance_mode'] == 1 ? 'selected' : '');
+echo $settings['use_history_balance_mode'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['use_history_balance_mode'] == 0 ? 'selected' : '');
+echo $settings['use_history_balance_mode'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr><tr>
  <td>Redirect to HTTPS:</td>
@@ -539,9 +540,9 @@ echo '>No</select></td>
    <td>';
 echo '<s';
 echo 'elect name=redirect_to_https class=inpts><option value=1 ';
-echo($settings['redirect_to_https'] == 1 ? 'selected' : '');
+echo $settings['redirect_to_https'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['redirect_to_https'] == 0 ? 'selected' : '');
+echo $settings['redirect_to_https'] == 0 ? 'selected' : '';
 echo '>No</select></td>
    <td style="padding-left:5px">';
 echo '<s';
@@ -587,27 +588,27 @@ echo '</td>
  <td>';
 echo '<s';
 echo 'elect name=usercanaccesswap class=inpts><option value=1 ';
-echo($settings['accesswap'] == 1 ? 'selected' : '');
+echo $settings['accesswap'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['accesswap'] == 0 ? 'selected' : '');
+echo $settings['accesswap'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr><tr>
  <td>Users should use a transaction code to withdraw:</td>
  <td>';
 echo '<s';
 echo 'elect name=use_transaction_code class=inpts><option value=1 ';
-echo($settings['use_transaction_code'] == 1 ? 'selected' : '');
+echo $settings['use_transaction_code'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['use_transaction_code'] == 0 ? 'selected' : '');
+echo $settings['use_transaction_code'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr><tr>
  <td>Use confirmation code when account update:</td>
  <td>';
 echo '<s';
 echo 'elect name=account_update_confirmation class=inpts><option value=1 ';
-echo($settings['account_update_confirmation'] == 1 ? 'selected' : '');
+echo $settings['account_update_confirmation'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['account_update_confirmation'] == 0 ? 'selected' : '');
+echo $settings['account_update_confirmation'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr>
 
@@ -616,9 +617,9 @@ echo '>No</select></td>
  <td>';
 echo '<s';
 echo 'elect name=usercanchangeegoldacc class=inpts><option value=1 ';
-echo($settings['usercanchangeegoldacc'] == 1 ? 'selected' : '');
+echo $settings['usercanchangeegoldacc'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['usercanchangeegoldacc'] == 0 ? 'selected' : '');
+echo $settings['usercanchangeegoldacc'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr>
 
@@ -627,9 +628,9 @@ echo '>No</select></td>
  <td>';
 echo '<s';
 echo 'elect name=usercanchangeperfectmoneyacc class=inpts><option value=1 ';
-echo($settings['usercanchangeperfectmoneyacc'] == 1 ? 'selected' : '');
+echo $settings['usercanchangeperfectmoneyacc'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['usercanchangeperfectmoneyacc'] == 0 ? 'selected' : '');
+echo $settings['usercanchangeperfectmoneyacc'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr>
 
@@ -638,36 +639,36 @@ echo '>No</select></td>
  <td>';
 echo '<s';
 echo 'elect name=usercanchangeemail class=inpts><option value=1 ';
-echo($settings['usercanchangeemail'] == 1 ? 'selected' : '');
+echo $settings['usercanchangeemail'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['usercanchangeemail'] == 0 ? 'selected' : '');
+echo $settings['usercanchangeemail'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr><tr>
       <td>Notify user of his profile change:</td>
  <td>';
 echo '<s';
 echo 'elect name=sendnotify_when_userinfo_changed class=inpts><option value=1 ';
-echo($settings['sendnotify_when_userinfo_changed'] == 1 ? 'selected' : '');
+echo $settings['sendnotify_when_userinfo_changed'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['sendnotify_when_userinfo_changed'] == 0 ? 'selected' : '');
+echo $settings['sendnotify_when_userinfo_changed'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr><tr>
  <td>Allow internal transfer:</td>
  <td>';
 echo '<s';
 echo 'elect name=internal_transfer_enabled class=inpts><option value=1 ';
-echo($settings['internal_transfer_enabled'] == 1 ? 'selected' : '');
+echo $settings['internal_transfer_enabled'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['internal_transfer_enabled'] == 0 ? 'selected' : '');
+echo $settings['internal_transfer_enabled'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr><tr>
  <td>Allow Deposit to Account:</td>
  <td>';
 echo '<s';
 echo 'elect name=use_add_funds class=inpts><option value=1 ';
-echo($settings['use_add_funds'] == 1 ? 'selected' : '');
+echo $settings['use_add_funds'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['use_add_funds'] == 0 ? 'selected' : '');
+echo $settings['use_add_funds'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr><tr>
  <td>Max daily withdraw:</td>
@@ -698,9 +699,9 @@ echo '      </td>
  <td>';
 echo '<s';
 echo 'elect name=graph_validation class=inpts><option value=1 ';
-echo($settings['graph_validation'] == 1 ? 'selected' : '');
+echo $settings['graph_validation'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['graph_validation'] == 0 ? 'selected' : '');
+echo $settings['graph_validation'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr><tr>
       <td>Number of characters in the turing image:</td>
@@ -709,7 +710,7 @@ echo $settings['graph_max_chars'];
 echo '" class=inpts size=10></td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=use_number_validation_number value=1 ';
-echo($settings[use_number_validation_number] == 1 ? 'checked' : '');
+echo $settings[use_number_validation_number] == 1 ? 'checked' : '';
 echo '> Show numbers only in the validation image</td>
 </tr><tr>
  <td>Turing image text color:</td>
@@ -728,9 +729,9 @@ if ((function_exists('imagettfbbox') or $settings['demomode'] == 1)) {
  <td>';
     echo '<s';
     echo 'elect name=advanced_graph_validation class=inpts><option value=1 ';
-    echo($settings['advanced_graph_validation'] == 1 ? 'selected' : '');
+    echo $settings['advanced_graph_validation'] == 1 ? 'selected' : '';
     echo '>Yes<option value=0 ';
-    echo($settings['advanced_graph_validation'] == 0 ? 'selected' : '');
+    echo $settings['advanced_graph_validation'] == 0 ? 'selected' : '';
     echo '>No</select></td>
 </tr>
 <tr>
@@ -771,9 +772,9 @@ echo '      </td>
  <td>';
 echo '<s';
 echo 'elect name=brute_force_handler class=inpts><option value=1 ';
-echo($settings['brute_force_handler'] == 1 ? 'selected' : '');
+echo $settings['brute_force_handler'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['brute_force_handler'] == 0 ? 'selected' : '');
+echo $settings['brute_force_handler'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr><tr>
  <td>Max invalid tries:</td>
@@ -801,12 +802,12 @@ echo '      </td>
 </tr><tr>
  <td>Server time:</td>
  <td>';
-print date('dS of F Y h:i:s A');
+echo date('dS of F Y h:i:s A');
 echo '</td>
 </tr><tr>
  <td>System time:</td>
  <td>';
-print date('dS of F Y h:i:s A', time() + $settings['time_dif'] * 60 * 60);
+echo date('dS of F Y h:i:s A', time() + $settings['time_dif'] * 60 * 60);
 echo '</td>
 </tr><tr>
  <td>Difference:</td>
@@ -833,9 +834,9 @@ echo '</td>
  <td>';
 echo '<s';
 echo 'elect name=use_alternative_passphrase class=inpts><option value=1 ';
-echo($settings['use_alternative_passphrase'] == 1 ? 'selected' : '');
+echo $settings['use_alternative_passphrase'] == 1 ? 'selected' : '';
 echo '>Yes<option value=0 ';
-echo($settings['use_alternative_passphrase'] == 0 ? 'selected' : '');
+echo $settings['use_alternative_passphrase'] == 0 ? 'selected' : '';
 echo '>No</select></td>
 </tr>
 <tr>

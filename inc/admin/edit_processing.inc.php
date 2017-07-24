@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,9 +11,8 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $id = intval($frm['pid']);
-  $q = '' . 'select * from hm2_processings where id = ' . $id;
+  $q = ''.'select * from hm2_processings where id = '.$id;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   if (!$row) {
@@ -46,7 +46,7 @@ function c1()
 <tr>
  <td>Status</td>
  <td><input type="checkbox" name="status" value=1 ';
-  echo($row[status] ? 'checked' : '');
+  echo $row[status] ? 'checked' : '';
   echo '></td>
 </tr>
 <tr>

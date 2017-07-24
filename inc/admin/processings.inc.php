@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   $processings = array();
   $q = 'select * from hm2_processings';
@@ -36,7 +36,7 @@
 <td align=center><input type=checkbox name="status[';
           echo $processings[$i]['id'];
           echo ']" value=1 ';
-          echo($processings[$i]['status'] ? 'checked' : '');
+          echo $processings[$i]['status'] ? 'checked' : '';
           echo '></td>
 <td>';
           echo $processings[$i]['name'];

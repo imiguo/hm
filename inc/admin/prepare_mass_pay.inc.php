@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,15 +11,14 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   if (!is_array($frm['pend'])) {
-      print 'Please select withdraw requests first';
+      echo 'Please select withdraw requests first';
       db_close($dbconn);
       exit();
   } else {
       $ids = implode(', ', array_keys($frm['pend']));
       $sum = 0;
-      $q = '' . 'select actual_amount from hm2_history where id in (' . $ids . ') and ec in (0, 1, 2, 5, 8, 9)';
+      $q = ''.'select actual_amount from hm2_history where id in ('.$ids.') and ec in (0, 1, 2, 5, 8, 9)';
       $sth = db_query($q);
       while ($row = mysql_fetch_array($sth)) {
           $amount = abs($row['actual_amount']);
@@ -56,7 +56,7 @@
   if (is_array($ids)) {
       reset($ids);
       while (list($kk, $vv) = each($ids)) {
-          print '' . '<input type=hidden name=pend[' . $kk . '] value=1>';
+          echo ''.'<input type=hidden name=pend['.$kk.'] value=1>';
       }
   }
 

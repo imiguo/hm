@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   echo '<html>
 <head>
@@ -25,10 +25,10 @@
 
   if ($frm['q'] != '') {
       $qsearch = quote($frm['q']);
-      $searchpart = '' . ' and (username like \'%' . $qsearch . '%\' or email like \'%' . $qsearch . '%\' or name like \'%' . $qsearch . '%\') ';
+      $searchpart = ''.' and (username like \'%'.$qsearch.'%\' or email like \'%'.$qsearch.'%\' or name like \'%'.$qsearch.'%\') ';
   }
 
-  $q = '' . 'select count(*) from hm2_users where status = \'' . $qstatus . '\' and id <> 1 ' . $searchpart . ' order by id desc';
+  $q = ''.'select count(*) from hm2_users where status = \''.$qstatus.'\' and id <> 1 '.$searchpart.' order by id desc';
   ($sth = db_query($q) or print mysql_error());
   $row = mysql_fetch_array($sth);
   $total = $row[0];
@@ -49,7 +49,7 @@
 
   $end = $page * $qonpage;
   $end = ($total < $end ? $total : $end);
-  $q = '' . 'select *, date_format(date_register, \'%b-%e-%Y\') as dr from hm2_users where status = \'' . $qstatus . '\' and id <> 1 ' . $searchpart . ' order by id desc limit ' . $start . ', ' . $qonpage;
+  $q = ''.'select *, date_format(date_register, \'%b-%e-%Y\') as dr from hm2_users where status = \''.$qstatus.'\' and id <> 1 '.$searchpart.' order by id desc limit '.$start.', '.$qonpage;
   ($sth = db_query($q) or print mysql_error());
   $members = array();
   while ($row = mysql_fetch_array($sth)) {
@@ -92,7 +92,7 @@
           echo 'mall>';
           echo $members[$i]['dr'];
           echo ' ';
-          echo($members[$i]['confirm_string'] != '' ? '<br>not confirmed!' : '');
+          echo $members[$i]['confirm_string'] != '' ? '<br>not confirmed!' : '';
           echo '</small></td>
  <td align=right>';
           echo '<s';
@@ -133,7 +133,7 @@
       echo 'mall>';
       for ($i = 1; $i <= $qpages; ++$i) {
           if ($page == $i) {
-              print '' . ' [' . $i . '] ';
+              echo ''.' ['.$i.'] ';
               continue;
           } else {
               echo ' <a href="?a=members&status=';

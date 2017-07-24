@@ -1,14 +1,14 @@
 <?php
+
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if (! $dbconn) {
-    print 'Cannot connect mysql';
+if (!$dbconn) {
+    echo 'Cannot connect mysql';
     exit();
 }
 
-
-file_put_contents('../log/perfectmoney_processing_'.ENV.'.txt', json_encode($frm) . PHP_EOL, FILE_APPEND);
-file_put_contents('../log/perfectmoney_processing_'.ENV.'.txt', 'IP:' . $frm_env['REMOTE_ADDR'] . PHP_EOL, FILE_APPEND);
+file_put_contents('../log/perfectmoney_processing_'.ENV.'.txt', json_encode($frm).PHP_EOL, FILE_APPEND);
+file_put_contents('../log/perfectmoney_processing_'.ENV.'.txt', 'IP:'.$frm_env['REMOTE_ADDR'].PHP_EOL, FILE_APPEND);
 
 $mymd5 = $settings['md5altphrase_perfectmoney'];
 if ($frm['a'] == 'pay_withdraw') {
@@ -51,7 +51,7 @@ if ($frm['a'] == 'pay_withdraw') {
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 
-    print 1;
+    echo 1;
     db_close($dbconn);
     exit();
 }
@@ -82,6 +82,6 @@ if ($frm['a'] == 'checkpayment') {
     }
 
     db_close($dbconn);
-    print '1';
+    echo '1';
     exit();
 }

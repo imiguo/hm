@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   echo '<html>
 <head>
@@ -37,11 +37,11 @@
   }
 
   $from = ($page - 1) * $onpage;
-  $q = '' . 'select *, date_format(date, \'%b-%e-%Y %r\') as d from hm2_history where type=\'withdraw_pending\' order by date desc, id desc limit ' . $from . ', ' . $onpage;
+  $q = ''.'select *, date_format(date, \'%b-%e-%Y %r\') as d from hm2_history where type=\'withdraw_pending\' order by date desc, id desc limit '.$from.', '.$onpage;
   ($sth = db_query($q) or print mysql_error());
   $trans = array();
   while ($row = mysql_fetch_array($sth)) {
-      $q = 'select username from hm2_users where id = ' . $row['user_id'];
+      $q = 'select username from hm2_users where id = '.$row['user_id'];
       $sth1 = db_query($q);
       $row1 = mysql_fetch_array($sth1);
       if ($row1) {

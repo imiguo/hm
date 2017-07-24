@@ -8,13 +8,14 @@ function is_SSL()
     if (!isset($_SERVER['HTTPS'])) {
         return false;
     }
-    if ($_SERVER['HTTPS']===1) {  //Apache
+    if ($_SERVER['HTTPS'] === 1) {  //Apache
         return true;
-    } elseif ($_SERVER['HTTPS']==='on') { //IIS
+    } elseif ($_SERVER['HTTPS'] === 'on') { //IIS
         return true;
-    } elseif ($_SERVER['SERVER_PORT']==443) { //其他
+    } elseif ($_SERVER['SERVER_PORT'] == 443) { //其他
         return true;
     }
+
     return false;
 }
 
@@ -47,13 +48,14 @@ function genarate_token()
 {
     $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.';
     $mask = substr(str_shuffle(str_repeat($chars, 5)), 0, 8);
+
     return $mask;
 }
 
 function get_accsent()
 {
-    if (! defined('THE_GC_SCRIPT_V2005_04_01')) {
-        print 'Please use only original script';
+    if (!defined('THE_GC_SCRIPT_V2005_04_01')) {
+        echo 'Please use only original script';
         exit();
     }
 
@@ -78,13 +80,14 @@ function db_query($q)
         $insert = mysql_real_escape_string($q);
         mysql_query("insert into hm2_queries (`query`, `time`) values ('$insert', '$time')");
     }
+
     return mysql_query($q);
 }
 
 function set_accsent()
 {
-    if (! defined('THE_GC_SCRIPT_V2005_04_01')) {
-        print 'Please use only original script';
+    if (!defined('THE_GC_SCRIPT_V2005_04_01')) {
+        echo 'Please use only original script';
         exit();
     }
 
@@ -150,7 +153,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
             if (($type['compound_min_deposit'] <= $amount and $amount <= $type['compound_max_deposit'])) {
                 if ($type['compound_percents_type'] == 1) {
                     $cps = preg_split('/\\s*,\\s*/', $type['compound_percents']);
-                    if (! in_array($compound, $cps)) {
+                    if (!in_array($compound, $cps)) {
                         $compound = $cps[0];
                     }
                 } else {
@@ -395,13 +398,13 @@ function send_money_to_perfectmoney($e_password, $amount, $account, $memo, $erro
     $ch = curl_init();
     $memo = rawurlencode($memo);
     $params = [
-        'AccountID'     => $settings['perfectmoney_from_account_id'],
-        'PassPhrase'    => $perfectmoney_password,
+        'AccountID' => $settings['perfectmoney_from_account_id'],
+        'PassPhrase' => $perfectmoney_password,
         'Payer_Account' => $settings['perfectmoney_from_account'],
         'Payee_Account' => $account,
-        'Amount'        => $amount,
-        'PAY_IN'        => '1',
-        'Memo'          => $memo,
+        'Amount' => $amount,
+        'PAY_IN' => '1',
+        'Memo' => $memo,
     ];
     curl_setopt($ch, CURLOPT_URL, 'https://perfectmoney.is/acct/confirm.asp');
     curl_setopt($ch, CURLOPT_POST, 1);
@@ -446,13 +449,13 @@ function send_money_to_egold($e_password, $amount, $account, $memo, $error_txt)
     $ch = curl_init();
     $memo = rawurlencode($memo);
     $params = [
-        'AccountID'          => $settings['egold_from_account'],
-        'PassPhrase'         => $egold_password,
-        'Payee_Account'      => $account,
-        'Amount'             => $amount,
-        'PAY_IN'             => 1,
-        'WORTH_OF'           => 'Gold',
-        'Memo'               => $memo,
+        'AccountID' => $settings['egold_from_account'],
+        'PassPhrase' => $egold_password,
+        'Payee_Account' => $account,
+        'Amount' => $amount,
+        'PAY_IN' => 1,
+        'WORTH_OF' => 'Gold',
+        'Memo' => $memo,
         'IGNORE_RATE_CHANGE' => 'y',
     ];
     curl_setopt($ch, CURLOPT_URL, 'https://www.e-gold.com/acct/confirm.asp');
@@ -754,7 +757,7 @@ function send_money_to_ebullion($dump, $amount, $account, $memo, $error_txt)
     $gpg_command = ''.'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --recipient A20077\\@e-bullion.com --local-user '.$settings['def_payee_account_ebullion'].(''.'\\@e-bullion.com --output '.$outfile.' --sign --encrypt '.$infile.' 2>&1');
     $buf = '';
     $fp = popen(''.$gpg_command, 'r');
-    while (! feof($fp)) {
+    while (!feof($fp)) {
         $buf = fgets($fp, 4096);
     }
 
@@ -789,7 +792,7 @@ function send_money_to_ebullion($dump, $amount, $account, $memo, $error_txt)
     $buf = '';
     $keyID = '';
     $fp = popen(''.$gpg_command, 'r');
-    while (! feof($fp)) {
+    while (!feof($fp)) {
         $buf = fgets($fp, 4096);
         $pos = strstr($buf, 'key ID');
         if (0 < strlen($pos)) {
@@ -878,7 +881,7 @@ function parsexml($xmlcert)
             $endat = strlen($balancelist) - strlen($endtemp);
         }
 
-        while (! $done) {
+        while (!$done) {
             $Balance = trim(substr($balancelist, $startat + 9, $endat - 9));
             $balancelist = trim(substr($balancelist, $endat + 10));
             $out['amount'] = getelement($Balance, 'amount');
@@ -914,7 +917,7 @@ function parsexml($xmlcert)
             $endat = strlen($verifylist) - strlen($endtemp);
         }
 
-        while (! $done) {
+        while (!$done) {
             $Verify = trim(substr($verifylist, $startat + 13, $endat - 13));
             $verifylist = trim(substr($verifylist, $endat + 14));
             $out['batch'] = getelement($Verify, 'id');
@@ -958,7 +961,7 @@ function parsexml($xmlcert)
             $endat = strlen($failedlist) - strlen($endtemp);
         }
 
-        while (! $done) {
+        while (!$done) {
             $Failed = trim(substr($failedlist, $startat + 13, $endat - 13));
             $failedlist = trim(substr($failedlist, $endat + 14));
             $out['text'] = getelement($Failed, 'error');
@@ -994,7 +997,7 @@ function parsexml($xmlcert)
             $endat = strlen($errorlist) - strlen($endtemp);
         }
 
-        while (! $done) {
+        while (!$done) {
             $ErrorResponse = trim(substr($errorlist, $startat + 15, $endat - 15));
             $errdone = false;
             if ($starterr = stristr($ErrorResponse, '<error>') === false) {
@@ -1009,7 +1012,7 @@ function parsexml($xmlcert)
                 $enderrat = strlen($ErrorResponse) - strlen($enderr);
             }
 
-            while (! $errdone) {
+            while (!$errdone) {
                 $Error = trim(substr($ErrorResponse, $starterrat + 7, $enderrat - 7));
                 $ErrorResponse = trim(substr($ErrorResponse, $enderrat + 8));
                 $out['text'] = getelement($Error, 'text');
@@ -1137,11 +1140,11 @@ function send_template_mail($email_id, $to, $from, $info)
     $q = ''.'select * from hm2_emails where id = \''.$email_id.'\'';
     $sth = db_query($q);
     $row = mysql_fetch_array($sth);
-    if (! $row) {
+    if (!$row) {
         return null;
     }
 
-    if (! $row['status']) {
+    if (!$row['status']) {
         return null;
     }
 
@@ -1194,11 +1197,10 @@ function end_info_table()
 }
 
 /**
- * 没有用到这个函数
+ * 没有用到这个函数.
+ *
  * @param $deposit_id
  * @param $amount
- *
- * @return null
  */
 function pay_direct_return_deposit($deposit_id, $amount)
 {
@@ -1245,7 +1247,7 @@ function pay_direct_earning($deposit_id, $amount, $date)
         $q = ''.'select * from hm2_deposits where id = '.$deposit_id;
         ($sth = db_query($q) or print mysql_error());
         $dep = mysql_fetch_array($sth);
-        if (! in_array($dep[ec], [0, 1, 2, 5])) {
+        if (!in_array($dep[ec], [0, 1, 2, 5])) {
             return null;
         }
 
@@ -1322,7 +1324,7 @@ function pay_direct_earning($deposit_id, $amount, $date)
                 $user['paypal_account'],
                 $user['goldmoney_account'],
                 $user['eeecurrency_account'],
-                $user['pecunix_account']
+                $user['pecunix_account'],
             ];
             $q = 'insert into hm2_history set
             user_id = '.$user['id'].(''.',
@@ -1429,7 +1431,7 @@ function count_earning($u_id)
             $lines = 0;
             while ($row = mysql_fetch_array($sth)) {
                 ++$lines;
-                if (! isset($types[$row['type_id']])) {
+                if (!isset($types[$row['type_id']])) {
                     continue;
                 }
 
@@ -1567,7 +1569,7 @@ function count_earning($u_id)
                             if (($row['compound_min_deposit'] <= $row['actual_amount'] and $row['actual_amount'] <= $row['compound_max_deposit'])) {
                                 if ($row['compound_percents_type'] == 1) {
                                     $cps = preg_split('/\\s*,\\s*/', $row['compound_percents']);
-                                    if (! in_array($row['compound'], $cps)) {
+                                    if (!in_array($row['compound'], $cps)) {
                                         $row['compound'] = $cps[0];
                                     }
                                 } else {
@@ -1690,8 +1692,8 @@ function get_settings()
         }
 
         if ($s['cnf'] != $confirm * 15) {
-            print '<!-- Settings are broken. Please e-mail to script developers as soon as possible -->';
-            print 'System maintenance and hardware upgrades.';
+            echo '<!-- Settings are broken. Please e-mail to script developers as soon as possible -->';
+            echo 'System maintenance and hardware upgrades.';
             exit();
         }
 
@@ -1722,14 +1724,14 @@ function save_settings()
 {
     global $settingsFile;
     global $settings;
-    if (! is_writeable($settingsFile)) {
-        print '<br><br><br><br><center><h1>Your settings has not been saved.<br>Please set 666 permissions for <b>'.$settingsFile.'</b> file!<br>';
+    if (!is_writeable($settingsFile)) {
+        echo '<br><br><br><br><center><h1>Your settings has not been saved.<br>Please set 666 permissions for <b>'.$settingsFile.'</b> file!<br>';
         exit();
     }
 
     if (file_exists('tmpl_c/.htdata')) {
-        if (! is_writeable('tmpl_c/.htdata')) {
-            print '<br><br><br><br><center><h1>Your settings has not been saved.<br>Please set 666 permissions for <b>tmpl_c/.htdata</b> file!<br>';
+        if (!is_writeable('tmpl_c/.htdata')) {
+            echo '<br><br><br><br><center><h1>Your settings has not been saved.<br>Please set 666 permissions for <b>tmpl_c/.htdata</b> file!<br>';
             exit();
         }
     }
@@ -1747,7 +1749,7 @@ function save_settings()
     while (list($kk, $vv) = each($settings)) {
         if ($kk != 'logged') {
             if (($sflag == 0 or ($sflag == 1 and preg_match('/^key/', $kk)))) {
-                if (! preg_match('/_generated/', $kk)) {
+                if (!preg_match('/_generated/', $kk)) {
                     fputs($file, ((''.$kk.'	').$vv.'
 '));
                     $code .= ((''.$kk.'	').$vv.'
@@ -1817,13 +1819,12 @@ function decode_str($q, $w)
 function db_open()
 {
     global $settings;
-    if (! ($dbconn = mysql_connect($settings['hostname'], $settings['db_login'], $settings['db_pass']))) {
+    if (!($dbconn = mysql_connect($settings['hostname'], $settings['db_login'], $settings['db_pass']))) {
         exit(mysql_error());
-        ;
     }
 
-    if (! mysql_select_db($settings['database'])) {
-        print mysql_error();
+    if (!mysql_select_db($settings['database'])) {
+        echo mysql_error();
         exit();
     }
 
@@ -1881,7 +1882,7 @@ function gen_confirm_code($len, $md = 1)
         'w',
         'x',
         'y',
-        'z'
+        'z',
     ];
     $i = 0;
     $str = '';

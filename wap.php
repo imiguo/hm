@@ -1,6 +1,7 @@
 <?php
+
 if (file_exists('install.php')) {
-    print 'Delete install.php file for security reason please!';
+    echo 'Delete install.php file for security reason please!';
     exit();
 }
 
@@ -16,8 +17,8 @@ if ($settings['accesswap'] == 0) {
 }
 
 $dbconn = db_open();
-if (! $dbconn) {
-    print 'Cannot connect mysql';
+if (!$dbconn) {
+    echo 'Cannot connect mysql';
     exit();
 }
 
@@ -60,18 +61,16 @@ if ($frm['a'] == 'do_login') {
         $ip = $frm_env['REMOTE_ADDR'];
         $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(''.',
   	date = now(), ip = \''.$ip.'\'');
-        if (! (db_query($q))) {
+        if (!(db_query($q))) {
             exit(mysql_error());
-            ;
         }
 
         setcookie('username', $frm['username'], time() + 630720000);
         setcookie('password', md5($frm['password']), time() + 630720000);
         $ip = $frm_env['REMOTE_ADDR'];
         $q = ''.'update hm2_users set last_access_time = now(), last_access_ip = \''.$ip.'\' where username=\''.$username.'\'';
-        if (! (db_query($q))) {
+        if (!(db_query($q))) {
             exit(mysql_error());
-            ;
         }
     }
 
@@ -98,9 +97,8 @@ if ($frm['a'] == 'do_login') {
             $userinfo = $row;
             $userinfo['logged'] = 1;
             $q = ''.'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
-            if (! (db_query($q))) {
+            if (!(db_query($q))) {
                 exit(mysql_error());
-                ;
             }
 
             continue;

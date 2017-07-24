@@ -1,8 +1,9 @@
 <?php
+
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if (! $dbconn) {
-    print 'Cannot connect mysql';
+if (!$dbconn) {
+    echo 'Cannot connect mysql';
     exit();
 }
 
@@ -46,7 +47,7 @@ if ($frm['a'] == 'pay_withdraw') {
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 
-    print 1;
+    echo 1;
     db_close($dbconn);
     exit();
 }
@@ -65,5 +66,5 @@ if (($hash == strtoupper($frm['merchanthashcheck']) and $exchange_systems[1]['st
 }
 
 db_close($dbconn);
-print '1';
+echo '1';
 exit();

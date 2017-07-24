@@ -1,9 +1,10 @@
 <?php
+
 require '../common/function.php';
 
 if (!validate()) {
     header('HTTP/1.1 403 Forbidden');
-    echo "Invalid request.";
+    echo 'Invalid request.';
     exit;
 }
 
@@ -12,8 +13,8 @@ ini_set('display_errors', '1');
 
 function mail_test()
 {
-    if (! db_open()) {
-        print 'Cannot connect mysql';
+    if (!db_open()) {
+        echo 'Cannot connect mysql';
         exit();
     }
     $info['username'] = 'entimm';
@@ -34,7 +35,7 @@ function testErrorHandler($errno, $errstr, $errfile, $errline)
     case E_USER_ERROR:
         echo "<b>My ERROR</b> [$errno] $errstr<br />\n";
         echo "  Fatal error on line $errline in file $errfile";
-        echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
+        echo ', PHP '.PHP_VERSION.' ('.PHP_OS.")<br />\n";
         echo "Aborting...<br />\n";
         exit(1);
         break;
@@ -57,12 +58,12 @@ function testErrorHandler($errno, $errstr, $errfile, $errline)
 
 function error_handler_test()
 {
-    set_error_handler("testErrorHandler");
+    set_error_handler('testErrorHandler');
 }
 
 function token_test()
 {
-    $token = (new Flash)->setget('__token', genarate_token());
+    $token = (new Flash())->setget('__token', genarate_token());
     var_dump($token);
 }
 

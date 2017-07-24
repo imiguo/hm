@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,20 +11,19 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $id = sprintf('%d', $frm['id']);
-  $q = '' . 'select * from hm2_users where id = ' . $id;
+  $q = ''.'select * from hm2_users where id = '.$id;
   $sth = db_query($q);
   $userinfo = mysql_fetch_array($sth);
   $ab = get_user_balance($id);
-  $q = 'select count(*) as col from hm2_users where ref=' . $userinfo[id];
+  $q = 'select count(*) as col from hm2_users where ref='.$userinfo[id];
   ($sth = db_query($q) or print mysql_error());
   $q_affilates = 0;
   while ($row = mysql_fetch_array($sth)) {
       $q_affilates = $row['col'];
   }
 
-  $q = '' . 'select ec, sum(actual_amount) as sum from hm2_history where user_id = ' . $id . ' group by ec';
+  $q = ''.'select ec, sum(actual_amount) as sum from hm2_history where user_id = '.$id.' group by ec';
   ($sth = db_query($q) or print mysql_error());
   while ($row = mysql_fetch_array($sth)) {
       $balance[$row['ec']] = $row['sum'];
@@ -277,7 +277,7 @@
   <table cellspacing=0 cellpadding=1 border=0 width=100%>
   <tr><th>IP</th><th>Last Access</th></tr>
 ';
-  $q = 'select date_format(max(date), \'%b-%e-%Y %r\') as fdate, max(date) + interval 0 hour as mdate, ip from hm2_user_access_log where user_id = ' . $userinfo['id'] . ' group by ip order by mdate desc';
+  $q = 'select date_format(max(date), \'%b-%e-%Y %r\') as fdate, max(date) + interval 0 hour as mdate, ip from hm2_user_access_log where user_id = '.$userinfo['id'].' group by ip order by mdate desc';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
       echo '   <tr><td>';

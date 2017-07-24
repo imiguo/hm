@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,11 +11,9 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $q = 'select count(*) as col from hm2_users where id > 1';
   if (!($sth = db_query($q))) {
-      print mysql_error();
-      ;
+      echo mysql_error();
   }
 
   $qmembers = 0;

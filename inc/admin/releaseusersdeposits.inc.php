@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,7 +11,6 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $user_id = sprintf('%d', $frm['u_id']);
   $q = 'select * from hm2_types where status = \'on\'';
   ($sth = db_query($q) or print mysql_error());
@@ -20,15 +20,15 @@
       $row['deposits'] = array();
       $q = 'select
                 *,
-                date_format(deposit_date + interval ' . $settings['time_dif'] . ' hour, \'%b-%e-%Y %r\') as date,
+                date_format(deposit_date + interval '.$settings['time_dif'].' hour, \'%b-%e-%Y %r\') as date,
                 (to_days(now()) - to_days(deposit_date)) as duration,
-                (to_days(now()) - to_days(deposit_date) - ' . $row['withdraw_principal_duration'] . ('' . ') as pending_duration
+                (to_days(now()) - to_days(deposit_date) - '.$row['withdraw_principal_duration'].(''.') as pending_duration
           from
                 hm2_deposits
           where
-                user_id = ' . $user_id . ' and
+                user_id = '.$user_id.' and
                 status=\'on\' and
-                type_id = ') . $row['id'] . '
+                type_id = ').$row['id'].'
           order by
                 deposit_date
          ';
@@ -56,43 +56,43 @@
           ++$deposits_cnt;
       }
 
-      $q = '' . 'select
+      $q = ''.'select
             sum(hm2_history.actual_amount) as sm
           from
             hm2_history, hm2_deposits
           where
             hm2_history.deposit_id = hm2_deposits.id and
-            hm2_history.user_id = ' . $user_id . ' and
-            hm2_deposits.user_id = ' . $user_id . ' and
+            hm2_history.user_id = '.$user_id.' and
+            hm2_deposits.user_id = '.$user_id.' and
             hm2_history.type=\'deposit\' and
-            hm2_deposits.type_id = ' . $row['id'];
+            hm2_deposits.type_id = '.$row['id'];
       $sth1 = db_query($q);
       $row1 = mysql_fetch_array($sth1);
       $row['total_deposit'] = number_format(abs($row1['sm']), 2);
-      $q = '' . 'select
+      $q = ''.'select
             sum(hm2_history.actual_amount) as sm
           from
             hm2_history, hm2_deposits
           where
             hm2_history.deposit_id = hm2_deposits.id and
-            hm2_history.user_id = ' . $user_id . ' and
-            hm2_deposits.user_id = ' . $user_id . ' and
+            hm2_history.user_id = '.$user_id.' and
+            hm2_deposits.user_id = '.$user_id.' and
             hm2_history.type=\'earning\' and
-            to_days(hm2_history.date + interval ' . $settings['time_dif'] . ' hour) = to_days(now()) and
-            hm2_deposits.type_id = ' . $row['id'];
+            to_days(hm2_history.date + interval '.$settings['time_dif'].' hour) = to_days(now()) and
+            hm2_deposits.type_id = '.$row['id'];
       $sth1 = db_query($q);
       $row1 = mysql_fetch_array($sth1);
       $row['today_profit'] = number_format(abs($row1['sm']), 2);
-      $q = '' . 'select
+      $q = ''.'select
             sum(hm2_history.actual_amount) as sm
           from
             hm2_history, hm2_deposits
           where
             hm2_history.deposit_id = hm2_deposits.id and
-            hm2_history.user_id = ' . $user_id . ' and
-            hm2_deposits.user_id = ' . $user_id . ' and
+            hm2_history.user_id = '.$user_id.' and
+            hm2_deposits.user_id = '.$user_id.' and
             hm2_history.type=\'earning\' and
-            hm2_deposits.type_id = ' . $row['id'];
+            hm2_deposits.type_id = '.$row['id'];
       $sth1 = db_query($q);
       $row1 = mysql_fetch_array($sth1);
       $row['total_profit'] = number_format(abs($row1['sm']), 2);
@@ -195,7 +195,7 @@ You cannot release deposits!
                   echo '   <option value="';
                   echo $plan['id'];
                   echo '" ';
-                  echo($plan['id'] == $plans[$i][deposits][$j]['type_id'] ? 'selected' : '');
+                  echo $plan['id'] == $plans[$i][deposits][$j]['type_id'] ? 'selected' : '';
                   echo '>';
                   echo $plan['name'];
                   echo '</option>

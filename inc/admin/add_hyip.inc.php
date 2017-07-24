@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -10,11 +11,9 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $q = 'select * from hm2_types where status = \'on\'';
   if (!($sth = db_query($q))) {
       exit(mysql_error());
-      ;
   }
 
   $packages = array();
@@ -193,7 +192,7 @@ function checkform() {
   echo 'mall>set 0 to skip limitation</small></td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=\'work_week\' value=1 ';
-  echo($row['work_week'] == 1 ? 'checked' : '');
+  echo $row['work_week'] == 1 ? 'checked' : '';
   echo ' onclick="CalculateProfit();InitCalendar();"><a href="javascript:alert(\'Earnings will accumulate on user accounts only  on Mon-Fri. Available for daily payment plans.\')" class=hlp> 
         Earnings only on mon-fri</td>
 </tr>
@@ -201,7 +200,7 @@ function checkform() {
   if (0 < sizeof($packages)) {
       echo '<tr>
  <td colspan=2><input type=checkbox name=parentch value=1 ';
-      echo($row['parent'] == 0 ? '' : 'checked');
+      echo $row['parent'] == 0 ? '' : 'checked';
       echo '>
         <a href="javascript:alert(\'Administrator can select a \\\'parent\\\' package. Then users should deposit to parent package before depositing to this one.\')" class=hlp>Allow 
         depositing only after the user has deposited to the following package:</a> 
@@ -211,7 +210,7 @@ function checkform() {
 	';
       for ($i = 0; $i < sizeof($packages); ++$i) {
           echo '	<option ';
-          echo($row['parent'] == $packages[$i]['id'] ? 'selected' : '');
+          echo $row['parent'] == $packages[$i]['id'] ? 'selected' : '';
           echo ' value=';
           echo $packages[$i]['id'];
           echo '>';

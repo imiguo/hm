@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   echo '<b>Add A New Member Account:</b><br>
 <br>
@@ -76,7 +76,7 @@
  </td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=auto_withdraw value=1 ';
-  echo($settings['use_auto_payment'] == 1 ? 'checked' : '');
+  echo $settings['use_auto_payment'] == 1 ? 'checked' : '';
   echo '>
               Auto-withdrawal enabled 
               ';

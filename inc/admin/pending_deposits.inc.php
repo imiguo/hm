@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   echo '<form method=post name=nform>
 <input type=hidden name=a value=pending_deposits>
@@ -22,10 +22,10 @@
   echo 'elect name=type class=inpts onchange="document.nform.submit()">
 <option value=\'new\'>New</option>
 <option value=\'problem\' ';
-  echo($frm['type'] == 'problem' ? 'selected' : '');
+  echo $frm['type'] == 'problem' ? 'selected' : '';
   echo '>Problem</option>
 <option value=\'processed\' ';
-  echo($frm['type'] == 'processed' ? 'selected' : '');
+  echo $frm['type'] == 'processed' ? 'selected' : '';
   echo '>Processed</option>
 </select>
 <input type=submit value=\'GO\' class=sbmt>
@@ -54,13 +54,13 @@
   $status = ($frm['type'] == 'problem' ? 'problem' : ($frm['type'] == 'processed' ? 'processed' : 'new'));
   $q = 'select
           hm2_pending_deposits.*,
-          date_format(hm2_pending_deposits.date + interval ' . $settings['time_dif'] . ('' . ' hour, \'%b-%e-%Y %r\') as d,
+          date_format(hm2_pending_deposits.date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as d,
           hm2_users.username
         from
           hm2_pending_deposits,
           hm2_users
         where
-          hm2_pending_deposits.status = \'' . $status . '\' and
+          hm2_pending_deposits.status = \''.$status.'\' and
           hm2_users.id = hm2_pending_deposits.user_id
         order by date desc
        ');
@@ -72,11 +72,11 @@
       if (!$exchange_systems[$row['ec']]) {
           $row['ec'] = 'deleted';
           foreach ($infofields as $id => $name) {
-              $fields .= '' . $name . '<br>';
+              $fields .= ''.$name.'<br>';
           }
       } else {
           foreach ($processings[$row['ec']] as $id => $name) {
-              $fields .= '' . $name . ': ' . stripslashes($infofields[$id]) . '<br>';
+              $fields .= ''.$name.': '.stripslashes($infofields[$id]).'<br>';
           }
       }
 

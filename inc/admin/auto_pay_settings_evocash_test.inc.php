@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -31,8 +31,8 @@
 ';
   if (function_exists('curl_init')) {
       $ch = curl_init();
-      print curl_error($ch);
-      curl_setopt($ch, CURLOPT_URL, 'https://www.evocash.com/evoswift/instantpayment.cfm?payingaccountid=' . $frm['acc'] . '&username=' . $frm['username'] . '&password=' . $frm['pass'] . '&transaction_code=' . $frm['code'] . '&amount=0.01&reference=ref&memo=memo&receivingaccountid=' . $frm['acc']);
+      echo curl_error($ch);
+      curl_setopt($ch, CURLOPT_URL, 'https://www.evocash.com/evoswift/instantpayment.cfm?payingaccountid='.$frm['acc'].'&username='.$frm['username'].'&password='.$frm['pass'].'&transaction_code='.$frm['code'].'&amount=0.01&reference=ref&memo=memo&receivingaccountid='.$frm['acc']);
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       $a = curl_exec($ch);
@@ -42,15 +42,15 @@
           $txt = preg_replace('/&lt;/i', '<', $parts[1]);
           $txt = preg_replace('/&gt;/i', '>', $txt);
           if ($txt == 'You can\'t make a transfer to your own account.') {
-              print 'Test status: OK<br>';
+              echo 'Test status: OK<br>';
           } else {
-              print 'Test status: Failed<br>' . $txt;
+              echo 'Test status: Failed<br>'.$txt;
           }
       } else {
-          print '' . 'Test status: Failed<br>Unknown Error:<BR>' . $a;
+          echo ''.'Test status: Failed<br>Unknown Error:<BR>'.$a;
       }
   } else {
-      print 'Sorry, but curl does not installed on your server';
+      echo 'Sorry, but curl does not installed on your server';
   }
 
   echo '

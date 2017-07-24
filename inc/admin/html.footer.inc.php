@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.11.12                                         */
 /*                                                                     */
 /***********************************************************************/
-
 
   echo '  <tr> 
     <td height="19" bgcolor="ff8d00"><div align="center" class="forCopyright">Powered with HYIP Manager. <a href=http://www.goldrippers.info class="forCopyright">Goldrippers.info</a></div></td>

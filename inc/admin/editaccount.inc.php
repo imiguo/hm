@@ -1,9 +1,8 @@
 <?php
   $id = sprintf('%d', $frm['id']);
-  $q = '' . 'select * from hm2_users where id = ' . $id . ' and id <> 1';
+  $q = ''.'select * from hm2_users where id = '.$id.' and id <> 1';
   if (!($sth = db_query($q))) {
       exit(mysql_error());
-      ;
   }
 
   $row = mysql_fetch_array($sth);
@@ -84,7 +83,7 @@
 ';
       foreach ($countries as $c) {
           echo '   <option ';
-          echo($c['name'] == $row['country'] ? 'selected' : '');
+          echo $c['name'] == $row['country'] ? 'selected' : '';
           echo '>';
           echo quote($c['name']);
           echo '</option>
@@ -178,18 +177,18 @@
   echo '<s';
   echo 'elect name=status class=inpts>
 	<option value="on" ';
-  echo($row['status'] == 'on' ? 'selected' : '');
+  echo $row['status'] == 'on' ? 'selected' : '';
   echo '>Active
 	<option value="off" ';
-  echo($row['status'] == 'off' ? 'selected' : '');
+  echo $row['status'] == 'off' ? 'selected' : '';
   echo '>Disabled
 	<option value="suspended" ';
-  echo($row['status'] == 'suspended' ? 'selected' : '');
+  echo $row['status'] == 'suspended' ? 'selected' : '';
   echo '>Suspended</select>
  </td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=auto_withdraw value=1 ';
-  echo($row['auto_withdraw'] == 1 ? 'checked' : '');
+  echo $row['auto_withdraw'] == 1 ? 'checked' : '';
   echo '>
             Auto-withdrawal enabled 
             ';
@@ -204,7 +203,7 @@
   echo '          </td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=admin_auto_pay_earning value=1 ';
-  echo($row['admin_auto_pay_earning'] == 1 ? 'checked' : '');
+  echo $row['admin_auto_pay_earning'] == 1 ? 'checked' : '';
   echo '>
             Tranfer earnings directly to the user\'s e-gold account 
             ';

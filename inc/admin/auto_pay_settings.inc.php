@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.11.12                                         */
 /*                                                                     */
 /***********************************************************************/
-
 
   $q = 'select * from hm2_pay_settings where n=\'egold_account_password\'';
   $sth = db_query($q);
@@ -266,7 +266,7 @@ function test_pecunix() {
 <table cellspacing=0 cellpadding=2 border=0 width=100%>
 <tr>
  <td colspan=2><input type=checkbox name=use_auto_payment value=1 ';
-  echo($settings['use_auto_payment'] == 1 ? 'checked' : '');
+  echo $settings['use_auto_payment'] == 1 ? 'checked' : '';
   echo '> Use auto-payment</td>
 </tr><tr>
  <td colspan=2><br>

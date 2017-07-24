@@ -1,4 +1,5 @@
 <?php
+
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -9,7 +10,6 @@
 /*    Release on:   2005.12.5                                          */
 /*                                                                     */
 /***********************************************************************/
-
 
   $frm['day_to'] = sprintf('%d', $frm['day_to']);
   $frm['month_to'] = sprintf('%d', $frm['month_to']);
@@ -26,18 +26,18 @@
       $frm['year_from'] = $frm['year_to'];
   }
 
-  $datewhere = '\'' . $frm['year_from'] . '-' . $frm['month_from'] . '-' . $frm['day_from'] . '\' + interval 0 day < date + interval ' . $settings['time_dif'] . ' hour and ' . '\'' . $frm['year_to'] . '-' . $frm['month_to'] . '-' . $frm['day_to'] . '\' + interval 1 day > date + interval ' . $settings['time_dif'] . ' hour ';
+  $datewhere = '\''.$frm['year_from'].'-'.$frm['month_from'].'-'.$frm['day_from'].'\' + interval 0 day < date + interval '.$settings['time_dif'].' hour and '.'\''.$frm['year_to'].'-'.$frm['month_to'].'-'.$frm['day_to'].'\' + interval 1 day > date + interval '.$settings['time_dif'].' hour ';
   if ($frm['ttype'] != '') {
       if ($frm['ttype'] == 'exchange') {
           $typewhere = ' and (type=\'exchange_out\' or type=\'exchange_in\')';
       } else {
-          $typewhere = ' and type=\'' . quote($frm['ttype']) . '\' ';
+          $typewhere = ' and type=\''.quote($frm['ttype']).'\' ';
       }
   }
 
   $u_id = sprintf('%d', $frm['u_id']);
   if (1 < $u_id) {
-      $userwhere = '' . ' and user_id = ' . $u_id . ' ';
+      $userwhere = ''.' and user_id = '.$u_id.' ';
   }
 
   $ecwhere = '';
@@ -47,10 +47,10 @@
 
   $ec = sprintf('%d', $frm[ec]);
   if (-1 < $frm[ec]) {
-      $ecwhere = '' . ' and ec = ' . $ec;
+      $ecwhere = ''.' and ec = '.$ec;
   }
 
-  $q = '' . 'select count(*) as col from hm2_history where ' . $datewhere . ' ' . $userwhere . ' ' . $typewhere . ' ' . $ecwhere;
+  $q = ''.'select count(*) as col from hm2_history where '.$datewhere.' '.$userwhere.' '.$typewhere.' '.$ecwhere;
   ($sth = db_query($q) or print mysql_error());
   $row = mysql_fetch_array($sth);
   $count_all = $row['col'];
@@ -68,11 +68,11 @@
   $from = ($page - 1) * $onpage;
   $order = ($settings['use_history_balance_mode'] ? 'asc' : 'desc');
   $dformat = ($settings['use_history_balance_mode'] ? '%b-%e-%Y<br>%r' : '%b-%e-%Y %r');
-  $q = 'select *, date_format(date + interval ' . $settings['time_dif'] . ('' . ' hour, \'' . $dformat . '\') as d from hm2_history where ' . $datewhere . ' ' . $userwhere . ' ' . $typewhere . ' ' . $ecwhere . ' order by date ' . $order . ', id ' . $order . ' limit ' . $from . ', ' . $onpage);
+  $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \''.$dformat.'\') as d from hm2_history where '.$datewhere.' '.$userwhere.' '.$typewhere.' '.$ecwhere.' order by date '.$order.', id '.$order.' limit '.$from.', '.$onpage);
   ($sth = db_query($q) or print mysql_error());
   $trans = array();
   while ($row = mysql_fetch_array($sth)) {
-      $q = 'select username from hm2_users where id = ' . $row['user_id'];
+      $q = 'select username from hm2_users where id = '.$row['user_id'];
       $sth1 = db_query($q);
       $row1 = mysql_fetch_array($sth1);
       if ($row1) {
@@ -83,7 +83,7 @@
 
       $row['debitcredit'] = ($row['actual_amount'] < 0 ? 1 : 0);
       if ($settings['use_history_balance_mode']) {
-          $q = 'select sum(actual_amount) as balance from hm2_history where id < ' . $row['id'] . ('' . ' ' . $userwhere);
+          $q = 'select sum(actual_amount) as balance from hm2_history where id < '.$row['id'].(''.' '.$userwhere);
           $sth1 = db_query($q);
           $row1 = mysql_fetch_array($sth1);
           $start_balance = $row1['balance'];
@@ -94,30 +94,30 @@
   }
 
   if ($settings['use_history_balance_mode']) {
-      $q = '' . 'select
+      $q = ''.'select
             sum(actual_amount * (actual_amount < 0)) as debit,
             sum(actual_amount * (actual_amount > 0)) as credit,
             sum(actual_amount) as balance
           from
-            hm2_history where ' . $datewhere . ' ' . $typewhere . ' ' . $userwhere . ' ' . $ecwhere;
+            hm2_history where '.$datewhere.' '.$typewhere.' '.$userwhere.' '.$ecwhere;
       $sth = db_query($q);
       $period_stats = mysql_fetch_array($sth);
-      $q = '' . 'select
+      $q = ''.'select
             sum(actual_amount * (actual_amount < 0)) as debit,
             sum(actual_amount * (actual_amount > 0)) as credit,
             sum(actual_amount) as balance
           from
-            hm2_history where 1=1 ' . $typewhere . ' ' . $userwhere . ' ' . $ecwhere;
+            hm2_history where 1=1 '.$typewhere.' '.$userwhere.' '.$ecwhere;
       $sth = db_query($q);
       $total_stats = mysql_fetch_array($sth);
   }
 
   $month = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
-  $q = '' . 'select sum(actual_amount) as periodsum from hm2_history where ' . $datewhere . ' ' . $userwhere . ' ' . $typewhere . ' ' . $ecwhere;
+  $q = ''.'select sum(actual_amount) as periodsum from hm2_history where '.$datewhere.' '.$userwhere.' '.$typewhere.' '.$ecwhere;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $periodsum = $row['periodsum'];
-  $q = '' . 'select sum(actual_amount) as sum from hm2_history where 1=1 ' . $userwhere . ' ' . $typewhere . ' ' . $ecwhere;
+  $q = ''.'select sum(actual_amount) as sum from hm2_history where 1=1 '.$userwhere.' '.$typewhere.' '.$ecwhere;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $allsum = $row['sum'];
@@ -149,40 +149,40 @@ function go(p)
   echo 'elect name=ttype class=inpts onchange="document.trans.action2.value=\'\';document.trans.submit()">
 		<option value="">All transactions
 		<option value="add_funds" ';
-  echo($frm['ttype'] == 'add_funds' ? 'selected' : '');
+  echo $frm['ttype'] == 'add_funds' ? 'selected' : '';
   echo '>Transfers from external processings
 		<option value="deposit" ';
-  echo($frm['ttype'] == 'deposit' ? 'selected' : '');
+  echo $frm['ttype'] == 'deposit' ? 'selected' : '';
   echo '>Deposits
 		<option value="bonus" ';
-  echo($frm['ttype'] == 'bonus' ? 'selected' : '');
+  echo $frm['ttype'] == 'bonus' ? 'selected' : '';
   echo '>Bonuses
 		<option value="penality" ';
-  echo($frm['ttype'] == 'penality' ? 'selected' : '');
+  echo $frm['ttype'] == 'penality' ? 'selected' : '';
   echo '>Penalties
 		<option value="earning" ';
-  echo($frm['ttype'] == 'earning' ? 'selected' : '');
+  echo $frm['ttype'] == 'earning' ? 'selected' : '';
   echo '>Earnings
 		<option value="withdrawal" ';
-  echo($frm['ttype'] == 'withdrawal' ? 'selected' : '');
+  echo $frm['ttype'] == 'withdrawal' ? 'selected' : '';
   echo '>Withdrawals
 		<option value="withdraw_pending" ';
-  echo($frm['ttype'] == 'withdraw_pending' ? 'selected' : '');
+  echo $frm['ttype'] == 'withdraw_pending' ? 'selected' : '';
   echo '>Withdrawal requests 
 	  <option value="commissions" ';
-  echo($frm['ttype'] == 'commissions' ? 'selected' : '');
+  echo $frm['ttype'] == 'commissions' ? 'selected' : '';
   echo '>Commissions
     <option value="early_deposit_release" ';
-  echo($frm['ttype'] == 'early_deposit_release' ? 'selected' : '');
+  echo $frm['ttype'] == 'early_deposit_release' ? 'selected' : '';
   echo '>Early deposit releases
 <!--		<option value="early_deposit_charge" ';
-  echo($frm['ttype'] == 'early_deposit_charge' ? 'selected' : '');
+  echo $frm['ttype'] == 'early_deposit_charge' ? 'selected' : '';
   echo '>Deposit releases commisions-->
 		<option value="release_deposit" ';
-  echo($frm['ttype'] == 'release_deposit' ? 'selected' : '');
+  echo $frm['ttype'] == 'release_deposit' ? 'selected' : '';
   echo '>Deposit returns
 		<option value="exchange" ';
-  echo($frm['ttype'] == 'exchange' ? 'selected' : '');
+  echo $frm['ttype'] == 'exchange' ? 'selected' : '';
   echo '>Exchange
 	</select>
 <br>
@@ -196,7 +196,7 @@ function go(p)
           echo '<option value=';
           echo $id;
           echo ' ';
-          echo($id == $frm[ec] ? 'selected' : '');
+          echo $id == $frm[ec] ? 'selected' : '';
           echo '>';
           echo $data[name];
           echo '</option>
@@ -217,7 +217,7 @@ function go(p)
       echo '<option value=';
       echo $i + 1;
       echo ' ';
-      echo($i + 1 == $frm['month_from'] ? 'selected' : '');
+      echo $i + 1 == $frm['month_from'] ? 'selected' : '';
       echo '>';
       echo $month[$i];
   }
@@ -231,7 +231,7 @@ function go(p)
       echo '<option value=';
       echo $i;
       echo ' ';
-      echo($i == $frm['day_from'] ? 'selected' : '');
+      echo $i == $frm['day_from'] ? 'selected' : '';
       echo '>';
       echo $i;
   }
@@ -245,7 +245,7 @@ function go(p)
       echo '<option value=';
       echo $i;
       echo ' ';
-      echo($i == $frm['year_from'] ? 'selected' : '');
+      echo $i == $frm['year_from'] ? 'selected' : '';
       echo '>';
       echo $i;
   }
@@ -262,7 +262,7 @@ function go(p)
       echo '<option value=';
       echo $i + 1;
       echo ' ';
-      echo($i + 1 == $frm['month_to'] ? 'selected' : '');
+      echo $i + 1 == $frm['month_to'] ? 'selected' : '';
       echo '>';
       echo $month[$i];
   }
@@ -276,7 +276,7 @@ function go(p)
       echo '<option value=';
       echo $i;
       echo ' ';
-      echo($i == $frm['day_to'] ? 'selected' : '');
+      echo $i == $frm['day_to'] ? 'selected' : '';
       echo '>';
       echo $i;
   }
@@ -290,7 +290,7 @@ function go(p)
       echo '<option value=';
       echo $i;
       echo ' ';
-      echo($i == $frm['year_to'] ? 'selected' : '');
+      echo $i == $frm['year_to'] ? 'selected' : '';
       echo '>';
       echo $i;
   }
@@ -334,11 +334,11 @@ function func5() {
   echo '
 ';
   if ($frm['say'] == 'massremove') {
-      print 'Pending transactions removed!<br><br>';
+      echo 'Pending transactions removed!<br><br>';
   }
 
   if ($frm['say'] == 'massprocessed') {
-      print 'Pending transactions selected as processed!<br><br>';
+      echo 'Pending transactions selected as processed!<br><br>';
   }
 
   echo '
@@ -373,7 +373,7 @@ function func5() {
               $to_withdraw = number_format(floor($to_withdraw * 100) / 100, 2);
               echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
  <td>';
-              echo($frm['ttype'] == 'withdraw_pending' ? '<input type=checkbox name=pend[' . $trans[$i]['id'] . '] value=1> &nbsp; ' : '');
+              echo $frm['ttype'] == 'withdraw_pending' ? '<input type=checkbox name=pend['.$trans[$i]['id'].'] value=1> &nbsp; ' : '';
               echo '<b>';
               echo $trans[$i]['username'];
               echo '</b></td>
@@ -407,9 +407,9 @@ function func5() {
               if ($trans[$i][debitcredit] == 1) {
                   echo '  $';
                   echo number_format(abs($trans[$i][actual_amount]), 2);
-                  echo($trans[$i]['type'] == 'withdraw_pending' ? '' . '($' . $to_withdraw . ' with fees)' : '');
+                  echo $trans[$i]['type'] == 'withdraw_pending' ? ''.'($'.$to_withdraw.' with fees)' : '';
                   echo ' ';
-                  echo($frm['ttype'] == 'withdraw_pending' ? ' &nbsp; <a href=?a=pay_withdraw&id=' . $trans[$i]['id'] . ' target=_blank>[pay]</a> <a href=?a=rm_withdraw&id=' . $trans[$i]['id'] . ' onClick="return confirm(\'Do you really want to remove this transaction?\')">[remove]</a>' : '');
+                  echo $frm['ttype'] == 'withdraw_pending' ? ' &nbsp; <a href=?a=pay_withdraw&id='.$trans[$i]['id'].' target=_blank>[pay]</a> <a href=?a=rm_withdraw&id='.$trans[$i]['id'].' onClick="return confirm(\'Do you really want to remove this transaction?\')">[remove]</a>' : '';
                   echo '  </b> 
   ';
               } else {
@@ -488,15 +488,15 @@ function func5() {
               $to_withdraw = number_format(floor($to_withdraw * 100) / 100, 2);
               echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
  <td>';
-              echo($frm['ttype'] == 'withdraw_pending' ? '<input type=checkbox name=pend[' . $trans[$i]['id'] . '] value=1> &nbsp; ' : '');
+              echo $frm['ttype'] == 'withdraw_pending' ? '<input type=checkbox name=pend['.$trans[$i]['id'].'] value=1> &nbsp; ' : '';
               echo '<b>';
               echo $trans[$i]['username'];
               echo '</b></td>
  <td width=200 align=right><b>$';
               echo number_format(abs($trans[$i]['actual_amount']), 2);
-              echo($trans[$i]['type'] == 'withdraw_pending' ? '' . ' ($' . $to_withdraw . ' with fees)<br>' : '');
+              echo $trans[$i]['type'] == 'withdraw_pending' ? ''.' ($'.$to_withdraw.' with fees)<br>' : '';
               echo '</b>';
-              echo($frm['ttype'] == 'withdraw_pending' ? ' &nbsp; <a href=?a=pay_withdraw&id=' . $trans[$i]['id'] . ' target=_blank>[pay]</a> <a href=?a=rm_withdraw&id=' . $trans[$i]['id'] . ' onClick="return confirm(\'Really need delete this transaction?\')">[remove]</a>' : '');
+              echo $frm['ttype'] == 'withdraw_pending' ? ' &nbsp; <a href=?a=pay_withdraw&id='.$trans[$i]['id'].' target=_blank>[pay]</a> <a href=?a=rm_withdraw&id='.$trans[$i]['id'].' onClick="return confirm(\'Really need delete this transaction?\')">[remove]</a>' : '';
               echo '<img src="images/';
               echo $trans[$i]['ec'];
               echo '.gif" align=absmiddle hspace=1 height=17></td>
