@@ -67,7 +67,7 @@ function c1()
  <td colspan=2><br>Information Fields:</td>
 </tr>
 ';
-  for ($id = 1; $id <= sizeof($fields); ++$id) {
+  for ($id = 1; $id <= count($fields); ++$id) {
       echo '<tr>
  <td><input type=checkbox name="use[';
       echo $id;
@@ -84,7 +84,7 @@ function c1()
 ';
   }
 
-  for ($id = sizeof($fields) + 1; $id < sizeof($fields) + 6; ++$id) {
+  for ($id = count($fields) + 1; $id < count($fields) + 6; ++$id) {
       echo '<tr>
  <td><input type=checkbox name="use[';
       echo $id;

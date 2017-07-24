@@ -16,8 +16,8 @@
       exit(mysql_error());
   }
 
-  $plans = array();
-  $periods = array('d' => 'daily', 'w' => 'weekly', 'b-w' => 'bi-weekly', 'm' => 'monthly', '2m' => 'every 2 month', '3m' => 'every 3 month', '6m' => 'every 6 month', 'y' => 'yearly');
+  $plans = [];
+  $periods = ['d' => 'daily', 'w' => 'weekly', 'b-w' => 'bi-weekly', 'm' => 'monthly', '2m' => 'every 2 month', '3m' => 'every 3 month', '6m' => 'every 6 month', 'y' => 'yearly'];
   while ($row = mysql_fetch_array($sth)) {
       $q = 'select min(min_deposit) as min_amount, max(max_deposit) as max_amount, sum(max_deposit = 0) as nomax, min(percent) as min_percent, max(percent) as max_percent from hm2_plans where parent='.$row['id'].' group by parent';
       if (!($sth1 = db_query($q))) {
@@ -44,7 +44,7 @@
 
       $q = 'select * from hm2_plans where parent='.$row['id'].' order by id';
       $sth1 = db_query($q);
-      $row['plans'] = array();
+      $row['plans'] = [];
       while ($row1 = mysql_fetch_array($sth1)) {
           if ($row1['max_deposit'] == 0) {
               $row1['max_deposit'] = 'unlimited';
@@ -70,7 +70,7 @@
  <td bgcolor=FFEA00 align=center><b>-</b></td>
 </tr>
 ';
-  if (0 < sizeof($plans)) {
+  if (0 < count($plans)) {
       foreach ($plans as $line) {
           echo '<tr>
  <td bgcolor=FFF9B3>';
@@ -97,7 +97,7 @@
 <table cellspacing=0 cellpadding=2 border=0 width=66% align=right>
 ';
           $plans_lines = $line['plans'];
-          if (0 < sizeof($plans_lines)) {
+          if (0 < count($plans_lines)) {
               foreach ($plans_lines as $line1) {
                   echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
  <td nowrap width=120>';

@@ -16,7 +16,7 @@
   ($sth = db_query($q) or print mysql_error());
   $userinfo = mysql_fetch_array($sth);
   $frm_env['HTTP_HOST'] = preg_replace('/www\\./', '', $frm_env['HTTP_HOST']);
-  $types = array();
+  $types = [];
   $q = 'select * from hm2_types where status = \'on\'';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {

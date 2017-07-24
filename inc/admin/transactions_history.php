@@ -70,7 +70,7 @@
   $dformat = ($settings['use_history_balance_mode'] ? '%b-%e-%Y<br>%r' : '%b-%e-%Y %r');
   $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \''.$dformat.'\') as d from hm2_history where '.$datewhere.' '.$userwhere.' '.$typewhere.' '.$ecwhere.' order by date '.$order.', id '.$order.' limit '.$from.', '.$onpage);
   ($sth = db_query($q) or print mysql_error());
-  $trans = array();
+  $trans = [];
   while ($row = mysql_fetch_array($sth)) {
       $q = 'select username from hm2_users where id = '.$row['user_id'];
       $sth1 = db_query($q);
@@ -112,7 +112,7 @@
       $total_stats = mysql_fetch_array($sth);
   }
 
-  $month = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+  $month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   $q = ''.'select sum(actual_amount) as periodsum from hm2_history where '.$datewhere.' '.$userwhere.' '.$typewhere.' '.$ecwhere;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
@@ -213,7 +213,7 @@ function go(p)
   echo '<s';
   echo 'elect name=month_from class=inpts>
 ';
-  for ($i = 0; $i < sizeof($month); ++$i) {
+  for ($i = 0; $i < count($month); ++$i) {
       echo '<option value=';
       echo $i + 1;
       echo ' ';
@@ -258,7 +258,7 @@ function go(p)
   echo '<s';
   echo 'elect name=month_to class=inpts>
 ';
-  for ($i = 0; $i < sizeof($month); ++$i) {
+  for ($i = 0; $i < count($month); ++$i) {
       echo '<option value=';
       echo $i + 1;
       echo ' ';
@@ -357,8 +357,8 @@ function func5() {
 </';
       echo 'tr>
 ';
-      if (0 < sizeof($trans)) {
-          for ($i = 0; $i < sizeof($trans); ++$i) {
+      if (0 < count($trans)) {
+          for ($i = 0; $i < count($trans); ++$i) {
               $amount = abs($trans[$i]['actual_amount']);
               $fee = floor($amount * $settings['withdrawal_fee']) / 100;
               if ($fee < $settings['withdrawal_fee_min']) {
@@ -472,8 +472,8 @@ function func5() {
  <td bgcolor=FFEA00 align=center width=170><b>Date</b></td>
 </tr>
 ';
-      if (0 < sizeof($trans)) {
-          for ($i = 0; $i < sizeof($trans); ++$i) {
+      if (0 < count($trans)) {
+          for ($i = 0; $i < count($trans); ++$i) {
               $amount = abs($trans[$i]['actual_amount']);
               $fee = floor($amount * $settings['withdrawal_fee']) / 100;
               if ($fee < $settings['withdrawal_fee_min']) {

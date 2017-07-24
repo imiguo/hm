@@ -36,13 +36,13 @@ save_settings();
 
 define('THE_GC_SCRIPT_V2005_04_01', 'answer');
 $acsent_settings = [
-    'detect_ip' => 'disabled',
+    'detect_ip'      => 'disabled',
     'detect_browser' => 'disabled',
-    'email' => $email,
-    'last_browser' => '',
-    'last_ip' => '',
-    'pin' => '',
-    'timestamp' => 0,
+    'email'          => $email,
+    'last_browser'   => '',
+    'last_ip'        => '',
+    'pin'            => '',
+    'timestamp'      => 0,
 ];
 
 db_open();

@@ -11,7 +11,7 @@
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $a = curl_exec($ch);
     curl_close($ch);
-    $parts = array();
+    $parts = [];
     if (preg_match(''.'/TEST\\sTRANSACTION_ID:(.*?)$/ims', $a, $parts)) {
         echo 'Test status: OK<br>Batch id = '.$parts[1];
     } else {

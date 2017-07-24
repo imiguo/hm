@@ -47,7 +47,7 @@ E-mail:<br>
 <hr>
   <br><br><br>
 ';
-  $dirs = array();
+  $dirs = [];
   if (!file_exists('./inc/.htaccess')) {
       array_push($dirs, './inc');
   }
@@ -60,12 +60,12 @@ E-mail:<br>
       array_push($dirs, './tmpl_c');
   }
 
-  if (0 < sizeof($dirs)) {
+  if (0 < count($dirs)) {
       echo '
 <b>Security note:</b><br><br>
 Please upload the .htaccess file to the following folders:<br>
 ';
-      for ($i = 0; $i < sizeof($dirs); ++$i) {
+      for ($i = 0; $i < count($dirs); ++$i) {
           echo '<li>'.$dirs[$i].'</li>';
       }
 

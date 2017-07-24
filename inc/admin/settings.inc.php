@@ -95,7 +95,7 @@ for ($i = 1; $i < 32; ++$i) {
 echo '</select>';
 echo '<s';
 echo 'elect name=site_start_month class=inpts>';
-for ($i = 0; $i < sizeof($month); ++$i) {
+for ($i = 0; $i < count($month); ++$i) {
     echo '<option value=';
     echo $i + 1;
     echo ' ';

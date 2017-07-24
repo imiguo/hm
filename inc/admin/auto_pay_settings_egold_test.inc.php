@@ -11,7 +11,7 @@
     $a = curl_exec($ch);
     echo ''.'<hr>'.$a.'<hr>';
     curl_close($ch);
-    $parts = array();
+    $parts = [];
     if (preg_match('/<input type=hidden name=PAYMENT_BATCH_NUM VALUE="(\\d+)">/ims', $a, $parts)) {
         echo 'Test status: OK<br>Batch id = '.$parts[1];
     } else {

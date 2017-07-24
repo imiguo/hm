@@ -21,7 +21,7 @@ You cannot change the exchange rates!
 
   echo '
 ';
-  $exch = array();
+  $exch = [];
   $q = 'select * from hm2_exchange_rates';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
