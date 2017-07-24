@@ -48,7 +48,7 @@ while ($row = mysql_fetch_array($sth)) {
     $exchange_systems[$row['id']] = [
         'name'        => $row['name'],
         'sfx'         => $sfx,
-        status        => $row['status'],
+        'status'      => $row['status'],
         'has_account' => 0,
     ];
 }
@@ -641,10 +641,10 @@ if ($frm['a'] == 'mass') {
             $s .= ''.','.$kk;
         }
 
-        $q = ''.'select 
-		h.*, 
-		u.egold_account, 
-		u.evocash_account, 
+        $q = ''.'select
+		h.*,
+		u.egold_account,
+		u.evocash_account,
 		u.intgold_account,
 		u.stormpay_account,
 		u.ebullion_account,
@@ -1003,7 +1003,7 @@ if (($frm['a'] == 'referal' and $frm['action'] == 'change')) {
                 $percent_daily = sprintf('%0.2f', $frm['ref_percent_daily'][$i]);
                 $percent_weekly = sprintf('%0.2f', $frm['ref_percent_weekly'][$i]);
                 $percent_monthly = sprintf('%0.2f', $frm['ref_percent_monthly'][$i]);
-                $q = ''.'insert into hm2_referal set 
+                $q = ''.'insert into hm2_referal set
   	level = 1,
   	name= \''.$qname.'\',
   	from_value = '.$from.',
@@ -1225,7 +1225,7 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
                ';
                     (db_query($q) or print mysql_error());
                     $deposit_id = mysql_insert_id();
-                    $q = ''.'insert into hm2_history set 
+                    $q = ''.'insert into hm2_history set
                user_id = '.$user_id.',
                amount = \'-'.$amount.'\',
                type = \'deposit\',
@@ -1636,9 +1636,9 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
         if ($row = mysql_fetch_array($sth)) {
             $release_deposit = sprintf('%-.2f', $vv);
             if ($release_deposit <= $row['actual_amount']) {
-                $q = ''.'insert into hm2_history set 
+                $q = ''.'insert into hm2_history set
     		user_id = '.$u_id.',
-	    	amount = '.$release_deposit.', 
+	    	amount = '.$release_deposit.',
     		type = \'early_deposit_release\',
 	    	actual_amount = '.$release_deposit.',
         ec = '.$row['ec'].',
@@ -1718,7 +1718,7 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
              ';
                 (db_query($q) or print mysql_error());
                 $deposit_id = mysql_insert_id();
-                $q = ''.'insert into hm2_history set 
+                $q = ''.'insert into hm2_history set
              user_id = '.$user_id.',
              amount = \'-'.$amount.'\',
              type = \'deposit\',
@@ -1932,7 +1932,7 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
             $user_auto_pay_earning = 1;
         }
 
-        $q = ''.'update hm2_users set 
+        $q = ''.'update hm2_users set
   	name = \''.$name.'\',
     '.$edit_location.'
   	username = \''.$username.'\',
@@ -2090,11 +2090,11 @@ if ($frm['action'] == 'add_hyip') {
             $min_amount = sprintf('%0.2f', $frm['rate_min_amount'][$i]);
             $max_amount = sprintf('%0.2f', $frm['rate_max_amount'][$i]);
             $percent = sprintf('%0.2f', $frm['rate_percent'][$i]);
-            $q = ''.'insert into hm2_plans set 
-		parent='.$parent.', 
-		name=\''.$name.'\', 
+            $q = ''.'insert into hm2_plans set
+		parent='.$parent.',
+		name=\''.$name.'\',
 		min_deposit = '.$min_amount.',
-		max_deposit = '.$max_amount.', 
+		max_deposit = '.$max_amount.',
 		percent = '.$percent;
             if (!(db_query($q))) {
                 exit(mysql_error());
@@ -2209,11 +2209,11 @@ if ($frm['action'] == 'edit_hyip') {
             $min_amount = sprintf('%0.2f', $frm['rate_min_amount'][$i]);
             $max_amount = sprintf('%0.2f', $frm['rate_max_amount'][$i]);
             $percent = sprintf('%0.2f', $frm['rate_percent'][$i]);
-            $q = ''.'insert into hm2_plans set 
-		parent='.$parent.', 
-		name=\''.$name.'\', 
+            $q = ''.'insert into hm2_plans set
+		parent='.$parent.',
+		name=\''.$name.'\',
 		min_deposit = '.$min_amount.',
-		max_deposit = '.$max_amount.', 
+		max_deposit = '.$max_amount.',
 		percent = '.$percent;
             if (!(db_query($q))) {
                 exit(mysql_error());
@@ -2412,13 +2412,13 @@ if ($frm[a] == 'delete_processing') {
 
 include 'inc/admin/html.header.inc.php';
 echo '
-  <tr> 
+  <tr>
     <td valign="top">
 	 <table cellspacing=0 cellpadding=1 border=0 width=100% height=100% bgcolor=#ff8d00>
 	   <tr>
 	     <td>
            <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
-             <tr bgcolor="#FFFFFF" valign="top"> 
+             <tr bgcolor="#FFFFFF" valign="top">
               <td width=300 align=center>
 				   <!-- Image Table: Start -->
 ';
@@ -2426,7 +2426,7 @@ include 'inc/admin/menu.inc.php';
 echo '				   <br>
 
               </td>
-              <td bgcolor="#ff8d00" valign="top" width=1><img src=images/q.gif width=1 height=1></td>          
+              <td bgcolor="#ff8d00" valign="top" width=1><img src=images/q.gif width=1 height=1></td>
               <td bgcolor="#FFFFFF" valign="top" width=99%>
             <!-- Main: Start -->
             <table width="100%" height="100%" border="0" cellpadding="10" cellspacing="0" class="forTexts">

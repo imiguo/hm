@@ -90,7 +90,7 @@ while ($row = mysql_fetch_array($sth)) {
     $exchange_systems[$row['id']] = [
         'name'        => $row['name'],
         'sfx'         => $sfx,
-        status        => $row['status'],
+        'status'      => $row['status'],
         'has_account' => 0,
     ];
 }
