@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -11,12 +11,11 @@
 /***********************************************************************/
 
 
-  $processings = array ();
+  $processings = array();
   $q = 'select * from hm2_processings';
-  $sth = db_query ($q);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    array_push ($processings, $row);
+  $sth = db_query($q);
+  while ($row = mysql_fetch_array($sth)) {
+      array_push($processings, $row);
   }
 
   echo '<b>Custom processings:</b><br><br>
@@ -31,36 +30,32 @@
  <th bgcolor=FFEA00>Actions</th>
 </tr>
 ';
-  if (0 < sizeof ($processings))
-  {
-    for ($i = 0; $i < sizeof ($processings); ++$i)
-    {
-      echo '<tr>
+  if (0 < sizeof($processings)) {
+      for ($i = 0; $i < sizeof($processings); ++$i) {
+          echo '<tr>
 <td align=center><input type=checkbox name="status[';
-      echo $processings[$i]['id'];
-      echo ']" value=1 ';
-      echo ($processings[$i]['status'] ? 'checked' : '');
-      echo '></td>
+          echo $processings[$i]['id'];
+          echo ']" value=1 ';
+          echo($processings[$i]['status'] ? 'checked' : '');
+          echo '></td>
 <td>';
-      echo $processings[$i]['name'];
-      echo '</td>
+          echo $processings[$i]['name'];
+          echo '</td>
 <td align=center><img src=\'images/';
-      echo $processings[$i]['id'];
-      echo '.gif\' alt="Upload image \'';
-      echo $processings[$i]['id'];
-      echo '.gif\' to \'images\' folder" height=\'17\'></td>
+          echo $processings[$i]['id'];
+          echo '.gif\' alt="Upload image \'';
+          echo $processings[$i]['id'];
+          echo '.gif\' to \'images\' folder" height=\'17\'></td>
 <td nowrap><a href="?a=edit_processing&pid=';
-      echo $processings[$i]['id'];
-      echo '">[edit]</a> <a href="?a=delete_processing&pid=';
-      echo $processings[$i]['id'];
-      echo '" onclick="return confirm(\'Do youreally want to delete this processing?\')">[delete]</a></td>
+          echo $processings[$i]['id'];
+          echo '">[edit]</a> <a href="?a=delete_processing&pid=';
+          echo $processings[$i]['id'];
+          echo '" onclick="return confirm(\'Do youreally want to delete this processing?\')">[delete]</a></td>
 </tr>
 ';
-    }
-  }
-  else
-  {
-    echo '<tr>
+      }
+  } else {
+      echo '<tr>
 <td align=center colspan=4>No records found</td>
 </tr>
 ';
@@ -68,9 +63,8 @@
 
   echo '</table><br>
 ';
-  if (0 < sizeof ($processings))
-  {
-    echo '<input type="submit" value="Update" class=sbmt> &nbsp;
+  if (0 < sizeof($processings)) {
+      echo '<input type="submit" value="Update" class=sbmt> &nbsp;
 ';
   }
 
@@ -78,7 +72,7 @@
 </form>
 <br>
 ';
-  echo start_info_table ('100%');
+  echo start_info_table('100%');
   echo 'You can add or edit any payment processing in this section by clicking the "edit" or "add new" link.
 You should provide the full instructions for a user to know how to make a
 deposit using the specified payment system.<br><br>
@@ -87,5 +81,4 @@ The administrator has to approve or delete any transaction and
 process all the users\' withdrawal reques';
   echo 'ts manually.
 ';
-  echo end_info_table ();
-?>
+  echo end_info_table();

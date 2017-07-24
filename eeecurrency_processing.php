@@ -1,16 +1,16 @@
 <?php
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if ( ! $dbconn) {
+if (! $dbconn) {
     print 'Cannot connect mysql';
-    exit ();
+    exit();
 }
 
 $mymd5 = $settings['md5altphrase_eeecurrency'];
-if (($mymd5 == $frm['HASH'] AND ($frm['TRANSACTION_ID'] != '' AND $exchange_systems[8]['status'] == 1))) {
+if (($mymd5 == $frm['HASH'] and ($frm['TRANSACTION_ID'] != '' and $exchange_systems[8]['status'] == 1))) {
     if ($frm['RESULT'] != '0') {
         db_close($dbconn);
-        exit ();
+        exit();
     }
 
     $user_id = sprintf('%d', $frm['ITEM_NUMBER']);
@@ -26,4 +26,4 @@ if (($mymd5 == $frm['HASH'] AND ($frm['TRANSACTION_ID'] != '' AND $exchange_syst
 
 db_close($dbconn);
 print '1';
-exit ();
+exit();

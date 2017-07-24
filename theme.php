@@ -1,8 +1,10 @@
 <?php
 $theme = '';
-if (! isset($argv)) exit;
+if (! isset($argv)) {
+    exit;
+}
 if (isset($argv[1])) {
-  $theme = $argv[1];
+    $theme = $argv[1];
 }
 $theme_list = [
     'default',
@@ -23,8 +25,8 @@ if (! in_array($theme, $theme_list)) {
     exit;
 }
 
-foreach(glob("./*") as $file)  {
-    if(is_link($file)) {
+foreach (glob("./*") as $file) {
+    if (is_link($file)) {
         unlink($file);
     }
 }

@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -22,10 +22,10 @@
   echo 'elect name=type class=inpts onchange="document.nform.submit()">
 <option value=\'new\'>New</option>
 <option value=\'problem\' ';
-  echo ($frm['type'] == 'problem' ? 'selected' : '');
+  echo($frm['type'] == 'problem' ? 'selected' : '');
   echo '>Problem</option>
 <option value=\'processed\' ';
-  echo ($frm['type'] == 'processed' ? 'selected' : '');
+  echo($frm['type'] == 'processed' ? 'selected' : '');
   echo '>Processed</option>
 </select>
 <input type=submit value=\'GO\' class=sbmt>
@@ -44,12 +44,11 @@
  <th bgcolor=FFEA00>-</th>
 </tr>
 ';
-  $processings = array ();
+  $processings = array();
   $q = 'select * from hm2_processings';
-  $sth = db_query ($q);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $processings[$row['id']] = unserialize ($row['infofields']);
+  $sth = db_query($q);
+  while ($row = mysql_fetch_array($sth)) {
+      $processings[$row['id']] = unserialize($row['infofields']);
   }
 
   $status = ($frm['type'] == 'problem' ? 'problem' : ($frm['type'] == 'processed' ? 'processed' : 'new'));
@@ -65,55 +64,48 @@
           hm2_users.id = hm2_pending_deposits.user_id
         order by date desc
        ');
-  ($sth = db_query ($q) OR print mysql_error ());
+  ($sth = db_query($q) or print mysql_error());
   $col = 0;
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $infofields = unserialize ($row['fields']);
-    $fields = '';
-    if (!$exchange_systems[$row['ec']])
-    {
-      $row['ec'] = 'deleted';
-      foreach ($infofields as $id => $name)
-      {
-        $fields .= '' . $name . '<br>';
+  while ($row = mysql_fetch_array($sth)) {
+      $infofields = unserialize($row['fields']);
+      $fields = '';
+      if (!$exchange_systems[$row['ec']]) {
+          $row['ec'] = 'deleted';
+          foreach ($infofields as $id => $name) {
+              $fields .= '' . $name . '<br>';
+          }
+      } else {
+          foreach ($processings[$row['ec']] as $id => $name) {
+              $fields .= '' . $name . ': ' . stripslashes($infofields[$id]) . '<br>';
+          }
       }
-    }
-    else
-    {
-      foreach ($processings[$row['ec']] as $id => $name)
-      {
-        $fields .= '' . $name . ': ' . stripslashes ($infofields[$id]) . '<br>';
-      }
-    }
 
-    ++$col;
-    echo '     <tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
+      ++$col;
+      echo '     <tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
 	<td><b>';
-    echo $row['username'];
-    echo '</b></td>
+      echo $row['username'];
+      echo '</b></td>
 	<td align=center>';
-    echo $row['d'];
-    echo '</td>
+      echo $row['d'];
+      echo '</td>
 	<td align=center>$';
-    echo number_format ($row['amount'], 2);
-    echo '</td>
+      echo number_format($row['amount'], 2);
+      echo '</td>
 	<td>';
-    echo $fields;
-    echo '</td>
+      echo $fields;
+      echo '</td>
 	<td align=center><img src="images/';
-    echo $row['ec'];
-    echo '.gif" height=17 hspace=1 vspace=1></td>
+      echo $row['ec'];
+      echo '.gif" height=17 hspace=1 vspace=1></td>
 	<td align=center><a href=?a=pending_deposit_details&id=';
-    echo $row['id'];
-    echo '>[details]</a></td>
+      echo $row['id'];
+      echo '>[details]</a></td>
      </tr>
     ';
   }
 
-  if ($col == 0)
-  {
-    echo '       <tr><td colspan=6 align=center>No records found</td></tr>
+  if ($col == 0) {
+      echo '       <tr><td colspan=6 align=center>No records found</td></tr>
     ';
   }
 
@@ -121,4 +113,3 @@
 
 </table>
 ';
-?>

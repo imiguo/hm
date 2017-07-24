@@ -1,14 +1,14 @@
 <?php
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if ( ! $dbconn) {
+if (! $dbconn) {
     print 'Cannot connect mysql';
-    exit ();
+    exit();
 }
 
 if ($frm['a'] == 'pay_withdraw') {
     $batch = $frm['ATIP_TRANSACTION_ID'];
-    list ($id, $str) = explode('-', $frm['withdraw']);
+    list($id, $str) = explode('-', $frm['withdraw']);
     if ($str == '') {
         $str = 'abcdef';
     }
@@ -18,7 +18,7 @@ if ($frm['a'] == 'pay_withdraw') {
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = ''.'delete from hm2_history where id = '.$id;
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
         $q = 'insert into hm2_history set 
           	user_id = '.$row['user_id'].',
           	amount = -'.abs($row['amount']).(''.',
@@ -28,7 +28,7 @@ if ($frm['a'] == 'pay_withdraw') {
           	ec = 5,
           	date = now()
   	';
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $sth = db_query($q);
         $userinfo = mysql_fetch_array($sth);
@@ -60,7 +60,7 @@ if ($frm['a'] == 'pay_withdraw') {
     }
 
     print 1;
-    exit ();
+    exit();
 }
 
 $gpg_path = escapeshellcmd($settings['gpg_path']);
@@ -76,13 +76,13 @@ $gpg_command = ''.'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --o
 $buf = '';
 $keyID = '';
 $fp = @popen(''.$gpg_command, 'r');
-if ( ! $fp) {
+if (! $fp) {
     print 'GPG not found';
     db_close($dbconn);
-    exit ();
+    exit();
 }
 
-while ( ! feof($fp)) {
+while (! feof($fp)) {
     $buf = fgets($fp, 4096);
     $pos = strstr($buf, 'key ID');
     if (0 < strlen($pos)) {
@@ -92,7 +92,7 @@ while ( ! feof($fp)) {
 }
 
 pclose($fp);
-if (($keyID == $settings['ebullion_keyID'] AND $exchange_systems[5]['status'] == 1)) {
+if (($keyID == $settings['ebullion_keyID'] and $exchange_systems[5]['status'] == 1)) {
     if (is_file(''.$xmlfile)) {
         $fx = fopen(''.$xmlfile, 'r');
         $xmlcert = fread($fx, filesize(''.$xmlfile));
@@ -108,7 +108,7 @@ if (($keyID == $settings['ebullion_keyID'] AND $exchange_systems[5]['status'] ==
     $batch = $frm['batch'];
     $account = $frm['payer'];
     $mode = $frm['a'];
-    if (($frm['metal'] == 1 AND $frm['unit'] == 1)) {
+    if (($frm['metal'] == 1 and $frm['unit'] == 1)) {
         add_deposit(5, $user_id, $amount, $batch, $account, $h_id, $compound);
     }
 }
@@ -117,4 +117,4 @@ db_close($dbconn);
 print '1';
 unlink($tmpfile);
 unlink($xmlfile);
-exit ();
+exit();

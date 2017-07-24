@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -15,4 +15,3 @@
 <br>
 Sorry, such a username already exists in the database. Please click \'back\' button 
 on your browser and try another one.';
-?>

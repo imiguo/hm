@@ -1,15 +1,15 @@
 <?php
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if ( ! $dbconn) {
+if (! $dbconn) {
     print 'Cannot connect mysql';
-    exit ();
+    exit();
 }
 
 $mymd5 = $settings['md5altphrase'];
 if ($frm['a'] == 'pay_withdraw') {
     $batch = $frm['PAYMENT_BATCH_NUM'];
-    list ($id, $str) = explode('-', $frm['withdraw']);
+    list($id, $str) = explode('-', $frm['withdraw']);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';
@@ -20,7 +20,7 @@ if ($frm['a'] == 'pay_withdraw') {
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = ''.'delete from hm2_history where id = '.$id;
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
         $q = 'insert into hm2_history set 
 	user_id = '.$row['user_id'].',
 	amount = -'.abs($row['amount']).(''.',
@@ -30,7 +30,7 @@ if ($frm['a'] == 'pay_withdraw') {
 	ec = 0,
 	date = now()
 	';
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $usth = db_query($q);
         $userinfo = mysql_fetch_array($usth);
@@ -48,14 +48,14 @@ if ($frm['a'] == 'pay_withdraw') {
 
     print 1;
     db_close($dbconn);
-    exit ();
+    exit();
 }
 
 $hash = strtoupper(md5($frm['PAYMENT_ID'].':'.$frm['PAYEE_ACCOUNT'].':'.$frm['PAYMENT_AMOUNT'].':'.$frm['PAYMENT_UNITS'].':'.$frm['PAYMENT_METAL_ID'].':'.$frm['PAYMENT_BATCH_NUM'].':'.$frm['PAYER_ACCOUNT'].':'.$mymd5.':'.$frm['ACTUAL_PAYMENT_OUNCES'].':'.$frm['USD_PER_OUNCE'].':'.$frm['FEEWEIGHT'].':'.$frm['TIMESTAMPGMT']));
-if (($hash == strtoupper($frm['V2_HASH']) AND $exchange_systems[0]['status'] == 1)) {
+if (($hash == strtoupper($frm['V2_HASH']) and $exchange_systems[0]['status'] == 1)) {
     $ip = $frm_env['REMOTE_ADDR'];
-    if ( ! preg_match('/63\\.240\\.230\\.\\d/i', $ip)) {
-        exit ();
+    if (! preg_match('/63\\.240\\.230\\.\\d/i', $ip)) {
+        exit();
     }
 
     $user_id = sprintf('%d', $frm['userid']);
@@ -64,12 +64,11 @@ if (($hash == strtoupper($frm['V2_HASH']) AND $exchange_systems[0]['status'] == 
     $amount = $frm['PAYMENT_AMOUNT'];
     $batch = $frm['PAYMENT_BATCH_NUM'];
     $account = $frm['PAYER_ACCOUNT'];
-    if ((($frm['a'] == 'checkpayment' AND $frm['PAYMENT_METAL_ID'] == 1) AND $frm['PAYMENT_UNITS'] == 1)) {
+    if ((($frm['a'] == 'checkpayment' and $frm['PAYMENT_METAL_ID'] == 1) and $frm['PAYMENT_UNITS'] == 1)) {
         add_deposit(0, $user_id, $amount, $batch, $account, $h_id, $compound);
     }
 }
 
 db_close($dbconn);
 print '1';
-exit ();
-?>
+exit();

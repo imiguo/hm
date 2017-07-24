@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -76,15 +76,14 @@
  </td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=auto_withdraw value=1 ';
-  echo ($settings['use_auto_payment'] == 1 ? 'checked' : '');
+  echo($settings['use_auto_payment'] == 1 ? 'checked' : '');
   echo '>
               Auto-withdrawal enabled 
               ';
-  if ($settings['demomode'] == 1)
-  {
-    echo '              &nbsp; &nbsp; ';
-    echo '<s';
-    echo 'pan style="color: #D20202;">Checkbox available in 
+  if ($settings['demomode'] == 1) {
+      echo '              &nbsp; &nbsp; ';
+      echo '<s';
+      echo 'pan style="color: #D20202;">Checkbox available in 
               Pro version only</span> 
               ';
   }
@@ -94,11 +93,10 @@
  <td colspan=2><input type=checkbox name=admin_auto_pay_earning value=1>
               Pay earnings directly to the user\'s e-gold account 
               ';
-  if ($settings['demomode'] == 1)
-  {
-    echo '              &nbsp; &nbsp; ';
-    echo '<s';
-    echo 'pan style="color: #D20202;">Checkbox available in 
+  if ($settings['demomode'] == 1) {
+      echo '              &nbsp; &nbsp; ';
+      echo '<s';
+      echo 'pan style="color: #D20202;">Checkbox available in 
               Pro version only</span> 
               ';
   }
@@ -113,11 +111,10 @@
 </td>
     <td valign=top> 
       ';
-  echo start_info_table ('200');
+  echo start_info_table('200');
   echo '      Add a new member here. Do not forget to type a nick name, password, e-mail 
       and e-gold account number. 
       ';
-  echo end_info_table ();
+  echo end_info_table();
   echo '    </td>
   </tr></table>';
-?>

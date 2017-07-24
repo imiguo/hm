@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -12,85 +12,75 @@
 
 
   $q = 'select * from hm2_pay_settings where n=\'egold_account_password\'';
-  $sth = db_query ($q);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $egold_password = $row['v'];
+  $sth = db_query($q);
+  while ($row = mysql_fetch_array($sth)) {
+      $egold_password = $row['v'];
   }
 
   $q = 'select * from hm2_pay_settings where n=\'intgold_password\'';
-  $sth = db_query ($q);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $intgold_password = $row['v'];
+  $sth = db_query($q);
+  while ($row = mysql_fetch_array($sth)) {
+      $intgold_password = $row['v'];
   }
 
   $q = 'select * from hm2_pay_settings where n=\'intgold_transaction_code\'';
-  $sth = db_query ($q);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $intgold_transaction_code = $row['v'];
+  $sth = db_query($q);
+  while ($row = mysql_fetch_array($sth)) {
+      $intgold_transaction_code = $row['v'];
   }
 
   $q = 'select * from hm2_pay_settings where n=\'eeecurrency_password\'';
-  $sth = db_query ($q);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $eeecurrency_password = $row['v'];
+  $sth = db_query($q);
+  while ($row = mysql_fetch_array($sth)) {
+      $eeecurrency_password = $row['v'];
   }
 
   $q = 'select * from hm2_pay_settings where n=\'eeecurrency_transaction_code\'';
-  $sth = db_query ($q);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $eeecurrency_transaction_code = $row['v'];
+  $sth = db_query($q);
+  while ($row = mysql_fetch_array($sth)) {
+      $eeecurrency_transaction_code = $row['v'];
   }
 
   $q = 'select * from hm2_pay_settings where n=\'pecunix_password\'';
-  $sth = db_query ($q);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $pecunix_password = $row['v'];
+  $sth = db_query($q);
+  while ($row = mysql_fetch_array($sth)) {
+      $pecunix_password = $row['v'];
   }
 
   echo '
 ';
-  if ($settings['demomode'] == 1)
-  {
-    echo start_info_table ('100%');
-    echo '<b>Demo version restriction</b><br>
+  if ($settings['demomode'] == 1) {
+      echo start_info_table('100%');
+      echo '<b>Demo version restriction</b><br>
 You cannot edit these settings.<br>
 <br>
 Note: This screen is available in Pro version only!!! 
 ';
-    echo end_info_table ();
+      echo end_info_table();
   }
 
   echo '
 ';
-  if ($frm['say'] == 'invalid_passphrase')
-  {
-    echo '<b style="color:red">Invalid Alternative Passphrase. No data has been updated.</b><br><br>
+  if ($frm['say'] == 'invalid_passphrase') {
+      echo '<b style="color:red">Invalid Alternative Passphrase. No data has been updated.</b><br><br>
 ';
   }
 
-  if ($frm['say'] == 'done')
-  {
-    echo '<b style="color:green">Changes has been successfully made.</b><br>
+  if ($frm['say'] == 'done') {
+      echo '<b style="color:green">Changes has been successfully made.</b><br>
 <br>
 ';
   }
 
   echo '
 ';
-  if ($settings['demomode'] != 1)
-  {
-    echo start_info_table ('100%');
-    echo '<b>We recommend to use the auto-payment feature only on the dedicated servers. Virtual Shared Hosting has much less security.
+  if ($settings['demomode'] != 1) {
+      echo start_info_table('100%');
+      echo '<b>We recommend to use the auto-payment feature only on the dedicated servers. Virtual Shared Hosting has much less security.
 <br>Use Mass Payment tool instead <a href=?a=thistory&ttype=withdraw_pending>here</a>.</b>
 ';
-    echo end_info_table ();
-    echo '<br>
+      echo end_info_table();
+      echo '<br>
 ';
   }
 
@@ -100,16 +90,14 @@ Note: This screen is available in Pro version only!!!
   echo 'cript language=javascript>
 function test_egold() {
 ';
-  if ($settings['demomode'] == 1)
-  {
-    echo '  alert("Sorry, not available in demo mode");
+  if ($settings['demomode'] == 1) {
+      echo '  alert("Sorry, not available in demo mode");
   return false;
 ';
   }
 
-  if (!function_exists ('curl_init'))
-  {
-    echo '  alert("Sorry, curl extension is not installed on server";
+  if (!function_exists('curl_init')) {
+      echo '  alert("Sorry, curl extension is not installed on server";
   return false;
 ';
   }
@@ -137,16 +125,14 @@ function test_egold() {
   echo '
 function test_intgold() {
 ';
-  if ($settings['demomode'] == 1)
-  {
-    echo '  alert("Sorry, not available in demo mode");
+  if ($settings['demomode'] == 1) {
+      echo '  alert("Sorry, not available in demo mode");
   return false;
 ';
   }
 
-  if (!function_exists ('curl_init'))
-  {
-    echo '  alert("Sorry, curl extension is not installed on server";
+  if (!function_exists('curl_init')) {
+      echo '  alert("Sorry, curl extension is not installed on server";
   return false;
 ';
   }
@@ -178,16 +164,14 @@ function test_intgold() {
 
 function test_eeecurrency() {
 ';
-  if ($settings['demomode'] == 1)
-  {
-    echo '  alert("Sorry, not available in demo mode");
+  if ($settings['demomode'] == 1) {
+      echo '  alert("Sorry, not available in demo mode");
   return false;
 ';
   }
 
-  if (!function_exists ('curl_init'))
-  {
-    echo '  alert("Sorry, curl extension is not installed on server";
+  if (!function_exists('curl_init')) {
+      echo '  alert("Sorry, curl extension is not installed on server";
   return false;
 ';
   }
@@ -219,16 +203,14 @@ function test_eeecurrency() {
 
 function test_pecunix() {
 ';
-  if ($settings['demomode'] == 1)
-  {
-    echo '  alert("Sorry, not available in demo mode");
+  if ($settings['demomode'] == 1) {
+      echo '  alert("Sorry, not available in demo mode");
   return false;
 ';
   }
 
-  if (!function_exists ('curl_init'))
-  {
-    echo '  alert("Sorry, curl extension is not installed on server";
+  if (!function_exists('curl_init')) {
+      echo '  alert("Sorry, curl extension is not installed on server";
   return false;
 ';
   }
@@ -267,15 +249,14 @@ function test_pecunix() {
 
 <b>Auto-payment settings:</b><br><br>
   ';
-  if (!function_exists ('curl_init'))
-  {
-    echo '  ';
-    echo start_info_table ('100%');
-    echo '  <b>Auto-payment is not available</b><br>
+  if (!function_exists('curl_init')) {
+      echo '  ';
+      echo start_info_table('100%');
+      echo '  <b>Auto-payment is not available</b><br>
   Curl module is not installed on your server. 
   ';
-    echo end_info_table ();
-    echo '  <br>
+      echo end_info_table();
+      echo '  <br>
   <br>
 ';
   }
@@ -285,7 +266,7 @@ function test_pecunix() {
 <table cellspacing=0 cellpadding=2 border=0 width=100%>
 <tr>
  <td colspan=2><input type=checkbox name=use_auto_payment value=1 ';
-  echo ($settings['use_auto_payment'] == 1 ? 'checked' : '');
+  echo($settings['use_auto_payment'] == 1 ? 'checked' : '');
   echo '> Use auto-payment</td>
 </tr><tr>
  <td colspan=2><br>
@@ -297,9 +278,8 @@ function test_pecunix() {
   echo '" class=inpts size=30></td>
 </tr>
 ';
-  if ($egold_password != '')
-  {
-    echo '<tr>
+  if ($egold_password != '') {
+      echo '<tr>
  <td>Old passphrase:</td>
  <td>**********</td>
 </tr>
@@ -325,9 +305,8 @@ function test_pecunix() {
   echo '" class=inpts size=30></td>
 </tr>
 ';
-  if ($evocash_password != '')
-  {
-    echo '<tr>
+  if ($evocash_password != '') {
+      echo '<tr>
  <td>Old password:</td>
  <td>**********</td>
 </tr>
@@ -339,9 +318,8 @@ function test_pecunix() {
  <td><input type=password name=evocash_account_password value="" class=inpts size=30></td>
 </tr>
 ';
-  if ($evocash_transaction_code != '')
-  {
-    echo '<tr>
+  if ($evocash_transaction_code != '') {
+      echo '<tr>
  <td>Old transaction code:</td>
  <td>**********</td>
 </tr>
@@ -364,9 +342,8 @@ function test_pecunix() {
   echo '" class=inpts size=30></td>
 </tr>
 ';
-  if ($intgold_password != '')
-  {
-    echo '<tr>
+  if ($intgold_password != '') {
+      echo '<tr>
  <td>Old password:</td>
  <td>**********</td>
 </tr>
@@ -379,9 +356,8 @@ function test_pecunix() {
  <td><input type=password name=intgold_password value="" class=inpts size=30></td>
 </tr>
 ';
-  if ($intgold_transaction_code != '')
-  {
-    echo '<tr>
+  if ($intgold_transaction_code != '') {
+      echo '<tr>
  <td>Old secondary password:</td>
  <td>**********</td>
 </tr>
@@ -403,9 +379,8 @@ function test_pecunix() {
   echo '" class=inpts size=30></td>
 </tr>
 ';
-  if ($eeecurrency_password != '')
-  {
-    echo '<tr>
+  if ($eeecurrency_password != '') {
+      echo '<tr>
  <td>Old password:</td>
  <td>**********</td>
 </tr>
@@ -418,9 +393,8 @@ function test_pecunix() {
  <td><input type=password name=eeecurrency_password value="" class=inpts size=30></td>
 </tr>
 ';
-  if ($eeecurrency_transaction_code != '')
-  {
-    echo '<tr>
+  if ($eeecurrency_transaction_code != '') {
+      echo '<tr>
  <td>Old secondary password:</td>
  <td>**********</td>
 </tr>
@@ -442,9 +416,8 @@ function test_pecunix() {
   echo '" class=inpts size=30></td>
 </tr>
 ';
-  if ($pecunix_password != '')
-  {
-    echo '<tr>
+  if ($pecunix_password != '') {
+      echo '<tr>
  <td>Old Payment PIK:</td>
  <td>**********</td>
 </tr>
@@ -478,9 +451,8 @@ function test_pecunix() {
   echo '" class=inpts size=30></td>
 </tr>
 ';
-  if ($userinfo['transaction_code'] != '')
-  {
-    echo '<tr>
+  if ($userinfo['transaction_code'] != '') {
+      echo '<tr>
  <td colspan=2>&nbsp;</td>
 </tr>
 <tr>
@@ -501,16 +473,15 @@ function test_pecunix() {
 
 ';
   $q = 'select * from hm2_pay_errors limit 1';
-  ($sth = db_query ($q) OR print mysql_error);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    echo '<a href=?a=error_pay_log>Check error transactions</a>
+  ($sth = db_query($q) or print mysql_error);
+  while ($row = mysql_fetch_array($sth)) {
+      echo '<a href=?a=error_pay_log>Check error transactions</a>
 <br><br>
 
 ';
   }
 
-  echo start_info_table ('100%');
+  echo start_info_table('100%');
   echo '<b>Payer account information</b><br>
 Type your login and password here. <br>
 For e-gold: Make sure you\'ve entered your server IP at "Account Info" -> "Account 
@@ -555,5 +526,4 @@ will be m';
   echo 'ade, because Evocash does not allow spends to the same account. The error 
 is returned if your settings are wrong. -->
 ';
-  echo end_info_table ();
-?>
+  echo end_info_table();

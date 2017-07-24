@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -22,22 +22,20 @@
 
 ';
   $q = 'select * from hm2_pay_errors order by id desc';
-  ($sth = db_query ($q) OR print mysql_error ());
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $txt = $row['txt'];
-    $txt = preg_replace ('/<.*?>/', '', $txt);
-    echo '<tr>
+  ($sth = db_query($q) or print mysql_error());
+  while ($row = mysql_fetch_array($sth)) {
+      $txt = $row['txt'];
+      $txt = preg_replace('/<.*?>/', '', $txt);
+      echo '<tr>
  <td>';
-    echo $row['date'];
-    echo '</td>
+      echo $row['date'];
+      echo '</td>
  <td>';
-    echo $txt;
-    echo '</td>
+      echo $txt;
+      echo '</td>
 </tr>
 
 ';
   }
 
   echo '</table>';
-?>

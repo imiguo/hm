@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -18,50 +18,44 @@
 <body>
 ';
   $qonpage = 50;
-  $qstatus = quote ($frm['status']);
-  if ($qstatus == '')
-  {
-    $qstatus = 'on';
+  $qstatus = quote($frm['status']);
+  if ($qstatus == '') {
+      $qstatus = 'on';
   }
 
-  if ($frm['q'] != '')
-  {
-    $qsearch = quote ($frm['q']);
-    $searchpart = '' . ' and (username like \'%' . $qsearch . '%\' or email like \'%' . $qsearch . '%\' or name like \'%' . $qsearch . '%\') ';
+  if ($frm['q'] != '') {
+      $qsearch = quote($frm['q']);
+      $searchpart = '' . ' and (username like \'%' . $qsearch . '%\' or email like \'%' . $qsearch . '%\' or name like \'%' . $qsearch . '%\') ';
   }
 
   $q = '' . 'select count(*) from hm2_users where status = \'' . $qstatus . '\' and id <> 1 ' . $searchpart . ' order by id desc';
-  ($sth = db_query ($q) OR print mysql_error ());
-  $row = mysql_fetch_array ($sth);
+  ($sth = db_query($q) or print mysql_error());
+  $row = mysql_fetch_array($sth);
   $total = $row[0];
-  $page = sprintf ('%d', $frm['p']);
-  if ($page == 0)
-  {
-    $page = 1;
+  $page = sprintf('%d', $frm['p']);
+  if ($page == 0) {
+      $page = 1;
   }
 
-  $qpages = ceil ($total / $qonpage);
-  if ($qpages < $page)
-  {
-    $page = $qpages;
+  $qpages = ceil($total / $qonpage);
+  if ($qpages < $page) {
+      $page = $qpages;
   }
 
   $start = ($page - 1) * $qonpage;
-  if ($start < -1)
-  {
-    $start = -1;
+  if ($start < -1) {
+      $start = -1;
   }
 
   $end = $page * $qonpage;
   $end = ($total < $end ? $total : $end);
   $q = '' . 'select *, date_format(date_register, \'%b-%e-%Y\') as dr from hm2_users where status = \'' . $qstatus . '\' and id <> 1 ' . $searchpart . ' order by id desc limit ' . $start . ', ' . $qonpage;
-  ($sth = db_query ($q) OR print mysql_error ());
-  $members = array ();
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $ar = get_user_balance ($row['id']);
-    $row = array_merge ($row, $ar);
-    array_push ($members, $row);
+  ($sth = db_query($q) or print mysql_error());
+  $members = array();
+  while ($row = mysql_fetch_array($sth)) {
+      $ar = get_user_balance($row['id']);
+      $row = array_merge($row, $ar);
+      array_push($members, $row);
   }
 
   echo '<b>Members:</b><br><br>
@@ -85,51 +79,47 @@
  <th bgcolor=FFEA00 align=center>Withdraw</th>
 </tr>
 ';
-  if (0 < sizeof ($members))
-  {
-    for ($i = 0; $i < sizeof ($members); ++$i)
-    {
-      echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
+  if (0 < sizeof($members)) {
+      for ($i = 0; $i < sizeof($members); ++$i) {
+          echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
  <td>';
-      echo '<s';
-      echo 'mall>';
-      echo $members[$i]['username'];
-      echo '</small></td>
+          echo '<s';
+          echo 'mall>';
+          echo $members[$i]['username'];
+          echo '</small></td>
  <td align=center width=100>';
-      echo '<s';
-      echo 'mall>';
-      echo $members[$i]['dr'];
-      echo ' ';
-      echo ($members[$i]['confirm_string'] != '' ? '<br>not confirmed!' : '');
-      echo '</small></td>
+          echo '<s';
+          echo 'mall>';
+          echo $members[$i]['dr'];
+          echo ' ';
+          echo($members[$i]['confirm_string'] != '' ? '<br>not confirmed!' : '');
+          echo '</small></td>
  <td align=right>';
-      echo '<s';
-      echo 'mall>$';
-      echo number_format ($members[$i]['total'], 2);
-      echo '</small></td>
+          echo '<s';
+          echo 'mall>$';
+          echo number_format($members[$i]['total'], 2);
+          echo '</small></td>
  <td align=right>';
-      echo '<s';
-      echo 'mall>$';
-      echo number_format (abs ($members[$i]['deposit']), 2);
-      echo '</small></td>
+          echo '<s';
+          echo 'mall>$';
+          echo number_format(abs($members[$i]['deposit']), 2);
+          echo '</small></td>
  <td align=right>';
-      echo '<s';
-      echo 'mall>$';
-      echo number_format ($members[$i]['earning'], 2);
-      echo '</small></td>
+          echo '<s';
+          echo 'mall>$';
+          echo number_format($members[$i]['earning'], 2);
+          echo '</small></td>
  <td align=right>';
-      echo '<s';
-      echo 'mall>$';
-      echo number_format (abs ($members[$i]['withdrawal']), 2);
-      echo '</small></td>
+          echo '<s';
+          echo 'mall>$';
+          echo number_format(abs($members[$i]['withdrawal']), 2);
+          echo '</small></td>
 </tr>
 
 ';
-    }
-  }
-  else
-  {
-    echo '<tr>
+      }
+  } else {
+      echo '<tr>
  <td colspan=7 align=center>No accounts found</td>
 </tr>
 ';
@@ -137,38 +127,32 @@
 
   echo '</table><br>
 ';
-  if (1 < $qpages)
-  {
-    echo '<center>';
-    echo '<s';
-    echo 'mall>';
-    for ($i = 1; $i <= $qpages; ++$i)
-    {
-      if ($page == $i)
-      {
-        print '' . ' [' . $i . '] ';
-        continue;
+  if (1 < $qpages) {
+      echo '<center>';
+      echo '<s';
+      echo 'mall>';
+      for ($i = 1; $i <= $qpages; ++$i) {
+          if ($page == $i) {
+              print '' . ' [' . $i . '] ';
+              continue;
+          } else {
+              echo ' <a href="?a=members&status=';
+              echo $qstatus;
+              echo '&q=';
+              echo $frm['q'];
+              echo '&p=';
+              echo $i;
+              echo '">';
+              echo $i;
+              echo '</a> ';
+              continue;
+          }
       }
-      else
-      {
-        echo ' <a href="?a=members&status=';
-        echo $qstatus;
-        echo '&q=';
-        echo $frm['q'];
-        echo '&p=';
-        echo $i;
-        echo '">';
-        echo $i;
-        echo '</a> ';
-        continue;
-      }
-    }
 
-    echo '</small></center>';
+      echo '</small></center>';
   }
 
   echo '
 
 
 </body>';
-?>

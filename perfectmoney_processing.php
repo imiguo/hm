@@ -1,9 +1,9 @@
 <?php
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if ( ! $dbconn) {
+if (! $dbconn) {
     print 'Cannot connect mysql';
-    exit ();
+    exit();
 }
 
 
@@ -13,7 +13,7 @@ file_put_contents('../log/perfectmoney_processing_'.ENV.'.txt', 'IP:' . $frm_env
 $mymd5 = $settings['md5altphrase_perfectmoney'];
 if ($frm['a'] == 'pay_withdraw') {
     $batch = $frm['PAYMENT_BATCH_NUM'];
-    list ($id, $str) = explode('-', $frm['withdraw']);
+    list($id, $str) = explode('-', $frm['withdraw']);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';
@@ -24,7 +24,7 @@ if ($frm['a'] == 'pay_withdraw') {
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = ''.'delete from hm2_history where id = '.$id;
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
         $q = 'insert into hm2_history set 
 	user_id = '.$row['user_id'].',
 	amount = -'.abs($row['amount']).(''.',
@@ -34,7 +34,7 @@ if ($frm['a'] == 'pay_withdraw') {
 	ec = 0,
 	date = now()
 	';
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
 
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $usth = db_query($q);
@@ -53,7 +53,7 @@ if ($frm['a'] == 'pay_withdraw') {
 
     print 1;
     db_close($dbconn);
-    exit ();
+    exit();
 }
 
 if ($frm['a'] == 'checkpayment') {
@@ -64,7 +64,7 @@ if ($frm['a'] == 'checkpayment') {
               $frm['TIMESTAMPGMT'];
     $hash = strtoupper(md5($string));
 
-    if ($hash == $frm['V2_HASH'] AND $exchange_systems[3]['status'] == 1) {
+    if ($hash == $frm['V2_HASH'] and $exchange_systems[3]['status'] == 1) {
         // $ip = $frm_env['REMOTE_ADDR'];
         // if ( ! preg_match('/63\\.240\\.230\\.\\d/i', $ip)) {
         //     exit;
@@ -83,5 +83,5 @@ if ($frm['a'] == 'checkpayment') {
 
     db_close($dbconn);
     print '1';
-    exit ();
+    exit();
 }

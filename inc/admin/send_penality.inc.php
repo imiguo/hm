@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -12,44 +12,40 @@
 
 
   $q = 'select count(*) as col from hm2_users where id > 1';
-  $sth = db_query ($q);
-  ($row = mysql_fetch_array ($sth) OR print mysql_error ());
+  $sth = db_query($q);
+  ($row = mysql_fetch_array($sth) or print mysql_error());
   $all_c = $row['col'];
   $q = 'select count(*) as col from hm2_users, hm2_deposits where hm2_users.id > 1 and hm2_deposits.user_id = hm2_users.id group by hm2_users.id';
-  $sth = db_query ($q);
-  ($row = mysql_fetch_array ($sth) OR print mysql_error ());
-  $act_c = sprintf ('%d', $row['col']);
+  $sth = db_query($q);
+  ($row = mysql_fetch_array($sth) or print mysql_error());
+  $act_c = sprintf('%d', $row['col']);
   $pas_c = $all_c - $act_c;
   echo '
 <b>Send a penalty:</b><br><br>
 ';
-  if ($frm['say'] == 'wrongamount')
-  {
-    echo 'The penalty has not been sent. You had entered the wrong amount!<br>
+  if ($frm['say'] == 'wrongamount') {
+      echo 'The penalty has not been sent. You had entered the wrong amount!<br>
 <br>
 ';
   }
 
-  if ($frm['say'] == 'someerror')
-  {
-    echo 'The penalty has not been sent. Unknown error!<br>
+  if ($frm['say'] == 'someerror') {
+      echo 'The penalty has not been sent. Unknown error!<br>
 <br>
 ';
   }
 
-  if ($frm['say'] == 'notsend')
-  {
-    echo 'The penalty has not been sent. No users found!<br>
+  if ($frm['say'] == 'notsend') {
+      echo 'The penalty has not been sent. No users found!<br>
 <br>
 ';
   }
 
-  if ($frm['say'] == 'send')
-  {
-    echo 'The penalty has been sent. Total: $
+  if ($frm['say'] == 'send') {
+      echo 'The penalty has been sent. Total: $
 ';
-    echo number_format ($frm['total'], 2);
-    echo '<br>
+      echo number_format($frm['total'], 2);
+      echo '<br>
 <br>
 ';
   }
@@ -97,17 +93,15 @@ function checkform() {
   echo '<s';
   echo 'elect name=ec class=inpts>
 ';
-  foreach ($exchange_systems as $id => $data)
-  {
-    if ($data['status'] != 1)
-    {
-      continue;
-    }
+  foreach ($exchange_systems as $id => $data) {
+      if ($data['status'] != 1) {
+          continue;
+      }
 
-    echo '	<option value="';
-    echo $id;
-    echo '">';
-    echo $data['name'];
+      echo '	<option value="';
+      echo $id;
+      echo '">';
+      echo $data['name'];
   }
 
   echo '	</select>
@@ -140,12 +134,11 @@ function checkform() {
 
 </td><td valign=top align=center>
 ';
-  echo start_info_table ('200');
+  echo start_info_table('200');
   echo 'Send a penalty:<br>
 You can send a penalty to one user, several users or all users.<br>
 Enter an amount, a description and select a user or a user group you want send a penalty.<br>
 User can read the description in the transactions history.<br>
 ';
-  echo end_info_table ();
+  echo end_info_table();
   echo '</td></tr></table>';
-?>

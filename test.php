@@ -12,9 +12,9 @@ ini_set('display_errors', '1');
 
 function mail_test()
 {
-    if ( ! db_open()) {
+    if (! db_open()) {
         print 'Cannot connect mysql';
-        exit ();
+        exit();
     }
     $info['username'] = 'entimm';
     $info['password'] = '********';

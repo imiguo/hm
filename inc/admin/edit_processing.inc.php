@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -11,18 +11,17 @@
 /***********************************************************************/
 
 
-  $id = intval ($frm['pid']);
+  $id = intval($frm['pid']);
   $q = '' . 'select * from hm2_processings where id = ' . $id;
-  $sth = db_query ($q);
-  $row = mysql_fetch_array ($sth);
-  if (!$row)
-  {
-    header ('Location: ?a=processings');
-    db_close ($dbconn);
-    exit ();
+  $sth = db_query($q);
+  $row = mysql_fetch_array($sth);
+  if (!$row) {
+      header('Location: ?a=processings');
+      db_close($dbconn);
+      exit();
   }
 
-  $fields = unserialize ($row['infofields']);
+  $fields = unserialize($row['infofields']);
   echo '
 <b>Edit Processing:</b><br><br>
 ';
@@ -47,19 +46,19 @@ function c1()
 <tr>
  <td>Status</td>
  <td><input type="checkbox" name="status" value=1 ';
-  echo ($row[status] ? 'checked' : '');
+  echo($row[status] ? 'checked' : '');
   echo '></td>
 </tr>
 <tr>
  <td>Name:</td>
  <td><input type="text" name="name" value="';
-  echo htmlspecialchars ($row['name']);
+  echo htmlspecialchars($row['name']);
   echo '" class=inpts size=40></td>
 </tr>
 <tr>
  <td width=117>Payment notes:</td>
  <td><textarea name="description" rows=8 cols=40 class=inpts>';
-  echo htmlspecialchars ($row['description']);
+  echo htmlspecialchars($row['description']);
   echo '</textarea></td>
 </tr>
 </table>
@@ -68,36 +67,34 @@ function c1()
  <td colspan=2><br>Information Fields:</td>
 </tr>
 ';
-  for ($id = 1; $id <= sizeof ($fields); ++$id)
-  {
-    echo '<tr>
+  for ($id = 1; $id <= sizeof($fields); ++$id) {
+      echo '<tr>
  <td><input type=checkbox name="use[';
-    echo $id;
-    echo ']" value=1 checked onclick="c1()"></td>
+      echo $id;
+      echo ']" value=1 checked onclick="c1()"></td>
  <td>Field ';
-    echo $id;
-    echo ':</td>
+      echo $id;
+      echo ':</td>
  <td><input type="text" name="field[';
-    echo $id;
-    echo ']" value="';
-    echo htmlspecialchars (stripslashes ($fields[$id]));
-    echo '" class=inpts size=40></td>
+      echo $id;
+      echo ']" value="';
+      echo htmlspecialchars(stripslashes($fields[$id]));
+      echo '" class=inpts size=40></td>
 </tr>
 ';
   }
 
-  for ($id = sizeof ($fields) + 1; $id < sizeof ($fields) + 6; ++$id)
-  {
-    echo '<tr>
+  for ($id = sizeof($fields) + 1; $id < sizeof($fields) + 6; ++$id) {
+      echo '<tr>
  <td><input type=checkbox name="use[';
-    echo $id;
-    echo ']" value=1 onclick="c1()"></td>
+      echo $id;
+      echo ']" value=1 onclick="c1()"></td>
  <td>Field ';
-    echo $id;
-    echo ':</td>
+      echo $id;
+      echo ':</td>
  <td><input type="text" name="field[';
-    echo $id;
-    echo ']" value="" class=inpts size=40></td>
+      echo $id;
+      echo ']" value="" class=inpts size=40></td>
 </tr>
 ';
   }
@@ -111,7 +108,7 @@ function c1()
 c1();
 </script><br>
 ';
-  echo start_info_table ('100%');
+  echo start_info_table('100%');
   echo 'Enter all the user instructions, your account number in this payment
 system and all the needed information here. You\'ll see all new user
 transactions in the "Pending deposits" section.<br>
@@ -122,5 +119,4 @@ system. This ';
   echo 'information will help you to easily find the transfer
 or define whether it was really sent.
 ';
-  echo end_info_table ();
-?>
+  echo end_info_table();

@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -11,13 +11,12 @@
 /***********************************************************************/
 
 
-  if (($settings['demomode'] == 1 AND $frm['type'] != ''))
-  {
-    echo start_info_table ('100%');
-    echo '<b>Demo version restriction!</b><br>
+  if (($settings['demomode'] == 1 and $frm['type'] != '')) {
+      echo start_info_table('100%');
+      echo '<b>Demo version restriction!</b><br>
 You cannot change change e-mail templates! 
 ';
-    echo end_info_table ();
+      echo end_info_table();
   }
 
   echo '<b>Edit E-mail Templates:</b><br>
@@ -29,40 +28,35 @@ You cannot change change e-mail templates!
 ';
   $found = 0;
   $q = 'select id, name, status from hm2_emails';
-  ($sth = db_query ($q) OR print mysql_error ());
-  while ($row = mysql_fetch_array ($sth))
-  {
-    if ($row['id'] == $frm['type'])
-    {
-      $found = 1;
-    }
+  ($sth = db_query($q) or print mysql_error());
+  while ($row = mysql_fetch_array($sth)) {
+      if ($row['id'] == $frm['type']) {
+          $found = 1;
+      }
 
-    echo '<tr>
+      echo '<tr>
   <td width=1%><input type="checkbox" name="emails[';
-    echo $row['id'];
-    echo ']" value=1 ';
-    echo ($row['status'] == 1 ? 'checked' : '');
-    echo '></td>
+      echo $row['id'];
+      echo ']" value=1 ';
+      echo($row['status'] == 1 ? 'checked' : '');
+      echo '></td>
   <td width=99%><li>
   ';
-    if ($row['id'] == $frm['type'])
-    {
-      echo '  <b>';
-      echo $row['name'];
-      echo '</b>
+      if ($row['id'] == $frm['type']) {
+          echo '  <b>';
+          echo $row['name'];
+          echo '</b>
   ';
-    }
-    else
-    {
-      echo '  <a href="?a=edit_emails&type=';
-      echo $row['id'];
-      echo '">';
-      echo $row['name'];
-      echo '</a>
+      } else {
+          echo '  <a href="?a=edit_emails&type=';
+          echo $row['id'];
+          echo '">';
+          echo $row['name'];
+          echo '</a>
   ';
-    }
+      }
 
-    echo '</td></tr>
+      echo '</td></tr>
 ';
   }
 
@@ -72,32 +66,29 @@ You cannot change change e-mail templates!
 </table>
 </form>
 ';
-  if ($found)
-  {
-    if ($settings['demomode'] != 1)
-    {
-      if ($frm['action'] == 'save')
-      {
-        $subject = quote ($frm['subject']);
-        $text = quote ($frm['text']);
-        $text = preg_replace ('/
+  if ($found) {
+      if ($settings['demomode'] != 1) {
+          if ($frm['action'] == 'save') {
+              $subject = quote($frm['subject']);
+              $text = quote($frm['text']);
+              $text = preg_replace('/
 /', '', $text);
-        $q = '' . 'update hm2_emails set subject=\'' . $subject . '\', text=\'' . $text . '\' where id=\'' . $frm['type'] . '\'';
-        ($sth = db_query ($q) OR print mysql_error ());
-        echo '<br><b>Template has been saved.</b></br>';
+              $q = '' . 'update hm2_emails set subject=\'' . $subject . '\', text=\'' . $text . '\' where id=\'' . $frm['type'] . '\'';
+              ($sth = db_query($q) or print mysql_error());
+              echo '<br><b>Template has been saved.</b></br>';
+          }
       }
-    }
 
-    $q = 'select * from hm2_emails where id = \'' . $frm['type'] . '\'';
-    ($sth = db_query ($q) OR print mysql_error ());
-    $row = mysql_fetch_array ($sth);
-    echo '<br><br>
+      $q = 'select * from hm2_emails where id = \'' . $frm['type'] . '\'';
+      ($sth = db_query($q) or print mysql_error());
+      $row = mysql_fetch_array($sth);
+      echo '<br><br>
 <form method=post>
 <input type=hidden name=a value=edit_emails>
 <input type=hidden name=action value=save>
 <input type=hidden name=type value=';
-    echo $row['id'];
-    echo '>
+      echo $row['id'];
+      echo '>
 <table cellspacing=0 cellpadding=2 border=0>
 
 <tr>
@@ -106,8 +97,8 @@ You cannot change change e-mail templates!
 <tr>
  <td>
   <input type="text" name="subject" value="';
-    echo quote ($row['subject']);
-    echo '" class=inpts size=100>
+      echo quote($row['subject']);
+      echo '" class=inpts size=100>
  </td>
 </tr>
 <tr>
@@ -116,8 +107,8 @@ You cannot change change e-mail templates!
 <tr>
  <td>
   <textarea name=text class=inpts cols=100 rows=20>';
-    echo quote ($row['text']);
-    echo '</textarea>
+      echo quote($row['text']);
+      echo '</textarea>
  </td>
 </tr>
 <tr>
@@ -130,10 +121,9 @@ You cannot change change e-mail templates!
   echo '
 <br>
 ';
-  echo start_info_table ('100%');
-  if ($frm['type'] == '')
-  {
-    echo 'Select e-mail type to edit system messages.<br>
+  echo start_info_table('100%');
+  if ($frm['type'] == '') {
+      echo 'Select e-mail type to edit system messages.<br>
 If checkbox opposite to template name is switched off e-mail will be not sent.
 ';
   }
@@ -142,9 +132,8 @@ If checkbox opposite to template name is switched off e-mail will be not sent.
 
 
 ';
-  if ($frm['type'] == 'registration')
-  {
-    echo 'Users will receive this e-mail after registration.<br><br>
+  if ($frm['type'] == 'registration') {
+      echo 'Users will receive this e-mail after registration.<br><br>
 
 Personalization:<br>
 #name# - first and last user name.<br>
@@ -154,7 +143,7 @@ Personalization:<br>
 #site_name# - your site name (check settings screen to set this variable)<br><br>
 
 *Password will be replased with ***** if you use double opt-in confirma';
-    echo 'tion for user registration.
+      echo 'tion for user registration.
 ';
   }
 
@@ -162,9 +151,8 @@ Personalization:<br>
 
 
 ';
-  if ($frm['type'] == 'confirm_registration')
-  {
-    echo 'Users will receive this e-mail if you use double opt-in confirmation for user registration.<br><br>
+  if ($frm['type'] == 'confirm_registration') {
+      echo 'Users will receive this e-mail if you use double opt-in confirmation for user registration.<br><br>
 
 Personalization:<br>
 #name# - first and last user name.<br>
@@ -173,7 +161,7 @@ Personalization:<br>
 
 * Do not edit following part:<br>
 #site_url#/?a=confirm_registration&c=#confirm_string#<b';
-    echo 'r><br>
+      echo 'r><br>
 This string will be replaced with uniq confirmation url for every user.
 ';
   }
@@ -182,9 +170,8 @@ This string will be replaced with uniq confirmation url for every user.
 
 
 ';
-  if ($frm['type'] == 'forgot_password')
-  {
-    echo 'Users will receive this e-mail if forgot they password and request new password.<br><br>
+  if ($frm['type'] == 'forgot_password') {
+      echo 'Users will receive this e-mail if forgot they password and request new password.<br><br>
 
 Personalization:<br>
 #name# - first and last user name.<br>
@@ -193,7 +180,7 @@ Personalization:<br>
 #site_url# - your site url (check settings screen to set this variable)<br>
 #site_name# - your site name (check settings screen to set this variable)<br>
 #ip# - IP address of visitor that requested p';
-    echo 'assword.<br>
+      echo 'assword.<br>
 ';
   }
 
@@ -201,9 +188,8 @@ Personalization:<br>
 
 
 ';
-  if ($frm['type'] == 'bonus')
-  {
-    echo 'Users will receive this e-mail if admin add deposit to they account and select checkbox \'send notification\'.<br><br>
+  if ($frm['type'] == 'bonus') {
+      echo 'Users will receive this e-mail if admin add deposit to they account and select checkbox \'send notification\'.<br><br>
 
 Personalization:<br>
 #name# - first and last user name.<br>
@@ -217,9 +203,8 @@ Personalization:<br>
 
 
 ';
-  if ($frm['type'] == 'penalty')
-  {
-    echo 'Users will receive this e-mail if admin add penality to they account and select checkbox \'send notification\'.<br><br>
+  if ($frm['type'] == 'penalty') {
+      echo 'Users will receive this e-mail if admin add penality to they account and select checkbox \'send notification\'.<br><br>
 
 Personalization:<br>
 #name# - first and last user name.<br>
@@ -233,9 +218,8 @@ Personalization:<br>
 
 
 ';
-  if ($frm['type'] == 'change_account')
-  {
-    echo 'Users will receive this e-mail after edit account information.<br><br>
+  if ($frm['type'] == 'change_account') {
+      echo 'Users will receive this e-mail after edit account information.<br><br>
 
 Personalization:<br>
 #name# - first and last user name.<br>
@@ -246,7 +230,7 @@ Personalization:<br>
 
 #site_url# - your site url (check settings screen to set this variable)<br>
 #site_name# - your site name (check se';
-    echo 'ttings screen to set this variable)<br>
+      echo 'ttings screen to set this variable)<br>
 
 
 ';
@@ -254,9 +238,8 @@ Personalization:<br>
 
   echo '
 ';
-  if ($frm['type'] == 'withdraw_request_user_notification')
-  {
-    echo 'Users will receive this e-mail after withdraw request.<br><br>
+  if ($frm['type'] == 'withdraw_request_user_notification') {
+      echo 'Users will receive this e-mail after withdraw request.<br><br>
 
 Personalization:<br>
 #username# - username.<br>
@@ -273,9 +256,8 @@ Personalization:<br>
 
   echo '
 ';
-  if ($frm['type'] == 'withdraw_request_admin_notification')
-  {
-    echo 'Administrator will receive this e-mail after user withdraw request.<br><br>
+  if ($frm['type'] == 'withdraw_request_admin_notification') {
+      echo 'Administrator will receive this e-mail after user withdraw request.<br><br>
 
 Personalization:<br>
 #username# - username.<br>
@@ -292,9 +274,8 @@ Personalization:<br>
 
   echo '
 ';
-  if ($frm['type'] == 'withdraw_user_notification')
-  {
-    echo 'User will receive this e-mail after withdraw process. (After autopay if enabled, admin direct and mass withdraw processes)<br><br>
+  if ($frm['type'] == 'withdraw_user_notification') {
+      echo 'User will receive this e-mail after withdraw process. (After autopay if enabled, admin direct and mass withdraw processes)<br><br>
 
 Personalization:<br>
 #username# - username.<br>
@@ -305,7 +286,7 @@ Personalization:<br>
 #currency# - payment currency.<br>
 
 #site_url# - your site url (check settings screen to set this variable)';
-    echo '<br>
+      echo '<br>
 #site_name# - your site name (check settings screen to set this variable)<br>
 
 
@@ -314,9 +295,8 @@ Personalization:<br>
 
   echo '
 ';
-  if ($frm['type'] == 'withdraw_admin_notification')
-  {
-    echo 'User will receive this e-mail after withdraw process autopay if enabled<br><br>
+  if ($frm['type'] == 'withdraw_admin_notification') {
+      echo 'User will receive this e-mail after withdraw process autopay if enabled<br><br>
 
 Personalization:<br>
 #username# - username.<br>
@@ -328,7 +308,7 @@ Personalization:<br>
 
 #site_url# - your site url (check settings screen to set this variable)<br>
 #site_name# - your site name (check settings sc';
-    echo 'reen to set this variable)<br>
+      echo 'reen to set this variable)<br>
 
 
 ';
@@ -336,9 +316,8 @@ Personalization:<br>
 
   echo '
 ';
-  if ($frm['type'] == 'deposit_admin_notification')
-  {
-    echo 'Administrator will receive this e-mail after user made deposit<br><br>
+  if ($frm['type'] == 'deposit_admin_notification') {
+      echo 'Administrator will receive this e-mail after user made deposit<br><br>
 
 Personalization:<br>
 #username# - username.<br>
@@ -350,11 +329,10 @@ Personalization:<br>
 #plan# - investment package name.<br>
 #site_url# - your site url (check settings screen to set this variable)<br>
 #site_name# - your si';
-    echo 'te name (check settings screen to set this variable)<br>
+      echo 'te name (check settings screen to set this variable)<br>
 ';
   }
 
   echo '
 ';
-  echo end_info_table ();
-?>
+  echo end_info_table();

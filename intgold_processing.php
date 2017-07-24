@@ -1,15 +1,15 @@
 <?php
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if ( ! $dbconn) {
+if (! $dbconn) {
     print 'Cannot connect mysql';
-    exit ();
+    exit();
 }
 
 $mymd5 = $settings['md5altphrase_intgold'];
 if ($frm['CUSTOM2'] == 'pay_withdraw') {
     $batch = $frm['TRANSACTION_ID'];
-    list ($id, $str) = explode('-', $frm['CUSTOM1']);
+    list($id, $str) = explode('-', $frm['CUSTOM1']);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';
@@ -20,7 +20,7 @@ if ($frm['CUSTOM2'] == 'pay_withdraw') {
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = ''.'delete from hm2_history where id = '.$id;
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
         $q = 'insert into hm2_history set 
 	user_id = '.$row['user_id'].',
 	amount = -'.abs($row['amount']).(''.',
@@ -30,7 +30,7 @@ if ($frm['CUSTOM2'] == 'pay_withdraw') {
 	ec = 2,
 	date = now()
 	';
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $sth = db_query($q);
         $userinfo = mysql_fetch_array($sth);
@@ -48,13 +48,13 @@ if ($frm['CUSTOM2'] == 'pay_withdraw') {
 
     print 1;
     db_close($dbconn);
-    exit ();
+    exit();
 }
 
-if (($mymd5 == $frm['HASH'] AND ($frm['TRANSACTION_ID'] != '' AND $exchange_systems[2]['status'] == 1))) {
+if (($mymd5 == $frm['HASH'] and ($frm['TRANSACTION_ID'] != '' and $exchange_systems[2]['status'] == 1))) {
     if ($frm['RESULT'] != '0') {
         db_close($dbconn);
-        exit ();
+        exit();
     }
 
     $user_id = sprintf('%d', $frm['ITEM_NUMBER']);
@@ -70,4 +70,4 @@ if (($mymd5 == $frm['HASH'] AND ($frm['TRANSACTION_ID'] != '' AND $exchange_syst
 
 db_close($dbconn);
 print '1';
-exit ();
+exit();

@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -11,13 +11,12 @@
 /***********************************************************************/
 
 
-  $id = sprintf ('%d', $frm['id']);
+  $id = sprintf('%d', $frm['id']);
   $q = '' . 'select * from hm2_users where id = ' . $id;
-  $sth = db_query ($q);
-  $userinfo = mysql_fetch_array ($sth);
-  if ($frm['say'] == 'done')
-  {
-    echo ' The penalty has been sent to the user.<br>
+  $sth = db_query($q);
+  $userinfo = mysql_fetch_array($sth);
+  if ($frm['say'] == 'done') {
+      echo ' The penalty has been sent to the user.<br>
 <br>
 ';
   }
@@ -109,17 +108,15 @@
   echo '<s';
   echo 'elect name=ec class=inpts>
 ';
-  foreach ($exchange_systems as $id => $data)
-  {
-    if ($data['status'] != 1)
-    {
-      continue;
-    }
+  foreach ($exchange_systems as $id => $data) {
+      if ($data['status'] != 1) {
+          continue;
+      }
 
-    echo '	<option value="';
-    echo $id;
-    echo '">';
-    echo $data['name'];
+      echo '	<option value="';
+      echo $id;
+      echo '">';
+      echo $data['name'];
   }
 
   echo '	</select>
@@ -139,11 +136,10 @@
 </td>
 <td valign=top align=center> 
   ';
-  echo start_info_table ('200');
+  echo start_info_table('200');
   echo '  Add a penalty:<br>
   To send a penalty to any user you should enter an amount and description of 
   this penalty. User can read the description in the transactions history.<br>
   Check `send e-mail notification` to report the user about this penalty. 
   ';
-  echo end_info_table ();
-?>
+  echo end_info_table();

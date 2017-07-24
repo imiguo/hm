@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -882,4 +882,3 @@ CalculatePercent();
 </script>
 </form>
 ';
-?>

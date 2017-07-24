@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -11,46 +11,39 @@
 /***********************************************************************/
 
 
-  if (!is_array ($frm['pend']))
-  {
-    print 'Please select withdraw requests first';
-    db_close ($dbconn);
-    exit ();
-  }
-  else
-  {
-    $ids = implode (', ', array_keys ($frm['pend']));
-    $sum = 0;
-    $q = '' . 'select actual_amount from hm2_history where id in (' . $ids . ') and ec in (0, 1, 2, 5, 8, 9)';
-    $sth = db_query ($q);
-    while ($row = mysql_fetch_array ($sth))
-    {
-      $amount = abs ($row['actual_amount']);
-      $fee = floor ($amount * $settings['withdrawal_fee']) / 100;
-      if ($fee < $settings['withdrawal_fee_min'])
-      {
-        $fee = $settings['withdrawal_fee_min'];
+  if (!is_array($frm['pend'])) {
+      print 'Please select withdraw requests first';
+      db_close($dbconn);
+      exit();
+  } else {
+      $ids = implode(', ', array_keys($frm['pend']));
+      $sum = 0;
+      $q = '' . 'select actual_amount from hm2_history where id in (' . $ids . ') and ec in (0, 1, 2, 5, 8, 9)';
+      $sth = db_query($q);
+      while ($row = mysql_fetch_array($sth)) {
+          $amount = abs($row['actual_amount']);
+          $fee = floor($amount * $settings['withdrawal_fee']) / 100;
+          if ($fee < $settings['withdrawal_fee_min']) {
+              $fee = $settings['withdrawal_fee_min'];
+          }
+
+          $to_withdraw = $amount - $fee;
+          if ($to_withdraw < 0) {
+              $to_withdraw = 0;
+          }
+
+          $to_withdraw = number_format(floor($to_withdraw * 100) / 100, 2);
+          $sum += $to_withdraw;
       }
 
-      $to_withdraw = $amount - $fee;
-      if ($to_withdraw < 0)
-      {
-        $to_withdraw = 0;
-      }
-
-      $to_withdraw = number_format (floor ($to_withdraw * 100) / 100, 2);
-      $sum += $to_withdraw;
-    }
-
-    $amount = $sum;
+      $amount = $sum;
   }
 
   echo ' <b>Mass Payment:</b><br>
 <br>
 ';
-  if ($settings['demomode'] != 1)
-  {
-    echo '
+  if ($settings['demomode'] != 1) {
+      echo '
 <form method=post name=payform onsubmit="return di_sabled()">
 <input type=hidden name=a value=mass>
 <input type=hidden name=action2 value=masspay>
@@ -60,17 +53,15 @@
 
   echo '  ';
   $ids = $frm['pend'];
-  if (is_array ($ids))
-  {
-    reset ($ids);
-    while (list ($kk, $vv) = each ($ids))
-    {
-      print '' . '<input type=hidden name=pend[' . $kk . '] value=1>';
-    }
+  if (is_array($ids)) {
+      reset($ids);
+      while (list($kk, $vv) = each($ids)) {
+          print '' . '<input type=hidden name=pend[' . $kk . '] value=1>';
+      }
   }
 
   echo '  Are you sure you want to pay <b>$';
-  echo number_format (abs ($amount), 2);
+  echo number_format(abs($amount), 2);
   echo '</b>
   ?<br>
   <br>
@@ -212,15 +203,12 @@ function en_it() {
   echo 'cript language=javascript>en_it();</script>
 
 ';
-  if ($settings['demomode'] == 1)
-  {
-    echo start_info_table ('100%');
-    echo '<b>Demo restriction!</b><br>
+  if ($settings['demomode'] == 1) {
+      echo start_info_table('100%');
+      echo '<b>Demo restriction!</b><br>
 Not Available in demo!<br><br>
 
 Available in Pro version only!!!
 ';
-    echo end_info_table ();
+      echo end_info_table();
   }
-
-?>

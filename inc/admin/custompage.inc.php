@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -33,4 +33,3 @@ To create custom page you should follow the next steps:<br>
 
 
 ';
-?>

@@ -2,7 +2,7 @@
 $month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 $admin_stat_password = '';
 $q = 'select * from hm2_users where id=1';
-($sth = db_query($q) OR print mysql_error());
+($sth = db_query($q) or print mysql_error());
 while ($row = mysql_fetch_array($sth)) {
     if ($row['stat_password'] != '') {
         $admin_stat_password = '*****';
@@ -14,7 +14,7 @@ $gpg_version = 0;
 $gpg_command = escapeshellcmd($settings['gpg_path']).' --version';
 $fp = popen(''.$gpg_command, 'r');
 if ($fp) {
-    while ( ! feof($fp)) {
+    while (! feof($fp)) {
         $buf = fgets($fp, 4096);
         $pos = strstr($buf, 'gpg (GnuPG)');
         if (0 < strlen($pos)) {
@@ -353,7 +353,7 @@ if ($gpg_version != '') {
         Unpack the archive onto your local computer and choose the next files in the fields below:<br>
         <table cellspacing=0 cellpadding=2 border=0>
          <tr><td>atip.pl :</td><td><input type=file name=atip_pl class=inpts></td><td>';
-    echo(($settings['def_payee_account_ebullion'] AND $settings['md5altphrase_ebullion']) ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>');
+    echo(($settings['def_payee_account_ebullion'] and $settings['md5altphrase_ebullion']) ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>');
     echo '</td></tr>
          <tr><td>status.php :</td><td><input type=file name=status_php class=inpts></td><td>';
     echo($settings['ebullion_keyID'] ? '<b style="color: green">OK</b>' : '<b style="color: red">NO</b>');
@@ -722,7 +722,7 @@ echo '" class=inpts size=10></td>
 echo $settings['graph_bg_color'];
 echo '" class=inpts size=10></td>
 </tr>';
-if ((function_exists('imagettfbbox') OR $settings['demomode'] == 1)) {
+if ((function_exists('imagettfbbox') or $settings['demomode'] == 1)) {
     echo '<tr>
  <td>Use advanced turing verification:</td>
  <td>';
@@ -1054,4 +1054,3 @@ echo '],6 ,0x6fa87e4f);
 //--';
 echo '>
 </script>';
-?>

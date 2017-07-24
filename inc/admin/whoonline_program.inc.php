@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -12,11 +12,10 @@
 
 
   $q = 'select count(*) as col from hm2_online ';
-  $sth = db_query ($q);
+  $sth = db_query($q);
   $visitors_online = 0;
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $visitors_online = $row['col'];
+  while ($row = mysql_fetch_array($sth)) {
+      $visitors_online = $row['col'];
   }
 
   echo '<html>
@@ -33,17 +32,13 @@ Number visitors: ';
 Registered Uses:<br><br>
 ';
   $q = 'select * from hm2_users where last_access_time + interval 30 minute > now()';
-  $sth = db_query ($q);
+  $sth = db_query($q);
   $i = 0;
-  while ($row = mysql_fetch_array ($sth))
-  {
-    if (0 < $i)
-    {
-      print ', ';
-    }
+  while ($row = mysql_fetch_array($sth)) {
+      if (0 < $i) {
+          print ', ';
+      }
 
-    print $row['username'];
-    ++$i;
+      print $row['username'];
+      ++$i;
   }
-
-?>

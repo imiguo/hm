@@ -1,15 +1,15 @@
 <?php
 include 'lib/config.inc.php';
 $dbconn = db_open();
-if ( ! $dbconn) {
+if (! $dbconn) {
     print 'Cannot connect mysql';
-    exit ();
+    exit();
 }
 
-list ($action, $user_id, $h_id) = preg_split('/\\|/', $frm['custom']);
+list($action, $user_id, $h_id) = preg_split('/\\|/', $frm['custom']);
 if ($action == 'pay_withdraw') {
     $batch = $frm['txn_id'];
-    list ($id, $str) = explode('-', $user_id);
+    list($id, $str) = explode('-', $user_id);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';
@@ -20,7 +20,7 @@ if ($action == 'pay_withdraw') {
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = ''.'delete from hm2_history where id = '.$id;
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
         $q = 'insert into hm2_history set
 	user_id = '.$row['user_id'].',
 	amount = -'.abs($row['amount']).(''.',
@@ -30,7 +30,7 @@ if ($action == 'pay_withdraw') {
 	ec = 6,
 	date = now()
 	';
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $usth = db_query($q);
         $userinfo = mysql_fetch_array($usth);
@@ -48,7 +48,7 @@ if ($action == 'pay_withdraw') {
 
     header('Location: admin.php?a=pay_withdraw&say=yes');
     db_close($dbconn);
-    exit ();
+    exit();
 }
 
 if (function_exists('curl_init')) {
@@ -66,7 +66,7 @@ if (function_exists('curl_init')) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $res = curl_exec($ch);
     curl_close($ch);
-    if ((((($res == 'VERIFIED' AND $frm['payment_status'] == 'Completed') AND $frm['business'] == $settings['def_payee_account_paypal']) AND $frm['mc_currency'] == 'USD') AND $exchange_systems[6]['status'] == 1)) {
+    if ((((($res == 'VERIFIED' and $frm['payment_status'] == 'Completed') and $frm['business'] == $settings['def_payee_account_paypal']) and $frm['mc_currency'] == 'USD') and $exchange_systems[6]['status'] == 1)) {
         $user_id = sprintf('%d', $user_id);
         $h_id = sprintf('%d', $h_id);
         $compound = sprintf('%d', $frm['compound']);
@@ -77,11 +77,11 @@ if (function_exists('curl_init')) {
             add_deposit(6, $user_id, $amount, $batch, $account, $h_id, $compound);
             header('Location: index.php?a=return_egold&process=yes');
             db_close($dbconn);
-            exit ();
+            exit();
         }
     }
 }
 
 header('Location: index.php?a=return_egold&process=no');
 db_close($dbconn);
-exit ();
+exit();

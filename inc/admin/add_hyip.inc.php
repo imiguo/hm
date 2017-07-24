@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -12,16 +12,14 @@
 
 
   $q = 'select * from hm2_types where status = \'on\'';
-  if (!($sth = db_query ($q)))
-  {
-    exit (mysql_error ());
-    ;
+  if (!($sth = db_query($q))) {
+      exit(mysql_error());
+      ;
   }
 
-  $packages = array ();
-  while ($row1 = mysql_fetch_array ($sth))
-  {
-    array_push ($packages, $row1);
+  $packages = array();
+  while ($row1 = mysql_fetch_array($sth)) {
+      array_push($packages, $row1);
   }
 
   echo '
@@ -111,11 +109,11 @@ function checkform() {
 </td><td valign=top>
 <br><br><br>
               ';
-  echo start_info_table ('100%');
+  echo start_info_table('100%');
   echo '              Type 0 in the max amount field if you do not want to limit your 
               users\' maximal deposit amount. 
               ';
-  echo end_info_table ();
+  echo end_info_table();
   echo '            </td>
           </tr></table>
  </td>
@@ -195,35 +193,33 @@ function checkform() {
   echo 'mall>set 0 to skip limitation</small></td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=\'work_week\' value=1 ';
-  echo ($row['work_week'] == 1 ? 'checked' : '');
+  echo($row['work_week'] == 1 ? 'checked' : '');
   echo ' onclick="CalculateProfit();InitCalendar();"><a href="javascript:alert(\'Earnings will accumulate on user accounts only  on Mon-Fri. Available for daily payment plans.\')" class=hlp> 
         Earnings only on mon-fri</td>
 </tr>
 ';
-  if (0 < sizeof ($packages))
-  {
-    echo '<tr>
+  if (0 < sizeof($packages)) {
+      echo '<tr>
  <td colspan=2><input type=checkbox name=parentch value=1 ';
-    echo ($row['parent'] == 0 ? '' : 'checked');
-    echo '>
+      echo($row['parent'] == 0 ? '' : 'checked');
+      echo '>
         <a href="javascript:alert(\'Administrator can select a \\\'parent\\\' package. Then users should deposit to parent package before depositing to this one.\')" class=hlp>Allow 
         depositing only after the user has deposited to the following package:</a> 
         <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;';
-    echo '<s';
-    echo 'elect name=parent class=inpts><option value=0>Select
+      echo '<s';
+      echo 'elect name=parent class=inpts><option value=0>Select
 	';
-    for ($i = 0; $i < sizeof ($packages); ++$i)
-    {
-      echo '	<option ';
-      echo ($row['parent'] == $packages[$i]['id'] ? 'selected' : '');
-      echo ' value=';
-      echo $packages[$i]['id'];
-      echo '>';
-      echo $packages[$i]['name'];
-      echo '	';
-    }
+      for ($i = 0; $i < sizeof($packages); ++$i) {
+          echo '	<option ';
+          echo($row['parent'] == $packages[$i]['id'] ? 'selected' : '');
+          echo ' value=';
+          echo $packages[$i]['id'];
+          echo '>';
+          echo $packages[$i]['name'];
+          echo '	';
+      }
 
-    echo '</select>
+      echo '</select>
  </td>
 </tr>
 <tr>
@@ -363,7 +359,7 @@ checkrates(4,1);
   echo '
 <br>
 ';
-  echo start_info_table ('100%');
+  echo start_info_table('100%');
   echo 'Create your package.<br><br>
 Set a name, a package duration, and rates. Select a payment period.<br>
 <br>
@@ -428,5 +424,4 @@ Fill all 5 plans, click \'save\' button, find';
 edit it. You will be able add the additional plans. (You can create unlimited 
 number of plans in this way). 
 ';
-  echo end_info_table ();
-?>
+  echo end_info_table();

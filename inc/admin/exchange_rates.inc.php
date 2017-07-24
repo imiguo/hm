@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -11,23 +11,21 @@
 /***********************************************************************/
 
 
-  if ($settings['demomode'])
-  {
-    echo start_info_table ('100%');
-    echo '<b>Demo version restriction!</b><br>
+  if ($settings['demomode']) {
+      echo start_info_table('100%');
+      echo '<b>Demo version restriction!</b><br>
 You cannot change the exchange rates!
 ';
-    echo end_info_table ();
+      echo end_info_table();
   }
 
   echo '
 ';
-  $exch = array ();
+  $exch = array();
   $q = 'select * from hm2_exchange_rates';
-  $sth = db_query ($q);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $exch[$row['sfrom']][$row['sto']] = $row['percent'];
+  $sth = db_query($q);
+  while ($row = mysql_fetch_array($sth)) {
+      $exch[$row['sfrom']][$row['sto']] = $row['percent'];
   }
 
   echo '
@@ -45,46 +43,40 @@ You cannot change the exchange rates!
 ';
   echo '
 ';
-  foreach ($exchange_systems as $id => $value)
-  {
-    echo '  <td bgcolor=#FFFFFF align=center><img src=images/';
-    echo $id;
-    echo '.gif height=17></td>
+  foreach ($exchange_systems as $id => $value) {
+      echo '  <td bgcolor=#FFFFFF align=center><img src=images/';
+      echo $id;
+      echo '.gif height=17></td>
 ';
   }
 
   echo '</tr>
 ';
-  foreach ($exchange_systems as $id_from => $value)
-  {
-    echo '<tr>
+  foreach ($exchange_systems as $id_from => $value) {
+      echo '<tr>
   <td align=center bgcolor=#FFFFFF><img src=images/';
-    echo $id_from;
-    echo '.gif height=17></td>
+      echo $id_from;
+      echo '.gif height=17></td>
   ';
-    foreach ($exchange_systems as $id_to => $value)
-    {
-      echo '    <td align=center bgcolor=#FFFFFF>';
-      if ($id_from != $id_to)
-      {
-        echo '<input type="text" name="exch[';
-        echo $id_from;
-        echo '][';
-        echo $id_to;
-        echo ']" value="';
-        echo sprintf ('%.02f', $exch[$id_from][$id_to]);
-        echo '" size=5 class=inpts>';
-      }
-      else
-      {
-        echo ' N/A ';
+      foreach ($exchange_systems as $id_to => $value) {
+          echo '    <td align=center bgcolor=#FFFFFF>';
+          if ($id_from != $id_to) {
+              echo '<input type="text" name="exch[';
+              echo $id_from;
+              echo '][';
+              echo $id_to;
+              echo ']" value="';
+              echo sprintf('%.02f', $exch[$id_from][$id_to]);
+              echo '" size=5 class=inpts>';
+          } else {
+              echo ' N/A ';
+          }
+
+          echo '</td>
+  ';
       }
 
-      echo '</td>
-  ';
-    }
-
-    echo '</tr>
+      echo '</tr>
 ';
   }
 
@@ -96,7 +88,7 @@ You cannot change the exchange rates!
 </td>
       <td valign=top align=right> 
         ';
-  echo start_info_table ('300');
+  echo start_info_table('300');
   echo '        Exchange Rates:<br>
         <br>
         Figures are the percents of an exchange rates.<br>
@@ -108,10 +100,9 @@ You cannot change the exchange rates!
         To di';
   echo 'sable an exchange set its percentage to 100. 
         ';
-  echo end_info_table ();
+  echo end_info_table();
   echo '      </td>
     </tr></table>
 </form>
 <br><br>
 ';
-?>

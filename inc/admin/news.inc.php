@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -11,50 +11,45 @@
 /***********************************************************************/
 
 
-  if ($settings['demomode'] != 1)
-  {
-    if ($frm['action'] == 'add')
-    {
-      $title = quote ($frm['title']);
-      $small_text = quote ($frm_orig['small_text']);
-      $small_text = preg_replace ('/\\r/', '', $small_text);
-      $full_text = quote ($frm_orig['full_text']);
-      $full_text = preg_replace ('/\\r/', '', $full_text);
-      $q = '' . 'insert into hm2_news set date=now(), title=\'' . $title . '\', small_text=\'' . $small_text . '\', full_text=\'' . $full_text . '\'';
-      (db_query ($q) OR print mysql_error ());
-    }
+  if ($settings['demomode'] != 1) {
+      if ($frm['action'] == 'add') {
+          $title = quote($frm['title']);
+          $small_text = quote($frm_orig['small_text']);
+          $small_text = preg_replace('/\\r/', '', $small_text);
+          $full_text = quote($frm_orig['full_text']);
+          $full_text = preg_replace('/\\r/', '', $full_text);
+          $q = '' . 'insert into hm2_news set date=now(), title=\'' . $title . '\', small_text=\'' . $small_text . '\', full_text=\'' . $full_text . '\'';
+          (db_query($q) or print mysql_error());
+      }
 
-    if (($frm['action'] == 'edit' AND $frm['save'] == 1))
-    {
-      $id = intval ($frm['id']);
-      $title = quote ($frm['title']);
-      $small_text = quote ($frm_orig['small_text']);
-      $small_text = preg_replace ('/\\r/', '', $small_text);
-      $full_text = quote ($frm_orig['full_text']);
-      $full_text = preg_replace ('/\\r/', '', $full_text);
-      $q = '' . 'update hm2_news set title=\'' . $title . '\', small_text=\'' . $small_text . '\', full_text=\'' . $full_text . '\' where id = ' . $id;
-      (db_query ($q) OR print mysql_error ());
-      $frm['action'] = '';
-    }
+      if (($frm['action'] == 'edit' and $frm['save'] == 1)) {
+          $id = intval($frm['id']);
+          $title = quote($frm['title']);
+          $small_text = quote($frm_orig['small_text']);
+          $small_text = preg_replace('/\\r/', '', $small_text);
+          $full_text = quote($frm_orig['full_text']);
+          $full_text = preg_replace('/\\r/', '', $full_text);
+          $q = '' . 'update hm2_news set title=\'' . $title . '\', small_text=\'' . $small_text . '\', full_text=\'' . $full_text . '\' where id = ' . $id;
+          (db_query($q) or print mysql_error());
+          $frm['action'] = '';
+      }
 
-    if ($frm['action'] == 'delete')
-    {
-      $id = intval ($frm['id']);
-      $q = '' . 'delete from hm2_news where id = ' . $id;
-      (db_query ($q) OR print mysql_error ());
-    }
+      if ($frm['action'] == 'delete') {
+          $id = intval($frm['id']);
+          $q = '' . 'delete from hm2_news where id = ' . $id;
+          (db_query($q) or print mysql_error());
+      }
   }
 
   echo '
 ';
-  if ($settings['demomode'] == 1)
-  {
-    echo start_info_table ('100%');
-    echo '<b>Demo version restriction!</b><br>
+  if ($settings['demomode'] == 1) {
+      echo start_info_table('100%');
+      echo '<b>Demo version restriction!</b><br>
 You cannot add/edit news!
 ';
-    echo end_info_table ();
-    echo '<br>
+      echo end_info_table();
+      echo '<br>
 ';
   }
 
@@ -66,144 +61,126 @@ You cannot add/edit news!
 
 ';
   $q = 'select count(*) as call from hm2_news';
-  ($sth = db_query ($q) OR print mysql_error ());
-  $row = mysql_fetch_array ($sth);
+  ($sth = db_query($q) or print mysql_error());
+  $row = mysql_fetch_array($sth);
   $count_all = $row['call'];
   echo '
 ';
-  if (0 < $count_all)
-  {
-    echo '<table cellspacing=1 cellpadding=2 border=0 width=100%>
+  if (0 < $count_all) {
+      echo '<table cellspacing=1 cellpadding=2 border=0 width=100%>
 ';
-    $page = $frm['page'];
-    $onpage = 20;
-    $colpages = ceil ($count_all / $onpage);
-    if ($page <= 1)
-    {
-      $page = 1;
-    }
-
-    if (($colpages < $page AND 1 < $colpages))
-    {
-      $page = $colpages;
-    }
-
-    $from = ($page - 1) * $onpage;
-    $edit_row = array ();
-    $q = 'select *, date_format(date + interval ' . $settings['time_dif'] . ('' . ' hour, \'%b-%e-%Y %r\') as d from hm2_news order by date desc limit ' . $from . ', ' . $onpage);
-    ($sth = db_query ($q) OR peint (mysql_error ()));
-    while ($row = mysql_fetch_array ($sth))
-    {
-      if (($frm['action'] == 'edit' AND $row['id'] == $frm['id']))
-      {
-        $edit_row = $row;
+      $page = $frm['page'];
+      $onpage = 20;
+      $colpages = ceil($count_all / $onpage);
+      if ($page <= 1) {
+          $page = 1;
       }
 
-      if (!$row['small_text'])
-      {
-        $row['full_text'] = strip_tags ($row['full_text']);
-        $row['small_text'] = preg_replace ('/^(.{100,120})\\s.*/', '' . '$1...', $row['full_text']);
+      if (($colpages < $page and 1 < $colpages)) {
+          $page = $colpages;
       }
 
-      $row['small_text'] = preg_replace ('/\\n/', '<br>', $row['small_text']);
-      echo '<tr><td>
+      $from = ($page - 1) * $onpage;
+      $edit_row = array();
+      $q = 'select *, date_format(date + interval ' . $settings['time_dif'] . ('' . ' hour, \'%b-%e-%Y %r\') as d from hm2_news order by date desc limit ' . $from . ', ' . $onpage);
+      ($sth = db_query($q) or peint(mysql_error()));
+      while ($row = mysql_fetch_array($sth)) {
+          if (($frm['action'] == 'edit' and $row['id'] == $frm['id'])) {
+              $edit_row = $row;
+          }
+
+          if (!$row['small_text']) {
+              $row['full_text'] = strip_tags($row['full_text']);
+              $row['small_text'] = preg_replace('/^(.{100,120})\\s.*/', '' . '$1...', $row['full_text']);
+          }
+
+          $row['small_text'] = preg_replace('/\\n/', '<br>', $row['small_text']);
+          echo '<tr><td>
   <b>';
-      echo $row['title'];
-      echo '</b><br>
+          echo $row['title'];
+          echo '</b><br>
   ';
-      echo $row['small_text'];
-      echo '<br>
+          echo $row['small_text'];
+          echo '<br>
   ';
-      echo '<s';
-      echo 'mall><i>';
-      echo $row['d'];
-      echo '</i></small>
+          echo '<s';
+          echo 'mall><i>';
+          echo $row['d'];
+          echo '</i></small>
   <a href="?a=news&action=edit&id=';
-      echo $row['id'];
-      echo '&page=';
-      echo $page;
-      echo '#editform">[EDIT]</a> 
+          echo $row['id'];
+          echo '&page=';
+          echo $page;
+          echo '#editform">[EDIT]</a> 
   <a href="?a=news&action=delete&id=';
-      echo $row['id'];
-      echo '&page=';
-      echo $page;
-      echo '" onclick="return confirm(\'Do you really want to delete news?\')">[REMOVE]</a> 
+          echo $row['id'];
+          echo '&page=';
+          echo $page;
+          echo '" onclick="return confirm(\'Do you really want to delete news?\')">[REMOVE]</a> 
 </td></tr>
 ';
-    }
+      }
 
-    echo '</table>
+      echo '</table>
 <center>
 ';
-    if (1 < $colpages)
-    {
-      if (1 < $page)
-      {
-        echo ' <a href="?a=news&page=';
-        echo $page - 1;
-        echo '">&lt;&lt;</a> ';
+      if (1 < $colpages) {
+          if (1 < $page) {
+              echo ' <a href="?a=news&page=';
+              echo $page - 1;
+              echo '">&lt;&lt;</a> ';
+          }
+
+          for ($i = 1; $i <= $colpages; ++$i) {
+              if ($i == $page) {
+                  echo ' <b>';
+                  echo $i;
+                  echo '</b> ';
+                  continue;
+              } else {
+                  echo ' <a href="?a=news&page=';
+                  echo $i;
+                  echo '">';
+                  echo $i;
+                  echo '</a> ';
+                  continue;
+              }
+          }
+
+          if ($page < $colpages) {
+              echo ' <a href="?a=news&page=';
+              echo $page + 1;
+              echo '">&gt;&gt;</a> ';
+          }
       }
 
-      for ($i = 1; $i <= $colpages; ++$i)
-      {
-        if ($i == $page)
-        {
-          echo ' <b>';
-          echo $i;
-          echo '</b> ';
-          continue;
-        }
-        else
-        {
-          echo ' <a href="?a=news&page=';
-          echo $i;
-          echo '">';
-          echo $i;
-          echo '</a> ';
-          continue;
-        }
-      }
-
-      if ($page < $colpages)
-      {
-        echo ' <a href="?a=news&page=';
-        echo $page + 1;
-        echo '">&gt;&gt;</a> ';
-      }
-    }
-
-    echo '</center>
+      echo '</center>
 ';
-  }
-  else
-  {
-    echo start_info_table ('100%');
-    echo 'Here you can manage your program news.<br>
+  } else {
+      echo start_info_table('100%');
+      echo 'Here you can manage your program news.<br>
 Your newly added news will appear on your site index page (if you have enabled 
 \'Show news box in InfoBox Settings section\')<br>
 Small text will appear on Index page. If you omit Small Text then the system will 
 show first 100-120 characters of your Full Text.<br>
 If you omit Full Text than the system will show Small Text on all the news page.
 ';
-    echo end_info_table ();
+      echo end_info_table();
   }
 
   echo '<br><br><a name="editform"></a>
 <form method=post>
 <input type=hidden name=a value=news>
 ';
-  if ($edit_row)
-  {
-    echo '<input type=hidden name=action value=edit>
+  if ($edit_row) {
+      echo '<input type=hidden name=action value=edit>
 <input type=hidden name=save value=1>
 <input type=hidden name=id value=';
-    echo $edit_row['id'];
-    echo '>
+      echo $edit_row['id'];
+      echo '>
 ';
-  }
-  else
-  {
-    echo '<input type=hidden name=action value=add>
+  } else {
+      echo '<input type=hidden name=action value=add>
 ';
   }
 
@@ -243,10 +220,9 @@ If you omit Full Text than the system will show Small Text on all the news page.
 </tr>
 <tr>
  <td><input type=submit value="';
-  echo (!$edit_row ? 'Add' : 'Edit');
+  echo(!$edit_row ? 'Add' : 'Edit');
   echo '" class=sbmt></td>
 </tr></table>
 </form>
 
 ';
-?>

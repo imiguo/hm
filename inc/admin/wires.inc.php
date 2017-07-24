@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -12,7 +12,7 @@
 
 
   echo '<b>';
-  echo ($frm['type'] == 'problem' ? 'Problem' : 'New');
+  echo($frm['type'] == 'problem' ? 'Problem' : 'New');
   echo ' Wire Transfers:</b><br><br>
 <form method=post name=nform >
 
@@ -25,43 +25,38 @@
  <th bgcolor=FFEA00>-</th>
 </tr>
 ';
-  if ($frm['type'] == 'problem')
-  {
-    $q = 'select hm2_wires.*, hm2_users.username from hm2_wires, hm2_users where hm2_wires.status=\'problem\' and hm2_users.id = hm2_wires.user_id order by wire_date desc';
-  }
-  else
-  {
-    $q = 'select hm2_wires.*, hm2_users.username from hm2_wires, hm2_users where hm2_wires.status=\'new\' and hm2_users.id = hm2_wires.user_id order by wire_date desc';
+  if ($frm['type'] == 'problem') {
+      $q = 'select hm2_wires.*, hm2_users.username from hm2_wires, hm2_users where hm2_wires.status=\'problem\' and hm2_users.id = hm2_wires.user_id order by wire_date desc';
+  } else {
+      $q = 'select hm2_wires.*, hm2_users.username from hm2_wires, hm2_users where hm2_wires.status=\'new\' and hm2_users.id = hm2_wires.user_id order by wire_date desc';
   }
 
-  ($sth = db_query ($q) OR print mysql_error ());
+  ($sth = db_query($q) or print mysql_error());
   $col = 0;
-  while ($row = mysql_fetch_array ($sth))
-  {
-    ++$col;
-    echo '     <tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
+  while ($row = mysql_fetch_array($sth)) {
+      ++$col;
+      echo '     <tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
 	<td><b>';
-    echo $row['username'];
-    echo '</b></td>
+      echo $row['username'];
+      echo '</b></td>
 	<td align=right>';
-    echo number_format ($row['amount'], 2);
-    echo '</td>
+      echo number_format($row['amount'], 2);
+      echo '</td>
 	<td align=center>';
-    echo $row['bname'];
-    echo '</td>
+      echo $row['bname'];
+      echo '</td>
 	<td align=center>';
-    echo $row['baccount'];
-    echo '</td>
+      echo $row['baccount'];
+      echo '</td>
 	<td align=center><a href=?a=wiredetails&id=';
-    echo $row['id'];
-    echo '>[details]</a></td>
+      echo $row['id'];
+      echo '>[details]</a></td>
      </tr>
     ';
   }
 
-  if ($col == 0)
-  {
-    echo '       <tr><td colspan=5 align=center>No records found</td></tr>
+  if ($col == 0) {
+      echo '       <tr><td colspan=5 align=center>No records found</td></tr>
     ';
   }
 
@@ -69,4 +64,3 @@
 
 </table>
 ';
-?>

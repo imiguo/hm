@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -11,37 +11,32 @@
 /***********************************************************************/
 
 
-  $u_id = sprintf ('%d', $frm['u_id']);
+  $u_id = sprintf('%d', $frm['u_id']);
   $q = '' . 'select * from hm2_users where id = ' . $u_id;
-  ($sth = db_query ($q) OR print mysql_error ());
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $username = $row['username'];
-    $ref = $row['ref'];
+  ($sth = db_query($q) or print mysql_error());
+  while ($row = mysql_fetch_array($sth)) {
+      $username = $row['username'];
+      $ref = $row['ref'];
   }
 
-  if (0 < $ref)
-  {
-    $q = '' . 'select * from hm2_users where id = ' . $ref;
-    ($sth = db_query ($q) OR print mysql_error ());
-    while ($row = mysql_fetch_array ($sth))
-    {
-      $upline_name = $row['username'];
-    }
+  if (0 < $ref) {
+      $q = '' . 'select * from hm2_users where id = ' . $ref;
+      ($sth = db_query($q) or print mysql_error());
+      while ($row = mysql_fetch_array($sth)) {
+          $upline_name = $row['username'];
+      }
   }
 
   $q = '' . 'select count(*) as col from hm2_users where ref=' . $u_id;
-  ($sth = db_query ($q) OR print mysql_error ());
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $q_affilates = $row[col];
+  ($sth = db_query($q) or print mysql_error());
+  while ($row = mysql_fetch_array($sth)) {
+      $q_affilates = $row[col];
   }
 
   $q = '' . 'select count(distinct user_id) as col from hm2_users, hm2_deposits where ref = ' . $u_id . ' and hm2_deposits.user_id = hm2_users.id';
-  $sth = db_query ($q);
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $q_active_affilates = $row['col'];
+  $sth = db_query($q);
+  while ($row = mysql_fetch_array($sth)) {
+      $q_active_affilates = $row['col'];
   }
 
   echo '
@@ -74,7 +69,7 @@
 <tr>
  <td>Upline:</td>
  <td><input type=text name=upline value=\'';
-  echo quote ($upline_name);
+  echo quote($upline_name);
   echo '\' class=inpts></td>
 </tr>
 <tr>
@@ -96,96 +91,87 @@
   $q_other_active = 0;
   $q_other = 0;
   $q = '' . 'select * from hm2_users where ref=' . $u_id . ' order by id desc';
-  ($sth = db_query ($q) OR print mysql_error ());
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $row['stat'] = 'Not deposited yet';
-    $q = 'select count(*) as col from hm2_deposits where user_id = ' . $row[id];
-    ($sth2 = db_query ($q) OR print mysql_error ());
-    while ($row2 = mysql_fetch_array ($sth2))
-    {
-      $row['stat'] = (0 < $row2['col'] ? 'Deposited' : 'Not deposited yet');
-    }
-
-    $parents = array ($row['id']);
-    $ref_stats = array ();
-    $i = 0;
-    for ($i = 2; $i < 11; ++$i)
-    {
-      $parents_string = join (',', $parents);
-      $q_active = 0;
-      $q = '' . 'select id from hm2_users where ref in (' . $parents_string . ')';
-      $sth1 = db_query ($q);
-      $parents = array ();
-      while ($row1 = mysql_fetch_array ($sth1))
-      {
-        array_push ($parents, $row1['id']);
-        $q = 'select count(*) as col from hm2_deposits where user_id = ' . $row1['id'];
-        ($sth2 = db_query ($q) OR print mysql_error ());
-        while ($row2 = mysql_fetch_array ($sth2))
-        {
-          $q_deposits = $row2[col];
-        }
-
-        if (0 < $q_deposits)
-        {
-          ++$q_other_active;
-          ++$q_active;
-        }
-
-        ++$q_other;
+  ($sth = db_query($q) or print mysql_error());
+  while ($row = mysql_fetch_array($sth)) {
+      $row['stat'] = 'Not deposited yet';
+      $q = 'select count(*) as col from hm2_deposits where user_id = ' . $row[id];
+      ($sth2 = db_query($q) or print mysql_error());
+      while ($row2 = mysql_fetch_array($sth2)) {
+          $row['stat'] = (0 < $row2['col'] ? 'Deposited' : 'Not deposited yet');
       }
 
-      if (!$parents)
-      {
-        break;
+      $parents = array($row['id']);
+      $ref_stats = array();
+      $i = 0;
+      for ($i = 2; $i < 11; ++$i) {
+          $parents_string = join(',', $parents);
+          $q_active = 0;
+          $q = '' . 'select id from hm2_users where ref in (' . $parents_string . ')';
+          $sth1 = db_query($q);
+          $parents = array();
+          while ($row1 = mysql_fetch_array($sth1)) {
+              array_push($parents, $row1['id']);
+              $q = 'select count(*) as col from hm2_deposits where user_id = ' . $row1['id'];
+              ($sth2 = db_query($q) or print mysql_error());
+              while ($row2 = mysql_fetch_array($sth2)) {
+                  $q_deposits = $row2[col];
+              }
+
+              if (0 < $q_deposits) {
+                  ++$q_other_active;
+                  ++$q_active;
+              }
+
+              ++$q_other;
+          }
+
+          if (!$parents) {
+              break;
+          }
+
+          array_push($ref_stats, array('level' => $i - 1, 'cnt' => sizeof($parents), 'cnt_active' => $q_active));
       }
 
-      array_push ($ref_stats, array ('level' => $i - 1, 'cnt' => sizeof ($parents), 'cnt_active' => $q_active));
-    }
-
-    echo '  <tr>
+      echo '  <tr>
     <td>';
-    echo $row['username'];
-    echo '</td>
+      echo $row['username'];
+      echo '</td>
     <td><a href=mailto:';
-    echo $row['email'];
-    echo '>';
-    echo $row['email'];
-    echo '</a></td>
+      echo $row['email'];
+      echo '>';
+      echo $row['email'];
+      echo '</a></td>
     <td align=center>';
-    echo $row['stat'];
-    echo '</td>
+      echo $row['stat'];
+      echo '</td>
     <td align=center><a href=?a=affilates&action=remove_ref&u_id=';
-    echo $u_id;
-    echo '&ref=';
-    echo $row[id];
-    echo ' onClick="return confirm(\'Are you sure to delete this referral?\');">[X]</a></td>
+      echo $u_id;
+      echo '&ref=';
+      echo $row[id];
+      echo ' onClick="return confirm(\'Are you sure to delete this referral?\');">[X]</a></td>
   </tr>
 ';
-    if ($ref_stats)
-    {
-      echo '  <tr>
+      if ($ref_stats) {
+          echo '  <tr>
    <td colspan=4>User referrals:
 ';
-      for ($i = 0; $i < sizeof ($ref_stats); ++$i)
-      {
-        echo '<nobr>';
-        echo $ref_stats[$i][cnt_active];
-        echo ' active of ';
-        echo $ref_stats[$i][cnt];
-        echo ' on level ';
-        echo $ref_stats[$i][level];
-        echo ($i < sizeof ($ref_stats) - 1 ? ';' : '');
-        echo '</nobr>
+          for ($i = 0; $i < sizeof($ref_stats); ++$i) {
+              echo '<nobr>';
+              echo $ref_stats[$i][cnt_active];
+              echo ' active of ';
+              echo $ref_stats[$i][cnt];
+              echo ' on level ';
+              echo $ref_stats[$i][level];
+              echo($i < sizeof($ref_stats) - 1 ? ';' : '');
+              echo '</nobr>
 ';
-      }
+          }
 
-      echo '   </td>
+          echo '   </td>
   </tr>
 ';
-      continue;
-    }
+          continue;
+      }
   }
 
   echo '  <tr>
@@ -202,4 +188,3 @@
   echo '</td>
   </tr>
 ';
-?>

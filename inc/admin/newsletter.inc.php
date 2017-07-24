@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -11,50 +11,46 @@
 /***********************************************************************/
 
 
-  if ($settings['demomode'] == 1)
-  {
-    echo start_info_table ('100%');
-    echo '<b>Demo version restriction!</b><br>
+  if ($settings['demomode'] == 1) {
+      echo start_info_table('100%');
+      echo '<b>Demo version restriction!</b><br>
 You cannot send newsletters!
 ';
-    echo end_info_table ();
+      echo end_info_table();
   }
 
   echo '
 
 ';
   $q = 'select count(*) as col from hm2_users where id > 1';
-  $sth = db_query ($q);
-  ($row = mysql_fetch_array ($sth) OR print mysql_error ());
+  $sth = db_query($q);
+  ($row = mysql_fetch_array($sth) or print mysql_error());
   $all_c = $row['col'];
   $q = 'select count(distinct user_id) as col from hm2_deposits';
-  $sth = db_query ($q);
-  ($row = mysql_fetch_array ($sth) OR print mysql_error ());
-  $act_c = sprintf ('%d', $row['col']);
+  $sth = db_query($q);
+  ($row = mysql_fetch_array($sth) or print mysql_error());
+  $act_c = sprintf('%d', $row['col']);
   $pas_c = $all_c - $act_c;
   echo '
 <b>Send a newsletter to users:</b><br><br>
 ';
-  if ($frm['say'] == 'someerror')
-  {
-    echo 'Message has not been sent. Unknown error!<br>
+  if ($frm['say'] == 'someerror') {
+      echo 'Message has not been sent. Unknown error!<br>
 <br>
 ';
   }
 
-  if ($frm['say'] == 'notsend')
-  {
-    echo 'Message has not been sent. No users found!<br>
+  if ($frm['say'] == 'notsend') {
+      echo 'Message has not been sent. No users found!<br>
 <br>
 ';
   }
 
-  if ($frm['say'] == 'send')
-  {
-    echo 'Message has been sent. Total: 
+  if ($frm['say'] == 'send') {
+      echo 'Message has been sent. Total: 
 ';
-    echo $frm['total'];
-    echo '<br>
+      echo $frm['total'];
+      echo '<br>
 <br>
 ';
   }
@@ -130,7 +126,7 @@ You have been registered: #date_register#
 
 <br>
 ';
-  echo start_info_table ('100%');
+  echo start_info_table('100%');
   echo 'Send a newsletter:<br>
 
 This form helps you to send a newsletter to one or several users.<br>
@@ -145,5 +141,4 @@ You can use the following variables to personalize the newsletter:<br>
 #egold_account# - user e-gold account<br>
 #date_register# - user registration date<br>
 ';
-  echo end_info_table ();
-?>
+  echo end_info_table();

@@ -1,4 +1,4 @@
-<?
+<?php
 /***********************************************************************/
 /*                                                                     */
 /*  This file is created by deZender                                   */
@@ -76,9 +76,8 @@
 </tr><tr>
 
 ';
-  if ($settings['demomode'] != '1')
-  {
-    echo '    <td class=menutxt><a href=?a=custompages>Custom Pages</a></td>
+  if ($settings['demomode'] != '1') {
+      echo '    <td class=menutxt><a href=?a=custompages>Custom Pages</a></td>
 </tr><tr>
 <td class=menutxt>&nbsp;</td>
 </tr><tr>
@@ -102,12 +101,11 @@
     <td class=menutxt><a href=?a=auto-pay-settings>Auto-Withdraw';
   echo 'als Settings</a> 
       ';
-  if ($settings['demomode'] == 1)
-  {
-    echo '      <br>
+  if ($settings['demomode'] == 1) {
+      echo '      <br>
 &nbsp; &nbsp; ';
-    echo '<s';
-    echo 'pan style="color: #D20202;">Pro version only</span>
+      echo '<s';
+      echo 'pan style="color: #D20202;">Pro version only</span>
 ';
   }
 
@@ -134,4 +132,3 @@
   echo '          </tr>
 				   </table>
 ';
-?>

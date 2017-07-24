@@ -22,7 +22,7 @@ if (ENV == 'local') {
 if ('init_db' == $frm['a']) {
     $mysqli = new mysqli($settings['hostname'], $settings['db_login'], $settings['db_pass'], $settings['database']);
     $sql = file_get_contents('database/db.sql');
-    $mysqli->multi_query($sql) OR die(1);
+    $mysqli->multi_query($sql) or die(1);
 }
 
 $domain = $_SERVER['HTTP_HOST'];
