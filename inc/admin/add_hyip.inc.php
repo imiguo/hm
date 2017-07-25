@@ -21,7 +21,7 @@
       array_push($packages, $row1);
   }
 
-  echo '';
+
   echo '<s';
   echo 'cript language=javascript>
 function checkform() {

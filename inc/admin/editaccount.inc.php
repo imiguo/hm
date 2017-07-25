@@ -16,7 +16,7 @@
   }
 
   $row = mysql_fetch_array($sth);
-  echo '';
+
 
   echo '<b>Edit Member Account:</b><br>
 <br>
@@ -25,12 +25,12 @@
       echo 'User information saved<br><br>';
   }
 
-  echo '';
+
   if ($frm['say'] == 'incorrect_password') {
       echo 'Please check your password<br><br>';
   }
 
-  echo '';
+
   if ($frm['say'] == 'incorrect_transaction_code') {
       echo 'Please check your transaction code<br><br>';
   }
@@ -187,13 +187,13 @@
  <td colspan=2><input type=checkbox name=auto_withdraw value=1 ';
   echo $row['auto_withdraw'] == 1 ? 'checked' : '';
   echo '>
-            Auto-withdrawal enabled 
+            Auto-withdrawal enabled
             ';
   if ($settings['demomode'] == 1) {
       echo '            &nbsp; &nbsp; ';
       echo '<s';
-      echo 'pan style="color: #D20202;">Checkbox is available 
-            in Pro version only</span> 
+      echo 'pan style="color: #D20202;">Checkbox is available
+            in Pro version only</span>
             ';
   }
 
@@ -202,13 +202,13 @@
  <td colspan=2><input type=checkbox name=admin_auto_pay_earning value=1 ';
   echo $row['admin_auto_pay_earning'] == 1 ? 'checked' : '';
   echo '>
-            Tranfer earnings directly to the user\'s e-gold account 
+            Tranfer earnings directly to the user\'s e-gold account
             ';
   if ($settings['demomode'] == 1) {
       echo '            &nbsp; &nbsp; ';
       echo '<s';
-      echo 'pan style="color: #D20202;">Checkbox is available 
-            in Pro version only</span> 
+      echo 'pan style="color: #D20202;">Checkbox is available
+            in Pro version only</span>
             ';
   }
 
@@ -239,7 +239,7 @@
 </td><td valign=top>';
   echo start_info_table('200');
   echo 'Edit member:<br>
-  You can change the user information and status here. 
+  You can change the user information and status here.
   ';
   echo end_info_table();
   echo '</td>

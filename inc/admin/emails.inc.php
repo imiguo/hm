@@ -217,7 +217,7 @@ Personalization:<br>
 ';
   }
 
-  echo '';
+
   if ($frm['type'] == 'withdraw_request_user_notification') {
       echo 'Users will receive this e-mail after withdraw request.<br><br>
 
@@ -233,7 +233,7 @@ Personalization:<br>
 ';
   }
 
-  echo '';
+
   if ($frm['type'] == 'withdraw_request_admin_notification') {
       echo 'Administrator will receive this e-mail after user withdraw request.<br><br>
 
@@ -249,7 +249,7 @@ Personalization:<br>
 ';
   }
 
-  echo '';
+
   if ($frm['type'] == 'withdraw_user_notification') {
       echo 'User will receive this e-mail after withdraw process. (After autopay if enabled, admin direct and mass withdraw processes)<br><br>
 
@@ -268,7 +268,7 @@ Personalization:<br>
 ';
   }
 
-  echo '';
+
   if ($frm['type'] == 'withdraw_admin_notification') {
       echo 'User will receive this e-mail after withdraw process autopay if enabled<br><br>
 
@@ -287,7 +287,7 @@ Personalization:<br>
 ';
   }
 
-  echo '';
+
   if ($frm['type'] == 'deposit_admin_notification') {
       echo 'Administrator will receive this e-mail after user made deposit<br><br>
 
@@ -304,5 +304,5 @@ Personalization:<br>
       echo 'te name (check settings screen to set this variable)<br>';
   }
 
-  echo '';
+
   echo end_info_table();

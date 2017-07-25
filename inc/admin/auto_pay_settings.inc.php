@@ -47,7 +47,7 @@
       $pecunix_password = $row['v'];
   }
 
-  echo '';
+
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction</b><br>
@@ -57,7 +57,7 @@ Note: This screen is available in Pro version only!!! ';
       echo end_info_table();
   }
 
-  echo '';
+
   if ($frm['say'] == 'invalid_passphrase') {
       echo '<b style="color:red">Invalid Alternative Passphrase. No data has been updated.</b><br><br>';
   }
@@ -67,7 +67,7 @@ Note: This screen is available in Pro version only!!! ';
 <br>';
   }
 
-  echo '';
+
   if ($settings['demomode'] != 1) {
       echo start_info_table('100%');
       echo '<b>We recommend to use the auto-payment feature only on the dedicated servers. Virtual Shared Hosting has much less security.
@@ -76,7 +76,7 @@ Note: This screen is available in Pro version only!!! ';
       echo '<br>';
   }
 
-  echo '';
+
   echo '<s';
   echo 'cript language=javascript>
 function test_egold() {';
@@ -231,7 +231,7 @@ function test_pecunix() {';
       echo '  ';
       echo start_info_table('100%');
       echo '  <b>Auto-payment is not available</b><br>
-  Curl module is not installed on your server. 
+  Curl module is not installed on your server.
   ';
       echo end_info_table();
       echo '  <br>
@@ -441,7 +441,7 @@ function test_pecunix() {';
   echo start_info_table('100%');
   echo '<b>Payer account information</b><br>
 Type your login and password here. <br>
-For e-gold: Make sure you\'ve entered your server IP at "Account Info" -> "Account 
+For e-gold: Make sure you\'ve entered your server IP at "Account Info" -> "Account
 Attributes" -> "Automation Access".<br>
 <!--For Evocash: Be sure you enter your server IP at "Information of account"-->.<br>
 The Password will be encrypted and saved to the mysql database.<br>
@@ -449,17 +449,17 @@ The Password will be encrypted and saved to the mysql database.<br>
 Minimal automatic withdrawal amount and<br>';
   echo '
 Maximal automatic withdrawal amount.<br>
-Withdrawal will be processed automatically if a user asks to withdraw more or 
-equal than the minimal withdrawal amount and less or equal than the maximual withdrawal 
+Withdrawal will be processed automatically if a user asks to withdraw more or
+equal than the minimal withdrawal amount and less or equal than the maximual withdrawal
 amount. Administrator should process all other transactions manually.<br>
-Maximal daily withdrawal for every user. The script will make payments to the 
+Maximal daily withdrawal for every user. The script will make payments to the
 user\'s e-gold account automaticall';
-  echo 'y if the total user withdrawal sum for 24 hour 
+  echo 'y if the total user withdrawal sum for 24 hour
 is less than the specified value.<br>
 <br>
 
 E-gold:<br>
-Test button tries to spend $0.01 from and to your account number. It returns error 
+Test button tries to spend $0.01 from and to your account number. It returns error
 if your settings are wrong.<br><br>
 
 IntGold:<br>
@@ -477,8 +477,8 @@ Test button tries to spend $0.01 from and to your account number in test mode. I
 are incorrect.<br><br>
 
 <!--Evocash:<br>
-Test button tries to spend $0.01 from and to your account number, but no transactions 
+Test button tries to spend $0.01 from and to your account number, but no transactions
 will be m';
-  echo 'ade, because Evocash does not allow spends to the same account. The error 
+  echo 'ade, because Evocash does not allow spends to the same account. The error
 is returned if your settings are wrong. -->';
   echo end_info_table();

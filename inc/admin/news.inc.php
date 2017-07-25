@@ -41,7 +41,7 @@
       }
   }
 
-  echo '';
+
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
@@ -60,7 +60,7 @@ You cannot add/edit news!';
   ($sth = db_query($q) or print mysql_error());
   $row = mysql_fetch_array($sth);
   $count_all = $row['call'];
-  echo '';
+
   if (0 < $count_all) {
       echo '<table cellspacing=1 cellpadding=2 border=0 width=100%>';
       $page = $frm['page'];
@@ -105,12 +105,12 @@ You cannot add/edit news!';
           echo $row['id'];
           echo '&page=';
           echo $page;
-          echo '#editform">[EDIT]</a> 
+          echo '#editform">[EDIT]</a>
   <a href="?a=news&action=delete&id=';
           echo $row['id'];
           echo '&page=';
           echo $page;
-          echo '" onclick="return confirm(\'Do you really want to delete news?\')">[REMOVE]</a> 
+          echo '" onclick="return confirm(\'Do you really want to delete news?\')">[REMOVE]</a>
 </td></tr>';
       }
 
@@ -150,9 +150,9 @@ You cannot add/edit news!';
   } else {
       echo start_info_table('100%');
       echo 'Here you can manage your program news.<br>
-Your newly added news will appear on your site index page (if you have enabled 
+Your newly added news will appear on your site index page (if you have enabled
 \'Show news box in InfoBox Settings section\')<br>
-Small text will appear on Index page. If you omit Small Text then the system will 
+Small text will appear on Index page. If you omit Small Text then the system will
 show first 100-120 characters of your Full Text.<br>
 If you omit Full Text than the system will show Small Text on all the news page.';
       echo end_info_table();

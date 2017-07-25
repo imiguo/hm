@@ -168,7 +168,7 @@ function go(p)
   echo '>Withdrawals
 		<option value="withdraw_pending" ';
   echo $frm['ttype'] == 'withdraw_pending' ? 'selected' : '';
-  echo '>Withdrawal requests 
+  echo '>Withdrawal requests
 	  <option value="commissions" ';
   echo $frm['ttype'] == 'commissions' ? 'selected' : '';
   echo '>Commissions
@@ -319,7 +319,7 @@ function func5() {
       echo 'Withdrawal has not been sent<br><br>';
   }
 
-  echo '';
+
   if ($frm['say'] == 'massremove') {
       echo 'Pending transactions removed!<br><br>';
   }
@@ -328,7 +328,7 @@ function func5() {
       echo 'Pending transactions selected as processed!<br><br>';
   }
 
-  echo '';
+
   if ($settings['use_history_balance_mode']) {
       echo '
 <table cellspacing=1 cellpadding=2 border=0 width=100%>
@@ -395,7 +395,7 @@ function func5() {
                   echo $trans[$i]['type'] == 'withdraw_pending' ? ''.'($'.$to_withdraw.' with fees)' : '';
                   echo ' ';
                   echo $frm['ttype'] == 'withdraw_pending' ? ' &nbsp; <a href=?a=pay_withdraw&id='.$trans[$i]['id'].' target=_blank>[pay]</a> <a href=?a=rm_withdraw&id='.$trans[$i]['id'].' onClick="return confirm(\'Do you really want to remove this transaction?\')">[remove]</a>' : '';
-                  echo '  </b> 
+                  echo '  </b>
   ';
               } else {
                   echo '  &nbsp;
@@ -518,7 +518,7 @@ function func5() {
 </table>';
   }
 
-  echo '';
+
   if ($frm['ttype'] == 'withdraw_pending') {
       echo '<br><center>';
       echo '<s';
@@ -553,8 +553,8 @@ function func4() {
           echo ' (Pro version only!)';
       }
 
-      echo '" class=sbmt onClick="func1();"> &nbsp; 
-<input type=button value="Remove selected" class=sbmt onClick="func2();"> &nbsp; 
+      echo '" class=sbmt onClick="func1();"> &nbsp;
+<input type=button value="Remove selected" class=sbmt onClick="func2();"> &nbsp;
 <input type=button value="Set selected as processed" class=sbmt onClick="func3();"><br><br>
 <input type=button value="Export selected to CSV" class=sbmt onClick="func4();">
 </center><br>';
@@ -584,27 +584,27 @@ function func4() {
   echo start_info_table('100%');
   echo 'Transactions history:<br>
 Every transaction in the script has it\'s own type.<br>
-Transfer from e-gold. This transaction will appear in the system when a user deposits 
+Transfer from e-gold. This transaction will appear in the system when a user deposits
 funds from e-gold.<br>
-Deposit. This transaction will appear in the system when a user deposits funds 
+Deposit. This transaction will appear in the system when a user deposits funds
 from e-gold or account.<br>
 Bonus. This transaction will appear when administrator adds a bonus to a user.<br>
 Penalty. This transacti';
-  echo 'on will appear when administrator makes a penalty for a 
+  echo 'on will appear when administrator makes a penalty for a
 user.<br>
 Earning. This transaction will appear when a user receives earning.<br>
-Withdrawal. This transaction will appear when administrator withdraws funds to a 
+Withdrawal. This transaction will appear when administrator withdraws funds to a
 user\'s e-gold account.<br>
 Withdrawal request. This transaction will appear when a user asks for withdrawal.<br>
 Early deposit release. Administrator can release a deposit or a part o';
-  echo 'f a deposit 
+  echo 'f a deposit
 to a user\'s account.<br>
-Referral commissions. This transaction will appear when a user registers from 
+Referral commissions. This transaction will appear when a user registers from
 a referral link and deposits funds from the e-gold account.<br>
 <br>
-The top left menu helps you to select only the transactions you are interested 
+The top left menu helps you to select only the transactions you are interested
 in.<br>
-The top right menu helps you to select transactions for the period you are interested 
+The top right menu helps you to select transactions for the period you are interested
 in.<br>';
   echo end_info_table();
   echo '
@@ -614,17 +614,17 @@ in.<br>';
       echo '
 <br>
 
-\'Mass payment selected\' - this button allows mass payment from any of your e-gold 
+\'Mass payment selected\' - this button allows mass payment from any of your e-gold
 accounts.<br>
-\'Remove selected\' - this button allows you to remove the requested withdrawals. 
+\'Remove selected\' - this button allows you to remove the requested withdrawals.
 Funds will be returned to the user\'s account.<br>
-\'Set selected as processed\' - if you use a third party mass payment script, you 
-can pay to the user\'s e-gold account and then set the request as \'processed\' using 
+\'Set selected as processed\' - if you use a third party mass payment script, you
+can pay to the user\'s e-gold account and then set the request as \'processed\' using
 thi';
       echo 's button.<br>
-\'Export selected to CSV\' - provide the scv file for a third party mass payment 
+\'Export selected to CSV\' - provide the scv file for a third party mass payment
 scripts.<br>
 ';
       echo end_info_table();
-      echo '';
+
   }

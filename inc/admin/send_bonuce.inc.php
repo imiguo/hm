@@ -96,7 +96,7 @@
 </tr>
 </table>';
   } else {
-      echo '';
+
       echo '<s';
       echo 'cript language=javascript>
 var u = Array (0, ';

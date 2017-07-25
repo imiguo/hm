@@ -12,4 +12,4 @@
 
 
   $smarty->display('after_registration.tpl');
-  echo '';
+

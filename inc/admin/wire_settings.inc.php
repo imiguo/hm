@@ -27,7 +27,7 @@
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $wire_txt = $row['value'];
-  echo '';
+
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
@@ -56,8 +56,8 @@ Wire details:<br>
 <br><br>';
   echo start_info_table('100%');
   echo 'This screen helps you to accept Wire Transfers.<br>
-Enter your bank account information in the text area. This text will be shown to 
+Enter your bank account information in the text area. This text will be shown to
 users when they are trying to send Wire Transfers.<br>
-A user should fill a form with the transfer details after sending this form. Deposit 
+A user should fill a form with the transfer details after sending this form. Deposit
 will be active when the administrator accepts the Wire Transfer. ';
   echo end_info_table();

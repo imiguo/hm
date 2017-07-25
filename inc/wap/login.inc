@@ -14,4 +14,4 @@
   header('Content-type: text/vnd.wap.wml');
   $smarty->assign('frm', $frm);
   $smarty->display('wap/login.tpl');
-  echo '';
+

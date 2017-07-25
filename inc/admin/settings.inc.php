@@ -47,7 +47,7 @@ if ($frm['say'] == 'done') {
     echo '<b style="color:green">Changes has been successfully saved.</b><br><br>';
 }
 
-echo '';
+
 echo '<s';
 echo 'cript language=javascript>
 function check_form()
@@ -209,17 +209,17 @@ echo '\' class=inpts size=30></td>
  <td>Alternate Password:</td>
  <td><input type=text name=\'egoldap\' class=inpts size=30> <input type=button class=sbmt onclick="document.mainform.md5altphrase.value = calcMD5(document.mainform.egoldap.value)" value="Calculate MD5 hash"></td>
 </tr>
-        
+
 <tr>
  <td colspan=2>&nbsp;<br><b>
         INTGold settings</b></td>
 </tr>';
 if (file_exists('intgold_processing.php')) {
     echo '<tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
     echo start_info_table('100%');
-    echo '        <b>You have not renamed "intgold_processing.php" file. It is insecure!</b> 
+    echo '        <b>You have not renamed "intgold_processing.php" file. It is insecure!</b>
         ';
     echo end_info_table();
     echo '      </td>
@@ -246,10 +246,10 @@ echo '\' class=inpts size=30></td>
 </tr>';
 if (file_exists('eeecurrency_processing.php')) {
     echo '<tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
     echo start_info_table('100%');
-    echo '        <b>You have not renamed "eeecurrency_processing.php" file. It is insecure!</b> 
+    echo '        <b>You have not renamed "eeecurrency_processing.php" file. It is insecure!</b>
         ';
     echo end_info_table();
     echo '      </td>
@@ -291,10 +291,10 @@ echo '\' class=inpts size=30></td>
 </tr>';
 if (file_exists('stormpay_processing.php')) {
     echo '<tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
     echo start_info_table('100%');
-    echo '        <b>You have not renamed "stormpay_processing.php" file. It is insecure!</b> 
+    echo '        <b>You have not renamed "stormpay_processing.php" file. It is insecure!</b>
         ';
     echo end_info_table();
     echo '      </td>
@@ -396,7 +396,7 @@ After you obtain the path to the GPG program place it in the field above and sav
 </tr><tr>';
 }
 
-echo '';
+
 if (function_exists('curl_init')) {
     echo ' <td colspan=2>&nbsp;<br><b>PayPal account settings:</b></td>
 </tr><tr>
@@ -405,17 +405,17 @@ if (function_exists('curl_init')) {
     echo quote($settings['def_payee_account_paypal']);
     echo '\' class=inpts size=30></td>
 </tr><tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
     echo start_info_table('100%');
-    echo '        Specify your PayPal account settings for income transfers here. Clear 
+    echo '        Specify your PayPal account settings for income transfers here. Clear
         this field to disable PayPal deposits.<br>
         <br>
         <b>login as a user and try to deposit to test settings.</b><br>
         ';
     echo end_info_table();
     echo '</td>
-        
+
         </tr><tr>';
 }
 
@@ -462,14 +462,14 @@ echo '\' class=inpts size=30></td>
 echo $admin_stat_password;
 echo '\' class=inpts size=30></td>
 </tr><tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
 echo start_info_table('100%');
-echo '        Administrator login settings: type a new login and a password here to login 
+echo '        Administrator login settings: type a new login and a password here to login
         the admin area.<br>
-        Password for Win program: you can use a windows system tray add-on. Type 
+        Password for Win program: you can use a windows system tray add-on. Type
         a password for this program in this field.<br>
-        Do not use the same password for the admin area and for the system tray add-on! 
+        Do not use the same password for the admin area and for the system tray add-on!
         ';
 echo end_info_table();
 echo '</td>
@@ -572,19 +572,19 @@ echo '\' class=inpts size=6></td>
 echo quote($settings['min_withdrawal_amount']);
 echo '\' class=inpts size=6></td>
 </tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
 echo start_info_table('100%');
-echo '        Double opt-in when registering: Select \'yes\' if a user has to confirm the 
-        registration. An E-mail with the confirmation code will be sent to the user 
+echo '        Double opt-in when registering: Select \'yes\' if a user has to confirm the
+        registration. An E-mail with the confirmation code will be sent to the user
         after he had submitted the registration request.<br>
 Opt-in e-mail: Confirmation messages will be sent from this e-mail account.<br>
 System e-mail: All system messages will be sent from this e-mail account.<br>
         Use';
-echo ' user location fields: Adds &quot;Address&quot;, &quot;City&quot;, 
-        &quot;State&quot;, &quot;Zip&quot; and &quot;Country&quot; fields to user\'s 
+echo ' user location fields: Adds &quot;Address&quot;, &quot;City&quot;,
+        &quot;State&quot;, &quot;Zip&quot; and &quot;Country&quot; fields to user\'s
         profile.<br>
-        Min user password length: Specifies the minimal user password and the 
+        Min user password length: Specifies the minimal user password and the
         transaction code length.<br>
 		Use double entry accounting: This mod is used for the transactions history screen in both users and admin areas.';
 echo end_info_table();
@@ -686,17 +686,17 @@ echo '\' style=\'text-align: right\'> ';
 echo '<s';
 echo 'mall>(0 for unlimited)</small></td>
 </tr><tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
 echo start_info_table('100%');
-echo '        Here you can specify whether user can change his own e-gold or e-mail 
+echo '        Here you can specify whether user can change his own e-gold or e-mail
         account after registration.<br>
-        Also system can send e-mail to user when he changes his profile (for security 
+        Also system can send e-mail to user when he changes his profile (for security
         reason).<br>
-        Users should use transaction code to withdraw: Specifies an additional 
-        password which is needed to do the withdrawal. That password can be restored 
+        Users should use transaction code to withdraw: Specifies an additional
+        password which is needed to do the withdrawal. That password can be restored
    ';
-echo '     by the administrator only. It is stored in MySQL database in plain format. 
+echo '     by the administrator only. It is stored in MySQL database in plain format.
         ';
 echo end_info_table();
 echo '      </td>
@@ -757,18 +757,18 @@ if ((function_exists('imagettfbbox') or $settings['demomode'] == 1)) {
 }
 
 echo '<tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
 echo start_info_table('100%');
-echo '        You can use the turing image for verification when users login to the system. 
+echo '        You can use the turing image for verification when users login to the system.
         It will stop brute force scripts from hacking passwords.<br>
         Change the text and background color of the turing image here.<br>
-        Use advanced turing verification: Creates a turing image with the font 
-        \'fonts/font.ttf\' (you can upload any TTF font into this file). The font 
+        Use advanced turing verification: Creates a turing image with the font
+        \'fonts/font.ttf\' (you can upload any TTF font into this file). The font
      ';
-echo '   size (in a range specified in &quot;Font min size&quot; and &quot;Font 
-        max size&quot;) and angle are random for each char. White noise is added 
-        into the final image. 
+echo '   size (in a range specified in &quot;Font min size&quot; and &quot;Font
+        max size&quot;) and angle are random for each char. White noise is added
+        into the final image.
         ';
 echo end_info_table();
 echo '      </td>
@@ -790,16 +790,16 @@ echo '>No</select></td>
 echo $settings['brute_force_max_tries'];
 echo '" class=inpts size=10></td>
 </tr><tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
 echo start_info_table('100%');
 echo '        Prevent brute force: Turns on the brute force prevention system.<br>
-        Max invalid tries: The number of invalid login tries. The login is being 
-        blocked if one tries to login more than specified here number of times 
-        with the invalid password. The e-mail message with an activation link 
+        Max invalid tries: The number of invalid login tries. The login is being
+        blocked if one tries to login more than specified here number of times
+        with the invalid password. The e-mail message with an activation link
         is generated and being sent to a user. One cannot login even with a cor';
-echo 'rect 
-        password before the account activation. 
+echo 'rect
+        password before the account activation.
         ';
 echo end_info_table();
 echo '      </td>
@@ -823,11 +823,11 @@ echo '</td>
 echo $settings['time_dif'];
 echo '" class=inpts size=10> hours</td>
 </tr><tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
 echo start_info_table('100%');
-echo '        Change your system time. You can set the system to show all dates for 
-        your time zone. 
+echo '        Change your system time. You can set the system to show all dates for
+        your time zone.
         ';
 echo end_info_table();
 echo '</td>
@@ -856,12 +856,12 @@ echo '>No</select></td>
  <td><input type=password name=new_alternative_passphrase2 value="" class=inpts size=30></td>
 </tr>
 <tr>
-      <td colspan=2> 
+      <td colspan=2>
         ';
 echo start_info_table('100%');
-echo '        This feature raises the security level for the administrator area. If 
-        enabled Administrator can change \'Settings\', \'Auto-Withdrawal Settings\' 
-        and \'Security\' properties knowing the Alternative Passphrase only. 
+echo '        This feature raises the security level for the administrator area. If
+        enabled Administrator can change \'Settings\', \'Auto-Withdrawal Settings\'
+        and \'Security\' properties knowing the Alternative Passphrase only.
         ';
 echo end_info_table();
 echo '      </td>

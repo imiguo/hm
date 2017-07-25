@@ -42,7 +42,7 @@
       array_push($packages, $row1);
   }
 
-  echo '';
+
   if (($id < 3 and $settings['demomode'] == 1)) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
@@ -78,7 +78,7 @@ function checkform() {
   echo quote($row['name']);
   echo '\'></td>
 </tr><tr>
-      <td><a href="javascript:alert(\'Specify your package duration here.\\nFor example 30 days, 365 days, or no limit.\')" class=hlp>Package 
+      <td><a href="javascript:alert(\'Specify your package duration here.\\nFor example 30 days, 365 days, or no limit.\')" class=hlp>Package
         Duration</a></td>
  <td>
 	<input type=text name=hq_days class=inpts size=5 style="text-align:right" value="';
@@ -172,8 +172,8 @@ function checkform() {
 <br><br><br>
               ';
   echo start_info_table('100%');
-  echo '              Type 0 in the max amount field if you do not want to limit your 
-              users\' maximal deposit amount. 
+  echo '              Type 0 in the max amount field if you do not want to limit your
+              users\' maximal deposit amount.
               ';
   echo end_info_table();
   echo '            </td>
@@ -470,13 +470,13 @@ Earnings only on mon-fri:<br>
 Allow earnings only on working days.<br>
 <br>
 Allow depositing only after the user has deposited to the following package:<br>
-Administrator can select a \'parent\' package. Then users should deposit to the 
+Administrator can select a \'parent\' package. Then users should deposit to the
 parent package before depositing to the current one.<br>
 <br>
 Com';
   echo 'pounding:<br>
-Users can set a compounding percent while depositing. For example if one sets 
-the 40% compounding, then the system will add 40% of earnings to the deposit, 
+Users can set a compounding percent while depositing. For example if one sets
+the 40% compounding, then the system will add 40% of earnings to the deposit,
 and 60% of earnings to the user\'s account.<br>
 <br>
 Compounding deposit amount limits:<br>
@@ -484,7 +484,7 @@ Here you can limit the deposit amount for which compounding is possible.<br>
 <br>
 Compounding percents limits:<br>
 You can limit the compounding';
-  echo ' percent here. The range or solid values are possible 
+  echo ' percent here. The range or solid values are possible
 to specify.<br>
 <br>
 Hold earnings at account:<br>
@@ -496,41 +496,41 @@ You can set initial delay. Then user\'s deposits start work after specified days
 Example 1.<br>
 Creating a package for unlimited period with 1.2% daily:<br>
 Set the name, the rates,';
-  echo ' check \'no limit\' in the duration field, select the \'daily\' 
+  echo ' check \'no limit\' in the duration field, select the \'daily\'
 payment period, set the \'active\' status.<br>
 Users will receive 1.2% daily for the unlimited period.<br>
 <br>
 Example 2.<br>
 Creating a package for 30 days with 1.3% daily:<br>
-Set the name, the rates, type 30 in the duration field, select the \'daily\' payment 
+Set the name, the rates, type 30 in the duration field, select the \'daily\' payment
 period, set the \'active\' status and check \'return principal\'.<br>
 Users will receive';
-  echo ' 1.3% daily for 30 days and get their deposit back after 30 
-days. If they deposit $100, they will receive $100*0.013*30 + $100 (return principal) 
+  echo ' 1.3% daily for 30 days and get their deposit back after 30
+days. If they deposit $100, they will receive $100*0.013*30 + $100 (return principal)
 = $139.<br>
 <br>
 Example 3.<br>
 Creating a package for 1 year with 1.3% daily:<br>
-Set the name, the rates, type 365 in the package duration field, select \'daily\' 
+Set the name, the rates, type 365 in the package duration field, select \'daily\'
 payment period, set \'active\' status, do not check \'return principal\'<br>
 Users will receive 1';
-  echo '.3% daily for 1 year and will not receive his deposit 
+  echo '.3% daily for 1 year and will not receive his deposit
 after 365 days. If they deposit $100, they will receive $100*0.013*365 = $474.5.<br>
 <br>
 Example 4.<br>
 Creating a package for 1 month with rate 125%<br>
-Set the name, the rates, type 31 in the package duration field, select \'after specified 
-period\' in the payment period field, set status \'active\' and do not check \'return 
+Set the name, the rates, type 31 in the package duration field, select \'after specified
+period\' in the payment period field, set status \'active\' and do not check \'return
 principal\'.<br>
 Users w';
-  echo 'ill receive 125% in a month. If one deposits $100, he will receive $100*1.25 
+  echo 'ill receive 125% in a month. If one deposits $100, he will receive $100*1.25
 = $125.<br>
 <br>
 Example 5.<br>
 Creating a package for 1 month with 30% weekly rate:<br>
-Set the name, the rates, type 31 in the package duration field, select \'weekly\' 
+Set the name, the rates, type 31 in the package duration field, select \'weekly\'
 payment period, set \'active\' status, do not check \'return principal\'.<br>
-Users will receive 30% weekly. If one deposits $100, he will receive $100*0.30*4 
+Users will receive 30% weekly. If one deposits $100, he will receive $100*0.30*4
 =';
   echo ' $120.<br>
 <br>

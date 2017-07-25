@@ -18,7 +18,7 @@ You cannot change the exchange rates!';
       echo end_info_table();
   }
 
-  echo '';
+
   $exch = [];
   $q = 'select * from hm2_exchange_rates';
   $sth = db_query($q);
@@ -38,7 +38,7 @@ You cannot change the exchange rates!';
 <table cellspacing=1 cellpadding=2 border=0>
 <tr>
   <td bgcolor=#FFFFFF nowrap align=center>From / To</td>';
-  echo '';
+
   foreach ($exchange_systems as $id => $value) {
       echo '  <td bgcolor=#FFFFFF align=center><img src=images/';
       echo $id;
@@ -79,7 +79,7 @@ You cannot change the exchange rates!';
 <input type=submit value="Update" class=sbmt>
 
 </td>
-      <td valign=top align=right> 
+      <td valign=top align=right>
         ';
   echo start_info_table('300');
   echo '        Exchange Rates:<br>
@@ -88,10 +88,10 @@ You cannot change the exchange rates!';
         Vertical column is FROM currency.<br>
         Horizontal row is TO currency.<br>
         <br>
-        Ex: To set a percent for e-gold to INTGold exchange you should 
+        Ex: To set a percent for e-gold to INTGold exchange you should
         edit the field in the vertical column with the e-gold icon and in the row with the INTGold one.<br> <br>
         To di';
-  echo 'sable an exchange set its percentage to 100. 
+  echo 'sable an exchange set its percentage to 100.
         ';
   echo end_info_table();
   echo '      </td>

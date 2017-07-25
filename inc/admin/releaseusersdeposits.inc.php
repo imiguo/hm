@@ -103,7 +103,7 @@
       array_push($plans, $row);
   }
 
-  echo '';
+
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
@@ -234,7 +234,7 @@ You cannot release deposits!';
   echo start_info_table('100%');
   echo 'Release deposits:<br>
 A member can ask you to clear his deposit and return his funds.<br>
-This screen helps you to release user\'s deposit if you need. Funds will return 
+This screen helps you to release user\'s deposit if you need. Funds will return
 to the member\'s account and the member can withdraw these funds.
 ';
   echo end_info_table();

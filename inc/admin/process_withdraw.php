@@ -56,9 +56,9 @@ if ($to_withdraw < 0) {
 }
 
 $to_withdraw = sprintf('%.02f', floor($to_withdraw * 100) / 100);
-echo '';
+
 if ($do_not_show_form == 0) {
-    echo '';
+
     if ($trans['ec'] == 0) {
         echo '<form name=spend method=post action="https://www.e-gold.com/sci_asp/payments.asp">
 <input type=hidden name=withdraw value="';
@@ -82,7 +82,7 @@ Sending <b>$';
 Payment will be made from this account:<br><br> <INPUT type=text class=inpts name=FORCED_PAYER_ACCOUNT value="';
         echo $settings['def_payee_account'];
         echo '">
-<INPUT type=hidden name=PAYMENT_UNITS value="1"> 
+<INPUT type=hidden name=PAYMENT_UNITS value="1">
 <INPUT type=hidden name=PAYMENT_METAL_ID value="1">
 <INPUT type=hidden name=STATUS_URL value="';
         echo $settings['site_url'];
@@ -199,15 +199,15 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                     echo 'Sending <b>$';
                     echo $to_withdraw;
                     echo '</b> to StormPay.<br>
-<form method="post" action="https://www.stormpay.com/stormpay/handle_gen.php" target="_blank"> 
+<form method="post" action="https://www.stormpay.com/stormpay/handle_gen.php" target="_blank">
   <input type="hidden" name="product_name" value="Withdraw to ';
                     echo $user['name'];
                     echo ' from ';
                     echo $settings['site_name'];
-                    echo '"> 
+                    echo '">
   <input type="hidden" name="amount" value="';
                     echo $to_withdraw;
-                    echo '"> 
+                    echo '">
   <input type="hidden" name="payee_email" value="';
                     echo $user['stormpay_account'];
                     echo '">
@@ -217,7 +217,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                     echo $frm_env[HTTPS] ? 'https' : 'http';
                     echo '://';
                     echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
-                    echo '?a=pay_withdraw&say=yes"> 
+                    echo '?a=pay_withdraw&say=yes">
   <input type="hidden" name="notify_URL" value="';
                     echo $settings['site_url'];
                     echo '/index.php">
@@ -226,7 +226,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                     echo $frm_env[HTTPS] ? 'https' : 'http';
                     echo '://';
                     echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
-                    echo '?a=pay_withdraw&say=no"> 
+                    echo '?a=pay_withdraw&say=no">
   <input type=hidden name=user1 value="';
                     echo $id;
                     echo '-';
@@ -302,18 +302,18 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                             echo $user['name'];
                             echo ' from ';
                             echo $settings['site_name'];
-                            echo '"> 
+                            echo '">
   <input type="hidden" name="amount" value="';
                             echo $to_withdraw;
-                            echo '"> 
+                            echo '">
   <input type="hidden" name="return" value="';
                             echo $settings['site_url'];
-                            echo '/paypal_processing.php"> 
+                            echo '/paypal_processing.php">
   <input type="hidden" name="cancel_return" value="';
                             echo $frm_env[HTTPS] ? 'https' : 'http';
                             echo '://".';
                             echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
-                            echo '."?a=pay_withdraw&say=no"> 
+                            echo '."?a=pay_withdraw&say=no">
   <input type=hidden name=custom value="pay_withdraw|';
                             echo $id;
                             echo '-';
@@ -332,7 +332,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                                 echo 'Sending <b>$';
                                 echo $to_withdraw;
                                 echo '</b> to GoldMoney.<br>
-<form action="https://secure.goldmoney.com/omi/omipmt.php" method="post"> 
+<form action="https://secure.goldmoney.com/omi/omipmt.php" method="post">
 <input type=hidden name=withdraw value="';
                                 echo $id;
                                 echo '-';
@@ -341,31 +341,31 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
 <input type=hidden name=a value="pay_withdraw">
 <input type="hidden" name="OMI_MERCHANT_HLD_NO" value="';
                                 echo $user['goldmoney_account'];
-                                echo '"> 
+                                echo '">
 <input type="hidden" name="OMI_CURRENCY_AMT" value="';
                                 echo $to_withdraw;
-                                echo '"> 
-<input type="hidden" name="OMI_CURRENCY_CODE" value="840"> 
+                                echo '">
+<input type="hidden" name="OMI_CURRENCY_CODE" value="840">
 <input type="hidden" name="OMI_MERCHANT_MEMO" value="Withdraw to ';
                                 echo $user['name'];
                                 echo ' from ';
                                 echo $settings['site_name'];
-                                echo '"> 
+                                echo '">
 <input type="hidden" name="OMI_RESULT_URL" value="';
                                 echo $settings['site_url'];
-                                echo '/goldmoney_processing.php"> 
+                                echo '/goldmoney_processing.php">
 <input type="hidden" name="OMI_SUCCESS_URL" value="';
                                 echo $frm_env[HTTPS] ? 'https' : 'http';
                                 echo '://';
                                 echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
-                                echo '?a=pay_withdraw&say=yes"> 
-<input type="hidden" name="OMI_SUCCESS_URL_METHOD" value="post"> 
+                                echo '?a=pay_withdraw&say=yes">
+<input type="hidden" name="OMI_SUCCESS_URL_METHOD" value="post">
 <input type="hidden" name="OMI_FAIL_URL" value="';
                                 echo $frm_env[HTTPS] ? 'https' : 'http';
                                 echo '://';
                                 echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
-                                echo '?a=pay_withdraw&say=no"> 
-<input type="hidden" name="OMI_FAIL_URL_METHOD" value="post"> 
+                                echo '?a=pay_withdraw&say=no">
+<input type="hidden" name="OMI_FAIL_URL_METHOD" value="post">
 <br><input type=submit value="Go to goldmoney.com" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
 </form>';
@@ -465,7 +465,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                                             if ($frm['confirm'] == 'ok') {
                                                 $q = ''.'delete from hm2_history where id = '.$id;
                                                 (db_query($q) or print mysql_error());
-                                                $q = 'insert into hm2_history set 
+                                                $q = 'insert into hm2_history set
         user_id = '.$user['id'].',
         amount = -'.abs($trans['actual_amount']).',
         type = \'withdrawal\',
@@ -475,10 +475,10 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
         date = now()
         ';
                                                 (db_query($q) or print mysql_error());
-                                                echo '  Withdrawal has been processed. 
+                                                echo '  Withdrawal has been processed.
   ';
                                             } else {
-                                                echo '  You should send a Wire Transfer to the user bank account and then confirm the 
+                                                echo '  You should send a Wire Transfer to the user bank account and then confirm the
   transaction.<br>
   <form name=spend method=post>
   <input type=hidden name=a value=pay_withdraw>
@@ -497,7 +497,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                                             if ($frm['confirm'] == 'ok') {
                                                 $q = ''.'delete from hm2_history where id = '.$id;
                                                 (db_query($q) or print mysql_error());
-                                                $q = 'insert into hm2_history set 
+                                                $q = 'insert into hm2_history set
          user_id = '.$user['id'].',
          amount = -'.abs($trans['actual_amount']).',
          type = \'withdrawal\',
@@ -558,7 +558,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
         }
     }
 
-    echo '';
+
 }
 
-echo '';
+

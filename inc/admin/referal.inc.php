@@ -18,7 +18,7 @@ You cannot edit referral settings!';
       echo end_info_table();
   }
 
-  echo '';
+
   echo '<s';
   echo 'cript language=javascript>
 function checkref(a) {
@@ -44,7 +44,7 @@ function checkref(a) {
   echo '> Use referral program?<br><br>
   ';
   echo start_info_table('100%');
-  echo '  Toggle the usage of a referral program. Select if yes. 
+  echo '  Toggle the usage of a referral program. Select if yes.
   ';
   echo end_info_table();
   echo '  <br>
@@ -68,7 +68,7 @@ function checkref(a) {
   <br>
   ';
   echo start_info_table('100%');
-  echo '  If \'Force an upline during the signup\' option is enabled and user does not have an upline the system will get a random one. 
+  echo '  If \'Force an upline during the signup\' option is enabled and user does not have an upline the system will get a random one.
   ';
   echo end_info_table();
   echo '  <br>
@@ -81,8 +81,8 @@ function checkref(a) {
   <br>
   ';
   echo start_info_table('100%');
-  echo '  Check this checkbox for your users to see how many visitors were on your site 
-  and how many visitors became members. 
+  echo '  Check this checkbox for your users to see how many visitors were on your site
+  and how many visitors became members.
   ';
   echo end_info_table();
   echo '  <br>
@@ -95,8 +95,8 @@ function checkref(a) {
   <br>
   ';
   echo start_info_table('100%');
-  echo '  Check this checkbox if you want your users to see their referrals\' nicknames 
-  and e-mail. 
+  echo '  Check this checkbox if you want your users to see their referrals\' nicknames
+  and e-mail.
   ';
   echo end_info_table();
   echo '  <br>
@@ -134,7 +134,7 @@ function checkref(a) {
   <br>
   ';
   echo start_info_table('100%');
-  echo '  Check this checkbox and referral commision will pay to users who made a deposit only. 
+  echo '  Check this checkbox and referral commision will pay to users who made a deposit only.
   ';
   echo end_info_table();
   echo '  <br>
@@ -147,8 +147,8 @@ function checkref(a) {
   <br>
   ';
   echo start_info_table('100%');
-  echo '  Check this checkbox and referrals range will count from referrals who made a 
-  deposit only. 
+  echo '  Check this checkbox and referrals range will count from referrals who made a
+  deposit only.
   ';
   echo end_info_table();
   echo '  <br>

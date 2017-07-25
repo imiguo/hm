@@ -197,7 +197,7 @@ function reverce(flag)
           echo 'mall>
 	<a href=?a=editaccount&id=';
           echo $members[$i]['id'];
-          echo '>[edit]</a> 
+          echo '>[edit]</a>
 	<a href="?a=deleteaccount&id=';
           echo $members[$i]['id'];
           echo '&p=';
@@ -206,10 +206,10 @@ function reverce(flag)
           echo $frm['q'];
           echo '&status=';
           echo $frm['status'];
-          echo '" onclick="return confirm(\'Are you sure you want to delete this user?\');">[delete]</a> 
+          echo '" onclick="return confirm(\'Are you sure you want to delete this user?\');">[delete]</a>
 	<a href=\'mailto:';
           echo quote($members[$i]['email']);
-          echo '\'>[e-mail]</a> 
+          echo '\'>[e-mail]</a>
 	<a href=?a=userfunds&id=';
           echo $members[$i]['id'];
           echo '>[manage funds]</a></small>
@@ -254,7 +254,7 @@ function reverce(flag)
       echo '</small></center>';
   }
 
-  echo '';
+
   if ($qstatus == 'blocked') {
       echo '<input type=button value="Activate" class=sbmt onclick="document.members.action.value=\'activate\';document.members.submit()"> &nbsp;';
   }
@@ -271,23 +271,23 @@ Suspended: User can login, but cannot not receive any earnings from deposits.<br
 Disabled: User can not login and cannot receive any earnings.<br>
 <br>
 The top left search form helps you to search a user by the nickname o';
-  echo 'r e-mail. 
+  echo 'r e-mail.
 You can also enter a part of a nickname or e-mail to search users.<br>
 The top right form helps you to navigate between the user types.<br>
 You can see the following information in the members list:<br>
-Nickname, Registration date, Status, Account, Deposit, Earned, Withdrew. You can 
+Nickname, Registration date, Status, Account, Deposit, Earned, Withdrew. You can
 see not confirmed users also if you use double opt-in registration.<br>
 <br>
 
 Actions:<br>
 Change sta';
-  echo 'tus: select a new status in the \'Status\' row and click the \'Modify\' 
+  echo 'tus: select a new status in the \'Status\' row and click the \'Modify\'
 button;<br>
 Edit user information: click on the \'edit\' link;<br>
 Delete user: click on the \'delete\' link and confirm this action;<br>
 Send e-mail to user: click on the \'e-mail\' link and send e-mail to user.<br>
 \'Manage funds\' link will help you to check any user\'s history and change his funds.<br>
 Add a new Member: click on the ';
-  echo '"Add a new member" button. You\'ll see the form 
+  echo '"Add a new member" button. You\'ll see the form
 for adding a new member. ';
   echo end_info_table();
