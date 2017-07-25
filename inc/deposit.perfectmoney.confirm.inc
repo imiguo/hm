@@ -1,7 +1,17 @@
 <?php
+
+/*
+ * This file is part of the entimm/hm.
+ *
+ * (c) entimm <entimm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 $amount = sprintf('%0.2f', $frm['amount']);
 $h_id = sprintf('%d', $frm['h_id']);
-if (($settings['use_add_funds'] AND $h_id == -1)) {
+if (($settings['use_add_funds'] and $h_id == -1)) {
     if (0.01 <= $amount) {
         $smarty->assign('h_id', -1);
         $smarty->assign('amount', $amount);
@@ -10,9 +20,9 @@ if (($settings['use_add_funds'] AND $h_id == -1)) {
     }
 } else {
     $q = ''.'select * from hm2_types where id = '.$h_id.' and closed = 0';
-    ($sth = db_query($q) OR print mysql_error());
+    ($sth = db_query($q) or print mysql_error());
     $type = mysql_fetch_array($sth);
-    if ( ! $type) {
+    if (!$type) {
         $smarty->assign('false_data', 1);
     } else {
         $plan_name = $type['name'];
@@ -25,7 +35,7 @@ if (($settings['use_add_funds'] AND $h_id == -1)) {
             $type['compound_max_deposit'] = $amount + 1;
         }
 
-        if (($type['compound_min_deposit'] <= $amount AND $amount <= $type['compound_max_deposit'])) {
+        if (($type['compound_min_deposit'] <= $amount and $amount <= $type['compound_max_deposit'])) {
             $use_compound = 1;
             if ($type['compound_percents_type'] == 1) {
                 $cps = preg_split('/\\s*,\\s*/', $type['compound_percents']);
@@ -50,7 +60,7 @@ if (($settings['use_add_funds'] AND $h_id == -1)) {
 
     $smarty->assign('use_compound', $use_compound);
     $q = ''.'select count(*) as col, min(min_deposit) as min from hm2_plans where parent = '.$h_id;
-    ($sth = db_query($q) OR print mysql_error());
+    ($sth = db_query($q) or print mysql_error());
     $row = mysql_fetch_array($sth);
     if ($row) {
         if ($row['col'] == 0) {
@@ -65,13 +75,13 @@ if (($settings['use_add_funds'] AND $h_id == -1)) {
     }
 
     $q = ''.'select count(*) as col from hm2_plans where parent = '.$h_id.' and max_deposit = 0';
-    ($sth = db_query($q) OR print mysql_error());
+    ($sth = db_query($q) or print mysql_error());
     $row = mysql_fetch_array($sth);
     if ($row) {
         if (0 < $row['col']) {
         } else {
             $q = ''.'select count(*) as col, max(max_deposit) as max from hm2_plans where parent = '.$h_id;
-            ($sth = db_query($q) OR print mysql_error());
+            ($sth = db_query($q) or print mysql_error());
             $row = mysql_fetch_array($sth);
             if ($row) {
                 if ($row['col'] == 0) {

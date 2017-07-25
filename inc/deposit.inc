@@ -1,40 +1,50 @@
 <?php
+
+/*
+ * This file is part of the entimm/hm.
+ *
+ * (c) entimm <entimm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 $ab = get_user_balance($userinfo['id']);
 $ab_formated = [];
-while (list ($kk, $vv) = each($ab)) {
+while (list($kk, $vv) = each($ab)) {
     $ab_formated[$kk] = number_format($vv, 2);
 }
 
 $smarty->assign('ab_formated', $ab_formated);
 $smarty->assign('frm', $frm);
 $q = 'select type_id from hm2_deposits where user_id = '.$userinfo['id'];
-($sth = db_query($q) OR print mysql_error());
+($sth = db_query($q) or print mysql_error());
 $already_deposits = [];
 while ($row = mysql_fetch_array($sth)) {
     array_push($already_deposits, $row['type_id']);
 }
 
 $q = 'select * from hm2_types where status = \'on\' and closed = 0 order by id';
-($sth = db_query($q) OR print mysql_error());
+($sth = db_query($q) or print mysql_error());
 $plans = [];
 $i = 0;
 $min_deposit = 1000000000;
 while ($row = mysql_fetch_array($sth)) {
     if (0 < $row['parent']) {
-        if ( ! in_array($row['parent'], $already_deposits)) {
+        if (!in_array($row['parent'], $already_deposits)) {
             continue;
         }
     }
 
     ++$i;
-    if (($row['use_compound'] == 1 AND (($i == 1 AND $frm['h_id'] == '') OR $frm['h_id'] == $row['id']))) {
+    if (($row['use_compound'] == 1 and (($i == 1 and $frm['h_id'] == '') or $frm['h_id'] == $row['id']))) {
         $smarty->assign('default_check_compound', 1);
     }
 
     $compounding_available += $row['use_compound'];
     $q = 'select * from hm2_plans where parent = '.$row['id'].' order by id';
-    if ( ! ($sth1 = db_query($q))) {
-        exit (mysql_error());;
+    if (!($sth1 = db_query($q))) {
+        exit(mysql_error());
     }
 
     $row['plans'] = [];
@@ -70,7 +80,7 @@ $smarty->assign('ps', $ps);
 $hold = [];
 if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
     $q = ''.'select id from hm2_deposits where user_id = '.$userinfo['id'];
-    ($sth = db_query($q) OR print mysql_error());
+    ($sth = db_query($q) or print mysql_error());
     $deps = [];
     $deps[0] = 0;
     while ($row = mysql_fetch_array($sth)) {
@@ -81,7 +91,7 @@ if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
 	deposit_id in ('.join(',', $deps).') and 
 			(type=\'earning\' or 
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\'))) group by ec';
-    ($sth = db_query($q) OR print mysql_error());
+    ($sth = db_query($q) or print mysql_error());
     while ($row = mysql_fetch_array($sth)) {
         array_push($hold, ['ec' => $row[ec], 'amount' => number_format($row[amount], 2)]);
     }
@@ -124,7 +134,7 @@ if ($settings['hold_only_first_days'] == 1) {
           ';
 }
 
-($sth = db_query($q) OR print mysql_error());
+($sth = db_query($q) or print mysql_error());
 $deps = [];
 $deps[0] = 0;
 while ($row = mysql_fetch_array($sth)) {
@@ -137,4 +147,3 @@ $smarty->assign('qplans', sizeof($plans));
 $smarty->assign('min_deposit', sprintf('%0.2f', $min_deposit));
 $smarty->assign('compounding_available', $compounding_available);
 $smarty->display('deposit.tpl');
-?>

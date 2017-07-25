@@ -1,5 +1,14 @@
-<?
-/***********************************************************************/
+<?php
+
+/*
+ * This file is part of the entimm/hm.
+ *
+ * (c) entimm <entimm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 /*                                                                     */
 /*  This file is created by deZender                                   */
 /*                                                                     */
@@ -10,11 +19,10 @@
 /*                                                                     */
 /***********************************************************************/
 
-
   $q = 'select 
                u.username,
                sum(h.actual_amount) as balance,
-               date_format(u.date_register + interval ' . $settings['time_dif'] . ' hour, \'%b-%e-%Y %r\') as dd
+               date_format(u.date_register + interval '.$settings['time_dif'].' hour, \'%b-%e-%Y %r\') as dd
          from 
                hm2_users as u left outer join hm2_history as h
                  on u.id = h.user_id
@@ -24,14 +32,12 @@
          order by balance asc
          limit 0, 10
         ';
-  ($sth = db_query ($q) OR print mysql_error ());
-  $stats = array ();
-  while ($row = mysql_fetch_array ($sth))
-  {
-    $row['balance'] = number_format (abs ($row['balance']), 2);
-    array_push ($stats, $row);
+  ($sth = db_query($q) or print mysql_error());
+  $stats = [];
+  while ($row = mysql_fetch_array($sth)) {
+      $row['balance'] = number_format(abs($row['balance']), 2);
+      array_push($stats, $row);
   }
 
-  $smarty->assign ('top', $stats);
-  $smarty->display ('top10.tpl');
-?>
+  $smarty->assign('top', $stats);
+  $smarty->display('top10.tpl');

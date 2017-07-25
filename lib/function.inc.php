@@ -1,8 +1,14 @@
 <?php
+
 /*
-* 检测服务器是否支持SSL连接（Https连接）
-* @return bool
-*/
+ * This file is part of the entimm/hm.
+ *
+ * (c) entimm <entimm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 function is_SSL()
 {
     if (!isset($_SERVER['HTTPS'])) {
