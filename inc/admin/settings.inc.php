@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the entimm/hm.
+ *
+ * (c) entimm <entimm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 $month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 $admin_stat_password = '';
 $q = 'select * from hm2_users where id=1';

@@ -1,15 +1,25 @@
 <?php
+
+/*
+ * This file is part of the entimm/hm.
+ *
+ * (c) entimm <entimm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 if ($frm['action'] == 'confirm') {
     $smarty->assign('say', $frm['say']);
     $smarty->display('edit_account_confirmation.tpl');
     db_close($dbconn);
-    exit ();
+    exit();
 }
 
 if ($frm['action'] == 'edit_account') {
-    if (($settings['demomode'] == 1 AND $userinfo['id'] < 3)) {
+    if (($settings['demomode'] == 1 and $userinfo['id'] < 3)) {
         header('Location: ?a=edit_account');
-        exit ();
+        exit();
     }
 
     $errors = [];
@@ -30,7 +40,7 @@ if ($frm['action'] == 'edit_account') {
             }
         }
 
-        if (($settings['usercanchangeemail'] AND $frm['email'] == '')) {
+        if (($settings['usercanchangeemail'] and $frm['email'] == '')) {
             array_push($errors, 'email');
         }
 
@@ -73,7 +83,7 @@ if ($frm['action'] == 'edit_account') {
                 }
             }
 
-            if ((($frm['transaction_code'] != '' AND $frm['password'] != '') AND $frm['transaction_code'] == $frm['password'])) {
+            if ((($frm['transaction_code'] != '' and $frm['password'] != '') and $frm['transaction_code'] == $frm['password'])) {
                 array_push($errors, 'transaction_code_vs_password');
             }
         }
@@ -89,12 +99,12 @@ if ($frm['action'] == 'edit_account') {
                     } else {
                         header('Location: ?a=edit_account');
                         db_close($dbconn);
-                        exit ();
+                        exit();
                     }
                 } else {
                     header('Location: ?a=edit_account&action=confirm&say=invalid_code');
                     db_close($dbconn);
-                    exit ();
+                    exit();
                 }
             } else {
                 $code = get_rand_md5(50);
@@ -108,7 +118,7 @@ if ($frm['action'] == 'edit_account') {
                 send_template_mail('account_update_confirmation', $userinfo['email'], $settings['system_email'], $info);
                 header('Location: ?a=edit_account&action=confirm');
                 db_close($dbconn);
-                exit ();
+                exit();
             }
         }
 
@@ -132,40 +142,40 @@ if ($frm['action'] == 'edit_account') {
         $zip = quote($frm['zip']);
         $country = quote($frm['country']);
         $transaction_code = quote($frm['transaction_code']);
-        if (($userinfo['email'] != $frm['email'] AND $settings['usercanchangeemail'] == 1)) {
+        if (($userinfo['email'] != $frm['email'] and $settings['usercanchangeemail'] == 1)) {
             $q = ''.'update hm2_users set email = \''.$email.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q) OR print mysql_error());
+            (db_query($q) or print mysql_error());
         }
 
-        if (($userinfo['egold_account'] != $frm['egold_account'] AND $settings['usercanchangeegoldacc'])) {
+        if (($userinfo['egold_account'] != $frm['egold_account'] and $settings['usercanchangeegoldacc'])) {
             $q = ''.'update hm2_users set egold_account = \''.$egold.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q) OR print mysql_error());
+            (db_query($q) or print mysql_error());
         }
 
-        if (($userinfo['perfectmoney_account'] != $frm['perfectmoney_account'] AND $settings['usercanchangeperfectmoneyacc'])) {
+        if (($userinfo['perfectmoney_account'] != $frm['perfectmoney_account'] and $settings['usercanchangeperfectmoneyacc'])) {
             $q = ''.'update hm2_users set perfectmoney_account = \''.$perfectmoney.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q) OR print mysql_error());
+            (db_query($q) or print mysql_error());
         }
 
         if ($frm['password'] != '') {
             $q = ''.'update hm2_users set password = \''.$enc_password.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q) OR print mysql_error());
+            (db_query($q) or print mysql_error());
             if ($settings['store_uncrypted_password'] == 1) {
                 $pswd = quote($frm['password']);
                 $q = ''.'update hm2_users set pswd = \''.$pswd.'\' where id > 1 and id = '.$userinfo['id'];
-                (db_query($q) OR print mysql_error());
+                (db_query($q) or print mysql_error());
             }
         }
 
         if ($frm['transaction_code'] != '') {
             $q = ''.'update hm2_users set transaction_code = \''.$transaction_code.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q) OR print mysql_error());
+            (db_query($q) or print mysql_error());
         }
 
         if ($frm['wappassword'] != '') {
             $enc_password = quote(md5($frm['wappassword']));
             $q = ''.'update hm2_users set stat_password = \''.$enc_password.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q) OR print mysql_error());
+            (db_query($q) or print mysql_error());
         }
 
         $edit_location = '';
@@ -190,7 +200,7 @@ if ($frm['action'] == 'edit_account') {
 				 eeecurrency_account = \''.$eeecurrency.'\',
                                  user_auto_pay_earning = '.$user_auto_pay_earning.'
             where id > 1 and id = '.$userinfo['id'];
-        (db_query($q) OR print mysql_error());
+        (db_query($q) or print mysql_error());
         $q = 'select * from hm2_users where id ='.$userinfo['id'];
         $sth = db_query($q);
         $userinfo = mysql_fetch_array($sth);
@@ -214,7 +224,7 @@ if ($frm['action'] == 'edit_account') {
         }
 
         header('Location: ?a=edit_account&say=changed');
-        exit ();
+        exit();
     }
 }
 
@@ -229,4 +239,3 @@ $smarty->assign('frm', $frm);
 $smarty->assign('settings', $settings);
 $smarty->assign('countries', $countries);
 $smarty->display('edit_account.tpl');
-?>

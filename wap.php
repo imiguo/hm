@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the entimm/hm.
+ *
+ * (c) entimm <entimm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 if (file_exists('install.php')) {
     echo 'Delete install.php file for security reason please!';
     exit();
