@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the entimm/hm.
+ *
+ * (c) entimm <entimm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 class Mysql
 {
     private $mysqli;
@@ -13,8 +22,9 @@ class Mysql
     public static function instance()
     {
         if (!self::$instance) {
-            self::$instance = new self;
+            self::$instance = new self();
         }
+
         return self::$instance;
     }
 

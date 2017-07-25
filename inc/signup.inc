@@ -214,7 +214,6 @@
                        transaction_code = \''.$transaction_code.'\',
                        ref = '.$ref_id;
           if (!(db_query($q))) {
-
           }
 
           if ($settings['phpbb_register']) {

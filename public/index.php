@@ -487,7 +487,6 @@ if ($frm['a'] == 'do_login') {
                 $userinfo['logged'] = 1;
                 $q = 'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
                 if (!(db_query($q))) {
-
                 }
 
                 continue;

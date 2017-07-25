@@ -11,7 +11,6 @@
 
 $q = 'select * from hm2_types order by id';
   if (!($sth = db_query($q))) {
-      
   }
 
   $plans = [];
@@ -19,7 +18,6 @@ $q = 'select * from hm2_types order by id';
   while ($row = mysql_fetch_array($sth)) {
       $q = 'select min(min_deposit) as min_amount, max(max_deposit) as max_amount, sum(max_deposit = 0) as nomax, min(percent) as min_percent, max(percent) as max_percent from hm2_plans where parent='.$row['id'].' group by parent';
       if (!($sth1 = db_query($q))) {
-          
       }
 
       $row1 = mysql_fetch_array($sth1);

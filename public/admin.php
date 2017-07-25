@@ -401,7 +401,6 @@ if ($frm['a'] == 'test_ebullion_settings') {
 if ($userinfo['should_count'] == 1) {
     $q = 'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
     if (!(db_query($q))) {
-
     }
 
     count_earning(-1);
@@ -1698,7 +1697,6 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
               date = now(),
               description = \''.$description.'\'';
             if (!(db_query($q))) {
-
             }
 
             if ($deposit) {
@@ -1794,7 +1792,6 @@ if (($frm['a'] == 'addpenality' and $frm['action'] == 'addpenality')) {
 	date = now(),
 	description = \''.$description.'\'';
     if (!(db_query($q))) {
-
     }
 
     if ($frm['inform'] == 1) {
@@ -2082,7 +2079,6 @@ if ($frm['action'] == 'add_hyip') {
 	delay = '.$delay.'
   ');
     if (!(db_query($q))) {
-
     }
 
     $parent = mysql_insert_id();
@@ -2100,7 +2096,6 @@ if ($frm['action'] == 'add_hyip') {
 		max_deposit = '.$max_amount.',
 		percent = '.$percent;
             if (!(db_query($q))) {
-
             }
 
             continue;
@@ -2196,13 +2191,11 @@ if ($frm['action'] == 'edit_hyip') {
 	 where id='.$id.'
   ');
     if (!(db_query($q))) {
-
     }
 
     $parent = $id;
     $q = 'delete from hm2_plans where parent = '.$id;
     if (!(db_query($q))) {
-
     }
 
     $rate_amount_active = $frm['rate_amount_active'];
@@ -2219,7 +2212,6 @@ if ($frm['action'] == 'edit_hyip') {
 		max_deposit = '.$max_amount.',
 		percent = '.$percent;
             if (!(db_query($q))) {
-
             }
 
             continue;

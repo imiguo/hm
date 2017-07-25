@@ -1,4 +1,14 @@
 <?php
+
+/*
+ * This file is part of the entimm/hm.
+ *
+ * (c) entimm <entimm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 require __DIR__.'/vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -6,7 +16,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 
-$capsule = new Capsule;
+$capsule = new Capsule();
 
 $capsule->addConnection([
     'driver'    => getenv('DB_CONNECTION'),
