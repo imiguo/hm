@@ -44,7 +44,6 @@ while ($row = mysql_fetch_array($sth)) {
     $compounding_available += $row['use_compound'];
     $q = 'select * from hm2_plans where parent = '.$row['id'].' order by id';
     if (!($sth1 = db_query($q))) {
-
     }
 
     $row['plans'] = [];

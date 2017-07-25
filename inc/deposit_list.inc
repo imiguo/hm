@@ -17,7 +17,6 @@ $q = 'select * from hm2_types where status = \'on\'';
       $row['deposits'] = [];
       $q = 'select * from hm2_plans where parent = '.$row['id'].' order by id';
       if (!($sth1 = db_query($q))) {
-
       }
 
       $row['plans'] = [];

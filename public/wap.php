@@ -71,7 +71,6 @@ if ($frm['a'] == 'do_login') {
         $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(''.',
   	date = now(), ip = \''.$ip.'\'');
         if (!(db_query($q))) {
-
         }
 
         setcookie('username', $frm['username'], time() + 630720000);
@@ -79,7 +78,6 @@ if ($frm['a'] == 'do_login') {
         $ip = $frm_env['REMOTE_ADDR'];
         $q = 'update hm2_users set last_access_time = now(), last_access_ip = \''.$ip.'\' where username=\''.$username.'\'';
         if (!(db_query($q))) {
-
         }
     }
 
@@ -107,7 +105,6 @@ if ($frm['a'] == 'do_login') {
             $userinfo['logged'] = 1;
             $q = 'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
             if (!(db_query($q))) {
-
             }
 
             continue;
