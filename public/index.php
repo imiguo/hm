@@ -28,9 +28,10 @@ require '../lib/config.inc.php';
 $smarty = new Smarty();
 $smarty->compile_check = true;
 $smarty->force_compile = true;
+$smarty->debugging = true;
 $smarty->template_dir = TMPL_PATH;
 $smarty->compile_dir = '../tmpl_c';
-$smarty->default_modifiers = ['myescape'];
+$smarty->default_modifiers = ['escape'];
 
 if (HTTPS) {
     $frm_env['HTTPS'] = 1;

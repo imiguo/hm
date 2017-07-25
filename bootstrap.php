@@ -33,12 +33,12 @@ function mysql_query($query)
 
 function mysql_fetch_array($result)
 {
-    return $result->fetch_array(MYSQLI_NUM);
+    return $result->fetch_array();
 }
 
 function mysql_fetch_assoc($result)
 {
-    return $result->fetch_array(MYSQLI_ASSOC);
+    return $result->fetch_assoc();
 }
 
 function mysql_insert_id()
