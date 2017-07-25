@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $q = 'select count(*) as col from hm2_users where id > 1';
+$q = 'select count(*) as col from hm2_users where id > 1';
   if (!($sth = db_query($q))) {
       echo mysql_error();
   }

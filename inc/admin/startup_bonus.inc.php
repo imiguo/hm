@@ -9,10 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-
-  echo '<s';
+echo '<s';
   echo 'cript language=javascript>
 function en_dis() {
   document.nform.ec.disabled = !document.nform.add_startup_bonus.checked;
@@ -42,16 +39,16 @@ function en_dis() {
   echo '<s';
   echo 'elect name=ec class=inpts>';
   foreach ($exchange_systems as $id => $data) {
-    if ($data['status'] != 1) {
-        continue;
-    }
-    echo '	<option value="';
-    echo $id;
-    echo '" ';
-    echo $id == $settings['startup_bonus_ec'] ? 'selected' : '';
-    echo '>';
-    echo $data['name'];
-}
+      if ($data['status'] != 1) {
+          continue;
+      }
+      echo '	<option value="';
+      echo $id;
+      echo '" ';
+      echo $id == $settings['startup_bonus_ec'] ? 'selected' : '';
+      echo '>';
+      echo $data['name'];
+  }
 
   echo ' </select>
  </td>

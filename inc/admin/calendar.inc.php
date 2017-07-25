@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '<br><br>
+echo '<br><br>
 <b>Estimate users earnings:</b><br><br>
 ';
   echo '<s';

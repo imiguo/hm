@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $found_records = -1;
+$found_records = -1;
   if ($frm['action'] == 'forgot_password') {
       $found_records = 0;
       $email = quote($frm['email']);

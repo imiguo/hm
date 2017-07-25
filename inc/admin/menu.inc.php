@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '                   <table cellspacing=0 cellpadding=2 border=0 width="172">
+echo '                   <table cellspacing=0 cellpadding=2 border=0 width="172">
                     <tr>
                       <th colspan=2><img src=images/q.gif width=1 height=3></th>
                     </tr>

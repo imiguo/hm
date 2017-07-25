@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '<b>Information has not been changed:</b><br>
+echo '<b>Information has not been changed:</b><br>
 <br>
 Sorry, such a username already exists in the database. Please click \'back\' button 
 on your browser and try another one.';

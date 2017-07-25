@@ -17,7 +17,6 @@
 
   $row = mysql_fetch_array($sth);
 
-
   echo '<b>Edit Member Account:</b><br>
 <br>
 ';
@@ -25,11 +24,9 @@
       echo 'User information saved<br><br>';
   }
 
-
   if ($frm['say'] == 'incorrect_password') {
       echo 'Please check your password<br><br>';
   }
-
 
   if ($frm['say'] == 'incorrect_transaction_code') {
       echo 'Please check your transaction code<br><br>';

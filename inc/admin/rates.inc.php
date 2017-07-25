@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $q = 'select * from hm2_types order by id';
+$q = 'select * from hm2_types order by id';
   if (!($sth = db_query($q))) {
       exit(mysql_error());
   }

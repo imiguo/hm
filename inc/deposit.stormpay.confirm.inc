@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $amount = sprintf('%0.2f', $frm['amount']);
+$amount = sprintf('%0.2f', $frm['amount']);
   $h_id = sprintf('%d', $frm['h_id']);
   if (($settings[use_add_funds] and $h_id == -1)) {
       if (0.01 <= $amount) {

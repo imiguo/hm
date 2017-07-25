@@ -58,7 +58,6 @@ if ($to_withdraw < 0) {
 $to_withdraw = sprintf('%.02f', floor($to_withdraw * 100) / 100);
 
 if ($do_not_show_form == 0) {
-
     if ($trans['ec'] == 0) {
         echo '<form name=spend method=post action="https://www.e-gold.com/sci_asp/payments.asp">
 <input type=hidden name=withdraw value="';
@@ -557,8 +556,4 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
             }
         }
     }
-
-
 }
-
-

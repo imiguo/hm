@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $q = 'select * from hm2_types where status = \'on\'';
+$q = 'select * from hm2_types where status = \'on\'';
   ($sth = db_query($q) or print mysql_error());
   $plans = [];
   $total = 0;

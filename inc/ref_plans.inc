@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $q = 'select max(percent) as percent from hm2_referal';
+$q = 'select max(percent) as percent from hm2_referal';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
       $smarty->assign('percent', $row['percent']);

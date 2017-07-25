@@ -9,38 +9,35 @@
  * with this source code in the file LICENSE.
  */
 
+if ($settings['demomode'] != 1) {
+    if ($frm['action'] == 'add') {
+        $title = quote($frm['title']);
+        $small_text = quote($frm_orig['small_text']);
+        $small_text = preg_replace('/\\r/', '', $small_text);
+        $full_text = quote($frm_orig['full_text']);
+        $full_text = preg_replace('/\\r/', '', $full_text);
+        $q = ''.'insert into hm2_news set date=now(), title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\'';
+        (db_query($q) or print mysql_error());
+    }
 
+    if (($frm['action'] == 'edit' and $frm['save'] == 1)) {
+        $id = intval($frm['id']);
+        $title = quote($frm['title']);
+        $small_text = quote($frm_orig['small_text']);
+        $small_text = preg_replace('/\\r/', '', $small_text);
+        $full_text = quote($frm_orig['full_text']);
+        $full_text = preg_replace('/\\r/', '', $full_text);
+        $q = ''.'update hm2_news set title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\' where id = '.$id;
+        (db_query($q) or print mysql_error());
+        $frm['action'] = '';
+    }
 
-  if ($settings['demomode'] != 1) {
-      if ($frm['action'] == 'add') {
-          $title = quote($frm['title']);
-          $small_text = quote($frm_orig['small_text']);
-          $small_text = preg_replace('/\\r/', '', $small_text);
-          $full_text = quote($frm_orig['full_text']);
-          $full_text = preg_replace('/\\r/', '', $full_text);
-          $q = ''.'insert into hm2_news set date=now(), title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\'';
-          (db_query($q) or print mysql_error());
-      }
-
-      if (($frm['action'] == 'edit' and $frm['save'] == 1)) {
-          $id = intval($frm['id']);
-          $title = quote($frm['title']);
-          $small_text = quote($frm_orig['small_text']);
-          $small_text = preg_replace('/\\r/', '', $small_text);
-          $full_text = quote($frm_orig['full_text']);
-          $full_text = preg_replace('/\\r/', '', $full_text);
-          $q = ''.'update hm2_news set title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\' where id = '.$id;
-          (db_query($q) or print mysql_error());
-          $frm['action'] = '';
-      }
-
-      if ($frm['action'] == 'delete') {
-          $id = intval($frm['id']);
-          $q = ''.'delete from hm2_news where id = '.$id;
-          (db_query($q) or print mysql_error());
-      }
-  }
-
+    if ($frm['action'] == 'delete') {
+        $id = intval($frm['id']);
+        $q = ''.'delete from hm2_news where id = '.$id;
+        (db_query($q) or print mysql_error());
+    }
+}
 
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');

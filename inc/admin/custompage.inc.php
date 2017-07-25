@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '<b>Custom pages:</b><br><br>
+echo '<b>Custom pages:</b><br><br>
 
 
 

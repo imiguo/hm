@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $id = sprintf('%d', $frm['id']);
+$id = sprintf('%d', $frm['id']);
   $q = ''.'select * from hm2_types where id= '.$id;
   if (!($sth = db_query($q))) {
       exit(mysql_error());
@@ -41,7 +39,6 @@
   while ($row1 = mysql_fetch_array($sth)) {
       array_push($packages, $row1);
   }
-
 
   if (($id < 3 and $settings['demomode'] == 1)) {
       echo start_info_table('100%');

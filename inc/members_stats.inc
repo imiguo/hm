@@ -9,12 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  function compare($a, $b)
-  {
-      return strcmp($a['username'], $b['username']);
-  }
+function compare($a, $b)
+{
+    return strcmp($a['username'], $b['username']);
+}
 
   $q = '
          select 

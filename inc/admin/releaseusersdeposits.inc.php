@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $user_id = sprintf('%d', $frm['u_id']);
+$user_id = sprintf('%d', $frm['u_id']);
   $q = 'select * from hm2_types where status = \'on\'';
   ($sth = db_query($q) or print mysql_error());
   $plans = [];
@@ -102,7 +100,6 @@
 
       array_push($plans, $row);
   }
-
 
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');

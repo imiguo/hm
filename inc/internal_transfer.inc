@@ -9,13 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  if ($frm['complete']) {
-      $smarty->assign('fatal', 'completed');
-      $smarty->display('internal_transfer.tpl');
-      exit();
-  }
+if ($frm['complete']) {
+    $smarty->assign('fatal', 'completed');
+    $smarty->display('internal_transfer.tpl');
+    exit();
+}
 
   if (!$settings['internal_transfer_enabled']) {
       $smarty->assign('fatal', 'forbidden');

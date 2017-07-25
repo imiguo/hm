@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '<form method=post name=nform>
+echo '<form method=post name=nform>
 <input type=hidden name=a value=pending_deposits>
 <table cellspacing=0 cellpadding=1 border=0 width=100%>
 <tr>

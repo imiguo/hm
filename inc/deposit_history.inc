@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $id = $userinfo['id'];
+$id = $userinfo['id'];
   $frm['day_to'] = sprintf('%d', $frm['day_to']);
   $frm['month_to'] = sprintf('%d', $frm['month_to']);
   $frm['year_to'] = sprintf('%d', $frm['year_to']);

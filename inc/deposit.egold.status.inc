@@ -9,7 +9,5 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $smarty->assign('process', $frm['process']);
+$smarty->assign('process', $frm['process']);
   $smarty->display('deposit.egold.status.tpl');

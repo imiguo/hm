@@ -9,7 +9,4 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $smarty->display('after_registration.tpl');
-
+$smarty->display('after_registration.tpl');

@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '<b>Deposit Details:</b><br><br>
+echo '<b>Deposit Details:</b><br><br>
 ';
   $id = sprintf('%d', $frm['id']);
   $q = 'select 

@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $id = sprintf('%d', $frm['id']);
+$id = sprintf('%d', $frm['id']);
   $q = ''.'select * from hm2_types where id = '.$id;
   ($sth = db_query($q) or print mysql_error());
   $flag = 0;

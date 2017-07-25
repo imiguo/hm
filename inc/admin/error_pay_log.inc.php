@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '
+echo '
 <b>Error transactions:</b><br><br>
 
 <table cellspacing=1 cellpadding=2 border=0 width=100%>

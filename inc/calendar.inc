@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $id = intval($frm['type']);
+$id = intval($frm['type']);
   $plans = [];
   $q = 'select *, 
                date_format(now() + interval '.$settings['time_dif'].' hour, \'%m/%d/%Y\') as from_date,

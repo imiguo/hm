@@ -9,14 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  if ($settings['demomode'] == 1) {
-      echo start_info_table('100%');
-      echo '<b>Demo version restriction!</b><br>
+if ($settings['demomode'] == 1) {
+    echo start_info_table('100%');
+    echo '<b>Demo version restriction!</b><br>
 You cannot change settings!';
-      echo end_info_table();
-  }
+    echo end_info_table();
+}
 
   echo '
 ';

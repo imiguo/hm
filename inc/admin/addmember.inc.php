@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '<b>Add A New Member Account:</b><br>
+echo '<b>Add A New Member Account:</b><br>
 <br>
 
 <table cellspacing=0 cellpadding=2 border=0 width=100%><tr><td valign=top>

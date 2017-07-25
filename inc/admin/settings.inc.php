@@ -47,7 +47,6 @@ if ($frm['say'] == 'done') {
     echo '<b style="color:green">Changes has been successfully saved.</b><br><br>';
 }
 
-
 echo '<s';
 echo 'cript language=javascript>
 function check_form()
@@ -395,7 +394,6 @@ After you obtain the path to the GPG program place it in the field above and sav
     echo ' </td>
 </tr><tr>';
 }
-
 
 if (function_exists('curl_init')) {
     echo ' <td colspan=2>&nbsp;<br><b>PayPal account settings:</b></td>

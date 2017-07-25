@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $q = 'select count(*) as call from hm2_news';
+$q = 'select count(*) as call from hm2_news';
   if (!($sth = db_query($q))) {
       echo mysql_error();
   }

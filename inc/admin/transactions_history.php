@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $frm['day_to'] = sprintf('%d', $frm['day_to']);
+$frm['day_to'] = sprintf('%d', $frm['day_to']);
   $frm['month_to'] = sprintf('%d', $frm['month_to']);
   $frm['year_to'] = sprintf('%d', $frm['year_to']);
   $frm['day_from'] = sprintf('%d', $frm['day_from']);
@@ -319,7 +317,6 @@ function func5() {
       echo 'Withdrawal has not been sent<br><br>';
   }
 
-
   if ($frm['say'] == 'massremove') {
       echo 'Pending transactions removed!<br><br>';
   }
@@ -327,7 +324,6 @@ function func5() {
   if ($frm['say'] == 'massprocessed') {
       echo 'Pending transactions selected as processed!<br><br>';
   }
-
 
   if ($settings['use_history_balance_mode']) {
       echo '
@@ -518,7 +514,6 @@ function func5() {
 </table>';
   }
 
-
   if ($frm['ttype'] == 'withdraw_pending') {
       echo '<br><center>';
       echo '<s';
@@ -626,5 +621,4 @@ thi';
 scripts.<br>
 ';
       echo end_info_table();
-
   }

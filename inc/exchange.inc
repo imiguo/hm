@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $id = $userinfo['id'];
+$id = $userinfo['id'];
   if ($frm['display'] == 'ok') {
       $smarty->assign('exchanged', 1);
       $smarty->display('exchange_preview.tpl');

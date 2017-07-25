@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $smarty->assign('site_name', $settings['site_name']);
+$smarty->assign('site_name', $settings['site_name']);
   $q = 'select count(*) as col from hm2_users where status = \'on\' and ref='.$userinfo['id'];
   $sth = db_query($q);
   $smarty->assign('total_ref', 0);
