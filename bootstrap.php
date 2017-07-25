@@ -36,27 +36,32 @@ $capsule->setAsGlobal();
 // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
 
-function mysql_query($query)
-{
-    return Mysql::instance()->query($query);
-}
+if (extension_loaded('mysql')) {
+    mysql_connect(getenv('DB_HOST'), getenv('DB_USERNAME'), getenv('DB_PASSWORD'));
+    mysql_select_db(getenv('DB_DATABASE'));
+} else {
+    function mysql_query($query)
+    {
+        return Mysql::instance()->query($query);
+    }
 
-function mysql_fetch_array($result)
-{
-    return $result->fetch_array();
-}
+    function mysql_fetch_array($result)
+    {
+        return $result->fetch_array();
+    }
 
-function mysql_fetch_assoc($result)
-{
-    return $result->fetch_assoc();
-}
+    function mysql_fetch_assoc($result)
+    {
+        return $result->fetch_assoc();
+    }
 
-function mysql_insert_id()
-{
-    return Mysql::instance()->insert_id;
-}
+    function mysql_insert_id()
+    {
+        return Mysql::instance()->insert_id;
+    }
 
-function mysql_real_escape_string($escapestr)
-{
-    return Mysql::instance()->real_escape_string($escapestr);
+    function mysql_real_escape_string($escapestr)
+    {
+        return Mysql::instance()->real_escape_string($escapestr);
+    }
 }
