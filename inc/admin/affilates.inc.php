@@ -86,8 +86,7 @@
  <th>E-mail</th>
  <th>Status</th>
  <th>Del</th>
-</tr>
-';
+</tr>';
   $q_other_active = 0;
   $q_other = 0;
   $q = ''.'select * from hm2_users where ref='.$u_id.' order by id desc';
@@ -149,12 +148,10 @@
       echo '&ref=';
       echo $row[id];
       echo ' onClick="return confirm(\'Are you sure to delete this referral?\');">[X]</a></td>
-  </tr>
-';
+  </tr>';
       if ($ref_stats) {
           echo '  <tr>
-   <td colspan=4>User referrals:
-';
+   <td colspan=4>User referrals:';
           for ($i = 0; $i < count($ref_stats); ++$i) {
               echo '<nobr>';
               echo $ref_stats[$i][cnt_active];
@@ -163,13 +160,11 @@
               echo ' on level ';
               echo $ref_stats[$i][level];
               echo $i < count($ref_stats) - 1 ? ';' : '';
-              echo '</nobr>
-';
+              echo '</nobr>';
           }
 
           echo '   </td>
-  </tr>
-';
+  </tr>';
           continue;
       }
   }
@@ -186,5 +181,4 @@
    <td colspan=4><b>Total 2-10 level active referrals:</b> ';
   echo $q_other_active;
   echo '</td>
-  </tr>
-';
+  </tr>';

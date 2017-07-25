@@ -41,16 +41,13 @@
       }
   }
 
-  echo '
-';
+  echo '';
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
-You cannot add/edit news!
-';
+You cannot add/edit news!';
       echo end_info_table();
-      echo '<br>
-';
+      echo '<br>';
   }
 
   echo '
@@ -58,17 +55,14 @@ You cannot add/edit news!
 
 <b>Add/Edit News:</b><br><br>
 
-
 ';
   $q = 'select count(*) as call from hm2_news';
   ($sth = db_query($q) or print mysql_error());
   $row = mysql_fetch_array($sth);
   $count_all = $row['call'];
-  echo '
-';
+  echo '';
   if (0 < $count_all) {
-      echo '<table cellspacing=1 cellpadding=2 border=0 width=100%>
-';
+      echo '<table cellspacing=1 cellpadding=2 border=0 width=100%>';
       $page = $frm['page'];
       $onpage = 20;
       $colpages = ceil($count_all / $onpage);
@@ -117,13 +111,11 @@ You cannot add/edit news!
           echo '&page=';
           echo $page;
           echo '" onclick="return confirm(\'Do you really want to delete news?\')">[REMOVE]</a> 
-</td></tr>
-';
+</td></tr>';
       }
 
       echo '</table>
-<center>
-';
+<center>';
       if (1 < $colpages) {
           if (1 < $page) {
               echo ' <a href="?a=news&page=';
@@ -154,8 +146,7 @@ You cannot add/edit news!
           }
       }
 
-      echo '</center>
-';
+      echo '</center>';
   } else {
       echo start_info_table('100%');
       echo 'Here you can manage your program news.<br>
@@ -163,25 +154,21 @@ Your newly added news will appear on your site index page (if you have enabled
 \'Show news box in InfoBox Settings section\')<br>
 Small text will appear on Index page. If you omit Small Text then the system will 
 show first 100-120 characters of your Full Text.<br>
-If you omit Full Text than the system will show Small Text on all the news page.
-';
+If you omit Full Text than the system will show Small Text on all the news page.';
       echo end_info_table();
   }
 
   echo '<br><br><a name="editform"></a>
 <form method=post>
-<input type=hidden name=a value=news>
-';
+<input type=hidden name=a value=news>';
   if ($edit_row) {
       echo '<input type=hidden name=action value=edit>
 <input type=hidden name=save value=1>
 <input type=hidden name=id value=';
       echo $edit_row['id'];
-      echo '>
-';
+      echo '>';
   } else {
-      echo '<input type=hidden name=action value=add>
-';
+      echo '<input type=hidden name=action value=add>';
   }
 
   echo '<input type=hidden name=page value=';
@@ -224,5 +211,4 @@ If you omit Full Text than the system will show Small Text on all the news page.
   echo '" class=sbmt></td>
 </tr></table>
 </form>
-
 ';

@@ -114,8 +114,7 @@
  <td align=right>$';
   echo number_format($ab['total'], 2);
   echo '</td>
-</tr>
-';
+</tr>';
   foreach ($exchange_systems as $id => $data) {
       if ($data['status'] != 1) {
           continue;
@@ -129,8 +128,7 @@
  <td align=right>$';
       echo number_format($balance[$id], 2);
       echo '</td>
-</tr>
-';
+</tr>';
   }
 
   echo '<tr>
@@ -275,8 +273,7 @@
 <tr>
  <td colspan=2>
   <table cellspacing=0 cellpadding=1 border=0 width=100%>
-  <tr><th>IP</th><th>Last Access</th></tr>
-';
+  <tr><th>IP</th><th>Last Access</th></tr>';
   $q = 'select date_format(max(date), \'%b-%e-%Y %r\') as fdate, max(date) + interval 0 hour as mdate, ip from hm2_user_access_log where user_id = '.$userinfo['id'].' group by ip order by mdate desc';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
@@ -284,8 +281,7 @@
       echo $row['ip'];
       echo ' &nbsp;</td><td>';
       echo $row['fdate'];
-      echo '</td></tr>
-';
+      echo '</td></tr>';
   }
 
   echo '  </table>
@@ -293,8 +289,7 @@
 </tr>
 </table>
 
-</td><td valign=top align=center>
-';
+</td><td valign=top align=center>';
   echo start_info_table('230');
   echo 'Manage user funds:<br>
 Account balance: how many funds can the user deposit to any investment package or withdraw from the system.<br>
@@ -316,7 +311,6 @@ Process withdrawals - you can withdraw funds by clicking this link if a user ask
 Bonuses history - you can check the bonuses history for this user.<br>
 Penalties history - you can check the pen';
   echo 'alties history for this user.<br>
-Add a bonus and add a penalty - add a bonus or a penalty to this user.<br>
-';
+Add a bonus and add a penalty - add a bonus or a penalty to this user.<br>';
   echo end_info_table();
   echo '</td></tr></table>';

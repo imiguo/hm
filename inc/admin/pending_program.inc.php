@@ -15,8 +15,7 @@
 <head>
 <link href="images/adminstyle.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-';
+<body>';
   if ($frm['ttype'] != '') {
       $typewhere = ' and type=\'withdraw_pending\' ';
   }
@@ -70,8 +69,7 @@
  <td bgcolor=FFEA00 align=center><b>UserName</b></td>
  <td bgcolor=FFEA00 align=center width=200><b>Amount</b></td>
  <td bgcolor=FFEA00 align=center width=170><b>Date</b></td>
-</tr>
-';
+</tr>';
   if (0 < count($trans)) {
       for ($i = 0; $i < count($trans); ++$i) {
           echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
@@ -95,8 +93,7 @@
           echo ': &nbsp; </b>';
           echo $trans[$i]['description'];
           echo '</small></td>
-</tr>
-';
+</tr>';
       }
 
       echo '<tr>
@@ -104,13 +101,11 @@
  <td align=right><b>$ ';
       echo number_format((($frm['ttype'] == 'deposit' or $frm['ttype'] == 'withdraw_pending') ? '-1' : '1') * $periodsum, 2);
       echo '</b></td>
-</tr>
-';
+</tr>';
   } else {
       echo '<tr>
  <td colspan=3 align=center>No transactions found</td>
-</tr>
-';
+</tr>';
   }
 
   echo '<tr>
@@ -120,8 +115,7 @@
   echo '</b></td>
 </tr>
 </table>
-<center>
-';
+<center>';
   if (1 < $colpages) {
       for ($i = 1; $i <= $colpages; ++$i) {
           if ($i == $page) {
@@ -133,8 +127,7 @@
               echo $i;
               echo '\')">';
               echo $i;
-              echo '</a>
-';
+              echo '</a>';
               continue;
           }
       }

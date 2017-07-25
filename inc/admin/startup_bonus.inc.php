@@ -40,8 +40,7 @@ function en_dis() {
  <td>
  ';
   echo '<s';
-  echo 'elect name=ec class=inpts>
-';
+  echo 'elect name=ec class=inpts>';
   foreach ($exchange_systems as $id => $data) {
     if ($data['status'] != 1) {
         continue;
@@ -68,18 +67,14 @@ function en_dis() {
 </tr>
 </table>
 
-</form>
-';
+</form>';
   echo '<s';
   echo 'cript language=javascript>
 en_dis();
 </script>
-
 ';
   echo start_info_table('100%');
   echo 'You can add startup bonus for every user that register at your program.<br>
-This bonus will be added after registration only, and we recommend disable withdraw before user invest some money to your program. (this settings available at \'settings\' screen).
-';
+This bonus will be added after registration only, and we recommend disable withdraw before user invest some money to your program. (this settings available at \'settings\' screen).';
   echo end_info_table();
-  echo '</p>
-';
+  echo '</p>';

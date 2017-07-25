@@ -12,7 +12,6 @@
 
 
   echo '<b>Wire Transfer Settings.</b><br><br>
-
 ';
   $q = 'select count(*) as col from hm2_settings where name=\'wire_text\'';
   ($sth = db_query($q) or print mysql_error());
@@ -28,13 +27,11 @@
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $wire_txt = $row['value'];
-  echo '
-';
+  echo '';
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
-You cannot edit settings!
-';
+You cannot edit settings!';
       echo end_info_table();
   }
 
@@ -56,13 +53,11 @@ Wire details:<br>
 
 <input type=submit value="Save" class=sbmt>
 </form>
-<br><br>
-';
+<br><br>';
   echo start_info_table('100%');
   echo 'This screen helps you to accept Wire Transfers.<br>
 Enter your bank account information in the text area. This text will be shown to 
 users when they are trying to send Wire Transfers.<br>
 A user should fill a form with the transfer details after sending this form. Deposit 
-will be active when the administrator accepts the Wire Transfer. 
-';
+will be active when the administrator accepts the Wire Transfer. ';
   echo end_info_table();

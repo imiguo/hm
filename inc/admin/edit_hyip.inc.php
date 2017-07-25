@@ -42,13 +42,11 @@
       array_push($packages, $row1);
   }
 
-  echo '
-';
+  echo '';
   if (($id < 3 and $settings['demomode'] == 1)) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
-You cannot edit this package. You should create a new package for edition. 
-';
+You cannot edit this package. You should create a new package for edition. ';
       echo end_info_table();
   }
 
@@ -109,8 +107,7 @@ function checkform() {
  <td align=center>Min Amount</td>
  <td align=center>Max Amount</td>
  <td align=center>Percent</td>
-</tr>
-';
+</tr>';
   $i = 0;
   for ($i = 0; $i < count($rates); ++$i) {
       echo '<tr>
@@ -141,8 +138,7 @@ function checkform() {
       echo ']" value="';
       echo $rates[$i]['percent'];
       echo '" class=inpts size=10 style="text-align:right"></td>
-</tr>
-';
+</tr>';
   }
 
   for ($j = $i + 1; $j - 5 <= $i; ++$j) {
@@ -168,8 +164,7 @@ function checkform() {
  <td><input type=text name="rate_percent[';
       echo $j - 1;
       echo ']" value="" class=inpts size=10 style="text-align:right"></td>
-</tr>
-';
+</tr>';
   }
 
   echo '</table>
@@ -305,8 +300,7 @@ function checkform() {
  <td colspan=2><input type=checkbox name=\'work_week\' value=1 ';
   echo $row['work_week'] == 1 ? 'checked' : '';
   echo ' onclick="CalculateProfit();InitCalendar();"> <a href="javascript:alert(\'Earnings will accumulate on user accounts only  on Mon-Fri. Available for daily payment plans.\')" class=hlp>Earnings only on mon-fri</td>
-</tr>
-';
+</tr>';
   if (0 < count($packages)) {
       echo '<tr>
  <td colspan=2><input type=checkbox name=parentch value=1 ';
@@ -341,13 +335,11 @@ function checkform() {
       echo $row[delay];
       echo '\' class=inpts size=5> days since deposit (set 0 for disable this feature)
  </td>
-</tr>
-';
+</tr>';
   }
 
   echo '</table>
-<br>
-';
+<br>';
   echo '<s';
   echo 'cript language=javascript>
 function CheckCompound() {
@@ -441,8 +433,7 @@ checkd();checkd1();
 <input type=hidden name=a value=\'edit_hyip\'>
 <input type=hidden name=action value="edit_hyip">
 <input type=submit value="Save Changes" class=sbmt size=15>
-</form>
-';
+</form>';
   echo '<s';
   echo 'cript language=javascript>
 function checkrates(a, flag) {
@@ -466,12 +457,10 @@ for (i = 0; i';
   checkrates(i, 1);
 }
 </script>
-
 ';
   include 'inc/admin/calendar.inc.php';
   echo '
-<br>
-';
+<br>';
   echo start_info_table('100%');
   echo 'Edit your package here.<br>
 <br>
@@ -545,7 +534,6 @@ Users will receive 30% weekly. If one deposits $100, he will receive $100*0.30*4
 =';
   echo ' $120.<br>
 <br>
-
 
 ';
   echo end_info_table();

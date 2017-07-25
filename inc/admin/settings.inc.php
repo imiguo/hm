@@ -52,8 +52,7 @@ echo '<s';
 echo 'cript language=javascript>
 function check_form()
 {
-  var d = document.mainform;
-';
+  var d = document.mainform;';
 if ($settings['use_alternative_passphrase'] == 0) {
     echo '  if (d.use_alternative_passphrase.options[d.use_alternative_passphrase.selectedIndex].value == 1 && d.new_alternative_passphrase.value == \'\')
   {
@@ -881,8 +880,7 @@ echo '<tr>
  <td>&nbsp;</td>
  <td><input type=submit value="Change settings" class=sbmt></td>
 </tr></table>
-</form>
-';
+</form>';
 echo '<s';
 echo 'cript language="JavaScript">
 <!--

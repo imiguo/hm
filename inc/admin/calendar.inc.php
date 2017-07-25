@@ -13,7 +13,6 @@
 
   echo '<br><br>
 <b>Estimate users earnings:</b><br><br>
-
 ';
   echo '<s';
   echo 'cript>
@@ -255,8 +254,7 @@ function CalculateDiff(row)
     ToDate = new Date(cyears + CurDate.getFullYear(), month, day);
 
     Diff = (ToDate.getFullYear() - CurDate.getFullYear()) * 2 + Math.floor((ToDate.getMonth() - CurDate.getMonth())/6);
-  }
-';
+  }';
   echo '  else if (paymentperiod == \'y\')
   {
     year = (ToDate.getMonth() < CurDate.getMonth()) ? document.data.years.value - 1 : document.data.years.value;
@@ -557,8 +555,7 @@ function NextMonth()
   }
   if (Year - CurDate.getFullYear() > 5)
   {
-    Month = CurDate.getMonth();
-';
+    Month = CurDate.getMonth();';
   echo '    Year = CurDate.getFullYear();
   }
 
@@ -621,8 +618,7 @@ function InitCalendar(Month, Year)
   for (w = 0; w < 6; w++)
   {
     for (d = 0; d < 7; d++)
-    {
-';
+    {';
   echo '      point = (7*w)+d+1;
 
       if (!isNaN(aMonth[w][d]))
@@ -819,8 +815,7 @@ function InitCalendar(Month, Year)
   echo 'er="tdUpdateBg(\'td42\', 1)" onMouseOut="tdUpdateBg(\'td42\', 0)" onClick="CalculateProfit(\'td42\')"></td>
   </tr>
 </table>
-</td></tr></table>
-';
+</td></tr></table>';
   echo '<s';
   echo 'cript>
 document.data.monthes.options[CurDate.getMonth()].selected = true;
@@ -874,11 +869,9 @@ InitCalendar(CurDate.getMonth()+1, CurDate.getFullYear());
   echo 'pan id="deposit">N/A</span></b></td>
 </tr>
 </table>
-</td></tr></table>
-';
+</td></tr></table>';
   echo '<s';
   echo 'cript>
 CalculatePercent();
 </script>
-</form>
-';
+</form>';

@@ -17,8 +17,7 @@
 
 <wml>
 <card title="Pending withdraw">
-<p>
-';
+<p>';
   if ($frm['ttype'] != '') {
       $typewhere = ' and type=\'withdraw_pending\' ';
   }
@@ -66,7 +65,6 @@
   $allsum = $row['sum'];
   echo '
 <b>Pending Withdrawal</b><br/><br/>
-
 ';
   if (0 < count($trans)) {
       for ($i = 0; $i < count($trans); ++$i) {
@@ -78,22 +76,18 @@
           echo '<s';
           echo 'mall>';
           echo $trans[$i]['d'];
-          echo '</small><br/>
-';
+          echo '</small><br/>';
           echo $trans[$i]['description'];
-          echo '<br/><br/>
-';
+          echo '<br/><br/>';
       }
   }
 
-  echo 'No transactions found<br/>
-';
+  echo 'No transactions found<br/>';
   echo '<b>Total for all time:</b> &nbsp;$ ';
   echo number_format((($frm['ttype'] == 'deposit' or $frm['ttype'] == 'withdraw_pending') ? '-1' : '1') * $allsum, 2);
   echo '<br/>
 <!--
-<center>
-';
+<center>';
   if (1 < $colpages) {
       for ($i = 1; $i <= $colpages; ++$i) {
           if ($i == $page) {
@@ -105,8 +99,7 @@
               echo $i;
               echo '\')">';
               echo $i;
-              echo '</a>
-';
+              echo '</a>';
               continue;
           }
       }
@@ -120,5 +113,4 @@
 
 </p>
 </card>
-</wml>
-';
+</wml>';

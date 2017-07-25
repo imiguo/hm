@@ -13,7 +13,6 @@
 
   echo '<b>Wire Transfer Details.</b><br>
 <br>
-
 ';
   $id = sprintf('%d', $frm['id']);
   $q = 'select hm2_wires.*, date_format(hm2_wires.wire_date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as wire_date1, hm2_users.username from hm2_wires, hm2_users where hm2_wires.id = '.$id.' and hm2_users.id = hm2_wires.user_id');
@@ -21,8 +20,7 @@
   $row = mysql_fetch_array($sth);
   echo '
 <form method=post name=nform >
-<input type=hidden name=a value=wiredetails>
-';
+<input type=hidden name=a value=wiredetails>';
   if (($frm['action'] == 'movetodeposit' or $frm['action'] == 'movetoaccount')) {
       echo '<input type=hidden name=action value="';
       echo $frm['action'];
@@ -30,8 +28,7 @@
 <input type=hidden name=confirm value="yes">
 <input type=hidden name=id value=';
       echo $id;
-      echo '>
-';
+      echo '>';
   }
 
   echo '
@@ -49,8 +46,7 @@
   }
 
   echo '</td>
-</tr>
-';
+</tr>';
   if ($frm['action'] != 'movetoaccount') {
       if (0 < $row['compound']) {
           echo '<tr>
@@ -58,8 +54,7 @@
  <td>';
           echo number_format($row['compound'], 2);
           echo ' %</td>
-</tr>
-';
+</tr>';
       }
   }
 
@@ -72,8 +67,7 @@
         ';
       echo end_info_table();
       echo '      </td>
-</tr>
-';
+</tr>';
   }
 
   echo '<tr>
@@ -85,8 +79,7 @@
  <td>';
   echo $row['username'];
   echo '</td>
-</tr>
-';
+</tr>';
   if (($frm['action'] != 'movetodeposit' and $frm['action'] != 'movetoaccount')) {
       echo '<tr>
  <td colspan=2><br><b>Personal information</b></td>
@@ -167,16 +160,13 @@
  <td>';
       echo $row['bswift'];
       echo '</td>
-</tr>
-';
+</tr>';
   }
 
   echo '</table>
-<br>
-';
+<br>';
   if ($frm['action'] == 'movetoaccount') {
-      echo '<input type=submit value="Add funds to account" class=sbmt>
-';
+      echo '<input type=submit value="Add funds to account" class=sbmt>';
   } else {
       if ($frm['action'] != 'movetodeposit') {
           echo '<input type=button value="Move to deposit" class=sbmt onClick="document.location=\'?a=wiredetails&action=movetodeposit&id=';
@@ -184,49 +174,40 @@
           echo '\';"> &nbsp;
 <input type=button value="Move to account" class=sbmt onClick="document.location=\'?a=wiredetails&action=movetoaccount&id=';
           echo $row['id'];
-          echo '\';"> &nbsp;
-';
+          echo '\';"> &nbsp;';
           if ($row['status'] == 'problem') {
               echo '<input type=button value="Move to new" class=sbmt onClick="document.location=\'?a=wiredetails&action=movetonew&id=';
               echo $row['id'];
-              echo '\';"> &nbsp;
-';
+              echo '\';"> &nbsp;';
           } else {
               echo '<input type=button value="Move to problem" class=sbmt onClick="document.location=\'?a=wiredetails&action=movetoproblem&id=';
               echo $row['id'];
-              echo '\';"> &nbsp;
-';
+              echo '\';"> &nbsp;';
           }
 
           echo '<input type=button value="Delete" class=sbmt onClick="if(confirm(\'Do you really want to delete this Wire Transfer?\')){document.location=\'?a=wiredetails&action=deletewire&id=';
           echo $row['id'];
-          echo '\';}">
-';
+          echo '\';}">';
       } else {
-          echo '<input type=submit value="Create deposit" class=sbmt>
-';
+          echo '<input type=submit value="Create deposit" class=sbmt>';
       }
   }
 
   echo '</form>
 
-<br>
-';
+<br>';
   echo start_info_table('100%');
   if ($frm['action'] == 'movetodeposit') {
-      echo 'You can change the amount before moving this transfer to the deposit. 
-';
+      echo 'You can change the amount before moving this transfer to the deposit. ';
   } else {
       if ($frm['action'] == 'movetoaccount') {
-          echo 'You can change the amount before moving this transfer to the account. 
-';
+          echo 'You can change the amount before moving this transfer to the account. ';
       } else {
           echo 'This screen helps you to manage Wire Transfers.<br>
 Move to deposit - if you have really received this Wire Transfer, you can move 
 this Wire to \'processed\', and create a deposit for this Wire Transfer.<br>
 Move to \'problem\' - move this Wire Transfer to the \'problem\' Wires.<br>
-Delete - delete this Wire Transfer if you have not received it. 
-';
+Delete - delete this Wire Transfer if you have not received it. ';
       }
   }
 

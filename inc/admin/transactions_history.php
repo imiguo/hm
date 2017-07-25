@@ -189,8 +189,7 @@ function go(p)
 	';
   echo '<s';
   echo 'elect name=ec class=inpts>
-	  <option value=-1>All eCurrencies</option>
-';
+	  <option value=-1>All eCurrencies</option>';
   foreach ($exchange_systems as $id => $data) {
       if ($data[status] == 1) {
           echo '<option value=';
@@ -199,8 +198,7 @@ function go(p)
           echo $id == $frm[ec] ? 'selected' : '';
           echo '>';
           echo $data[name];
-          echo '</option>
-';
+          echo '</option>';
           continue;
       }
   }
@@ -211,8 +209,7 @@ function go(p)
  <td align=right>
 	From: ';
   echo '<s';
-  echo 'elect name=month_from class=inpts>
-';
+  echo 'elect name=month_from class=inpts>';
   for ($i = 0; $i < count($month); ++$i) {
       echo '<option value=';
       echo $i + 1;
@@ -225,8 +222,7 @@ function go(p)
   echo '        </select> &nbsp;
 	';
   echo '<s';
-  echo 'elect name=day_from class=inpts>
-';
+  echo 'elect name=day_from class=inpts>';
   for ($i = 1; $i <= 31; ++$i) {
       echo '<option value=';
       echo $i;
@@ -239,8 +235,7 @@ function go(p)
   echo '	</select> &nbsp;
 	';
   echo '<s';
-  echo 'elect name=year_from class=inpts>
-';
+  echo 'elect name=year_from class=inpts>';
   for ($i = $settings['site_start_year']; $i <= date('Y', time() + $settings['time_dif'] * 60 * 60); ++$i) {
       echo '<option value=';
       echo $i;
@@ -256,8 +251,7 @@ function go(p)
 
 	To: ';
   echo '<s';
-  echo 'elect name=month_to class=inpts>
-';
+  echo 'elect name=month_to class=inpts>';
   for ($i = 0; $i < count($month); ++$i) {
       echo '<option value=';
       echo $i + 1;
@@ -270,8 +264,7 @@ function go(p)
   echo '        </select> &nbsp;
 	';
   echo '<s';
-  echo 'elect name=day_to class=inpts>
-';
+  echo 'elect name=day_to class=inpts>';
   for ($i = 1; $i <= 31; ++$i) {
       echo '<option value=';
       echo $i;
@@ -284,8 +277,7 @@ function go(p)
   echo '	</select> &nbsp;
 	';
   echo '<s';
-  echo 'elect name=year_to class=inpts>
-';
+  echo 'elect name=year_to class=inpts>';
   for ($i = $settings['site_start_year']; $i <= date('Y', time() + $settings['time_dif'] * 60 * 60); ++$i) {
       echo '<option value=';
       echo $i;
@@ -299,8 +291,7 @@ function go(p)
  </td>
  <td>
 	&nbsp; <input type=submit value="Go" class=sbmt>
-<br>
-';
+<br>';
   echo '<s';
   echo 'cript language=javascript>
 function func5() {
@@ -319,20 +310,16 @@ function func5() {
 <input type=hidden name=action value=mass>
 <input type=hidden name=action2 va';
   echo 'lue=\'\'>
-
 ';
   if (($frm['ttype'] == 'withdraw_pending' and $frm['say'] == 'yes')) {
-      echo 'Withdrawal has been sent<br><br>
-';
+      echo 'Withdrawal has been sent<br><br>';
   }
 
   if (($frm['ttype'] == 'withdraw_pending' and $frm['say'] == 'no')) {
-      echo 'Withdrawal has not been sent<br><br>
-';
+      echo 'Withdrawal has not been sent<br><br>';
   }
 
-  echo '
-';
+  echo '';
   if ($frm['say'] == 'massremove') {
       echo 'Pending transactions removed!<br><br>';
   }
@@ -341,8 +328,7 @@ function func5() {
       echo 'Pending transactions selected as processed!<br><br>';
   }
 
-  echo '
-';
+  echo '';
   if ($settings['use_history_balance_mode']) {
       echo '
 <table cellspacing=1 cellpadding=2 border=0 width=100%>
@@ -355,8 +341,7 @@ function func5() {
  <td bgcolor=FFEA00 align=center><b>Balance</b></td>
  <td bgcolor=FFEA00 align=center><b>P.S.</b></td>
 </';
-      echo 'tr>
-';
+      echo 'tr>';
       if (0 < count($trans)) {
           for ($i = 0; $i < count($trans); ++$i) {
               $amount = abs($trans[$i]['actual_amount']);
@@ -425,8 +410,7 @@ function func5() {
  <td align=center><img src="images/';
               echo $trans[$i]['ec'];
               echo '.gif" align=absmiddle hspace=1 height=17></td>
-</tr>
-';
+</tr>';
           }
 
           echo '<tr>
@@ -440,13 +424,11 @@ function func5() {
  <td align=right nowrap><b>$';
           echo number_format($period_stats[balance], 2);
           echo '</b></td>
-</tr>
-';
+</tr>';
       } else {
           echo '<tr>
  <td colspan=7 align=center>No transactions found</td>
-</tr>
-';
+</tr>';
       }
 
       echo '<tr>
@@ -462,7 +444,6 @@ function func5() {
       echo '</b></td>
 </tr>
 </table>
-
 ';
   } else {
       echo '<table cellspacing=1 cellpadding=2 border=0 width=100%>
@@ -470,8 +451,7 @@ function func5() {
  <td bgcolor=FFEA00 align=center><b>UserName</b></td>
  <td bgcolor=FFEA00 align=center width=200><b>Amount</b></td>
  <td bgcolor=FFEA00 align=center width=170><b>Date</b></td>
-</tr>
-';
+</tr>';
       if (0 < count($trans)) {
           for ($i = 0; $i < count($trans); ++$i) {
               $amount = abs($trans[$i]['actual_amount']);
@@ -514,8 +494,7 @@ function func5() {
               echo ': &nbsp; </b>';
               echo $trans[$i]['description'];
               echo '</small></td>
-</tr>
-';
+</tr>';
           }
 
           echo '<tr>
@@ -523,13 +502,11 @@ function func5() {
  <td align=right><b>$ ';
           echo number_format(((($frm['ttype'] == 'deposit' or $frm['ttype'] == 'withdraw_pending') or $frm['ttype'] == 'exchange') ? '-1' : '1') * $periodsum, 2);
           echo '</b></td>
-</tr>
-';
+</tr>';
       } else {
           echo '<tr>
  <td colspan=3 align=center>No transactions found</td>
-</tr>
-';
+</tr>';
       }
 
       echo '<tr>
@@ -538,15 +515,12 @@ function func5() {
       echo number_format(((($frm['ttype'] == 'deposit' or $frm['ttype'] == 'withdraw_pending') or $frm['ttype'] == 'exchange') ? '-1' : '1') * $allsum, 2);
       echo '</b></td>
 </tr>
-</table>
-';
+</table>';
   }
 
-  echo '
-';
+  echo '';
   if ($frm['ttype'] == 'withdraw_pending') {
-      echo '<br><center>
-';
+      echo '<br><center>';
       echo '<s';
       echo 'cript language=javascript>
 function func1() {
@@ -583,13 +557,11 @@ function func4() {
 <input type=button value="Remove selected" class=sbmt onClick="func2();"> &nbsp; 
 <input type=button value="Set selected as processed" class=sbmt onClick="func3();"><br><br>
 <input type=button value="Export selected to CSV" class=sbmt onClick="func4();">
-</center><br>
-';
+</center><br>';
   }
 
   echo '</form>
-<center>
-';
+<center>';
   if (1 < $colpages) {
       for ($i = 1; $i <= $colpages; ++$i) {
           if ($i == $page) {
@@ -601,16 +573,14 @@ function func4() {
               echo $i;
               echo '\')">';
               echo $i;
-              echo '</a>
-';
+              echo '</a>';
               continue;
           }
       }
   }
 
   echo '
-</center>
-';
+</center>';
   echo start_info_table('100%');
   echo 'Transactions history:<br>
 Every transaction in the script has it\'s own type.<br>
@@ -635,12 +605,10 @@ a referral link and deposits funds from the e-gold account.<br>
 The top left menu helps you to select only the transactions you are interested 
 in.<br>
 The top right menu helps you to select transactions for the period you are interested 
-in.<br>
-';
+in.<br>';
   echo end_info_table();
   echo '
-<br>
-';
+<br>';
   if ($frm['ttype'] == 'withdraw_pending') {
       echo start_info_table('100%');
       echo '
@@ -656,9 +624,7 @@ thi';
       echo 's button.<br>
 \'Export selected to CSV\' - provide the scv file for a third party mass payment 
 scripts.<br>
-
 ';
       echo end_info_table();
-      echo '
-';
+      echo '';
   }

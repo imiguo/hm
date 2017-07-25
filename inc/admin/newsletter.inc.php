@@ -14,13 +14,11 @@
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
-You cannot send newsletters!
-';
+You cannot send newsletters!';
       echo end_info_table();
   }
 
   echo '
-
 ';
   $q = 'select count(*) as col from hm2_users where id > 1';
   $sth = db_query($q);
@@ -32,31 +30,25 @@ You cannot send newsletters!
   $act_c = sprintf('%d', $row['col']);
   $pas_c = $all_c - $act_c;
   echo '
-<b>Send a newsletter to users:</b><br><br>
-';
+<b>Send a newsletter to users:</b><br><br>';
   if ($frm['say'] == 'someerror') {
       echo 'Message has not been sent. Unknown error!<br>
-<br>
-';
+<br>';
   }
 
   if ($frm['say'] == 'notsend') {
       echo 'Message has not been sent. No users found!<br>
-<br>
-';
+<br>';
   }
 
   if ($frm['say'] == 'send') {
-      echo 'Message has been sent. Total: 
-';
+      echo 'Message has been sent. Total: ';
       echo $frm['total'];
       echo '<br>
-<br>
-';
+<br>';
   }
 
   echo '
-
 ';
   echo '<s';
   echo 'cript language=javascript>
@@ -124,8 +116,7 @@ You have been registered: #date_register#
 </tr></table>
 </form>
 
-<br>
-';
+<br>';
   echo start_info_table('100%');
   echo 'Send a newsletter:<br>
 
@@ -139,6 +130,5 @@ You can use the following variables to personalize the newsletter:<br>
   echo 'gin<br>
 #email# - user e-mail address<br>
 #egold_account# - user e-gold account<br>
-#date_register# - user registration date<br>
-';
+#date_register# - user registration date<br>';
   echo end_info_table();

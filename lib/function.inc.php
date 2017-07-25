@@ -1193,8 +1193,7 @@ function start_info_table($size = '100%')
 <table cellspacing=0 cellpadding=0 border=0 width=100%>
 <tr>
 <td valign=top width=10 bgcolor=#FFFFF2><img src=images/sign.gif></td>
-<td valign=top bgcolor=#FFFFF2 style=\'padding: 10px; color: #D20202; font-family: verdana; font-size: 11px;\'>
-';
+<td valign=top bgcolor=#FFFFF2 style=\'padding: 10px; color: #D20202; font-family: verdana; font-size: 11px;\'>';
 }
 
 function end_info_table()

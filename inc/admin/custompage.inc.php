@@ -31,5 +31,4 @@ To create custom page you should follow the next steps:<br>
 <li>Add this link to the top menu (edit \'tmpl/logo.tpl\' file) or to the left menu 
   (edit \'tmpl/left.tpl\' file)</li>
 
-
 ';

@@ -143,8 +143,7 @@
       $fields = '';
       $infofields = unserialize($processing['infofields']);
       foreach ($infofields as $id => $name) {
-          $fields .= ''.$name.': '.$frm['fields'][$id].'
-';
+          $fields .= ''.$name.': '.$frm['fields'][$id].'';
       }
 
       $info = [];

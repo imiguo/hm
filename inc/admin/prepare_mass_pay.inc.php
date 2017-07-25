@@ -40,8 +40,7 @@
   }
 
   echo ' <b>Mass Payment:</b><br>
-<br>
-';
+<br>';
   if ($settings['demomode'] != 1) {
       echo '
 <form method=post name=payform onsubmit="return di_sabled()">
@@ -64,8 +63,7 @@
   echo number_format(abs($amount), 2);
   echo '</b>
   ?<br>
-  <br>
-';
+  <br>';
   echo '<s';
   echo 'cript language=javascript>
 function di_sabled() {
@@ -197,18 +195,15 @@ function en_it() {
   echo 'lue="Pay" class=sbmt></td>
 </tr></table>
 
-</form>
-';
+</form>';
   echo '<s';
   echo 'cript language=javascript>en_it();</script>
-
 ';
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo restriction!</b><br>
 Not Available in demo!<br><br>
 
-Available in Pro version only!!!
-';
+Available in Pro version only!!!';
       echo end_info_table();
   }

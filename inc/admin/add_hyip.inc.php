@@ -21,8 +21,7 @@
       array_push($packages, $row1);
   }
 
-  echo '
-';
+  echo '';
   echo '<s';
   echo 'cript language=javascript>
 function checkform() {
@@ -195,8 +194,7 @@ function checkform() {
   echo $row['work_week'] == 1 ? 'checked' : '';
   echo ' onclick="CalculateProfit();InitCalendar();"><a href="javascript:alert(\'Earnings will accumulate on user accounts only  on Mon-Fri. Available for daily payment plans.\')" class=hlp>
         Earnings only on mon-fri</td>
-</tr>
-';
+</tr>';
   if (0 < count($packages)) {
       echo '<tr>
  <td colspan=2><input type=checkbox name=parentch value=1 ';
@@ -230,13 +228,11 @@ function checkform() {
  <td colspan=2>
 	Delay earning for <input type=text name=delay value=\'0\' class=inpts size=5> days since deposit (set 0 for disable this feature)
  </td>
-</tr>
-';
+</tr>';
   }
 
   echo '</table>
-<br>
-';
+<br>';
   echo '<s';
   echo 'cript language=javascript>
 function CheckCompound() {
@@ -329,8 +325,7 @@ checkd();checkd1();
 <input type=hidden name=a value=\'add_hyip\'>
 <input type=hidden name=action value="add_hyip">
 <input type=submit value="Add Package" class=sbmt size=15>
-</form>
-';
+</form>';
   echo '<s';
   echo 'cript language=javascript>
 function checkrates(a, flag) {
@@ -352,12 +347,10 @@ checkrates(2,1);
 checkrates(3,1);
 checkrates(4,1);
 </script>
-
 ';
   include 'inc/admin/calendar.inc.php';
   echo '
-<br>
-';
+<br>';
   echo start_info_table('100%');
   echo 'Create your package.<br><br>
 Set a name, a package duration, and rates. Select a payment period.<br>
@@ -421,6 +414,5 @@ Do the following if you need to create more than 5 plans:<br>
 Fill all 5 plans, click \'save\' button, find';
   echo ' this package in a package list and
 edit it. You will be able add the additional plans. (You can create unlimited
-number of plans in this way).
-';
+number of plans in this way).';
   echo end_info_table();

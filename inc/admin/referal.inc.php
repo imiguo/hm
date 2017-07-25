@@ -14,13 +14,11 @@
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
-You cannot edit referral settings!
-';
+You cannot edit referral settings!';
       echo end_info_table();
   }
 
-  echo '
-';
+  echo '';
   echo '<s';
   echo 'cript language=javascript>
 function checkref(a) {
@@ -171,8 +169,7 @@ function checkref(a) {
  <th bg';
   echo 'color=FFEA00>Weekly</th>
  <th bgcolor=FFEA00>Monthly</th>-->
-</tr>
-';
+</tr>';
   $q = 'select * from hm2_referal where level = 1 order by from_value';
   ($sth = db_query($q) or print mysql_error());
   $num = 0;
@@ -220,8 +217,7 @@ function checkref(a) {
       echo $row['percent_monthly'];
       echo '" style="text-align: right">%</td>
 -->
-</tr>
-';
+</tr>';
       ++$num;
   }
 
@@ -255,28 +251,24 @@ function checkref(a) {
       echo $num;
       echo '] class=inpts size=6 style="text-align: right">%</td>
 -->
-</tr>
-';
+</tr>';
       echo '<s';
       echo 'cript language=javascript>checkref(';
       echo $num;
-      echo ');</script>
-';
+      echo ');</script>';
       ++$num;
   }
 
   echo '</table>
 <br>
 
-<b>Other levels</b><br><br>
-';
+<b>Other levels</b><br><br>';
   $i = 2;
   echo '<table cellspacing=1 cellpadding=1 border=0 width=50%>
 <tr>
  <th bgcolor=FFEA00>Level</th>
       <th bgcolor=FFEA00>Commission (%)</th>
-</tr>
-';
+</tr>';
   for ($i = 2; $i < 11; ++$i) {
       echo '<tr>
  <td>';
@@ -287,22 +279,18 @@ function checkref(a) {
       echo '_cms class=inpts size=8 style="text-align: right" value="';
       echo $settings['ref'.$i.'_cms'];
       echo '">%</td>
-</tr>
-';
+</tr>';
   }
 
   echo '</table><br><br>
 
 <input type=submit value="Change" class=sbmt>
 </form>
-<br><br>
-';
+<br><br>';
   echo start_info_table('100%');
   echo 'Change the referral program rates here.<br>
 From and to - quantity of user\'s referrals.<br>
-Commission - the referral percent. 
-';
+Commission - the referral percent. ';
   echo end_info_table();
   echo '<br>
-<br>
-';
+<br>';

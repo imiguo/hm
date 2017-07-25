@@ -29,8 +29,7 @@ Number visitors: ';
   echo $visitors_online;
   echo '<br><br>
 
-Registered Uses:<br><br>
-';
+Registered Uses:<br><br>';
   $q = 'select * from hm2_users where last_access_time + interval 30 minute > now()';
   $sth = db_query($q);
   $i = 0;

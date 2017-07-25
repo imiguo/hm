@@ -227,8 +227,7 @@ browser: '.$frm_env['HTTP_USER_AGENT'].'
 Pin code for entering admin area is:
 '.$NEWPIN.'
 
-This code will be expired in 15 minutes.
-';
+This code will be expired in 15 minutes.';
 if ($acsent_settings[detect_ip] == 'disabled') {
 } else {
     if ($acsent_settings[detect_ip] == 'medium') {
@@ -552,8 +551,7 @@ if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodepos
         $infofields = unserialize($fields);
         $f = '';
         foreach ($pfields as $id => $name) {
-            $f .= ''.$name.': '.stripslashes($infofields[$id]).'
-';
+            $f .= ''.$name.': '.stripslashes($infofields[$id]).'';
         }
 
         $info['fields'] = $f;
@@ -668,8 +666,7 @@ if ($frm['a'] == 'mass') {
             }
 
             if ($ec != $row['ec']) {
-                echo '#'.$exchange_systems[$row['ec']]['name'].' transactions (account, amount)
-';
+                echo '#'.$exchange_systems[$row['ec']]['name'].' transactions (account, amount)';
                 $ec = $row['ec'];
             }
 
@@ -717,8 +714,7 @@ if ($frm['a'] == 'mass') {
             }
 
             $to_withdraw = sprintf('%.02f', floor($to_withdraw * 100) / 100);
-            echo $ac.','.abs($to_withdraw).'
-';
+            echo $ac.','.abs($to_withdraw).'';
         }
 
         db_close($dbconn);
@@ -1098,8 +1094,7 @@ if (($frm['a'] == 'newsletter' and $frm['action'] == 'newsletter')) {
 <link href="images/adminstyle.css" rel="stylesheet" type="text/css">
 </head>
 <body bgcolor="#FFFFF2" link="#666699" vlink="#666699" alink="#666699" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
-<center>
-';
+<center>';
     echo '<br><br><br><br><br><div id=\'newsletterplace\'></div>';
     echo '<div id=self_menu0></div>';
     $description = $frm['description'];
@@ -1122,8 +1117,7 @@ menulast.style.display=\'none\';</script>';
             echo ''.'<div id=\'self_menu'.$total.'\'>Just sent to '.$row[email].(''.'<br>Total '.$total.' messages sent.</div>');
             echo ''.'<script>var menu = document.getElementById(\'self_menu'.$total.'\');
 obj.appendChild(menu);
-</script>
-';
+</script>';
             flush();
         }
     }
@@ -2297,12 +2291,10 @@ if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
     $to = $frm['month_to'].'_'.$frm['day_to'].'_'.$frm['year_to'];
     header('Content-Disposition: attachment; filename='.$frm['ttype'].(''.'history-'.$from.'-'.$to.'.csv'));
     header('Content-type: text/coma-separated-values');
-    echo '"Transaction Type","User","Amount","Currency","Date","Description"
-';
+    echo '"Transaction Type","User","Amount","Currency","Date","Description"';
     for ($i = 0; $i < count($trans); ++$i) {
         echo '"'.$transtype[$trans[$i]['type']].'","'.$trans[$i]['username'].'","$'.number_format(abs($trans[$i]['actual_amount']),
-                2).'","'.$exchange_systems[$trans[$i]['ec']]['name'].'","'.$trans[$i]['d'].'","'.$trans[$i]['description'].'"'.'
-';
+                2).'","'.$exchange_systems[$trans[$i]['ec']]['name'].'","'.$trans[$i]['d'].'","'.$trans[$i]['description'].'"'.'';
     }
 
     db_close($dbconn);
@@ -2429,8 +2421,7 @@ echo '
            <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
              <tr bgcolor="#FFFFFF" valign="top">
               <td width=300 align=center>
-				   <!-- Image Table: Start -->
-';
+				   <!-- Image Table: Start -->';
 include 'inc/admin/menu.inc.php';
 echo '				   <br>
 
@@ -2441,8 +2432,7 @@ echo '				   <br>
             <table width="100%" height="100%" border="0" cellpadding="10" cellspacing="0" class="forTexts">
               <tr>
                 <td width=100% height';
-echo '=100% valign=top>
-';
+echo '=100% valign=top>';
 if ($frm['a'] == 'rates') {
     include 'inc/admin/rates.inc.php';
 } else {
@@ -2608,7 +2598,6 @@ echo '
 	   </table>
 	 </td>
   </tr>
-
 ';
 include 'inc/admin/html.footer.inc.php';
 db_close($dbconn);

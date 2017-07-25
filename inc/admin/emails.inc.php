@@ -14,8 +14,7 @@
   if (($settings['demomode'] == 1 and $frm['type'] != '')) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
-You cannot change change e-mail templates! 
-';
+You cannot change change e-mail templates! ';
       echo end_info_table();
   }
 
@@ -24,8 +23,7 @@ You cannot change change e-mail templates!
 <form action="?" method=post>
 <input type=hidden name="a" value="edit_emails">
 <input type=hidden name="action" value="update_statuses">
-<table cellspacing=1 cellpadding=2 border=0 width=100%>
-';
+<table cellspacing=1 cellpadding=2 border=0 width=100%>';
   $found = 0;
   $q = 'select id, name, status from hm2_emails';
   ($sth = db_query($q) or print mysql_error());
@@ -56,16 +54,14 @@ You cannot change change e-mail templates!
   ';
       }
 
-      echo '</td></tr>
-';
+      echo '</td></tr>';
   }
 
   echo '<tr>
  <td colspan=2><input type=submit value="Update" class=sbmt></td>
 </tr>
 </table>
-</form>
-';
+</form>';
   if ($found) {
       if ($settings['demomode'] != 1) {
           if ($frm['action'] == 'save') {
@@ -114,22 +110,18 @@ You cannot change change e-mail templates!
 <tr>
  <td><input type=submit value="Save Changes" class=sbmt></td>
 </tr></table>
-</form>
-';
+</form>';
   }
 
   echo '
-<br>
-';
+<br>';
   echo start_info_table('100%');
   if ($frm['type'] == '') {
       echo 'Select e-mail type to edit system messages.<br>
-If checkbox opposite to template name is switched off e-mail will be not sent.
-';
+If checkbox opposite to template name is switched off e-mail will be not sent.';
   }
 
   echo '
-
 
 ';
   if ($frm['type'] == 'registration') {
@@ -143,12 +135,10 @@ Personalization:<br>
 #site_name# - your site name (check settings screen to set this variable)<br><br>
 
 *Password will be replased with ***** if you use double opt-in confirma';
-      echo 'tion for user registration.
-';
+      echo 'tion for user registration.';
   }
 
   echo '
-
 
 ';
   if ($frm['type'] == 'confirm_registration') {
@@ -162,12 +152,10 @@ Personalization:<br>
 * Do not edit following part:<br>
 #site_url#/?a=confirm_registration&c=#confirm_string#<b';
       echo 'r><br>
-This string will be replaced with uniq confirmation url for every user.
-';
+This string will be replaced with uniq confirmation url for every user.';
   }
 
   echo '
-
 
 ';
   if ($frm['type'] == 'forgot_password') {
@@ -180,12 +168,10 @@ Personalization:<br>
 #site_url# - your site url (check settings screen to set this variable)<br>
 #site_name# - your site name (check settings screen to set this variable)<br>
 #ip# - IP address of visitor that requested p';
-      echo 'assword.<br>
-';
+      echo 'assword.<br>';
   }
 
   echo '
-
 
 ';
   if ($frm['type'] == 'bonus') {
@@ -195,12 +181,10 @@ Personalization:<br>
 #name# - first and last user name.<br>
 #amount# - bonus amount<br>
 #site_url# - your site url (check settings screen to set this variable)<br>
-#site_name# - your site name (check settings screen to set this variable)<br>
-';
+#site_name# - your site name (check settings screen to set this variable)<br>';
   }
 
   echo '
-
 
 ';
   if ($frm['type'] == 'penalty') {
@@ -210,12 +194,10 @@ Personalization:<br>
 #name# - first and last user name.<br>
 #amount# - penality amount<br>
 #site_url# - your site url (check settings screen to set this variable)<br>
-#site_name# - your site name (check settings screen to set this variable)<br>
-';
+#site_name# - your site name (check settings screen to set this variable)<br>';
   }
 
   echo '
-
 
 ';
   if ($frm['type'] == 'change_account') {
@@ -232,12 +214,10 @@ Personalization:<br>
 #site_name# - your site name (check se';
       echo 'ttings screen to set this variable)<br>
 
-
 ';
   }
 
-  echo '
-';
+  echo '';
   if ($frm['type'] == 'withdraw_request_user_notification') {
       echo 'Users will receive this e-mail after withdraw request.<br><br>
 
@@ -250,12 +230,10 @@ Personalization:<br>
 #site_url# - your site url (check settings screen to set this variable)<br>
 #site_name# - your site name (check settings screen to set this variable)<br>
 
-
 ';
   }
 
-  echo '
-';
+  echo '';
   if ($frm['type'] == 'withdraw_request_admin_notification') {
       echo 'Administrator will receive this e-mail after user withdraw request.<br><br>
 
@@ -268,12 +246,10 @@ Personalization:<br>
 #site_url# - your site url (check settings screen to set this variable)<br>
 #site_name# - your site name (check settings screen to set this variable)<br>
 
-
 ';
   }
 
-  echo '
-';
+  echo '';
   if ($frm['type'] == 'withdraw_user_notification') {
       echo 'User will receive this e-mail after withdraw process. (After autopay if enabled, admin direct and mass withdraw processes)<br><br>
 
@@ -289,12 +265,10 @@ Personalization:<br>
       echo '<br>
 #site_name# - your site name (check settings screen to set this variable)<br>
 
-
 ';
   }
 
-  echo '
-';
+  echo '';
   if ($frm['type'] == 'withdraw_admin_notification') {
       echo 'User will receive this e-mail after withdraw process autopay if enabled<br><br>
 
@@ -310,12 +284,10 @@ Personalization:<br>
 #site_name# - your site name (check settings sc';
       echo 'reen to set this variable)<br>
 
-
 ';
   }
 
-  echo '
-';
+  echo '';
   if ($frm['type'] == 'deposit_admin_notification') {
       echo 'Administrator will receive this e-mail after user made deposit<br><br>
 
@@ -329,10 +301,8 @@ Personalization:<br>
 #plan# - investment package name.<br>
 #site_url# - your site url (check settings screen to set this variable)<br>
 #site_name# - your si';
-      echo 'te name (check settings screen to set this variable)<br>
-';
+      echo 'te name (check settings screen to set this variable)<br>';
   }
 
-  echo '
-';
+  echo '';
   echo end_info_table();

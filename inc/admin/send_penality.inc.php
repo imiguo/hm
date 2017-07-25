@@ -21,37 +21,30 @@
   $act_c = sprintf('%d', $row['col']);
   $pas_c = $all_c - $act_c;
   echo '
-<b>Send a penalty:</b><br><br>
-';
+<b>Send a penalty:</b><br><br>';
   if ($frm['say'] == 'wrongamount') {
       echo 'The penalty has not been sent. You had entered the wrong amount!<br>
-<br>
-';
+<br>';
   }
 
   if ($frm['say'] == 'someerror') {
       echo 'The penalty has not been sent. Unknown error!<br>
-<br>
-';
+<br>';
   }
 
   if ($frm['say'] == 'notsend') {
       echo 'The penalty has not been sent. No users found!<br>
-<br>
-';
+<br>';
   }
 
   if ($frm['say'] == 'send') {
-      echo 'The penalty has been sent. Total: $
-';
+      echo 'The penalty has been sent. Total: $';
       echo number_format($frm['total'], 2);
       echo '<br>
-<br>
-';
+<br>';
   }
 
   echo '
-
 ';
   echo '<s';
   echo 'cript language=javascript>
@@ -91,8 +84,7 @@ function checkform() {
  <td>
 	';
   echo '<s';
-  echo 'elect name=ec class=inpts>
-';
+  echo 'elect name=ec class=inpts>';
   foreach ($exchange_systems as $id => $data) {
       if ($data['status'] != 1) {
           continue;
@@ -132,13 +124,11 @@ function checkform() {
 </tr></table>
 </form>
 
-</td><td valign=top align=center>
-';
+</td><td valign=top align=center>';
   echo start_info_table('200');
   echo 'Send a penalty:<br>
 You can send a penalty to one user, several users or all users.<br>
 Enter an amount, a description and select a user or a user group you want send a penalty.<br>
-User can read the description in the transactions history.<br>
-';
+User can read the description in the transactions history.<br>';
   echo end_info_table();
   echo '</td></tr></table>';

@@ -68,8 +68,7 @@
  <td bgcolor=FFEA00 align=center><b>Deposit (US$)</b></td>
  <td bgcolor=FFEA00 align=center><b>Profit (%)</b></td>
  <td bgcolor=FFEA00 align=center><b>-</b></td>
-</tr>
-';
+</tr>';
   if (0 < count($plans)) {
       foreach ($plans as $line) {
           echo '<tr>
@@ -94,8 +93,7 @@
 </tr>
 <tr>
  <td colspan=4>
-<table cellspacing=0 cellpadding=2 border=0 width=66% align=right>
-';
+<table cellspacing=0 cellpadding=2 border=0 width=66% align=right>';
           $plans_lines = $line['plans'];
           if (0 < count($plans_lines)) {
               foreach ($plans_lines as $line1) {
@@ -110,21 +108,18 @@
                   echo ' &nbsp; &nbsp; </td>
  <td align=right nowrap width=60>';
                   echo $line1['percent'];
-                  echo '%</td>
-';
+                  echo '%</td>';
               }
           }
 
           echo '</tr></table>
  </td>
-</tr>
-';
+</tr>';
       }
   } else {
       echo '<tr>
  <td bgcolor=FFF9B3 colspan=4>No HYIPs found</td>
-</tr>
-';
+</tr>';
   }
 
   echo '</table>
@@ -134,8 +129,7 @@
 <input type=submit value="Add a new Investment Package" class=sbmt size=15>
 </form>
 
-<br>
-';
+<br>';
   echo start_info_table('100%');
   echo 'Investment packages:<br>
 You can create unlimited sets of investment packages with any settings and payout options. 
@@ -144,10 +138,8 @@ Also you can change status of any package.
   made a deposit</li>
 <li> Inactive package. Users will not receive any earnings</li>
 <br><br>
-Here you can view, edit and delete your packages and plans.
-';
+Here you can view, edit and delete your packages and plans.';
   echo end_info_table();
   echo '
-
 
 ';

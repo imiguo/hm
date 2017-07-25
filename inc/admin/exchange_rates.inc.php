@@ -14,13 +14,11 @@
   if ($settings['demomode']) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
-You cannot change the exchange rates!
-';
+You cannot change the exchange rates!';
       echo end_info_table();
   }
 
-  echo '
-';
+  echo '';
   $exch = [];
   $q = 'select * from hm2_exchange_rates';
   $sth = db_query($q);
@@ -39,19 +37,15 @@ You cannot change the exchange rates!
 <table cellspacing=0 cellpadding=0 border=0><tr><td valign=top bgcolor=#FF8D00>
 <table cellspacing=1 cellpadding=2 border=0>
 <tr>
-  <td bgcolor=#FFFFFF nowrap align=center>From / To</td>
-';
-  echo '
-';
+  <td bgcolor=#FFFFFF nowrap align=center>From / To</td>';
+  echo '';
   foreach ($exchange_systems as $id => $value) {
       echo '  <td bgcolor=#FFFFFF align=center><img src=images/';
       echo $id;
-      echo '.gif height=17></td>
-';
+      echo '.gif height=17></td>';
   }
 
-  echo '</tr>
-';
+  echo '</tr>';
   foreach ($exchange_systems as $id_from => $value) {
       echo '<tr>
   <td align=center bgcolor=#FFFFFF><img src=images/';
@@ -76,8 +70,7 @@ You cannot change the exchange rates!
   ';
       }
 
-      echo '</tr>
-';
+      echo '</tr>';
   }
 
   echo '</table>
@@ -104,5 +97,4 @@ You cannot change the exchange rates!
   echo '      </td>
     </tr></table>
 </form>
-<br><br>
-';
+<br><br>';

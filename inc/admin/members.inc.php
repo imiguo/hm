@@ -132,18 +132,15 @@ function reverce(flag)
   echo 'FEA00 align=center>Deposit</th>
  <th bgcolor=FFEA00 align=center>Earned</th>
       <th bgcolor=FFEA00 align=center>Withdrew</th>
-</tr>
-';
+</tr>';
   if (0 < count($members)) {
       for ($i = 0; $i < count($members); ++$i) {
           echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
- <td>
-';
+ <td>';
           if ($qstatus == 'blocked') {
               echo ' <input type="checkbox" name="activate[';
               echo $members[$i]['id'];
-              echo ']" value=1>
-';
+              echo ']" value=1>';
           }
 
           echo '   ';
@@ -217,25 +214,21 @@ function reverce(flag)
           echo $members[$i]['id'];
           echo '>[manage funds]</a></small>
  </td>
-</tr>
-';
+</tr>';
           if ($qstatus == 'blocked') {
               echo '<tr>
 <td colspan=7><a href=javascript:reverce(true)>Select all</a> / <a href=javascript:reverce(false)>Unselect all</a></td>
-</tr>
-';
+</tr>';
               continue;
           }
       }
   } else {
       echo '<tr>
  <td colspan=7 align=center>No accounts found</td>
-</tr>
-';
+</tr>';
   }
 
-  echo '</table><br>
-';
+  echo '</table><br>';
   if (1 < $qpages) {
       echo '<center>';
       echo '<s';
@@ -261,18 +254,15 @@ function reverce(flag)
       echo '</small></center>';
   }
 
-  echo '
-';
+  echo '';
   if ($qstatus == 'blocked') {
-      echo '<input type=button value="Activate" class=sbmt onclick="document.members.action.value=\'activate\';document.members.submit()"> &nbsp;
-';
+      echo '<input type=button value="Activate" class=sbmt onclick="document.members.action.value=\'activate\';document.members.submit()"> &nbsp;';
   }
 
   echo '<input type=submit value="Modify" class=sbmt> &nbsp; <input type=button value="Add a new member" class=sbmt onClick="document.location=\'?a=addmember\';">
 </form>
 
-<br>
-';
+<br>';
   echo start_info_table('100%');
   echo 'Members list:<br><br>
 Members list splits your members to 3 types: Active, Suspended and Disabled.<br>
@@ -299,6 +289,5 @@ Send e-mail to user: click on the \'e-mail\' link and send e-mail to user.<br>
 \'Manage funds\' link will help you to check any user\'s history and change his funds.<br>
 Add a new Member: click on the ';
   echo '"Add a new member" button. You\'ll see the form 
-for adding a new member. 
-';
+for adding a new member. ';
   echo end_info_table();

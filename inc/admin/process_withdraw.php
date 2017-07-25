@@ -56,11 +56,9 @@ if ($to_withdraw < 0) {
 }
 
 $to_withdraw = sprintf('%.02f', floor($to_withdraw * 100) / 100);
-echo '
-';
+echo '';
 if ($do_not_show_form == 0) {
-    echo '
-';
+    echo '';
     if ($trans['ec'] == 0) {
         echo '<form name=spend method=post action="https://www.e-gold.com/sci_asp/payments.asp">
 <input type=hidden name=withdraw value="';
@@ -108,8 +106,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
 <br>
 <br><input type=submit value="Go to e-gold.com" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
-</form>
-';
+</form>';
     } else {
         if ($trans['ec'] == 1) {
             echo 'Sending <b>$';
@@ -152,8 +149,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
 <br>
 <br><input type=submit value="Go to evocash.com" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
-</form>
-';
+</form>';
         } else {
             if ($trans['ec'] == 2) {
                 echo 'Sending <b>$';
@@ -197,8 +193,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
 <br>
 <br><input type=submit value="Go to intgold.com" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
-</form>
-';
+</form>';
             } else {
                 if ($trans['ec'] == 4) {
                     echo 'Sending <b>$';
@@ -242,8 +237,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
 <br>
 <br><input type=submit value="Go to stormpay.com" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
-</form>
-';
+</form>';
                 } else {
                     if ($trans['ec'] == 5) {
                         echo 'Sending <b>$';
@@ -293,8 +287,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                         echo '">
 <br><input type=submit value="Go to e-Bullion.com" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
-</form>
-';
+</form>';
                     } else {
                         if ($trans['ec'] == 6) {
                             echo 'Sending <b>$';
@@ -333,8 +326,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
   <input type=hidden name=currency_code value=USD>
 <br><input type=submit value="Go to paypal.com" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
-</form>
-';
+</form>';
                         } else {
                             if ($trans['ec'] == 7) {
                                 echo 'Sending <b>$';
@@ -376,8 +368,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
 <input type="hidden" name="OMI_FAIL_URL_METHOD" value="post"> 
 <br><input type=submit value="Go to goldmoney.com" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
-</form>
-';
+</form>';
                             } else {
                                 if ($trans['ec'] == 8) {
                                     echo 'Sending <b>$';
@@ -421,8 +412,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
 <br>
 <br><input type=submit value="Go to eeeCurrency.com" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
-</form>
-';
+</form>';
                                 } else {
                                     if ($trans['ec'] == 9) {
                                         echo 'Sending <b>$';
@@ -468,7 +458,6 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
 <br><input type=submit value="Go to Pecunix.com" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
 </form>
-
 ';
                                     } else {
                                         if ($trans['ec'] == 999) {
@@ -539,8 +528,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                                                 echo 'Withdrawal has been processed.<br><br>
 <form>
 <input type=button class=sbmt value="Close" onclick="window.close();">
-</form>
-';
+</form>';
                                             } else {
                                                 echo 'You should send <b>$';
                                                 echo $to_withdraw;
@@ -557,8 +545,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
 <br><input type=submit value="Confirm transaction" class=sbmt> &nbsp;
 <input type=button class=sbmt value="Cancel" onclick="window.close();">
 
-</form>
-';
+</form>';
                                             }
                                         }
                                     }
@@ -571,9 +558,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
         }
     }
 
-    echo '
-';
+    echo '';
 }
 
-echo '
-';
+echo '';

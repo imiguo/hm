@@ -28,8 +28,7 @@
  <th bgcolor=FFEA00 width=99%>Name</th>
  <th bgcolor=FFEA00>Icon</th>
  <th bgcolor=FFEA00>Actions</th>
-</tr>
-';
+</tr>';
   if (0 < count($processings)) {
       for ($i = 0; $i < count($processings); ++$i) {
           echo '<tr>
@@ -51,27 +50,22 @@
           echo '">[edit]</a> <a href="?a=delete_processing&pid=';
           echo $processings[$i]['id'];
           echo '" onclick="return confirm(\'Do youreally want to delete this processing?\')">[delete]</a></td>
-</tr>
-';
+</tr>';
       }
   } else {
       echo '<tr>
 <td align=center colspan=4>No records found</td>
-</tr>
-';
+</tr>';
   }
 
-  echo '</table><br>
-';
+  echo '</table><br>';
   if (0 < count($processings)) {
-      echo '<input type="submit" value="Update" class=sbmt> &nbsp;
-';
+      echo '<input type="submit" value="Update" class=sbmt> &nbsp;';
   }
 
   echo '<input type="button" value="Add Processing" class=sbmt onclick="document.location=\'?a=add_processing\'">
 </form>
-<br>
-';
+<br>';
   echo start_info_table('100%');
   echo 'You can add or edit any payment processing in this section by clicking the "edit" or "add new" link.
 You should provide the full instructions for a user to know how to make a
@@ -79,6 +73,5 @@ deposit using the specified payment system.<br><br>
 Any processing you add can\'t allow users to deposit just by themselves.
 The administrator has to approve or delete any transaction and
 process all the users\' withdrawal reques';
-  echo 'ts manually.
-';
+  echo 'ts manually.';
   echo end_info_table();

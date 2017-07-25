@@ -103,13 +103,11 @@
       array_push($plans, $row);
   }
 
-  echo '
-';
+  echo '';
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
-You cannot release deposits!
-';
+You cannot release deposits!';
       echo end_info_table();
   }
 
@@ -124,7 +122,6 @@ You cannot release deposits!
   echo '">
 
 <b>Release Active Deposits:</b><br><br>
-
 ';
   for ($i = 0; $i < count($plans); ++$i) {
       echo '<b>';
@@ -138,11 +135,9 @@ You cannot release deposits!
  <td bgcolor=FFEA00 align=center>Release</td>
  <td bgcolor=FFEA00 align=center>Released</td>
  <td bgcolor=FFEA00 align=center>Release Amount</td>
- <td bgcolor=FFEA00 align=center>Change Plan</td>
-';
+ <td bgcolor=FFEA00 align=center>Change Plan</td>';
       echo '
 </tr>
-
 ';
       if (0 < count($plans[$i][deposits])) {
           for ($j = 0; $j < count($plans[$i][deposits]); ++$j) {
@@ -188,8 +183,7 @@ You cannot release deposits!
               echo '<s';
               echo 'elect name="type_id[';
               echo $plans[$i][deposits][$j]['id'];
-              echo ']" class=inpts>
-';
+              echo ']" class=inpts>';
               reset($plans);
               foreach ($plans as $plan) {
                   echo '   <option value="';
@@ -198,14 +192,12 @@ You cannot release deposits!
                   echo $plan['id'] == $plans[$i][deposits][$j]['type_id'] ? 'selected' : '';
                   echo '>';
                   echo $plan['name'];
-                  echo '</option>
-';
+                  echo '</option>';
               }
 
               echo '  </select>
  </td>
-</tr>
-';
+</tr>';
           }
       } else {
           echo '<tr><td colspan=6 align=center>No deposits found</td></tr>';
@@ -226,28 +218,23 @@ You cannot release deposits!
           echo '</b></td></tr>
 </table>
  </td>
-</tr>
-';
+</tr>';
       }
 
-      echo '</table><br>
-';
+      echo '</table><br>';
   }
 
   if (0 < $deposits_cnt) {
-      echo '<input type=submit value="Save Changes" class=sbmt>
-';
+      echo '<input type=submit value="Save Changes" class=sbmt>';
   }
 
   echo '</form>
 <br>
-
 ';
   echo start_info_table('100%');
   echo 'Release deposits:<br>
 A member can ask you to clear his deposit and return his funds.<br>
 This screen helps you to release user\'s deposit if you need. Funds will return 
 to the member\'s account and the member can withdraw these funds.
-
 ';
   echo end_info_table();

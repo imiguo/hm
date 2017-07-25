@@ -25,8 +25,7 @@
       <table cellspacing=0 cellpadding=0 border=0 width=100% height=142>
 	    <tr>
 		  <td background="images/ver.gif" bgcolor=#FF8D00><img src="images/top.gif" width=304 height=142 border="0" align=left></td>
-		  <td background="images/ver.gif" bgcolor=#FF8D00 valign=bottom align=right>
-';
+		  <td background="images/ver.gif" bgcolor=#FF8D00 valign=bottom align=right>';
   if ((($settings['md5altphrase'] == '' and $settings['md5altphrase_evocash'] == '') and $settings['md5altphrase_intgold'] == '')) {
       echo start_info_table('100%');
       echo 'To receive deposits you should enter your \'Secret alternate password md5 hash\' on the settings screen!<br>
@@ -63,5 +62,4 @@
  	    </tr>
 	  </table>
      </td>
-  </tr>
-';
+  </tr>';

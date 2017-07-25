@@ -10,14 +10,12 @@
  */
 
   if ($frm['say'] == 'invalid_passphrase') {
-      echo '<b style="color:red">Invalid Alternative Passphrase. No data has been updated.</b><br><br>
-';
+      echo '<b style="color:red">Invalid Alternative Passphrase. No data has been updated.</b><br><br>';
   }
 
   if ($frm['say'] == 'done') {
       echo '<b style="color:green">Changes have been successfully updated.</b><br>
-<br>
-';
+<br>';
   }
 
   if ($userinfo['logged'] == 0) {
@@ -55,8 +53,7 @@ E-mail:<br>
 <input type=submit value="Set" class=sbmt>
 </form>
 <hr>
-  <br><br><br>
-';
+  <br><br><br>';
   $dirs = [];
   if (!file_exists('./inc/.htaccess')) {
       array_push($dirs, './inc');
@@ -73,49 +70,41 @@ E-mail:<br>
   if (0 < count($dirs)) {
       echo '
 <b>Security note:</b><br><br>
-Please upload the .htaccess file to the following folders:<br>
-';
+Please upload the .htaccess file to the following folders:<br>';
       for ($i = 0; $i < count($dirs); ++$i) {
           echo '<li>'.$dirs[$i].'</li>';
       }
 
       echo 'You can find the .htaccess files in the latest archive with the hyip manager script. 
 <hr>
-  <br><br><br>
-';
+  <br><br><br>';
   }
 
   echo '
 <b>Encode mysql information and other settings:</b><br><br>
-<form method=post>
-';
+<form method=post>';
   if (!file_exists('./tmpl_c/.htdata')) {
-      echo '<input type=hidden name=a value=encrypt_mysql>
-';
+      echo '<input type=hidden name=a value=encrypt_mysql>';
       if ($userinfo['transaction_code'] != '') {
           echo '<table cellspacing=0 cellpadding=1 border=0>
 <tr>
  <td>Alternative Passphrase: </td>
  <td><input type=password name="alternative_passphrase" value="" class=inpts size=30></td>
 </tr>
-</table>
-';
+</table>';
       }
 
       echo '<input type=submit class=sbmt value="Encode mysql data and other settings."><br>
   It will prevent from hacking attempts when they access mysql directly. Even 
-  if a hacker knows your ftp data it will be impossible to change any settings.<br>
-';
+  if a hacker knows your ftp data it will be impossible to change any settings.<br>';
       echo '<s';
-      echo 'pan style="color: red">This action cannot be undone</span>
-';
+      echo 'pan style="color: red">This action cannot be undone</span>';
   } else {
       $code = file('./tmpl_c/.htdata');
       echo '<textarea class=inpts cols=100 rows=10>';
       echo $code[0];
       echo '
-------------------------
-';
+------------------------';
       echo $settings['key'];
       echo '</textarea>
 <br>
@@ -126,5 +115,4 @@ Please upload the .htaccess file to the following folders:<br>
 
   echo '</form>
 <hr>
-<br><br>
-';
+<br><br>';

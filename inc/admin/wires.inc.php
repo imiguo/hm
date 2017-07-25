@@ -23,8 +23,7 @@
  <th bgcolor=FFEA00>Bank Name</th>
  <th bgcolor=FFEA00>Bank Account</th>
  <th bgcolor=FFEA00>-</th>
-</tr>
-';
+</tr>';
   if ($frm['type'] == 'problem') {
       $q = 'select hm2_wires.*, hm2_users.username from hm2_wires, hm2_users where hm2_wires.status=\'problem\' and hm2_users.id = hm2_wires.user_id order by wire_date desc';
   } else {
@@ -62,5 +61,4 @@
 
   echo '
 
-</table>
-';
+</table>';

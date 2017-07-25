@@ -35,8 +35,7 @@
       $withdraw = number_format(abs($row['col']), 2);
   }
 
-  echo 'Members: 
-';
+  echo 'Members: ';
   echo $qmembers;
   echo 'Deposits: $';
   echo $deposit;

@@ -16,8 +16,7 @@
 <table cellspacing=0 cellpadding=1 border=0 width=100%>
 <tr>
 <td><b>Pending Deposits:</b></td>
-<td align=right>
-';
+<td align=right>';
   echo '<s';
   echo 'elect name=type class=inpts onchange="document.nform.submit()">
 <option value=\'new\'>New</option>
@@ -42,8 +41,7 @@
  <th bgcolor=FFEA00>Fields</th>
  <th bgcolor=FFEA00>P.S.</th>
  <th bgcolor=FFEA00>-</th>
-</tr>
-';
+</tr>';
   $processings = [];
   $q = 'select * from hm2_processings';
   $sth = db_query($q);
@@ -111,5 +109,4 @@
 
   echo '
 
-</table>
-';
+</table>';

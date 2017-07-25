@@ -16,5 +16,4 @@
   </tr>
 </table>
 </center></body>
-</html>
-';
+</html>';

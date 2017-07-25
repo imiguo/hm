@@ -15,8 +15,7 @@
 <head>
 <link href="images/adminstyle.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-';
+<body>';
   $qonpage = 50;
   $qstatus = quote($frm['status']);
   if ($qstatus == '') {
@@ -77,8 +76,7 @@
  <th bgcolor=FFEA00 align=center>Deposit</th>
  <th bgcolor=FFEA00 align=center>Earned</th>
  <th bgcolor=FFEA00 align=center>Withdraw</th>
-</tr>
-';
+</tr>';
   if (0 < count($members)) {
       for ($i = 0; $i < count($members); ++$i) {
           echo '<tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
@@ -115,18 +113,15 @@
           echo number_format(abs($members[$i]['withdrawal']), 2);
           echo '</small></td>
 </tr>
-
 ';
       }
   } else {
       echo '<tr>
  <td colspan=7 align=center>No accounts found</td>
-</tr>
-';
+</tr>';
   }
 
-  echo '</table><br>
-';
+  echo '</table><br>';
   if (1 < $qpages) {
       echo '<center>';
       echo '<s';

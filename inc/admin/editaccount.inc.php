@@ -16,30 +16,23 @@
   }
 
   $row = mysql_fetch_array($sth);
-  echo '
-';
+  echo '';
 
   echo '<b>Edit Member Account:</b><br>
 <br>
-
 ';
   if ($frm['say'] == 'saved') {
-      echo 'User information saved<br><br>
-';
+      echo 'User information saved<br><br>';
   }
 
-  echo '
-';
+  echo '';
   if ($frm['say'] == 'incorrect_password') {
-      echo 'Please check your password<br><br>
-';
+      echo 'Please check your password<br><br>';
   }
 
-  echo '
-';
+  echo '';
   if ($frm['say'] == 'incorrect_transaction_code') {
-      echo 'Please check your transaction code<br><br>
-';
+      echo 'Please check your transaction code<br><br>';
   }
 
   echo '
@@ -55,8 +48,7 @@
  <td><input type=text name=fullname value=\'';
   echo quote($row['name']);
   echo '\' class=inpts size=30></td>
-</tr>
-';
+</tr>';
   if ($settings['use_user_location']) {
       include './inc/countries.inc';
       echo '<tr>
@@ -89,21 +81,18 @@
   ';
       echo '<s';
       echo 'elect name=country class=inpts>
-   <option value=\'\'>--SELECT--</option>
-';
+   <option value=\'\'>--SELECT--</option>';
       foreach ($countries as $c) {
           echo '   <option ';
           echo $c['name'] == $row['country'] ? 'selected' : '';
           echo '>';
           echo quote($c['name']);
-          echo '</option>
-';
+          echo '</option>';
       }
 
       echo '  </select>
  </td>
-</tr>
-';
+</tr>';
   }
 
   echo '<tr>
@@ -118,8 +107,7 @@
 </tr><tr>
  <td>Retype password:</td>
  <td><input type=password name=password2 value="" class=inpts size=30></td>
-</tr>
-';
+</tr>';
   if ($settings['use_transaction_code']) {
       echo '<tr>
  <td>Transaction Code:</td>
@@ -127,8 +115,7 @@
 </tr><tr>
  <td>Retype Transaction Code:</td>
  <td><input type=password name=transaction_code2 value="" class=inpts size=30></td>
-</tr>
-';
+</tr>';
   }
 
   echo '<tr>
@@ -226,8 +213,7 @@
   }
 
   echo '          </td>
-</tr><tr>
-';
+</tr><tr>';
   if ($row['came_from'] != '') {
       echo ' <td>Came from:</td>
  <td>';
@@ -237,14 +223,12 @@
       echo '" target=_blank>';
       echo $row['came_from'];
       echo '</a></td>
-</tr><tr>
-';
+</tr><tr>';
   }
 
   if ($row['activation_code'] != '') {
       echo ' <td colspan=2><input type=checkbox name=activate value=1> Activate acount. User account has been blocked by Brute Force Handler feature.</td>
-</tr><tr>
-';
+</tr><tr>';
   }
 
   echo ' <td>&nbsp;</td>
@@ -252,8 +236,7 @@
 </tr></table>
 </form>
 
-</td><td valign=top>
-';
+</td><td valign=top>';
   echo start_info_table('200');
   echo 'Edit member:<br>
   You can change the user information and status here. 

@@ -74,14 +74,12 @@
 </tr><tr>
 <td class=menutxt>&nbsp;</td>
 </tr><tr>
-
 ';
   if ($settings['demomode'] != '1') {
       echo '    <td class=menutxt><a href=?a=custompages>Custom Pages</a></td>
 </tr><tr>
 <td class=menutxt>&nbsp;</td>
-</tr><tr>
-';
+</tr><tr>';
   }
 
   echo '
@@ -105,8 +103,7 @@
       echo '      <br>
 &nbsp; &nbsp; ';
       echo '<s';
-      echo 'pan style="color: #D20202;">Pro version only</span>
-';
+      echo 'pan style="color: #D20202;">Pro version only</span>';
   }
 
   echo '
@@ -130,5 +127,4 @@
 	
           ';
   echo '          </tr>
-				   </table>
-';
+				   </table>';

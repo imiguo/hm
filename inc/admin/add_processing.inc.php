@@ -12,8 +12,7 @@
 
 
 
-  echo '<b>Add Processing:</b><br><br>
-';
+  echo '<b>Add Processing:</b><br><br>';
   echo '<s';
   echo 'cript>
 function c1()
@@ -77,14 +76,12 @@ function c1()
 </tr>
 </table>
 <input type="submit" value="Add Processing" class=sbmt>
-</form>
-';
+</form>';
   echo '<s';
   echo 'cript>
 c1();
 </script>
-<br>
-';
+<br>';
   echo start_info_table('100%');
   echo 'Enter all the user instructions, your account number in this payment
 system and all the needed information here. You\'ll see all new user
@@ -94,6 +91,5 @@ transferred the funds to your account. You can ask the user to give
 you the batch ID or his account number in the corresponding payment
 system. This ';
   echo 'information will help you to easily find the transfer
-or define whether it was really sent.
-';
+or define whether it was really sent.';
   echo end_info_table();

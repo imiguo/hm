@@ -25,25 +25,20 @@
 
   echo '
 <b>Add a bonus:</b><br><br>
-
 ';
   if ($frm['say'] == 'done') {
-      echo 'The bonus has been sent to the user.<br><br>
-';
+      echo 'The bonus has been sent to the user.<br><br>';
   }
 
   if ($frm['say'] == 'invalid_code') {
-      echo 'The bonus has been not sent to the user. Invalid confirmation code.<br><br>
-';
+      echo 'The bonus has been not sent to the user. Invalid confirmation code.<br><br>';
   }
 
   if ($frm['say'] == 'wrongplan') {
-      echo 'Bonus has not been sent. Invalid Investment Plan selected.<br><br>
-';
+      echo 'Bonus has not been sent. Invalid Investment Plan selected.<br><br>';
   }
 
   echo '
-
 ';
   if ($frm['action'] == 'confirm') {
       echo '<form method=post name=formb>
@@ -80,8 +75,7 @@
  <td>&nbsp;</td>
  <td><input type=submit value="Confirm" class=sbmt></td>
 </tr>
-</table>
-';
+</table>';
   } else {
       echo '
 <form method=post name=formb>
@@ -161,8 +155,7 @@
  <td>
 	';
       echo '<s';
-      echo 'elect name=ec class=inpts>
-';
+      echo 'elect name=ec class=inpts>';
       foreach ($exchange_systems as $id => $data) {
           if ($data['status'] != 1) {
               continue;
@@ -192,22 +185,19 @@
  <td>
   ';
       echo '<s';
-      echo 'elect name=hyip_id class=inpts disabled>
-';
+      echo 'elect name=hyip_id class=inpts disabled>';
       foreach ($types as $id => $name) {
           echo '   <option value=';
           echo $id;
           echo '>';
           echo htmlspecialchars($name);
-          echo '</option>
-';
+          echo '</option>';
       }
 
       echo '  </select>
  </td>
 </tr><tr>
- <td colspan=2>
-';
+ <td colspan=2>';
       echo start_info_table();
       echo 'For security reason you will be asked confirmation code on next page. E-mail with confirmation code will be sent to account you enter bellow. E-mail account should be on \'';
       echo $frm_env['HTTP_HOST'];

@@ -28,8 +28,7 @@
 	     <td>
            <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
              <tr bgcolor="#FFFFFF" valign="top"> 
-<td bgcolor=#FFFFFF>
-';
+<td bgcolor=#FFFFFF>';
   if (function_exists('curl_init')) {
     $ch = curl_init();
     echo curl_error($ch);
@@ -86,6 +85,5 @@
 </tr></table>
 </tr></table>
 </center>
-</body>
-';
+</body>';
   exit();

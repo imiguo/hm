@@ -15,8 +15,7 @@
 <head>
 <link href="images/adminstyle.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-';
+<body>';
   $q = 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and to_days(now()) = to_days(date)';
   ($sth = db_query($q) or print mysql_error());
   $row = mysql_fetch_array($sth);

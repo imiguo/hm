@@ -124,12 +124,10 @@ Members:
   echo $members_all - $members_active;
   echo '</a><br>
 Members: <a href="javascript:alert(\'How many users have ever made a deposit.\')" class=hlp>Made 
-a deposit 
-';
+a deposit ';
   echo $members_q_deposits;
   echo '</a>, <a href="javascript:alert(\'How many registered users haven\\\'t made a deposit in your system.\')" class=hlp>Have 
-not made a deposit: 
-';
+not made a deposit: ';
   echo $members_all - $members_q_deposits;
   echo '</a><br>
 <br>
@@ -172,7 +170,6 @@ $';
   echo number_format($pending_withdraw, 2);
   echo '<br>
 <br><br>
-
 ';
   foreach ($exchange_systems as $id => $data) {
       if ($data['status'] != 1) {
@@ -284,8 +281,7 @@ $';
 </tr>
 
 </table>
-<br><br>
-';
+<br><br>';
   }
 
   echo '<a href="javascript:alert(\'Total in/out stats shows you how much funds users entered in your system and how much funds you withdrew today, this week, this month, this year and total.\')" class=hlp><b>in/out 
@@ -391,8 +387,7 @@ Total </b></a> <br>
 </tr>                                 
 
 </table>
-<br><br>
-';
+<br><br>';
   echo start_info_table('100%');
   echo 'Welcome to the HYIP Manager Admin Area!<br>
 You can see help messages on almost all pages of the admin area in this part.<br>
@@ -441,6 +436,5 @@ accounts. <br>
 <br>
 E-gold in/out stats shows you how many funds users have entered in your system 
 and how many funds have you withdrawn today, this week, this month, this year 
-and total. 
-';
+and total. ';
   echo end_info_table();

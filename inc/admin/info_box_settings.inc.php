@@ -14,13 +14,11 @@
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction!</b><br>
-You cannot change settings!
-';
+You cannot change settings!';
       echo end_info_table();
   }
 
   echo '
-
 ';
   echo '<s';
   echo 'cript language=javascript>
@@ -148,8 +146,7 @@ function checkb(i) {
               (users who have made a deposit more than 
               <input type="text" name="vip_users_deposit_amount" value="';
   echo $settings['vip_users_deposit_amount'];
-  echo '" class=inpts>)
-';
+  echo '" class=inpts>)';
   echo end_info_table();
   echo ' </td></tr><tr onMouseOver="bgColor=\'#FFECB0\';" onMouseOut="bgColor=\'\';">
  <td>Show deposited funds information:</td>
@@ -409,8 +406,7 @@ function checkb(i) {
  <td><br>&nbsp;</td>
  <td><input type=submit value="Change settings" class=sbmt></td>
 </tr></table>
-</form>
-';
+</form>';
   echo '<s';
   echo 'cript language=javascript>
 checkb(1);
