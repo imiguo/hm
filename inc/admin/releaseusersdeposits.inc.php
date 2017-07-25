@@ -54,7 +54,7 @@ $user_id = sprintf('%d', $frm['u_id']);
           ++$deposits_cnt;
       }
 
-      $q = ''.'select
+      $q = 'select
             sum(hm2_history.actual_amount) as sm
           from
             hm2_history, hm2_deposits
@@ -67,7 +67,7 @@ $user_id = sprintf('%d', $frm['u_id']);
       $sth1 = db_query($q);
       $row1 = mysql_fetch_array($sth1);
       $row['total_deposit'] = number_format(abs($row1['sm']), 2);
-      $q = ''.'select
+      $q = 'select
             sum(hm2_history.actual_amount) as sm
           from
             hm2_history, hm2_deposits
@@ -81,7 +81,7 @@ $user_id = sprintf('%d', $frm['u_id']);
       $sth1 = db_query($q);
       $row1 = mysql_fetch_array($sth1);
       $row['today_profit'] = number_format(abs($row1['sm']), 2);
-      $q = ''.'select
+      $q = 'select
             sum(hm2_history.actual_amount) as sm
           from
             hm2_history, hm2_deposits

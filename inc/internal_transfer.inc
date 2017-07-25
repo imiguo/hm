@@ -56,8 +56,8 @@ if ($frm['complete']) {
 
   $smarty->assign('ps', $ps);
   if ($settings['hold_only_first_days'] == 1) {
-      $q = ''.'select
-              sum(hm2_history.actual_amount) as am, 
+      $q = 'select
+              sum(hm2_history.actual_amount) as am,
 	      hm2_history.ec
             from
               hm2_history,
@@ -67,15 +67,15 @@ if ($frm['complete']) {
               hm2_history.user_id = '.$userinfo[id].' and
 	      hm2_history.deposit_id = hm2_deposits.id and
               hm2_types.id = hm2_deposits.type_id and
-              now() - interval hm2_types.hold day < hm2_history.date and 
+              now() - interval hm2_types.hold day < hm2_history.date and
               hm2_deposits.deposit_date + interval hm2_types.hold day > now() and
-	      (hm2_history.type=\'earning\' or 
-		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\'))) 
+	      (hm2_history.type=\'earning\' or
+		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\')))
 	    group by hm2_history.ec
           ';
   } else {
-      $q = ''.'select
-              sum(hm2_history.actual_amount) as am, 
+      $q = 'select
+              sum(hm2_history.actual_amount) as am,
 	      hm2_history.ec
             from
               hm2_history,
@@ -85,9 +85,9 @@ if ($frm['complete']) {
               hm2_history.user_id = '.$userinfo[id].' and
 	      hm2_history.deposit_id = hm2_deposits.id and
               hm2_types.id = hm2_deposits.type_id and
-              now() - interval hm2_types.hold day < hm2_history.date and 
-	      (hm2_history.type=\'earning\' or 
-		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\'))) 
+              now() - interval hm2_types.hold day < hm2_history.date and
+	      (hm2_history.type=\'earning\' or
+		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\')))
 	    group by hm2_history.ec
           ';
   }
@@ -111,9 +111,9 @@ if ($frm['complete']) {
       }
 
       if ($settings['hold_only_first_days'] == 1) {
-          $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec.' and hm2_deposits.deposit_date + interval hm2_types.hold day > now()';
+          $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec.' and hm2_deposits.deposit_date + interval hm2_types.hold day > now()';
       } else {
-          $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
+          $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
       }
 
     ($sth = db_query($q));
@@ -121,9 +121,9 @@ if ($frm['complete']) {
       $deps[0] = 0;
       $on_hold = 0;
       while ($row = mysql_fetch_array($sth)) {
-          $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and 
-		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and 
-			(type=\'earning\' or 
+          $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and
+		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and
+			(type=\'earning\' or
 		(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));');
           ($sth1 = db_query($q));
           while ($row1 = mysql_fetch_array($sth1)) {
@@ -144,7 +144,7 @@ if ($frm['complete']) {
       }
 
       $recipient = quote($frm['account']);
-      $q = ''.'select * from hm2_users where username = \''.$recipient.'\' and status = \'on\'';
+      $q = 'select * from hm2_users where username = \''.$recipient.'\' and status = \'on\'';
       $sth = db_query($q);
       $user = mysql_fetch_array($sth);
       if (!$user) {
@@ -181,9 +181,9 @@ if ($frm['complete']) {
       }
 
       if ($settings['hold_only_first_days'] == 1) {
-          $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec.' and hm2_deposits.deposit_date + interval hm2_types.hold day > now()';
+          $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec.' and hm2_deposits.deposit_date + interval hm2_types.hold day > now()';
       } else {
-          $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
+          $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
       }
 
     ($sth = db_query($q));
@@ -191,9 +191,9 @@ if ($frm['complete']) {
       $deps[0] = 0;
       $on_hold = 0;
       while ($row = mysql_fetch_array($sth)) {
-          $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and 
-		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and 
-			(type=\'earning\' or 
+          $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and
+		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and
+			(type=\'earning\' or
 		(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));');
           ($sth1 = db_query($q));
           while ($row1 = mysql_fetch_array($sth1)) {
@@ -214,7 +214,7 @@ if ($frm['complete']) {
       }
 
       $recipient = quote($frm['account']);
-      $q = ''.'select * from hm2_users where username = \''.$recipient.'\' and status = \'on\'';
+      $q = 'select * from hm2_users where username = \''.$recipient.'\' and status = \'on\'';
       $sth = db_query($q);
       $user = mysql_fetch_array($sth);
       if (!$user) {

@@ -35,7 +35,7 @@ $frm['day_to'] = sprintf('%d', $frm['day_to']);
 
   $u_id = sprintf('%d', $frm['u_id']);
   if (1 < $u_id) {
-      $userwhere = ''.' and user_id = '.$u_id.' ';
+      $userwhere = ' and user_id = '.$u_id.' ';
   }
 
   $ecwhere = '';
@@ -45,10 +45,10 @@ $frm['day_to'] = sprintf('%d', $frm['day_to']);
 
   $ec = sprintf('%d', $frm[ec]);
   if (-1 < $frm[ec]) {
-      $ecwhere = ''.' and ec = '.$ec;
+      $ecwhere = ' and ec = '.$ec;
   }
 
-  $q = ''.'select count(*) as col from hm2_history where '.$datewhere.' '.$userwhere.' '.$typewhere.' '.$ecwhere;
+  $q = 'select count(*) as col from hm2_history where '.$datewhere.' '.$userwhere.' '.$typewhere.' '.$ecwhere;
   ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $count_all = $row['col'];
@@ -92,7 +92,7 @@ $frm['day_to'] = sprintf('%d', $frm['day_to']);
   }
 
   if ($settings['use_history_balance_mode']) {
-      $q = ''.'select
+      $q = 'select
             sum(actual_amount * (actual_amount < 0)) as debit,
             sum(actual_amount * (actual_amount > 0)) as credit,
             sum(actual_amount) as balance
@@ -100,7 +100,7 @@ $frm['day_to'] = sprintf('%d', $frm['day_to']);
             hm2_history where '.$datewhere.' '.$typewhere.' '.$userwhere.' '.$ecwhere;
       $sth = db_query($q);
       $period_stats = mysql_fetch_array($sth);
-      $q = ''.'select
+      $q = 'select
             sum(actual_amount * (actual_amount < 0)) as debit,
             sum(actual_amount * (actual_amount > 0)) as credit,
             sum(actual_amount) as balance
@@ -111,11 +111,11 @@ $frm['day_to'] = sprintf('%d', $frm['day_to']);
   }
 
   $month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  $q = ''.'select sum(actual_amount) as periodsum from hm2_history where '.$datewhere.' '.$userwhere.' '.$typewhere.' '.$ecwhere;
+  $q = 'select sum(actual_amount) as periodsum from hm2_history where '.$datewhere.' '.$userwhere.' '.$typewhere.' '.$ecwhere;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $periodsum = $row['periodsum'];
-  $q = ''.'select sum(actual_amount) as sum from hm2_history where 1=1 '.$userwhere.' '.$typewhere.' '.$ecwhere;
+  $q = 'select sum(actual_amount) as sum from hm2_history where 1=1 '.$userwhere.' '.$typewhere.' '.$ecwhere;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $allsum = $row['sum'];
@@ -388,7 +388,7 @@ function func5() {
               if ($trans[$i][debitcredit] == 1) {
                   echo '  $';
                   echo number_format(abs($trans[$i][actual_amount]), 2);
-                  echo $trans[$i]['type'] == 'withdraw_pending' ? ''.'($'.$to_withdraw.' with fees)' : '';
+                  echo $trans[$i]['type'] == 'withdraw_pending' ? '($'.$to_withdraw.' with fees)' : '';
                   echo ' ';
                   echo $frm['ttype'] == 'withdraw_pending' ? ' &nbsp; <a href=?a=pay_withdraw&id='.$trans[$i]['id'].' target=_blank>[pay]</a> <a href=?a=rm_withdraw&id='.$trans[$i]['id'].' onClick="return confirm(\'Do you really want to remove this transaction?\')">[remove]</a>' : '';
                   echo '  </b>
@@ -470,7 +470,7 @@ function func5() {
               echo '</b></td>
  <td width=200 align=right><b>$';
               echo number_format(abs($trans[$i]['actual_amount']), 2);
-              echo $trans[$i]['type'] == 'withdraw_pending' ? ''.' ($'.$to_withdraw.' with fees)<br>' : '';
+              echo $trans[$i]['type'] == 'withdraw_pending' ? ' ($'.$to_withdraw.' with fees)<br>' : '';
               echo '</b>';
               echo $frm['ttype'] == 'withdraw_pending' ? ' &nbsp; <a href=?a=pay_withdraw&id='.$trans[$i]['id'].' target=_blank>[pay]</a> <a href=?a=rm_withdraw&id='.$trans[$i]['id'].' onClick="return confirm(\'Really need delete this transaction?\')">[remove]</a>' : '';
               echo '<img src="images/';

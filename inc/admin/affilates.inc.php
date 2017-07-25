@@ -10,7 +10,7 @@
  */
 
 $u_id = sprintf('%d', $frm['u_id']);
-  $q = ''.'select * from hm2_users where id = '.$u_id;
+  $q = 'select * from hm2_users where id = '.$u_id;
   ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $username = $row['username'];
@@ -18,20 +18,20 @@ $u_id = sprintf('%d', $frm['u_id']);
   }
 
   if (0 < $ref) {
-      $q = ''.'select * from hm2_users where id = '.$ref;
+      $q = 'select * from hm2_users where id = '.$ref;
       ($sth = db_query($q));
       while ($row = mysql_fetch_array($sth)) {
           $upline_name = $row['username'];
       }
   }
 
-  $q = ''.'select count(*) as col from hm2_users where ref='.$u_id;
+  $q = 'select count(*) as col from hm2_users where ref='.$u_id;
   ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $q_affilates = $row[col];
   }
 
-  $q = ''.'select count(distinct user_id) as col from hm2_users, hm2_deposits where ref = '.$u_id.' and hm2_deposits.user_id = hm2_users.id';
+  $q = 'select count(distinct user_id) as col from hm2_users, hm2_deposits where ref = '.$u_id.' and hm2_deposits.user_id = hm2_users.id';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
       $q_active_affilates = $row['col'];
@@ -58,7 +58,7 @@ $u_id = sprintf('%d', $frm['u_id']);
   echo $q_affilates;
   echo '</td>
 </tr>
-    <tr> 
+    <tr>
       <td>Active referrals:</td>
  <td>';
   echo $q_active_affilates;
@@ -87,7 +87,7 @@ $u_id = sprintf('%d', $frm['u_id']);
 </tr>';
   $q_other_active = 0;
   $q_other = 0;
-  $q = ''.'select * from hm2_users where ref='.$u_id.' order by id desc';
+  $q = 'select * from hm2_users where ref='.$u_id.' order by id desc';
   ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $row['stat'] = 'Not deposited yet';
@@ -103,7 +103,7 @@ $u_id = sprintf('%d', $frm['u_id']);
       for ($i = 2; $i < 11; ++$i) {
           $parents_string = implode(',', $parents);
           $q_active = 0;
-          $q = ''.'select id from hm2_users where ref in ('.$parents_string.')';
+          $q = 'select id from hm2_users where ref in ('.$parents_string.')';
           $sth1 = db_query($q);
           $parents = [];
           while ($row1 = mysql_fetch_array($sth1)) {

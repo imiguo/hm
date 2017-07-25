@@ -26,10 +26,10 @@ if ($action == 'pay_withdraw') {
     }
 
     $str = quote($str);
-    $q = ''.'select * from hm2_history where id = '.$id.' and str = \''.$str.'\'';
+    $q = 'select * from hm2_history where id = '.$id.' and str = \''.$str.'\'';
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
-        $q = ''.'delete from hm2_history where id = '.$id;
+        $q = 'delete from hm2_history where id = '.$id;
         (db_query($q));
         $q = 'insert into hm2_history set
 	user_id = '.$row['user_id'].',
@@ -65,7 +65,7 @@ if (function_exists('curl_init')) {
     $req = 'cmd=_notify-validate';
     foreach ($frm as $key => $value) {
         $value = urlencode(stripslashes($value));
-        $req .= ''.'&'.$key.'='.$value;
+        $req .= '&'.$key.'='.$value;
     }
 
     $ch = curl_init();

@@ -17,7 +17,7 @@ if ($frm['complete']) {
 
   $user_id = $userinfo['id'];
   $deposit_id = intval($frm['deposit']);
-  $q = ''.'select 
+  $q = 'select
                *,
                (to_days(now()) - to_days(deposit_date)) as deposit_duration
          from
@@ -96,7 +96,7 @@ if ($frm['complete']) {
           $c_percent = 0;
       }
 
-      $q = ''.'update hm2_deposits set compound = '.$c_percent.' where user_id = '.$user_id.' and id = '.$deposit_id;
+      $q = 'update hm2_deposits set compound = '.$c_percent.' where user_id = '.$user_id.' and id = '.$deposit_id;
       db_query($q);
       header('Location: ?a=change_compound&complete=1');
       exit();

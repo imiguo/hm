@@ -10,7 +10,7 @@
  */
 
 $id = sprintf('%d', $frm['id']);
-  $q = ''.'select * from hm2_users where id = '.$id;
+  $q = 'select * from hm2_users where id = '.$id;
   ($sth = db_query($q));
   $userinfo = mysql_fetch_array($sth);
   $frm_env['HTTP_HOST'] = preg_replace('/www\\./', '', $frm_env['HTTP_HOST']);
@@ -211,13 +211,13 @@ E-mail: <input type=text name=conf_email value="admin" class=inpts size=10>@';
 </form>
 
 </td>
-<td valign=top align=center> 
+<td valign=top align=center>
   ';
       echo start_info_table('200');
       echo '  Add a bonus:<br>
-  To send a bonus to any user you should enter a bonus amount and description. 
+  To send a bonus to any user you should enter a bonus amount and description.
   The user can read the description in the transactions history.<br>
-  Check `send e-mail notification` to report the user about this bonus. 
+  Check `send e-mail notification` to report the user about this bonus.
   ';
       echo end_info_table();
   }

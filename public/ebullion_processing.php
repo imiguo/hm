@@ -24,12 +24,12 @@ if ($frm['a'] == 'pay_withdraw') {
     }
 
     $str = quote($str);
-    $q = ''.'select * from hm2_history where id = '.$id.' and str = \''.$str.'\' and type=\'withdraw_pending\'';
+    $q = 'select * from hm2_history where id = '.$id.' and str = \''.$str.'\' and type=\'withdraw_pending\'';
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
-        $q = ''.'delete from hm2_history where id = '.$id;
+        $q = 'delete from hm2_history where id = '.$id;
         (db_query($q));
-        $q = 'insert into hm2_history set 
+        $q = 'insert into hm2_history set
           	user_id = '.$row['user_id'].',
           	amount = -'.abs($row['amount']).(''.',
           	type = \'withdrawal\',
@@ -81,8 +81,8 @@ $tmpfile = tempnam('', 'xml.tmp.');
 $fd = fopen(''.$tmpfile, 'w');
 fwrite($fd, $frm_orig['ATIP_VERIFICATION']);
 fclose($fd);
-$gpg_options = ''.' --yes --no-tty --no-secmem-warning --no-options --no-default-keyring --batch --homedir '.$atippath.' --keyring=pubring.gpg --secret-keyring=secring.gpg --armor --passphrase-fd 0';
-$gpg_command = ''.'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --output '.$xmlfile.' --decrypt '.$tmpfile.' 2>&1';
+$gpg_options = ' --yes --no-tty --no-secmem-warning --no-options --no-default-keyring --batch --homedir '.$atippath.' --keyring=pubring.gpg --secret-keyring=secring.gpg --armor --passphrase-fd 0';
+$gpg_command = 'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --output '.$xmlfile.' --decrypt '.$tmpfile.' 2>&1';
 $buf = '';
 $keyID = '';
 $fp = @popen(''.$gpg_command, 'r');

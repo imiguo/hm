@@ -24,7 +24,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 	   <tr>
 	     <td>
            <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
-             <tr bgcolor="#FFFFFF" valign="top"> 
+             <tr bgcolor="#FFFFFF" valign="top">
 <td bgcolor=#FFFFFF>';
   if (function_exists('curl_init')) {
       $ch = curl_init();
@@ -44,7 +44,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
               echo 'Test status: Failed<br>'.$txt;
           }
       } else {
-          echo ''.'Test status: Failed<br>Unknown Error:<BR>'.$a;
+          echo 'Test status: Failed<br>Unknown Error:<BR>'.$a;
       }
   } else {
       echo 'Sorry, but curl does not installed on your server';

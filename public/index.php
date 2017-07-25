@@ -41,11 +41,11 @@ if (isset($frm['ref']) && $frm['ref'] != '') {
     setcookie('Referer', $frm['ref'], time() + 630720000);
     if ($frm_cookie['Referer'] == '') {
         $ref = quote($frm['ref']);
-        $q = ''.'select id from hm2_users where username = \''.$ref.'\'';
+        $q = 'select id from hm2_users where username = \''.$ref.'\'';
         ($sth = db_query($q));
         while ($row = mysql_fetch_array($sth)) {
             $ref_id = $row['id'];
-            $q = ''.'select * from hm2_referal_stats where date = current_date() and user_id = '.$ref_id;
+            $q = 'select * from hm2_referal_stats where date = current_date() and user_id = '.$ref_id;
             ($sth = db_query($q));
             $f = 0;
             while ($row = mysql_fetch_array($sth)) {
@@ -53,10 +53,10 @@ if (isset($frm['ref']) && $frm['ref'] != '') {
             }
 
             if ($f == 0) {
-                $q = ''.'insert into hm2_referal_stats set date = current_date(), user_id = '.$ref_id.', income = 1, reg = 0';
+                $q = 'insert into hm2_referal_stats set date = current_date(), user_id = '.$ref_id.', income = 1, reg = 0';
                 $sth = db_query($q);
             } else {
-                $q = ''.'update hm2_referal_stats set income = income+1 where date = current_date() and user_id = '.$ref_id.' ';
+                $q = 'update hm2_referal_stats set income = income+1 where date = current_date() and user_id = '.$ref_id.' ';
                 $sth = db_query($q);
             }
 
@@ -106,10 +106,10 @@ if (($frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and $frm['TRANSACTION_ID'] !=
     }
 
     $str = quote($str);
-    $q = ''.'select * from hm2_history where id = '.$id.' and str = \''.$str.'\'';
+    $q = 'select * from hm2_history where id = '.$id.' and str = \''.$str.'\'';
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
-        $q = ''.'delete from hm2_history where id = '.$id;
+        $q = 'delete from hm2_history where id = '.$id;
         (db_query($q));
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
@@ -149,10 +149,10 @@ if (($frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANSACTION_ID'] != '')) {
     }
 
     $str = quote($str);
-    $q = ''.'select * from hm2_history where id = '.$id.' and str = \''.$str.'\'';
+    $q = 'select * from hm2_history where id = '.$id.' and str = \''.$str.'\'';
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
-        $q = ''.'delete from hm2_history where id = '.$id;
+        $q = 'delete from hm2_history where id = '.$id;
         (db_query($q));
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
@@ -192,10 +192,10 @@ if ((($frm['user3'] == 'pay_withdraw' and $frm['transaction_id'] != '') and $frm
     }
 
     $str = quote($str);
-    $q = ''.'select * from hm2_history where id = '.$id.' and str=\''.$str.'\'';
+    $q = 'select * from hm2_history where id = '.$id.' and str=\''.$str.'\'';
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
-        $q = ''.'delete from hm2_history where id = '.$id;
+        $q = 'delete from hm2_history where id = '.$id;
         (db_query($q));
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
@@ -319,7 +319,7 @@ if ($settings['show_info_box_deposit_funds'] == 1) {
 }
 
 if ($settings['show_info_box_today_deposit_funds'] == 1) {
-    $q = ''.'select sum(amount) as sum from hm2_deposits where to_days(deposit_date) = to_days(now() + interval '.$settings['time_dif'].' day)';
+    $q = 'select sum(amount) as sum from hm2_deposits where to_days(deposit_date) = to_days(now() + interval '.$settings['time_dif'].' day)';
     ($sth = db_query($q));
     $row = mysql_fetch_array($sth);
     $settings['info_box_today_deposit_funds_generated'] = number_format($row['sum'], 2);
@@ -352,7 +352,7 @@ if ($settings['show_info_box_newest_member'] == 1) {
 
 $ref = quote($frm_cookie['Referer']);
 if ($ref) {
-    $q = ''.'select * from hm2_users where username = \''.$ref.'\'';
+    $q = 'select * from hm2_users where username = \''.$ref.'\'';
     ($sth = db_query($q));
     while ($row = mysql_fetch_array($sth)) {
         $smarty->assign('referer', $row);
@@ -380,7 +380,7 @@ if ($frm['a'] == 'do_login') {
         $add_opt_in_check = ' and (confirm_string = "" or confirm_string is NULL)';
     }
 
-    $q = ''.'select *, date_format(date_register, \'%b-%e-%Y\') as create_account_date, now() - interval 2 minute > l_e_t as should_count from hm2_users where username = \''.$username.'\' and (status=\'on\' or status=\'suspended\') '.$add_opt_in_check;
+    $q = 'select *, date_format(date_register, \'%b-%e-%Y\') as create_account_date, now() - interval 2 minute > l_e_t as should_count from hm2_users where username = \''.$username.'\' and (status=\'on\' or status=\'suspended\') '.$add_opt_in_check;
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         if (((extension_loaded('gd') and $settings['graph_validation'] == 1) and 0 < $settings['graph_max_chars'])) {
@@ -398,7 +398,7 @@ if ($frm['a'] == 'do_login') {
 
         if (($settings['brute_force_handler'] == 1 and $row['bf_counter'] == $settings['brute_force_max_tries'])) {
             $activation_code = get_rand_md5(50);
-            $q = ''.'update hm2_users set bf_counter = bf_counter + 1, activation_code = \''.$activation_code.'\' where id = '.$row['id'];
+            $q = 'update hm2_users set bf_counter = bf_counter + 1, activation_code = \''.$activation_code.'\' where id = '.$row['id'];
             db_query($q);
             $info = [];
             $info['activation_code'] = $activation_code;
@@ -424,7 +424,7 @@ if ($frm['a'] == 'do_login') {
         $userinfo = $row;
         $userinfo['logged'] = 1;
         $ip = $frm_env['REMOTE_ADDR'];
-        $q = ''.'update hm2_users set hid = \''.$qhid.'\', bf_counter = 0, last_access_time = now(), last_access_ip = \''.$ip.'\' where id = '.$row['id'];
+        $q = 'update hm2_users set hid = \''.$qhid.'\', bf_counter = 0, last_access_time = now(), last_access_ip = \''.$ip.'\' where id = '.$row['id'];
         (db_query($q));
         $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(''.', date = now(), ip = \''.$ip.'\'');
         (db_query($q));
@@ -462,7 +462,7 @@ if ($frm['a'] == 'do_login') {
     $username = quote($frm_cookie['username']);
     $password = $frm_cookie['password'];
     $ip = $frm_env['REMOTE_ADDR'];
-    $add_login_check = ''.' and last_access_time + interval 30 minute > now() and last_access_ip = \''.$ip.'\'';
+    $add_login_check = ' and last_access_time + interval 30 minute > now() and last_access_ip = \''.$ip.'\'';
     if ($settings['demomode'] == 1) {
         $add_login_check = '';
     }
@@ -471,7 +471,7 @@ if ($frm['a'] == 'do_login') {
     $user_id = sprintf('%d', $user_id);
     $chid = quote($chid);
     if (0 < $user_id) {
-        $q = ''.'select *, date_format(date_register, \'%b-%e-%Y\') as create_account_date, now() - interval 2 minute > l_e_t as should_count from hm2_users where id = '.$user_id.' and (status=\'on\' or status=\'suspended\') '.$add_login_check;
+        $q = 'select *, date_format(date_register, \'%b-%e-%Y\') as create_account_date, now() - interval 2 minute > l_e_t as should_count from hm2_users where id = '.$user_id.' and (status=\'on\' or status=\'suspended\') '.$add_login_check;
         $sth = db_query($q);
         while ($row = mysql_fetch_array($sth)) {
             if (($settings['brute_force_handler'] == 1 and $row['activation_code'] != '')) {
@@ -485,7 +485,7 @@ if ($frm['a'] == 'do_login') {
             if ($chid == md5($hid)) {
                 $userinfo = $row;
                 $userinfo['logged'] = 1;
-                $q = ''.'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
+                $q = 'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
                 if (!(db_query($q))) {
 
                 }
@@ -496,7 +496,7 @@ if ($frm['a'] == 'do_login') {
                 db_query($q);
                 if (($settings['brute_force_handler'] == 1 and $row['bf_counter'] == $settings['brute_force_max_tries'])) {
                     $activation_code = get_rand_md5(50);
-                    $q = ''.'update hm2_users set bf_counter = bf_counter + 1, activation_code = \''.$activation_code.'\' where id = '.$row['id'];
+                    $q = 'update hm2_users set bf_counter = bf_counter + 1, activation_code = \''.$activation_code.'\' where id = '.$row['id'];
                     db_query($q);
                     $info = [];
                     $info['activation_code'] = $activation_code;
@@ -574,7 +574,7 @@ if (((((($frm['a'] != 'show_validation_image' and !$userinfo['logged']) and exte
 
 if (($frm['a'] == 'deletewappass' and $userinfo['logged'] == 1)) {
     $id = sprintf('%d', $userinfo['id']);
-    $q = ''.'update hm2_users set stat_password = \'\' where id = '.$id;
+    $q = 'update hm2_users set stat_password = \'\' where id = '.$id;
     db_query($q);
     header('Location: ?a=edit_account');
     exit();
@@ -582,7 +582,7 @@ if (($frm['a'] == 'deletewappass' and $userinfo['logged'] == 1)) {
 
 if (($frm['a'] == 'cancelwithdraw' and $userinfo['logged'] == 1)) {
     $id = sprintf('%d', $frm['id']);
-    $q = ''.'delete from hm2_history where id = '.$id.' and type=\'withdraw_pending\' and user_id = '.$userinfo['id'];
+    $q = 'delete from hm2_history where id = '.$id.' and type=\'withdraw_pending\' and user_id = '.$userinfo['id'];
     db_query($q);
     header('Location: ?a=withdraw_history');
     exit();
@@ -606,7 +606,7 @@ if ($settings[banner_extension] == 1) {
         }
 
         if ($frm[imps] != 'no') {
-            $q = ''.'update hm2_users set imps = imps -1 where imps > 0 and id = '.$id;
+            $q = 'update hm2_users set imps = imps -1 where imps > 0 and id = '.$id;
             (db_query($q));
         }
 
@@ -617,7 +617,7 @@ if ($settings[banner_extension] == 1) {
     ($sth = db_query($q));
     while ($row = mysql_fetch_array($sth)) {
         $z = rand(1, $row[col]) - 1;
-        $q = ''.'select bnum, burl from hm2_users where imps > 0 and bnum > 0 order by id limit '.$z.', 1';
+        $q = 'select bnum, burl from hm2_users where imps > 0 and bnum > 0 order by id limit '.$z.', 1';
         ($sth1 = db_query($q));
         while ($row1 = mysql_fetch_array($sth1)) {
             $smarty->assign('banner_ext_bnum', $row1[bnum]);

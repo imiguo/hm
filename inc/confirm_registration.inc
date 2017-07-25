@@ -13,9 +13,9 @@ $success = 0;
   if ($frm['c'] != '') {
       $info = [];
       $conf_string = quote($frm['c']);
-      $q = ''.'select * from hm2_users where confirm_string = \''.$conf_string.'\'';
+      $q = 'select * from hm2_users where confirm_string = \''.$conf_string.'\'';
       if (!($sth = db_query($q))) {
-          
+
       }
 
       while ($row = mysql_fetch_array($sth)) {
@@ -28,14 +28,14 @@ $success = 0;
       }
 
       if ($success == 1) {
-          $q = ''.'update hm2_users set confirm_string = \'\' where confirm_string = \''.$conf_string.'\'';
+          $q = 'update hm2_users set confirm_string = \'\' where confirm_string = \''.$conf_string.'\'';
           if (!(db_query($q))) {
-              
+
           }
 
           send_template_mail('registration', $info['email'], $settings['opt_in_email'], $info);
           $ref = quote($info['ref']);
-          $q = ''.'select * from hm2_users where id = \''.$ref.'\'';
+          $q = 'select * from hm2_users where id = \''.$ref.'\'';
           $sth = db_query($q);
           while ($refinfo = mysql_fetch_array($sth)) {
               $refminfo = [];

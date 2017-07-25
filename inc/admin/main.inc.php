@@ -13,52 +13,52 @@ $stats = [];
   $total_earned = 0;
   foreach ($exchange_systems as $id => $data) {
       if ($data['status'] == 1) {
-          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and to_days(now()) = to_days(date) and ec='.$id;
+          $q = 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and to_days(now()) = to_days(date) and ec='.$id;
           ($sth = db_query($q));
           $row = mysql_fetch_array($sth);
           $in[$id]['today'] = abs($row['col']);
           $in['total']['today'] += abs($row['col']);
-          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and to_days(now()) = to_days(date) and ec='.$id;
+          $q = 'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and to_days(now()) = to_days(date) and ec='.$id;
           ($sth = db_query($q));
           $row = mysql_fetch_array($sth);
           $out[$id]['today'] = abs($row['col']);
           $out['total']['today'] += abs($row['col']);
-          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and yearweek(now()) = yearweek(date) and ec='.$id;
+          $q = 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and yearweek(now()) = yearweek(date) and ec='.$id;
           ($sth = db_query($q));
           $row = mysql_fetch_array($sth);
           $in[$id]['week'] = abs($row['col']);
           $in['total']['week'] += abs($row['col']);
-          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and yearweek(now()) = yearweek(date) and ec='.$id;
+          $q = 'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and yearweek(now()) = yearweek(date) and ec='.$id;
           ($sth = db_query($q));
           $row = mysql_fetch_array($sth);
           $out[$id]['week'] = abs($row['col']);
           $out['total']['week'] += abs($row['col']);
-          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and EXTRACT(YEAR_MONTH FROM now()) = EXTRACT(YEAR_MONTH FROM date) and ec='.$id;
+          $q = 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and EXTRACT(YEAR_MONTH FROM now()) = EXTRACT(YEAR_MONTH FROM date) and ec='.$id;
           ($sth = db_query($q));
           $row = mysql_fetch_array($sth);
           $in[$id]['month'] = abs($row['col']);
           $in['total']['month'] += abs($row['col']);
-          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and EXTRACT(YEAR_MONTH FROM now()) = EXTRACT(YEAR_MONTH FROM date) and ec='.$id;
+          $q = 'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and EXTRACT(YEAR_MONTH FROM now()) = EXTRACT(YEAR_MONTH FROM date) and ec='.$id;
           ($sth = db_query($q));
           $row = mysql_fetch_array($sth);
           $out[$id]['month'] = abs($row['col']);
           $out['total']['month'] += abs($row['col']);
-          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and year(now()) = year(date) and ec='.$id;
+          $q = 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and year(now()) = year(date) and ec='.$id;
           ($sth = db_query($q));
           $row = mysql_fetch_array($sth);
           $in[$id]['year'] = abs($row['col']);
           $in['total']['year'] += abs($row['col']);
-          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and year(now()) = year(date) and ec='.$id;
+          $q = 'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and year(now()) = year(date) and ec='.$id;
           ($sth = db_query($q));
           $row = mysql_fetch_array($sth);
           $out[$id]['year'] = abs($row['col']);
           $out['total']['year'] += abs($row['col']);
-          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and ec='.$id;
+          $q = 'select sum(actual_amount) as col from hm2_history where type=\'add_funds\' and ec='.$id;
           ($sth = db_query($q));
           $row = mysql_fetch_array($sth);
           $in[$id]['total'] = abs($row['col']);
           $in['total']['total'] += abs($row['col']);
-          $q = ''.'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and ec='.$id;
+          $q = 'select sum(actual_amount) as col from hm2_history where type=\'withdrawal\' and ec='.$id;
           ($sth = db_query($q));
           $row = mysql_fetch_array($sth);
           $out[$id]['total'] = abs($row['col']);
@@ -111,20 +111,20 @@ $stats = [];
   $total_comissions = abs($row['col']);
   echo '
 <b>Information</b><br>
-Members: 
+Members:
 	<a href="javascript:alert(\'How many users are registered in your system.\')" class=hlp>All: ';
   echo $members_all;
-  echo '</a>, 
+  echo '</a>,
 	<a href="javascript:alert(\'How many active users does your system contain.\')" class=hlp>Active ';
   echo $members_active;
-  echo '</a>, 
+  echo '</a>,
 	<a href="javascript:alert(\'How many users are disabled.\\n(cannot login and cannot earn any funds from principal.)\')" class=hlp>Disabled ';
   echo $members_all - $members_active;
   echo '</a><br>
-Members: <a href="javascript:alert(\'How many users have ever made a deposit.\')" class=hlp>Made 
+Members: <a href="javascript:alert(\'How many users have ever made a deposit.\')" class=hlp>Made
 a deposit ';
   echo $members_q_deposits;
-  echo '</a>, <a href="javascript:alert(\'How many registered users haven\\\'t made a deposit in your system.\')" class=hlp>Have 
+  echo '</a>, <a href="javascript:alert(\'How many registered users haven\\\'t made a deposit in your system.\')" class=hlp>Have
 not made a deposit: ';
   echo $members_all - $members_q_deposits;
   echo '</a><br>
@@ -141,29 +141,29 @@ Investment Packages:
   echo number_format($total_earned, 2);
   echo '<br>
 <br>
-<a href="javascript:alert(\'The sum of all users\' earnings and bonuses minus penalties and withdrawals.\')" class=hlp>Total 
+<a href="javascript:alert(\'The sum of all users\' earnings and bonuses minus penalties and withdrawals.\')" class=hlp>Total
 Members\' balance:</a> $';
   echo number_format($total_amount, 2);
   echo '<br>
-<a href="javascript:alert(\'Total members\\\' deposit shows you how much funds have users deposited in your system total.\')" class=hlp>Total Members\' deposit:</a> 
+<a href="javascript:alert(\'Total members\\\' deposit shows you how much funds have users deposited in your system total.\')" class=hlp>Total Members\' deposit:</a>
 $';
   echo number_format($total_deposits, 2);
   echo '<br>
-<a href="javascript:alert(\'The total principal of all users.\')" class=hlp>Current Members\' deposit:</a> 
+<a href="javascript:alert(\'The total principal of all users.\')" class=hlp>Current Members\' deposit:</a>
 $';
   echo number_format($current_deposits, 2);
   echo '<br>
-<a href="javascript:alert(\'The total referral commissions of all users.\')" class=hlp>Total Referrals Commissions:</a> 
+<a href="javascript:alert(\'The total referral commissions of all users.\')" class=hlp>Total Referrals Commissions:</a>
 $';
   echo number_format($total_comissions, 2);
   echo '<br>
 
 <br>
-<a href="javascript:alert(\'All the funds you have ever withdrawn to users\\\' e-gold accounts.\')" class=hlp>Total 
+<a href="javascript:alert(\'All the funds you have ever withdrawn to users\\\' e-gold accounts.\')" class=hlp>Total
 withdrawals:</a> $';
   echo number_format(0 - $total_withdraw, 2);
   echo '<br>
-<a href="javascript:alert(\'The funds users requested to withdraw.\')" class=hlp>Pending withdrawals:</a> 
+<a href="javascript:alert(\'The funds users requested to withdraw.\')" class=hlp>Pending withdrawals:</a>
 $';
   echo number_format($pending_withdraw, 2);
   echo '<br>
@@ -282,7 +282,7 @@ $';
 <br><br>';
   }
 
-  echo '<a href="javascript:alert(\'Total in/out stats shows you how much funds users entered in your system and how much funds you withdrew today, this week, this month, this year and total.\')" class=hlp><b>in/out 
+  echo '<a href="javascript:alert(\'Total in/out stats shows you how much funds users entered in your system and how much funds you withdrew today, this week, this month, this year and total.\')" class=hlp><b>in/out
 Total </b></a> <br>
 <br>
 <table cellspacing=0 cellpadding=2 border=0 width=100%>
@@ -382,7 +382,7 @@ Total </b></a> <br>
   echo 'mall>$';
   echo number_format($in['total']['total'] - $out['total']['total'], 2);
   echo '</small></th>
-</tr>                                 
+</tr>
 
 </table>
 <br><br>';
@@ -394,45 +394,45 @@ You can see how many members are registered in the system on this page.<br>
 System supports 3 types of users:<br>
 <li>Active users. These users can login to the members area and receive earnings.</li>
 <li>Suspended users. These users can login to the members area but will not ';
-  echo 'receive 
+  echo 'receive
   any earnings.</li>
-<li>Disabled users. These users can not login to the members area and will not 
+<li>Disabled users. These users can not login to the members area and will not
   receive any earnings.</li>
 <br>
-User becomes active when registering and only administrator can change status 
-of any registered user. You can see how many users are active and disabled in 
+User becomes active when registering and only administrator can change status
+of any registered user. You can see how many users are active and disabled in
 the system at the top of this page. <br>
 <br>
 
 Investment packages:<br>
 You can create unlimited sets of ';
-  echo 'investment packages with any settings and payout options. 
+  echo 'investment packages with any settings and payout options.
 Also you can change status of any package.
-<li> Active package. All active users will receive earnings every pay period if 
+<li> Active package. All active users will receive earnings every pay period if
   made a deposit</li>
 <li> Inactive package. Users will not receive any earnings</li>
 <br><br>
-\'Total system earnings\' is a difference between funds came from e-gold and all the 
+\'Total system earnings\' is a difference between funds came from e-gold and all the
 withdrawals you made. <br>
 <br>
 \'Total member\'';
-  echo 's balance\' shows you how many funds can users withdraw from the system. 
-It is the sum of all users\' earnings and bonuses minus penalties and withdrawals. 
+  echo 's balance\' shows you how many funds can users withdraw from the system.
+It is the sum of all users\' earnings and bonuses minus penalties and withdrawals.
 <br>
 <br>
-\'Total member\'s deposit\' shows you how many funds have users ever deposited in your system. 
+\'Total member\'s deposit\' shows you how many funds have users ever deposited in your system.
 <br>
 <br>
 \'Current members\' deposit\' shows the overall users\' deposit. <br>
 <br>
 \'Total withdrawals\' shows you how many funds have you withdrawn to';
-  echo ' users\' e-gold 
+  echo ' users\' e-gold
 accounts. <br>
 <br>
-\'Pending withdrawals\' shows you how many funds users have requested to withdraw. 
+\'Pending withdrawals\' shows you how many funds users have requested to withdraw.
 <br>
 <br>
-E-gold in/out stats shows you how many funds users have entered in your system 
-and how many funds have you withdrawn today, this week, this month, this year 
+E-gold in/out stats shows you how many funds users have entered in your system
+and how many funds have you withdrawn today, this week, this month, this year
 and total. ';
   echo end_info_table();

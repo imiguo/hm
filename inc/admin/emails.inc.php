@@ -67,7 +67,7 @@ You cannot change change e-mail templates! ';
               $text = quote($frm['text']);
               $text = preg_replace('/
 /', '', $text);
-              $q = ''.'update hm2_emails set subject=\''.$subject.'\', text=\''.$text.'\' where id=\''.$frm['type'].'\'';
+              $q = 'update hm2_emails set subject=\''.$subject.'\', text=\''.$text.'\' where id=\''.$frm['type'].'\'';
               ($sth = db_query($q));
               echo '<br><b>Template has been saved.</b></br>';
           }

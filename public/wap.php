@@ -77,7 +77,7 @@ if ($frm['a'] == 'do_login') {
         setcookie('username', $frm['username'], time() + 630720000);
         setcookie('password', md5($frm['password']), time() + 630720000);
         $ip = $frm_env['REMOTE_ADDR'];
-        $q = ''.'update hm2_users set last_access_time = now(), last_access_ip = \''.$ip.'\' where username=\''.$username.'\'';
+        $q = 'update hm2_users set last_access_time = now(), last_access_ip = \''.$ip.'\' where username=\''.$username.'\'';
         if (!(db_query($q))) {
 
         }
@@ -94,7 +94,7 @@ if ($frm['a'] == 'do_login') {
     $username = quote($frm_cookie['username']);
     $password = $frm_cookie['password'];
     $ip = $frm_env['REMOTE_ADDR'];
-    $add_login_check = ''.' and last_access_time + interval 30 minute > now() and last_access_ip = \''.$ip.'\'';
+    $add_login_check = ' and last_access_time + interval 30 minute > now() and last_access_ip = \''.$ip.'\'';
     if ($settings['demomode'] == 1) {
         $add_login_check = '';
     }
@@ -105,7 +105,7 @@ if ($frm['a'] == 'do_login') {
         if ($password == $row['stat_password']) {
             $userinfo = $row;
             $userinfo['logged'] = 1;
-            $q = ''.'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
+            $q = 'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
             if (!(db_query($q))) {
 
             }

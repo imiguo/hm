@@ -326,7 +326,7 @@ echo '> Decrease stormpay fee (6.9% plus 0.69)</td>
  <td><input type=text name=\'gpg_path\' value=\'';
 echo quote($settings['gpg_path']);
 echo '\' class=inpts size=30> ';
-echo $gpg_version != '' ? ''.'Version: '.$gpg_version : '';
+echo $gpg_version != '' ? 'Version: '.$gpg_version : '';
 echo '</td>
 </tr><tr>';
 if ($gpg_version != '') {

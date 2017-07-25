@@ -45,14 +45,14 @@ $id = $userinfo['id'];
       $periodcredit = 0;
       for ($i = 0; $i < sizeof($trans); ++$i) {
           $start_id = $trans[$i]['id'];
-          $q = ''.'select sum(actual_amount) as balance from hm2_history where id < '.$start_id.' and user_id = '.$userinfo['id'];
+          $q = 'select sum(actual_amount) as balance from hm2_history where id < '.$start_id.' and user_id = '.$userinfo['id'];
           $sth = db_query($q);
           $row = mysql_fetch_array($sth);
           $start_balance = $row['balance'];
           $trans[$i]['balance'] = number_format($start_balance + $trans[$i]['orig_amount'], 2);
       }
 
-      $q = ''.'select
+      $q = 'select
             sum(actual_amount * (actual_amount < 0)) as debit,
             sum(actual_amount * (actual_amount > 0)) as credit,
             sum(actual_amount) as balance
@@ -67,7 +67,7 @@ $id = $userinfo['id'];
       $smarty->assign('perioddebit', number_format(abs($perioddebit), 2));
       $smarty->assign('periodcredit', number_format(abs($periodcredit), 2));
       $smarty->assign('periodbalance', number_format($periodbalance, 2));
-      $q = ''.'select
+      $q = 'select
             sum(actual_amount * (actual_amount < 0)) as debit,
             sum(actual_amount * (actual_amount > 0)) as credit,
             sum(actual_amount) as balance
@@ -84,12 +84,12 @@ $id = $userinfo['id'];
       $smarty->assign('allbalance', number_format($periodbalance, 2));
   }
 
-  $q = ''.'select sum(actual_amount) as periodsum from hm2_history where '.$datewhere.' and user_id = '.$id.' and type in (\'deposit\', \'early_deposit_release\', \'release_deposit\', \'early_deposit_charge\')';
+  $q = 'select sum(actual_amount) as periodsum from hm2_history where '.$datewhere.' and user_id = '.$id.' and type in (\'deposit\', \'early_deposit_release\', \'release_deposit\', \'early_deposit_charge\')';
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $periodsum = $row['periodsum'];
   $smarty->assign('periodsum', number_format(0 - $periodsum, 2));
-  $q = ''.'select sum(actual_amount) as sum from hm2_history where 1=1 '.$userwhere.' and user_id = '.$id.' and type in (\'deposit\', \'early_deposit_release\', \'release_deposit\', \'early_deposit_charge\')';
+  $q = 'select sum(actual_amount) as sum from hm2_history where 1=1 '.$userwhere.' and user_id = '.$id.' and type in (\'deposit\', \'early_deposit_release\', \'release_deposit\', \'early_deposit_charge\')';
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $allsum = $row['sum'];

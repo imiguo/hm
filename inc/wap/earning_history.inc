@@ -14,7 +14,7 @@ header('Content-type: text/vnd.wap.wml');
   $type = $frm['type'];
   $type_found = 0;
   $options = [];
-  $q = ''.'select type from hm2_history where user_id = '.$id.' group by type order by type';
+  $q = 'select type from hm2_history where user_id = '.$id.' group by type order by type';
   ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $row['type_name'] = $transtype[$row['type']];
@@ -29,11 +29,11 @@ header('Content-type: text/vnd.wap.wml');
   $smarty->assign('options', $options);
   $typewhere = '';
   if ($type_found) {
-      $typewhere = ''.' and type = \''.$type.'\' ';
+      $typewhere = ' and type = \''.$type.'\' ';
   } else {
       if ($type != '') {
           $qtype = quote($type);
-          $typewhere = ''.' and type = \''.$qtype.'\' ';
+          $typewhere = ' and type = \''.$qtype.'\' ';
       }
   }
 
@@ -53,7 +53,7 @@ header('Content-type: text/vnd.wap.wml');
   }
 
   $datewhere = '\''.$frm['year_from'].'-'.$frm['month_from'].'-'.$frm['day_from'].'\' + interval 0 day < date + interval '.$settings['time_dif'].' hour and '.'\''.$frm['year_to'].'-'.$frm['month_to'].'-'.$frm['day_to'].'\' + interval 1 day > date + interval '.$settings['time_dif'].' hour ';
-  $q = ''.'select count(*) as call from hm2_history where '.$datewhere.' '.$typewhere.' and user_id = '.$id;
+  $q = 'select count(*) as call from hm2_history where '.$datewhere.' '.$typewhere.' and user_id = '.$id;
   ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $count_all = $row['call'];
@@ -97,12 +97,12 @@ header('Content-type: text/vnd.wap.wml');
       $smarty->assign('next_page', $page + 1);
   }
 
-  $q = ''.'select sum(actual_amount) as sum from hm2_history where '.$datewhere.' and user_id = '.$id.' '.$typewhere;
+  $q = 'select sum(actual_amount) as sum from hm2_history where '.$datewhere.' and user_id = '.$id.' '.$typewhere;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $periodsum = $row['sum'];
   $smarty->assign('periodsum', number_format($periodsum, 2));
-  $q = ''.'select sum(actual_amount) as sum from hm2_history where user_id = '.$id.' '.$typewhere;
+  $q = 'select sum(actual_amount) as sum from hm2_history where user_id = '.$id.' '.$typewhere;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $allsum = $row['sum'];

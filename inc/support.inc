@@ -58,7 +58,7 @@
           }
 
           $message .= 'Status    : '.$userinfo['status'].'';
-          $message .= ''.'Active Deposits  : $'.sprintf('%.02f', $accounting['active_deposit']).'';
+          $message .= 'Active Deposits  : $'.sprintf('%.02f', $accounting['active_deposit']).'';
       } else {
           $message .= 'User Name : '.$frm['name'].'';
           $message .= 'E-Mail    : '.$frm['email'].'';
@@ -74,7 +74,7 @@
           $admin_email = $row['email'];
       }
 
-      send_mail($admin_email, $settings['site_name'].' Support Request', $message, ''.'From: '.$from);
+      send_mail($admin_email, $settings['site_name'].' Support Request', $message, 'From: '.$from);
       header('Location: ?a=support&say=send
 
 ');

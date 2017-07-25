@@ -68,11 +68,11 @@ echo '<form method=post name=nform>
       if (!$exchange_systems[$row['ec']]) {
           $row['ec'] = 'deleted';
           foreach ($infofields as $id => $name) {
-              $fields .= ''.$name.'<br>';
+              $fields .= $name.'<br>';
           }
       } else {
           foreach ($processings[$row['ec']] as $id => $name) {
-              $fields .= ''.$name.': '.stripslashes($infofields[$id]).'<br>';
+              $fields .= $name.': '.stripslashes($infofields[$id]).'<br>';
           }
       }
 

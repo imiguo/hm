@@ -13,7 +13,7 @@ $id = $userinfo['id'];
   $type = $frm['type'];
   $type_found = 0;
   $options = [];
-  $q = ''.'select type from hm2_history where user_id = '.$id.' group by type order by type';
+  $q = 'select type from hm2_history where user_id = '.$id.' group by type order by type';
   ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       if ($row['type'] == 'exchange_in') {
@@ -40,7 +40,7 @@ $id = $userinfo['id'];
           $typewhere = ' and (type = \'exchange_in\' or type = \'exchange_out\') ';
       } else {
           $qtype = quote($type);
-          $typewhere = ''.' and type = \''.$qtype.'\' ';
+          $typewhere = ' and type = \''.$qtype.'\' ';
       }
   }
 
@@ -67,10 +67,10 @@ $id = $userinfo['id'];
 
   $ec = sprintf('%d', $frm[ec]);
   if (-1 < $frm[ec]) {
-      $ecwhere = ''.' and ec = '.$ec;
+      $ecwhere = ' and ec = '.$ec;
   }
 
-  $q = ''.'select count(*) as count from hm2_history where '.$datewhere.' '.$typewhere.' '.$ecwhere.' and user_id = '.$id;
+  $q = 'select count(*) as count from hm2_history where '.$datewhere.' '.$typewhere.' '.$ecwhere.' and user_id = '.$id;
   ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $count_all = $row['count'];
@@ -103,14 +103,14 @@ $id = $userinfo['id'];
   if ($settings['use_history_balance_mode']) {
       for ($i = 0; $i < sizeof($trans); ++$i) {
           $start_id = $trans[$i]['id'];
-          $q = ''.'select sum(actual_amount) as balance from hm2_history where id < '.$start_id.' and user_id = '.$userinfo['id'];
+          $q = 'select sum(actual_amount) as balance from hm2_history where id < '.$start_id.' and user_id = '.$userinfo['id'];
           $sth = db_query($q);
           $row = mysql_fetch_array($sth);
           $start_balance = $row['balance'];
           $trans[$i]['balance'] = number_format($start_balance + $trans[$i]['orig_amount'], 2);
       }
 
-      $q = ''.'select
+      $q = 'select
             sum(actual_amount * (actual_amount < 0)) as debit,
             sum(actual_amount * (actual_amount > 0)) as credit,
             sum(actual_amount) as balance
@@ -125,7 +125,7 @@ $id = $userinfo['id'];
       $smarty->assign('perioddebit', number_format(abs($perioddebit), 2));
       $smarty->assign('periodcredit', number_format(abs($periodcredit), 2));
       $smarty->assign('periodbalance', number_format($periodbalance, 2));
-      $q = ''.'select
+      $q = 'select
             sum(actual_amount * (actual_amount < 0)) as debit,
             sum(actual_amount * (actual_amount > 0)) as credit,
             sum(actual_amount) as balance
@@ -161,12 +161,12 @@ $id = $userinfo['id'];
       $smarty->assign('next_page', $page + 1);
   }
 
-  $q = ''.'select sum(actual_amount) as sum from hm2_history where '.$datewhere.' '.$ecwhere.' and user_id = '.$id.' '.$typewhere;
+  $q = 'select sum(actual_amount) as sum from hm2_history where '.$datewhere.' '.$ecwhere.' and user_id = '.$id.' '.$typewhere;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $periodsum = $row['sum'];
   $smarty->assign('periodsum', number_format($periodsum, 2));
-  $q = ''.'select sum(actual_amount) as sum from hm2_history where user_id = '.$id.' '.$typewhere.' '.$ecwhere;
+  $q = 'select sum(actual_amount) as sum from hm2_history where user_id = '.$id.' '.$typewhere.' '.$ecwhere;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $allsum = $row['sum'];

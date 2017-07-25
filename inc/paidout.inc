@@ -30,12 +30,12 @@ $frm['month'] = intval($frm['month']);
   $smarty->assign('year', $year);
   $datewhere = ' \''.$frm['year'].'\' = year(date + interval '.$settings['time_dif'].' hour) and '.'\''.$frm['month'].'\' = month(date + interval '.$settings['time_dif'].' hour) ';
   $type = 'withdrawal';
-  $q = ''.'
-        select 
+  $q = '
+        select
               count(*) as cnt
-        from 
-              hm2_history 
-        where 
+        from
+              hm2_history
+        where
               '.$datewhere.' and type = \''.$type.'\' and user_id != 1
        ';
   ($sth = db_query($q));
@@ -53,12 +53,12 @@ $frm['month'] = intval($frm['month']);
   }
 
   $from = ($page - 1) * $onpage;
-  $q = 'select 
+  $q = 'select
               u.username,
               h.type,
               h.actual_amount,
               date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as dd
-        from 
+        from
               hm2_users as u left outer join hm2_history as h
                 on u.id = h.user_id
         where '.$datewhere.' and h.type = \''.$type.'\' and user_id != 1

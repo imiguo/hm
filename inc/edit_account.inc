@@ -143,44 +143,44 @@ if ($frm['action'] == 'edit_account') {
         $country = quote($frm['country']);
         $transaction_code = quote($frm['transaction_code']);
         if (($userinfo['email'] != $frm['email'] and $settings['usercanchangeemail'] == 1)) {
-            $q = ''.'update hm2_users set email = \''.$email.'\' where id > 1 and id = '.$userinfo['id'];
+            $q = 'update hm2_users set email = \''.$email.'\' where id > 1 and id = '.$userinfo['id'];
             (db_query($q));
         }
 
         if (($userinfo['egold_account'] != $frm['egold_account'] and $settings['usercanchangeegoldacc'])) {
-            $q = ''.'update hm2_users set egold_account = \''.$egold.'\' where id > 1 and id = '.$userinfo['id'];
+            $q = 'update hm2_users set egold_account = \''.$egold.'\' where id > 1 and id = '.$userinfo['id'];
             (db_query($q));
         }
 
         if (($userinfo['perfectmoney_account'] != $frm['perfectmoney_account'] and $settings['usercanchangeperfectmoneyacc'])) {
-            $q = ''.'update hm2_users set perfectmoney_account = \''.$perfectmoney.'\' where id > 1 and id = '.$userinfo['id'];
+            $q = 'update hm2_users set perfectmoney_account = \''.$perfectmoney.'\' where id > 1 and id = '.$userinfo['id'];
             (db_query($q));
         }
 
         if ($frm['password'] != '') {
-            $q = ''.'update hm2_users set password = \''.$enc_password.'\' where id > 1 and id = '.$userinfo['id'];
+            $q = 'update hm2_users set password = \''.$enc_password.'\' where id > 1 and id = '.$userinfo['id'];
             (db_query($q));
             if ($settings['store_uncrypted_password'] == 1) {
                 $pswd = quote($frm['password']);
-                $q = ''.'update hm2_users set pswd = \''.$pswd.'\' where id > 1 and id = '.$userinfo['id'];
+                $q = 'update hm2_users set pswd = \''.$pswd.'\' where id > 1 and id = '.$userinfo['id'];
                 (db_query($q));
             }
         }
 
         if ($frm['transaction_code'] != '') {
-            $q = ''.'update hm2_users set transaction_code = \''.$transaction_code.'\' where id > 1 and id = '.$userinfo['id'];
+            $q = 'update hm2_users set transaction_code = \''.$transaction_code.'\' where id > 1 and id = '.$userinfo['id'];
             (db_query($q));
         }
 
         if ($frm['wappassword'] != '') {
             $enc_password = quote(md5($frm['wappassword']));
-            $q = ''.'update hm2_users set stat_password = \''.$enc_password.'\' where id > 1 and id = '.$userinfo['id'];
+            $q = 'update hm2_users set stat_password = \''.$enc_password.'\' where id > 1 and id = '.$userinfo['id'];
             (db_query($q));
         }
 
         $edit_location = '';
         if ($settings['use_user_location']) {
-            $edit_location = ''.'address = \''.$address.'\',
+            $edit_location = 'address = \''.$address.'\',
                           city = \''.$city.'\',
                           state = \''.$state.'\',
                           zip = \''.$zip.'\',
@@ -189,9 +189,9 @@ if ($frm['action'] == 'edit_account') {
         }
 
         $user_auto_pay_earning = sprintf('%d', $frm['user_auto_pay_earning']);
-        $q = ''.'update hm2_users set name = \''.$fullname.'\', 
+        $q = 'update hm2_users set name = \''.$fullname.'\',
                                  '.$edit_location.'
-    	                         evocash_account = \''.$evocash.'\', 
+    	                         evocash_account = \''.$evocash.'\',
                                  intgold_account = \''.$intgold.'\',
 				 stormpay_account = \''.$stormpay.'\',
 				 ebullion_account = \''.$ebullion.'\',

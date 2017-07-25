@@ -24,7 +24,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 	   <tr>
 	     <td>
            <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
-             <tr bgcolor="#FFFFFF" valign="top"> 
+             <tr bgcolor="#FFFFFF" valign="top">
 <td bgcolor=#FFFFFF>';
   if (function_exists('curl_init')) {
       ini_set('error_reporting', E_ALL);
@@ -36,7 +36,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
       curl_setopt($ch, CURLOPT_POSTFIELDS, 'AccountID='.$frm['acc'].'&PassPhrase='.$frm['pass'].'&Payee_Account='.$frm['acc'].'&Amount=0.01&PAY_IN=1&WORTH_OF=Gold&Memo=Test+transaction&IGNORE_RATE_CHANGE=y');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       $a = curl_exec($ch);
-      echo ''.'<hr>'.$a.'<hr>';
+      echo '<hr>'.$a.'<hr>';
       curl_close($ch);
       $parts = [];
       if (preg_match('/<input type=hidden name=PAYMENT_BATCH_NUM VALUE="(\\d+)">/ims', $a, $parts)) {
@@ -47,7 +47,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
               $txt = preg_replace('/&gt;/i', '>', $txt);
               echo 'Test status: Failed<br>'.$txt;
           } else {
-              echo ''.'Test status: Failed<br>Unknown Error:<BR>'.$a;
+              echo 'Test status: Failed<br>Unknown Error:<BR>'.$a;
           }
       }
   } else {

@@ -24,7 +24,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 	   <tr>
 	     <td>
            <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
-             <tr bgcolor="#FFFFFF" valign="top"> 
+             <tr bgcolor="#FFFFFF" valign="top">
 <td bgcolor=#FFFFFF>';
   if (function_exists('curl_init')) {
       $ch = curl_init();
@@ -46,8 +46,8 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
       $gpg_path = escapeshellcmd($settings['gpg_path']);
       $passphrase = decode_pass_for_mysql($settings['md5altphrase_ebullion']);
       $atip_status_url = $settings['site_url'];
-      $gpg_options = ''.' --yes --no-tty --no-secmem-warning --no-options --no-default-keyring --batch --homedir '.$atippath.' --keyring=pubring.gpg --secret-keyring=secring.gpg --armor --throw-keyid --always-trust --passphrase-fd 0';
-      $gpg_command = ''.'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --recipient A20077\\@e-bullion.com --local-user '.$settings['def_payee_account_ebullion'].(''.'\\@e-bullion.com --output '.$outfile.' --sign --encrypt '.$infile.' 2>&1');
+      $gpg_options = ' --yes --no-tty --no-secmem-warning --no-options --no-default-keyring --batch --homedir '.$atippath.' --keyring=pubring.gpg --secret-keyring=secring.gpg --armor --throw-keyid --always-trust --passphrase-fd 0';
+      $gpg_command = 'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --recipient A20077\\@e-bullion.com --local-user '.$settings['def_payee_account_ebullion'].(''.'\\@e-bullion.com --output '.$outfile.' --sign --encrypt '.$infile.' 2>&1');
       $buf = '';
       $fp = popen(''.$gpg_command, 'r');
       while (!feof($fp)) {
@@ -59,13 +59,13 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
           $atip_batch_msg = fread($fd, filesize($outfile));
           fclose($fd);
       } else {
-          echo ''.'Error: GPG can not encrypt data:<br><pre>'.$buf.'</pre>';
+          echo 'Error: GPG can not encrypt data:<br><pre>'.$buf.'</pre>';
       }
       unlink($infile);
       unlink($outfile);
       $qs = 'ATIP_ACCOUNT='.$settings['def_payee_account_ebullion'].'&ATIP_BATCH_MSG='.rawurlencode($atip_batch_msg).'&ATIP_STATUS_URL='.rawurlencode($atip_status_url);
       $ch = curl_init();
-      curl_setopt($ch, CURLOPT_URL, ''.'https://www2.e-bullion.com/atip/batch.php?'.$qs);
+      curl_setopt($ch, CURLOPT_URL, 'https://www2.e-bullion.com/atip/batch.php?'.$qs);
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -82,8 +82,8 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
       $fd = fopen(''.$tmpfile, 'w');
       fwrite($fd, $verification);
       fclose($fd);
-      $gpg_options = ''.' --yes --no-tty --no-secmem-warning --no-options --no-default-keyring --batch --homedir '.$atippath.' --keyring=pubring.gpg --secret-keyring=secring.gpg --armor --passphrase-fd 0';
-      $gpg_command = ''.'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --output '.$xmlfile.' --decrypt '.$tmpfile.' 2>&1';
+      $gpg_options = ' --yes --no-tty --no-secmem-warning --no-options --no-default-keyring --batch --homedir '.$atippath.' --keyring=pubring.gpg --secret-keyring=secring.gpg --armor --passphrase-fd 0';
+      $gpg_command = 'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --output '.$xmlfile.' --decrypt '.$tmpfile.' 2>&1';
       $buf = '';
       $keyID = '';
       $fp = popen(''.$gpg_command, 'r');

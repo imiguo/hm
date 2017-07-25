@@ -42,7 +42,7 @@
       if ($frm['username'] == '') {
           array_push($errors, 'username');
       } else {
-          $q = ''.'select * from hm2_users where username = \''.$username.'\'';
+          $q = 'select * from hm2_users where username = \''.$username.'\'';
           if (!($sth = db_query($q))) {
           }
 
@@ -119,9 +119,9 @@
       $ref = quote($frm_cookie['Referer']);
       $ref_id = 0;
       if ($settings['use_names_in_referral_links'] == 1) {
-          $q = ''.'select id from hm2_users where REPLACE (username, \' \', \'_\') = \''.$ref.'\'';
+          $q = 'select id from hm2_users where REPLACE (username, \' \', \'_\') = \''.$ref.'\'';
       } else {
-          $q = ''.'select id from hm2_users where username = \''.$ref.'\'';
+          $q = 'select id from hm2_users where username = \''.$ref.'\'';
       }
 
     ($sth = db_query($q));
@@ -178,7 +178,7 @@
           $question = $frm['question'];
           $answer = $frm['answer'];
 
-          $q = ''.'insert into hm2_users set
+          $q = 'insert into hm2_users set
                        name = \''.$name.'\',
                        username = \''.$username.'\',
                        password = \''.$enc_password.'\',
@@ -218,7 +218,7 @@
           }
 
           if ($settings['phpbb_register']) {
-              $q = ''.'INSERT INTO phpbb_users set
+              $q = 'INSERT INTO phpbb_users set
                   username = \''.$username.'\',
                   user_regdate = '.time().(''.',
                   user_password = \''.$enc_password.'\',
@@ -236,13 +236,13 @@
               VALUES                   (\'\', \'Personal User\', 1, 0)';
               db_query($q);
               $php_group_id = mysql_insert_id();
-              $q = ''.'INSERT INTO phpbb_user_group (user_id, group_id, user_pending) VALUES ('.$php_user_id.', '.$php_group_id.', 0)';
+              $q = 'INSERT INTO phpbb_user_group (user_id, group_id, user_pending) VALUES ('.$php_user_id.', '.$php_group_id.', 0)';
               db_query($q);
           }
 
           $last_id = mysql_insert_id();
           if (0 < $settings['startup_bonus']) {
-              $q = ''.'insert into hm2_history set
+              $q = 'insert into hm2_history set
 		user_id = '.$last_id.',
 		ec = '.$settings['startup_bonus_ec'].',
 		amount = '.$settings['startup_bonus'].',
@@ -254,7 +254,7 @@
           }
 
           if (0 < $ref) {
-              $q = ''.'select * from hm2_referal_stats where date = current_date() and user_id = '.$ref_id;
+              $q = 'select * from hm2_referal_stats where date = current_date() and user_id = '.$ref_id;
               ($sth = db_query($q));
               $f = 0;
               while ($row = mysql_fetch_array($sth)) {
@@ -262,10 +262,10 @@
               }
 
               if ($f == 0) {
-                  $q = ''.'insert into hm2_referal_stats set date = current_date(), user_id = '.$ref_id.', income = 0, reg = 1';
+                  $q = 'insert into hm2_referal_stats set date = current_date(), user_id = '.$ref_id.', income = 0, reg = 1';
                   $sth = db_query($q);
               } else {
-                  $q = ''.'update hm2_referal_stats set reg = reg+1 where date = current_date() and user_id = '.$ref_id;
+                  $q = 'update hm2_referal_stats set reg = reg+1 where date = current_date() and user_id = '.$ref_id;
                   $sth = db_query($q);
               }
           }
@@ -279,7 +279,7 @@
               send_template_mail('confirm_registration', $frm['email'], $settings['opt_in_email'], $info);
               header('Location: ?a=signup&say=confirm');
           } else {
-              $q = ''.'select * from hm2_users where id = \''.$ref_id.'\'';
+              $q = 'select * from hm2_users where id = \''.$ref_id.'\'';
               $sth = db_query($q);
               while ($refinfo = mysql_fetch_array($sth)) {
                   $info = [];
@@ -307,7 +307,7 @@
 
   include './inc/countries.inc';
   $ref = quote($frm_cookie['Referer']);
-  $q = ''.'select * from hm2_users where username = \''.$ref.'\'';
+  $q = 'select * from hm2_users where username = \''.$ref.'\'';
   ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $smarty->assign('referer', $row);

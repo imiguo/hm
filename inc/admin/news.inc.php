@@ -16,7 +16,7 @@ if ($settings['demomode'] != 1) {
         $small_text = preg_replace('/\\r/', '', $small_text);
         $full_text = quote($frm_orig['full_text']);
         $full_text = preg_replace('/\\r/', '', $full_text);
-        $q = ''.'insert into hm2_news set date=now(), title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\'';
+        $q = 'insert into hm2_news set date=now(), title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\'';
         (db_query($q));
     }
 
@@ -27,14 +27,14 @@ if ($settings['demomode'] != 1) {
         $small_text = preg_replace('/\\r/', '', $small_text);
         $full_text = quote($frm_orig['full_text']);
         $full_text = preg_replace('/\\r/', '', $full_text);
-        $q = ''.'update hm2_news set title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\' where id = '.$id;
+        $q = 'update hm2_news set title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\' where id = '.$id;
         (db_query($q));
         $frm['action'] = '';
     }
 
     if ($frm['action'] == 'delete') {
         $id = intval($frm['id']);
-        $q = ''.'delete from hm2_news where id = '.$id;
+        $q = 'delete from hm2_news where id = '.$id;
         (db_query($q));
     }
 }
@@ -82,7 +82,7 @@ You cannot add/edit news!';
 
           if (!$row['small_text']) {
               $row['full_text'] = strip_tags($row['full_text']);
-              $row['small_text'] = preg_replace('/^(.{100,120})\\s.*/', ''.'$1...', $row['full_text']);
+              $row['small_text'] = preg_replace('/^(.{100,120})\\s.*/', '$1...', $row['full_text']);
           }
 
           $row['small_text'] = preg_replace('/\\n/', '<br>', $row['small_text']);

@@ -18,15 +18,15 @@ $qonpage = 50;
   $searchpart = '';
   if ($frm['q'] != '') {
       $qsearch = quote($frm['q']);
-      $searchpart = ''.' and (username like \'%'.$qsearch.'%\' or email like \'%'.$qsearch.'%\' or name like \'%'.$qsearch.'%\') ';
+      $searchpart = ' and (username like \'%'.$qsearch.'%\' or email like \'%'.$qsearch.'%\' or name like \'%'.$qsearch.'%\') ';
   }
 
-  $where_status = ''.'status = \''.$qstatus.'\'';
+  $where_status = 'status = \''.$qstatus.'\'';
   if ($qstatus == 'blocked') {
       $where_status = 'activation_code != ""';
   }
 
-  $q = ''.'select count(*) from hm2_users where '.$where_status.' and id <> 1 '.$searchpart.' order by id desc';
+  $q = 'select count(*) from hm2_users where '.$where_status.' and id <> 1 '.$searchpart.' order by id desc';
   ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $total = $row[0];
@@ -233,7 +233,7 @@ function reverce(flag)
       echo 'mall>';
       for ($i = 1; $i <= $qpages; ++$i) {
           if ($page == $i) {
-              echo ''.' ['.$i.'] ';
+              echo ' ['.$i.'] ';
               continue;
           } else {
               echo ' <a href="?a=members&status=';

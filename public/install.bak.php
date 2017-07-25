@@ -124,7 +124,7 @@ Password: #password#
 
 Hope that helps.\', 1)';
         db_query($q).', line:'.__LINE__.'<br>';
-        $q = ''.'INSERT INTO hm2_emails VALUES (\'bonus\',\'Bonus Notification\',\'Bonus Notification\',\'Hello #name#,
+        $q = 'INSERT INTO hm2_emails VALUES (\'bonus\',\'Bonus Notification\',\'Bonus Notification\',\'Hello #name#,
 
 You received a bonus: $#amount#
 You can check your statistics here:
@@ -132,7 +132,7 @@ You can check your statistics here:
 
 Good luck.\', 1)';
         db_query($q).', line:'.__LINE__.'<br>';
-        $q = ''.'INSERT INTO hm2_emails VALUES (\'penalty\',\'Penalty Notification\',\'Penalty Notification\',\'Hello #name#,
+        $q = 'INSERT INTO hm2_emails VALUES (\'penalty\',\'Penalty Notification\',\'Penalty Notification\',\'Hello #name#,
 
 Your account has been charged for $#amount#
 You can check your statistics here:
@@ -155,7 +155,7 @@ Contact us immediately if you did not authorize this change.
 
 Thank you.\', 1)';
         db_query($q).', line:'.__LINE__.'<br>';
-        $q = ''.'INSERT INTO hm2_emails VALUES(\'withdraw_request_user_notification\', \'User Withdrawal Request Notification\', \'Withdrawal Request has been sent\', \'Hello #name#,
+        $q = 'INSERT INTO hm2_emails VALUES(\'withdraw_request_user_notification\', \'User Withdrawal Request Notification\', \'Withdrawal Request has been sent\', \'Hello #name#,
 
 
 You has requested to withdraw $#amount#.
@@ -166,9 +166,9 @@ Thank you.
 #site_name#
 #site_url#\', 1)';
         db_query($q).', line:'.__LINE__.'<br>';
-        $q = ''.'INSERT INTO hm2_emails VALUES(\'withdraw_request_admin_notification\', \'Administrator Withdrawal Request Notification\', \'Withdrawal Request has been sent\', \'User #username# requested to withdraw $#amount# from IP #ip#.\', 1)';
+        $q = 'INSERT INTO hm2_emails VALUES(\'withdraw_request_admin_notification\', \'Administrator Withdrawal Request Notification\', \'Withdrawal Request has been sent\', \'User #username# requested to withdraw $#amount# from IP #ip#.\', 1)';
         db_query($q).', line:'.__LINE__.'<br>';
-        $q = ''.'INSERT INTO hm2_emails VALUES(\'withdraw_user_notification\', \'User Withdrawal Notification\', \'Withdrawal has been sent\', \'Hello #name#.
+        $q = 'INSERT INTO hm2_emails VALUES(\'withdraw_user_notification\', \'User Withdrawal Notification\', \'Withdrawal has been sent\', \'Hello #name#.
 
 $#amount# has been successfully sent to your #currency# account #account#.
 Transaction batch is #batch#.
@@ -176,16 +176,16 @@ Transaction batch is #batch#.
 #site_name#
 #site_url#\', 1)';
         db_query($q).', line:'.__LINE__.'<br>';
-        $q = ''.'INSERT INTO hm2_emails VALUES(\'withdraw_admin_notification\', \'Administrator Withdrawal Notification\', \'Withdrawal has been sent\', \'User #username# received $#amount# to #currency# account #account#. Batch is #batch#.\', 1)';
+        $q = 'INSERT INTO hm2_emails VALUES(\'withdraw_admin_notification\', \'Administrator Withdrawal Notification\', \'Withdrawal has been sent\', \'User #username# received $#amount# to #currency# account #account#. Batch is #batch#.\', 1)';
         db_query($q).', line:'.__LINE__.'<br>';
-        $q = ''.'INSERT INTO hm2_emails VALUES(\'deposit_admin_notification\', \'Administrator Deposit Notification\', \'A deposit has been processed\', \'User #username# deposit $#amount# #currency# to #plan#.
+        $q = 'INSERT INTO hm2_emails VALUES(\'deposit_admin_notification\', \'Administrator Deposit Notification\', \'A deposit has been processed\', \'User #username# deposit $#amount# #currency# to #plan#.
 
 Account: #account#
 Batch: #batch#
 Compound: #compound#%.
 Referrers fee: $#ref_sum#\', 1)';
         db_query($q).', line:'.__LINE__.'<br>';
-        $q = ''.'INSERT INTO hm2_emails VALUES(\'deposit_user_notification\', \'Deposit User Notification\', \'Payment received\', \'Dear #name# (#username#)
+        $q = 'INSERT INTO hm2_emails VALUES(\'deposit_user_notification\', \'Deposit User Notification\', \'Payment received\', \'Dear #name# (#username#)
 
 We have successfully recived your deposit $#amount# #currency# to #plan#.
 
@@ -198,9 +198,9 @@ Thank you.
 #site_name#
 #site_url#\', \'1\')';
         db_query($q).', line:'.__LINE__.'<br>';
-        $q = ''.'INSERT INTO hm2_emails VALUES(\'exchange_admin_notification\', \'Exchange Admin Notification\', \'Currency Exchange Processed\', \'User #username# has exchanged $#amount_from# #currency_from# to $#amount_to# #currency_to#.\', \'0\')';
+        $q = 'INSERT INTO hm2_emails VALUES(\'exchange_admin_notification\', \'Exchange Admin Notification\', \'Currency Exchange Processed\', \'User #username# has exchanged $#amount_from# #currency_from# to $#amount_to# #currency_to#.\', \'0\')';
         db_query($q).', line:'.__LINE__.'<br>';
-        $q = ''.'INSERT INTO hm2_emails VALUES(\'exchange_user_notification\', \'Exchange User Notification\', \'Currency Exchange Completed\', \'Dear #name# (#username#).
+        $q = 'INSERT INTO hm2_emails VALUES(\'exchange_user_notification\', \'Exchange User Notification\', \'Currency Exchange Completed\', \'Dear #name# (#username#).
 
 You have successfully exchanged $#amount_from# #currency_from# to $#amount_to# #currency_to#.
 
@@ -536,7 +536,7 @@ Thank you.
         (db_query($q).', line:'.__LINE__.'<br>');
         $admin_email = quote($frm['admin_email']);
         $admin_password = md5($frm['admin_password']);
-        $q = ''.'INSERT INTO hm2_users VALUES (1,\'admin name\',\'admin\',\''.$admin_password.'\',NULL,0, \'\',\''.$admin_email.'\',\'on\',\'     \',0,0.00,\'\',\'\',now(),\'localhost\', \'\', 1, 0, 0, \'\', 0, 0, \'\', \'\', \'\', \'20017-01-01\', \'\', 0, \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\',\'\',0, 0, \'\')';
+        $q = 'INSERT INTO hm2_users VALUES (1,\'admin name\',\'admin\',\''.$admin_password.'\',NULL,0, \'\',\''.$admin_email.'\',\'on\',\'     \',0,0.00,\'\',\'\',now(),\'localhost\', \'\', 1, 0, 0, \'\', 0, 0, \'\', \'\', \'\', \'20017-01-01\', \'\', 0, \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\',\'\',0, 0, \'\')';
         db_query($q).', line:'.__LINE__.'<br>';
         $settings['site_name'] = $frm_env['HTTP_HOST'];
         $settings['opt_in_email'] = $frm['admin_email'];

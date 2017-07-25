@@ -35,7 +35,7 @@
       curl_setopt($ch, CURLOPT_POSTFIELDS, 'AccountID='.$frm['acc'].'&PassPhrase='.$frm['pass'].'&Payee_Account='.$frm['acc'].'&Amount=0.01&PAY_IN=1&WORTH_OF=Gold&Memo=Test+transaction&IGNORE_RATE_CHANGE=y');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       $a = curl_exec($ch);
-      echo ''.'<hr>'.$a.'<hr>';
+      echo '<hr>'.$a.'<hr>';
       curl_close($ch);
       $parts = [];
       if (preg_match('/<input type=hidden name=PAYMENT_BATCH_NUM VALUE="(\\d+)">/ims', $a, $parts)) {
@@ -46,7 +46,7 @@
               $txt = preg_replace('/&gt;/i', '>', $txt);
               echo 'Test status: Failed<br>'.$txt;
           } else {
-              echo ''.'Test status: Failed<br>Unknown Error:<BR>'.$a;
+              echo 'Test status: Failed<br>Unknown Error:<BR>'.$a;
           }
       }
   } else {

@@ -79,7 +79,7 @@ foreach ($exchange_systems as $id => $data) {
 $smarty->assign('ps', $ps);
 $hold = [];
 if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
-    $q = ''.'select id from hm2_deposits where user_id = '.$userinfo['id'];
+    $q = 'select id from hm2_deposits where user_id = '.$userinfo['id'];
     ($sth = db_query($q));
     $deps = [];
     $deps[0] = 0;
@@ -98,7 +98,7 @@ if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
 }
 
 if ($settings['hold_only_first_days'] == 1) {
-    $q = ''.'select
+    $q = 'select
               sum(hm2_history.actual_amount) as am,
 	      hm2_history.ec
             from
@@ -116,7 +116,7 @@ if ($settings['hold_only_first_days'] == 1) {
 	    group by hm2_history.ec
           ';
 } else {
-    $q = ''.'select
+    $q = 'select
               sum(hm2_history.actual_amount) as am,
 	      hm2_history.ec
             from

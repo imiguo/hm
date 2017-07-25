@@ -12,7 +12,7 @@
 $ok = 1;
   $amount = sprintf('%0.2f', $frm['amount']);
   $h_id = sprintf('%d', $frm['h_id']);
-  $q = ''.'select * from hm2_types where id = '.$h_id.' and closed = 0';
+  $q = 'select * from hm2_types where id = '.$h_id.' and closed = 0';
   ($sth = db_query($q));
   $type = mysql_fetch_array($sth);
   if (!$type) {
@@ -58,7 +58,7 @@ $ok = 1;
       $wire_txt = $row['value'];
   }
 
-  $q = ''.'select count(*) as col, min(min_deposit) as min from hm2_plans where parent = '.$h_id;
+  $q = 'select count(*) as col, min(min_deposit) as min from hm2_plans where parent = '.$h_id;
   ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   if ($row) {
@@ -79,7 +79,7 @@ $ok = 1;
 
   $accounting = get_user_balance($userinfo['id']);
   $max_deposit = 0;
-  $q = ''.'select min(max_deposit) as min, max(max_deposit) as max from hm2_plans where parent = '.$h_id;
+  $q = 'select min(max_deposit) as min, max(max_deposit) as max from hm2_plans where parent = '.$h_id;
   ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   if ($row) {

@@ -10,7 +10,7 @@
  */
 
 $id = intval($frm['pid']);
-  $q = ''.'select * from hm2_processings where id = '.$id;
+  $q = 'select * from hm2_processings where id = '.$id;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   if (!$row) {

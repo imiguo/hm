@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-$q = ''.'select 
+$q = 'select
                u1.username,
                u1.id,
                count(*) as col
-         from 
+         from
                hm2_users as u1 left outer join hm2_users as u2
                  on u1.id = u2.ref
          where u2.date_register > \''.$settings[refs10_start_date].'\' + interval '.$settings['time_dif'].' hour
@@ -26,7 +26,7 @@ $q = ''.'select
   ($sth = db_query($q));
   $stats = [];
   while ($row = mysql_fetch_array($sth)) {
-      $q2 = ''.'select 
+      $q2 = 'select
                   count(distinct u.id) as col
             from
                   hm2_users as u,
@@ -41,7 +41,7 @@ $q = ''.'select
       array_push($stats, $row);
   }
 
-  $q = ''.'select date_format(\''.$settings[refs10_start_date].'\' + interval '.$settings['time_dif'].' hour, \'%b-%e-%Y\') as d';
+  $q = 'select date_format(\''.$settings[refs10_start_date].'\' + interval '.$settings['time_dif'].' hour, \'%b-%e-%Y\') as d';
   ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $smarty->assign('start_date', $row[d]);

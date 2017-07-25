@@ -10,7 +10,7 @@
  */
 
 $id = sprintf('%d', $frm['id']);
-  $q = ''.'select * from hm2_users where id = '.$id;
+  $q = 'select * from hm2_users where id = '.$id;
   $sth = db_query($q);
   $userinfo = mysql_fetch_array($sth);
   $ab = get_user_balance($id);
@@ -21,7 +21,7 @@ $id = sprintf('%d', $frm['id']);
       $q_affilates = $row['col'];
   }
 
-  $q = ''.'select ec, sum(actual_amount) as sum from hm2_history where user_id = '.$id.' group by ec';
+  $q = 'select ec, sum(actual_amount) as sum from hm2_history where user_id = '.$id.' group by ec';
   ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $balance[$row['ec']] = $row['sum'];
@@ -134,7 +134,7 @@ $id = sprintf('%d', $frm['id']);
   echo $userinfo['id'];
   echo '>';
   echo '<s';
-  echo 'mall>[transactions 
+  echo 'mall>[transactions
             history]</small></a><br>
             <br>
  </td>
@@ -155,10 +155,10 @@ $id = sprintf('%d', $frm['id']);
   echo '<s';
   echo 'mall><a href=?a=thistory&u_id=';
   echo $userinfo['id'];
-  echo '&ttype=deposit>[transactions 
+  echo '&ttype=deposit>[transactions
             history]</a> &nbsp; <a href=?a=releasedeposits&u_id=';
   echo $userinfo['id'];
-  echo '>[release 
+  echo '>[release
             a deposit]</a></small><br>
             <br>
  </td>
@@ -174,7 +174,7 @@ $id = sprintf('%d', $frm['id']);
   echo '<s';
   echo 'mall><a href=?a=thistory&u_id=';
   echo $userinfo['id'];
-  echo '&ttype=earning>[earnings 
+  echo '&ttype=earning>[earnings
             history]</a></small><br>
             <br>
  </td>
@@ -211,7 +211,7 @@ $id = sprintf('%d', $frm['id']);
   echo 'mall><a href=?a=thistory&u_id=';
   echo $userinfo['id'];
   echo '&ttype=commissions>[affilate history]</a></small><br><br>
- </td>	
+ </td>
 </tr>-->
 
 <tr>
@@ -224,10 +224,10 @@ $id = sprintf('%d', $frm['id']);
   echo '<s';
   echo 'mall><a href=?a=thistory&u_id=';
   echo $userinfo['id'];
-  echo '&ttype=bonus>[bonuses 
+  echo '&ttype=bonus>[bonuses
             history]</a> &nbsp; <a href="?a=addbonuse&id=';
   echo $userinfo['id'];
-  echo '">[add 
+  echo '">[add
             a bonus]</a></small><br>
             <br>
  </td>
@@ -243,10 +243,10 @@ $id = sprintf('%d', $frm['id']);
   echo '<s';
   echo 'mall><a href=?a=thistory&u_id=';
   echo $userinfo['id'];
-  echo '&ttype=penality>[penalties 
+  echo '&ttype=penality>[penalties
             history]</a> &nbsp; <a href=?a=addpenality&id=';
   echo $userinfo['id'];
-  echo '>[add 
+  echo '>[add
             a penalty]</a></small><br>
             <br>
  </td>

@@ -22,10 +22,10 @@ echo '<html>
 
   if ($frm['q'] != '') {
       $qsearch = quote($frm['q']);
-      $searchpart = ''.' and (username like \'%'.$qsearch.'%\' or email like \'%'.$qsearch.'%\' or name like \'%'.$qsearch.'%\') ';
+      $searchpart = ' and (username like \'%'.$qsearch.'%\' or email like \'%'.$qsearch.'%\' or name like \'%'.$qsearch.'%\') ';
   }
 
-  $q = ''.'select count(*) from hm2_users where status = \''.$qstatus.'\' and id <> 1 '.$searchpart.' order by id desc';
+  $q = 'select count(*) from hm2_users where status = \''.$qstatus.'\' and id <> 1 '.$searchpart.' order by id desc';
   ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $total = $row[0];
@@ -46,7 +46,7 @@ echo '<html>
 
   $end = $page * $qonpage;
   $end = ($total < $end ? $total : $end);
-  $q = ''.'select *, date_format(date_register, \'%b-%e-%Y\') as dr from hm2_users where status = \''.$qstatus.'\' and id <> 1 '.$searchpart.' order by id desc limit '.$start.', '.$qonpage;
+  $q = 'select *, date_format(date_register, \'%b-%e-%Y\') as dr from hm2_users where status = \''.$qstatus.'\' and id <> 1 '.$searchpart.' order by id desc limit '.$start.', '.$qonpage;
   ($sth = db_query($q));
   $members = [];
   while ($row = mysql_fetch_array($sth)) {
@@ -126,7 +126,7 @@ echo '<html>
       echo 'mall>';
       for ($i = 1; $i <= $qpages; ++$i) {
           if ($page == $i) {
-              echo ''.' ['.$i.'] ';
+              echo ' ['.$i.'] ';
               continue;
           } else {
               echo ' <a href="?a=members&status=';

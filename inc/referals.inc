@@ -84,7 +84,7 @@ $smarty->assign('site_name', $settings['site_name']);
       for ($i = 2; $i < 11; ++$i) {
           $parents_string = join(',', $parents);
           $q_active = 0;
-          $q = ''.'select id from hm2_users where ref in ('.$parents_string.')';
+          $q = 'select id from hm2_users where ref in ('.$parents_string.')';
           $sth1 = db_query($q);
           $parents = [];
           while ($row1 = mysql_fetch_array($sth1)) {

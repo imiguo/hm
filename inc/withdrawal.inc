@@ -33,7 +33,7 @@ if ($frm['action'] == 'preview') {
 
     $on_hold = 0;
     if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
-        $q = ''.'select id from hm2_deposits where user_id = '.$userinfo['id'];
+        $q = 'select id from hm2_deposits where user_id = '.$userinfo['id'];
         ($sth = db_query($q));
         $deps = [];
         $deps[0] = 0;
@@ -41,9 +41,9 @@ if ($frm['action'] == 'preview') {
             array_push($deps, $row[id]);
         }
 
-        $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and 
-	deposit_id in (').join(',', $deps).') and 
-			(type=\'earning\' or 
+        $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and
+	deposit_id in (').join(',', $deps).') and
+			(type=\'earning\' or
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));';
         ($sth = db_query($q));
         while ($row = mysql_fetch_array($sth)) {
@@ -52,18 +52,18 @@ if ($frm['action'] == 'preview') {
     }
 
     if ($settings['hold_only_first_days'] == 1) {
-        $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec.' and hm2_deposits.deposit_date + interval hm2_types.hold day > now()';
+        $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec.' and hm2_deposits.deposit_date + interval hm2_types.hold day > now()';
     } else {
-        $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
+        $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
     }
 
     ($sth = db_query($q));
     $deps = [];
     $deps[0] = 0;
     while ($row = mysql_fetch_array($sth)) {
-        $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and 
-		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and 
-			(type=\'earning\' or 
+        $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and
+		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and
+			(type=\'earning\' or
 		(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));');
         ($sth1 = db_query($q));
         while ($row1 = mysql_fetch_array($sth1)) {
@@ -96,7 +96,7 @@ if ($frm['action'] == 'preview') {
     }
 
     if (0 < $settings[max_daily_withdraw]) {
-        $q = ''.'select sum(actual_amount) as am from hm2_history where type in (\'withdraw\', \'withdraw_pending\') and user_id = '.$userinfo[id];
+        $q = 'select sum(actual_amount) as am from hm2_history where type in (\'withdraw\', \'withdraw_pending\') and user_id = '.$userinfo[id];
         ($sth = db_query($q));
         $dw = 0;
         while ($row = mysql_fetch_array($sth)) {
@@ -198,7 +198,7 @@ if ($frm['action'] == 'preview') {
 
         $on_hold = 0;
         if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
-            $q = ''.'select id from hm2_deposits where user_id = '.$userinfo['id'];
+            $q = 'select id from hm2_deposits where user_id = '.$userinfo['id'];
             ($sth = db_query($q));
             $deps = [];
             $deps[0] = 0;
@@ -206,9 +206,9 @@ if ($frm['action'] == 'preview') {
                 array_push($deps, $row[id]);
             }
 
-            $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and 
-	deposit_id in (').join(',', $deps).') and 
-			(type=\'earning\' or 
+            $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and
+	deposit_id in (').join(',', $deps).') and
+			(type=\'earning\' or
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));';
             ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
@@ -217,18 +217,18 @@ if ($frm['action'] == 'preview') {
         }
 
         if ($settings['hold_only_first_days'] == 1) {
-            $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec.' and hm2_deposits.deposit_date + interval hm2_types.hold day > now()';
+            $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec.' and hm2_deposits.deposit_date + interval hm2_types.hold day > now()';
         } else {
-            $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
+            $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
         }
 
       ($sth = db_query($q));
         $deps = [];
         $deps[0] = 0;
         while ($row = mysql_fetch_array($sth)) {
-            $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and 
-		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and 
-			(type=\'earning\' or 
+            $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and
+		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and
+			(type=\'earning\' or
 		(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));');
             ($sth1 = db_query($q));
             while ($row1 = mysql_fetch_array($sth1)) {
@@ -255,7 +255,7 @@ if ($frm['action'] == 'preview') {
         }
 
         if (0 < $settings[max_daily_withdraw]) {
-            $q = ''.'select sum(actual_amount) as am from hm2_history where type in (\'withdraw\', \'withdraw_pending\') and user_id = '.$userinfo[id];
+            $q = 'select sum(actual_amount) as am from hm2_history where type in (\'withdraw\', \'withdraw_pending\') and user_id = '.$userinfo[id];
             ($sth = db_query($q));
             $dw = 0;
             while ($row = mysql_fetch_array($sth)) {
@@ -276,7 +276,7 @@ if ($frm['action'] == 'preview') {
                 exit();
             }
 
-            $q = 'insert into hm2_history set 
+            $q = 'insert into hm2_history set
   	user_id = '.$userinfo['id'].(''.',
   	amount = -'.$amount.',
   	actual_amount = -'.$amount.',
@@ -312,42 +312,42 @@ if ($frm['action'] == 'preview') {
                             $to_withdraw = sprintf('%.02f', floor($to_withdraw * 100) / 100);
                             $success_txt = 'Withdraw to '.$userinfo['username'].' from '.$settings['site_name'];
                             if ($ec == 0) {
-                                $error_txt = ''.'Error, tried sent '.$to_withdraw.' to e-gold account # '.$userinfo['egold_account'].'. Error:';
+                                $error_txt = 'Error, tried sent '.$to_withdraw.' to e-gold account # '.$userinfo['egold_account'].'. Error:';
                                 list($res, $text, $batch) = send_money_to_egold('', $to_withdraw, $userinfo['egold_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 1) {
-                                $error_txt = ''.'Error, tried sent '.$to_withdraw.' to evocash account # '.$userinfo['evocash_account'].'. Error:';
+                                $error_txt = 'Error, tried sent '.$to_withdraw.' to evocash account # '.$userinfo['evocash_account'].'. Error:';
                                 list($res, $text, $batch) = send_money_to_evocash('', $to_withdraw, $userinfo['evocash_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 2) {
-                                $error_txt = ''.'Error, tried sent '.$to_withdraw.' to IntGold account # '.$userinfo['intgold_account'].'. Error:';
+                                $error_txt = 'Error, tried sent '.$to_withdraw.' to IntGold account # '.$userinfo['intgold_account'].'. Error:';
                                 list($res, $text, $batch) = send_money_to_intgold('', $to_withdraw, $userinfo['intgold_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 3) {
-                                $error_txt = ''.'Error, tried sent '.$to_withdraw.' to PerfectMoney account # '.$userinfo['perfectmoney_account'].'. Error:';
+                                $error_txt = 'Error, tried sent '.$to_withdraw.' to PerfectMoney account # '.$userinfo['perfectmoney_account'].'. Error:';
                                 list($res, $text, $batch) = send_money_to_perfectmoney('', $to_withdraw, $userinfo['perfectmoney_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 5) {
-                                $error_txt = ''.'Error, tried sent '.$to_withdraw.' to e-bullion account # '.$userinfo['ebullion_account'].'. Error:';
+                                $error_txt = 'Error, tried sent '.$to_withdraw.' to e-bullion account # '.$userinfo['ebullion_account'].'. Error:';
                                 list($res, $text, $batch) = send_money_to_ebullion('', $to_withdraw, $userinfo['ebullion_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 8) {
-                                $error_txt = ''.'Error, tried sent '.$to_withdraw.' to eeeCurrency account # '.$userinfo['eeecurrency_account'].'. Error:';
+                                $error_txt = 'Error, tried sent '.$to_withdraw.' to eeeCurrency account # '.$userinfo['eeecurrency_account'].'. Error:';
                                 list($res, $text, $batch) = send_money_to_eeecurrency('', $to_withdraw, $userinfo['eeecurrency_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 9) {
-                                $error_txt = ''.'Error, tried sent '.$to_withdraw.' to Pecunix account # '.$userinfo['pecunix_account'].'. Error:';
+                                $error_txt = 'Error, tried sent '.$to_withdraw.' to Pecunix account # '.$userinfo['pecunix_account'].'. Error:';
                                 list($res, $text, $batch) = send_money_to_pecunix('', $to_withdraw, $userinfo['pecunix_account'], $success_txt, $error_txt);
                             }
 
                             if ($res == 1) {
-                                $q = ''.'delete from hm2_history where id = '.$last_id;
+                                $q = 'delete from hm2_history where id = '.$last_id;
                                 db_query($q);
                                 $d_account = [$userinfo['egold_account'], $userinfo['evocash_account'], $userinfo['intgold_account'], '', $userinfo['stormpay_account'], $userinfo['ebullion_account'], $userinfo['paypal_account'], $userinfo['goldmoney_account'], $userinfo['eeecurrency_account'], $userinfo['pecunix_account']];
                                 $q = 'insert into hm2_history set
@@ -423,7 +423,7 @@ if ($frm['action'] == 'preview') {
 
         $hold = [];
         if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
-            $q = ''.'select id from hm2_deposits where user_id = '.$userinfo['id'].' and status=\'on\'';
+            $q = 'select id from hm2_deposits where user_id = '.$userinfo['id'].' and status=\'on\'';
             ($sth = db_query($q));
             $deps = [];
             $deps[0] = 0;
@@ -431,9 +431,9 @@ if ($frm['action'] == 'preview') {
                 array_push($deps, $row[id]);
             }
 
-            $q = 'select sum(actual_amount) as amount, ec from hm2_history where user_id = '.$userinfo['id'].' and 
-	deposit_id in ('.join(',', $deps).') and 
-			(type=\'earning\' or 
+            $q = 'select sum(actual_amount) as amount, ec from hm2_history where user_id = '.$userinfo['id'].' and
+	deposit_id in ('.join(',', $deps).') and
+			(type=\'earning\' or
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\'))) group by ec';
             ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
@@ -442,8 +442,8 @@ if ($frm['action'] == 'preview') {
         }
 
         if ($settings['hold_only_first_days'] == 1) {
-            $q = ''.'select
-              sum(hm2_history.actual_amount) as am, 
+            $q = 'select
+              sum(hm2_history.actual_amount) as am,
 	      hm2_history.ec
             from
               hm2_history,
@@ -453,15 +453,15 @@ if ($frm['action'] == 'preview') {
               hm2_history.user_id = '.$userinfo[id].' and
 	      hm2_history.deposit_id = hm2_deposits.id and
               hm2_types.id = hm2_deposits.type_id and
-              now() - interval hm2_types.hold day < hm2_history.date and 
+              now() - interval hm2_types.hold day < hm2_history.date and
 	      hm2_deposits.deposit_date + interval hm2_types.hold day > now() and
-	      (hm2_history.type=\'earning\' or 
-		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\'))) 
+	      (hm2_history.type=\'earning\' or
+		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\')))
 	    group by hm2_history.ec
           ';
         } else {
-            $q = ''.'select
-              sum(hm2_history.actual_amount) as am, 
+            $q = 'select
+              sum(hm2_history.actual_amount) as am,
 	      hm2_history.ec
             from
               hm2_history,
@@ -471,9 +471,9 @@ if ($frm['action'] == 'preview') {
               hm2_history.user_id = '.$userinfo[id].' and
 	      hm2_history.deposit_id = hm2_deposits.id and
               hm2_types.id = hm2_deposits.type_id and
-              now() - interval hm2_types.hold day < hm2_history.date and 
-	      (hm2_history.type=\'earning\' or 
-		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\'))) 
+              now() - interval hm2_types.hold day < hm2_history.date and
+	      (hm2_history.type=\'earning\' or
+		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\')))
 	    group by hm2_history.ec
           ';
         }
