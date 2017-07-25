@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $qonpage = 50;
+$qonpage = 50;
   $qstatus = quote($frm['status']);
   if ($qstatus == '') {
       $qstatus = 'on';
@@ -253,7 +251,6 @@ function reverce(flag)
 
       echo '</small></center>';
   }
-
 
   if ($qstatus == 'blocked') {
       echo '<input type=button value="Activate" class=sbmt onclick="document.members.action.value=\'activate\';document.members.submit()"> &nbsp;';

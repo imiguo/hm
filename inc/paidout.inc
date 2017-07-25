@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $frm['month'] = intval($frm['month']);
+$frm['month'] = intval($frm['month']);
   if ($frm['month'] == 0) {
       $frm['month'] = date('n', time() + $settings['time_dif'] * 60 * 60);
   }

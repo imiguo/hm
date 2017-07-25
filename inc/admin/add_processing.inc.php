@@ -9,10 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-
-  echo '<b>Add Processing:</b><br><br>';
+echo '<b>Add Processing:</b><br><br>';
   echo '<s';
   echo 'cript>
 function c1()

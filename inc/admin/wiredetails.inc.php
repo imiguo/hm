@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '<b>Wire Transfer Details.</b><br>
+echo '<b>Wire Transfer Details.</b><br>
 <br>
 ';
   $id = sprintf('%d', $frm['id']);

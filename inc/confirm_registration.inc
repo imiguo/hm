@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $success = 0;
+$success = 0;
   if ($frm['c'] != '') {
       $info = [];
       $conf_string = quote($frm['c']);

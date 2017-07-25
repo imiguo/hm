@@ -9,15 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  if ($settings['demomode']) {
-      echo start_info_table('100%');
-      echo '<b>Demo version restriction!</b><br>
+if ($settings['demomode']) {
+    echo start_info_table('100%');
+    echo '<b>Demo version restriction!</b><br>
 You cannot change the exchange rates!';
-      echo end_info_table();
-  }
-
+    echo end_info_table();
+}
 
   $exch = [];
   $q = 'select * from hm2_exchange_rates';

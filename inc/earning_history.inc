@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $id = $userinfo['id'];
+$id = $userinfo['id'];
   $type = $frm['type'];
   $type_found = 0;
   $options = [];

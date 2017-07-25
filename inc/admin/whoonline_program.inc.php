@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $q = 'select count(*) as col from hm2_online ';
+$q = 'select count(*) as col from hm2_online ';
   $sth = db_query($q);
   $visitors_online = 0;
   while ($row = mysql_fetch_array($sth)) {

@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  header('Content-type: text/vnd.wap.wml');
+header('Content-type: text/vnd.wap.wml');
   $id = $userinfo['id'];
   $type = $frm['type'];
   $type_found = 0;

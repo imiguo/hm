@@ -9,13 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  if ($frm['complete']) {
-      $smarty->assign('fatal', 'update_completed');
-      $smarty->display('change_compound.tpl');
-      exit();
-  }
+if ($frm['complete']) {
+    $smarty->assign('fatal', 'update_completed');
+    $smarty->display('change_compound.tpl');
+    exit();
+}
 
   $user_id = $userinfo['id'];
   $deposit_id = intval($frm['deposit']);

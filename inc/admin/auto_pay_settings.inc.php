@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $q = 'select * from hm2_pay_settings where n=\'egold_account_password\'';
+$q = 'select * from hm2_pay_settings where n=\'egold_account_password\'';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
       $egold_password = $row['v'];
@@ -47,7 +45,6 @@
       $pecunix_password = $row['v'];
   }
 
-
   if ($settings['demomode'] == 1) {
       echo start_info_table('100%');
       echo '<b>Demo version restriction</b><br>
@@ -56,7 +53,6 @@ You cannot edit these settings.<br>
 Note: This screen is available in Pro version only!!! ';
       echo end_info_table();
   }
-
 
   if ($frm['say'] == 'invalid_passphrase') {
       echo '<b style="color:red">Invalid Alternative Passphrase. No data has been updated.</b><br><br>';
@@ -67,7 +63,6 @@ Note: This screen is available in Pro version only!!! ';
 <br>';
   }
 
-
   if ($settings['demomode'] != 1) {
       echo start_info_table('100%');
       echo '<b>We recommend to use the auto-payment feature only on the dedicated servers. Virtual Shared Hosting has much less security.
@@ -75,7 +70,6 @@ Note: This screen is available in Pro version only!!! ';
       echo end_info_table();
       echo '<br>';
   }
-
 
   echo '<s';
   echo 'cript language=javascript>

@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $q = 'select 
+$q = 'select 
                u.username,
                h.actual_amount as balance,
                date_format(h.deposit_date + interval '.$settings['time_dif'].' hour, \'%b-%e-%Y %r\') as dd

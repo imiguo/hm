@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '<b>Wire Transfer Settings.</b><br><br>
+echo '<b>Wire Transfer Settings.</b><br><br>
 ';
   $q = 'select count(*) as col from hm2_settings where name=\'wire_text\'';
   ($sth = db_query($q) or print mysql_error());

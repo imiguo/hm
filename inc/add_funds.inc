@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $ab = get_user_balance($userinfo['id']);
+$ab = get_user_balance($userinfo['id']);
   $ab_formated = [];
   while (list($kk, $vv) = each($ab)) {
       $ab_formated[$kk] = number_format($vv, 2);

@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '<html>
+echo '<html>
 <head>
 <link href="images/adminstyle.css" rel="stylesheet" type="text/css">
 </head>

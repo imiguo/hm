@@ -9,35 +9,33 @@
  * with this source code in the file LICENSE.
  */
 
+if (!is_array($frm['pend'])) {
+    echo 'Please select withdraw requests first';
+    db_close($dbconn);
+    exit();
+} else {
+    $ids = implode(', ', array_keys($frm['pend']));
+    $sum = 0;
+    $q = ''.'select actual_amount from hm2_history where id in ('.$ids.') and ec in (0, 1, 2, 5, 8, 9)';
+    $sth = db_query($q);
+    while ($row = mysql_fetch_array($sth)) {
+        $amount = abs($row['actual_amount']);
+        $fee = floor($amount * $settings['withdrawal_fee']) / 100;
+        if ($fee < $settings['withdrawal_fee_min']) {
+            $fee = $settings['withdrawal_fee_min'];
+        }
 
+        $to_withdraw = $amount - $fee;
+        if ($to_withdraw < 0) {
+            $to_withdraw = 0;
+        }
 
-  if (!is_array($frm['pend'])) {
-      echo 'Please select withdraw requests first';
-      db_close($dbconn);
-      exit();
-  } else {
-      $ids = implode(', ', array_keys($frm['pend']));
-      $sum = 0;
-      $q = ''.'select actual_amount from hm2_history where id in ('.$ids.') and ec in (0, 1, 2, 5, 8, 9)';
-      $sth = db_query($q);
-      while ($row = mysql_fetch_array($sth)) {
-          $amount = abs($row['actual_amount']);
-          $fee = floor($amount * $settings['withdrawal_fee']) / 100;
-          if ($fee < $settings['withdrawal_fee_min']) {
-              $fee = $settings['withdrawal_fee_min'];
-          }
+        $to_withdraw = number_format(floor($to_withdraw * 100) / 100, 2);
+        $sum += $to_withdraw;
+    }
 
-          $to_withdraw = $amount - $fee;
-          if ($to_withdraw < 0) {
-              $to_withdraw = 0;
-          }
-
-          $to_withdraw = number_format(floor($to_withdraw * 100) / 100, 2);
-          $sum += $to_withdraw;
-      }
-
-      $amount = $sum;
-  }
+    $amount = $sum;
+}
 
   echo ' <b>Mass Payment:</b><br>
 <br>';

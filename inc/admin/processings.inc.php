@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $processings = [];
+$processings = [];
   $q = 'select * from hm2_processings';
   $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {

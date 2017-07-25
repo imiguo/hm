@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $already_deposits = [];
+$already_deposits = [];
   if (0 < $userinfo['id']) {
       $q = 'select type_id from hm2_deposits where user_id = '.$userinfo['id'];
       ($sth = db_query($q) or print mysql_error());

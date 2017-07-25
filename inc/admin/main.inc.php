@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $stats = [];
+$stats = [];
   $total_earned = 0;
   foreach ($exchange_systems as $id => $data) {
       if ($data['status'] == 1) {

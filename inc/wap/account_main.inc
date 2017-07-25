@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  header('Content-type: text/vnd.wap.wml');
+header('Content-type: text/vnd.wap.wml');
   $id = $userinfo['id'];
   $q = 'select date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as last_login from hm2_user_access_log where user_id = '.$id.' order by id desc limit 1, 1');
   $sth = db_query($q);

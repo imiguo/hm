@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '  <tr> 
+echo '  <tr> 
     <td height="19" bgcolor="ff8d00"><div align="center" class="forCopyright">Powered with HYIP Manager. <a href=http://www.goldrippers.info class="forCopyright">Goldrippers.info</a></div></td>
   </tr>
 </table>

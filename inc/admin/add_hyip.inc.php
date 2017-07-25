@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $q = 'select * from hm2_types where status = \'on\'';
+$q = 'select * from hm2_types where status = \'on\'';
   if (!($sth = db_query($q))) {
       exit(mysql_error());
   }
@@ -20,7 +18,6 @@
   while ($row1 = mysql_fetch_array($sth)) {
       array_push($packages, $row1);
   }
-
 
   echo '<s';
   echo 'cript language=javascript>

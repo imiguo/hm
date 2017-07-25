@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  echo '<b>';
+echo '<b>';
   echo $frm['type'] == 'problem' ? 'Problem' : 'New';
   echo ' Wire Transfers:</b><br><br>
 <form method=post name=nform >

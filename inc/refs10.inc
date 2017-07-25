@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $q = ''.'select 
+$q = ''.'select 
                u1.username,
                u1.id,
                count(*) as col

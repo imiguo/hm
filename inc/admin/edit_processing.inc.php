@@ -9,9 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-
-
-  $id = intval($frm['pid']);
+$id = intval($frm['pid']);
   $q = ''.'select * from hm2_processings where id = '.$id;
   $sth = db_query($q);
   $row = mysql_fetch_array($sth);
