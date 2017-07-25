@@ -9,15 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-/*                                                                     */
-/*  This file is created by deZender                                   */
-/*                                                                     */
-/*  deZender (Decoder for Zend Encoder/SafeGuard):                     */
-/*    Version:      0.9.3.0                                            */
-/*    Author:       qinvent.com                                        */
-/*    Release on:   2005.11.12                                         */
-/*                                                                     */
-/***********************************************************************/
+
 
   $id = $userinfo['id'];
   $q = 'select date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as last_login from hm2_user_access_log where user_id = '.$id.' order by id desc limit 1, 1');

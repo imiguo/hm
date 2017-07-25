@@ -9,16 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-/*                                                                     */
-/*  This file is created by deZender                                   */
-/*                                                                     */
-/*  deZender (Decoder for Zend Encoder/SafeGuard):                     */
-/*    Version:      0.9.3.0                                            */
-/*    Author:       qinvent.com                                        */
-/*    Release on:   2005.11.12                                         */
-/*    Modified by : Goldripper                                         */
-/***********************************************************************/
-
   echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -30,7 +20,7 @@
 <center>
 <table width="760" border="0" c';
   echo 'ellpadding="0" cellspacing="0" height=100%>
-  <tr> 
+  <tr>
     <td valign=top height=142>
       <table cellspacing=0 cellpadding=0 border=0 width=100% height=142>
 	    <tr>
@@ -42,11 +32,11 @@
       echo 'To receive deposits you should enter your \'Secret alternate password md5 hash\' on the settings screen!<br>
           You can receive the secret alternate password md5 hash here:<br>
 <a href=https://www.e-gold.com/acct/md5check.html target=_blank>https://www.e-gold.com/acct/md5check.html</a><br>
-          type your alternative password in the \'Alternate Passphrase\' field, then 
+          type your alternative password in the \'Alternate Passphrase\' field, then
           click \'cacl';
-      echo 'ulate hash now\' and copy the \'Passphrase Hash\' to the settings 
+      echo 'ulate hash now\' and copy the \'Passphrase Hash\' to the settings
           screen.<br>
-          It is made to prevent fake deposits. 
+          It is made to prevent fake deposits.
           ';
       echo end_info_table();
       echo '          ';
@@ -66,9 +56,9 @@
     echo '" width=1 height=1> ';
   }
   */
-  echo '          <a href=index.php?a=logout class=toplink>Home</a> &middot; <a href=index.php?a=faq class=toplink>FAQ</a> 
-          &middot; <a href=index.php?a=rules class=toplink>Rules</a> &middot; 
-          <a href=index.php?a=logout class=toplink>Logout</a> &middot; 
+  echo '          <a href=index.php?a=logout class=toplink>Home</a> &middot; <a href=index.php?a=faq class=toplink>FAQ</a>
+          &middot; <a href=index.php?a=rules class=toplink>Rules</a> &middot;
+          <a href=index.php?a=logout class=toplink>Logout</a> &middot;
           <a href=index.php?a=support class=toplink>Support</a></b></span>&nbsp; &nbsp;</td>
  	    </tr>
 	  </table>

@@ -9,15 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-/*                                                                     */
-/*  This file is created by deZender                                   */
-/*                                                                     */
-/*  deZender (Decoder for Zend Encoder/SafeGuard):                     */
-/*    Version:      0.9.3.1                                            */
-/*    Author:       qinvent.com                                        */
-/*    Release on:   2005.12.5                                          */
-/*                                                                     */
-/***********************************************************************/
+
 
   if ((($settings['show_news_box'] and ($frm['a'] == '' or $frm['a'] == 'home')) or $settings['show_news_always'])) {
       ($max_news = $settings['last_news_count'] or 5);

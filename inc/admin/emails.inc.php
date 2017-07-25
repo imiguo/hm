@@ -9,15 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-/*                                                                     */
-/*  This file is created by deZender                                   */
-/*                                                                     */
-/*  deZender (Decoder for Zend Encoder/SafeGuard):                     */
-/*    Version:      0.9.3.1                                            */
-/*    Author:       qinvent.com                                        */
-/*    Release on:   2005.12.5                                          */
-/*                                                                     */
-/***********************************************************************/
+
 
   if (($settings['demomode'] == 1 and $frm['type'] != '')) {
       echo start_info_table('100%');

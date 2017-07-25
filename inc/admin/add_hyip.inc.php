@@ -9,15 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-/*                                                                     */
-/*  This file is created by deZender                                   */
-/*                                                                     */
-/*  deZender (Decoder for Zend Encoder/SafeGuard):                     */
-/*    Version:      0.9.3.1                                            */
-/*    Author:       qinvent.com                                        */
-/*    Release on:   2005.12.5                                          */
-/*                                                                     */
-/***********************************************************************/
+
 
   $q = 'select * from hm2_types where status = \'on\'';
   if (!($sth = db_query($q))) {
@@ -51,11 +43,11 @@ function checkform() {
       <td colspan=2><b>Add a New Investment Package:</b></td>
 </tr><tr>
    ';
-  echo '   <td width=150><a href="javascript:alert(\'Enter your package name here.\')" class=hlp>Package 
+  echo '   <td width=150><a href="javascript:alert(\'Enter your package name here.\')" class=hlp>Package
         Name</a></td>
  <td><input type=text name=hname class=inpts size=30 value="New Package"></td>
 </tr><tr>
-      <td><a href="javascript:alert(\'Specify your package duration here.\\nFor example 30 days, 365 days, or no limit.\')" class=hlp>Package 
+      <td><a href="javascript:alert(\'Specify your package duration here.\\nFor example 30 days, 365 days, or no limit.\')" class=hlp>Package
         Duration</a></td>
  <td>
 	<input type=text name=hq_days class';
@@ -117,8 +109,8 @@ function checkform() {
 <br><br><br>
               ';
   echo start_info_table('100%');
-  echo '              Type 0 in the max amount field if you do not want to limit your 
-              users\' maximal deposit amount. 
+  echo '              Type 0 in the max amount field if you do not want to limit your
+              users\' maximal deposit amount.
               ';
   echo end_info_table();
   echo '            </td>
@@ -155,11 +147,11 @@ function checkform() {
 		<option value=\'off\'>Inactive</select>
  </td>
 </tr><tr>
- <td colspan=2><input type=checkbox name=hreturn_profit value=1 checked onclick="CalculateProfit();InitCalendar();"><a href="javascript:alert(\'You can return the principal to user account when the package is finished.\')" class=hlp> 
+ <td colspan=2><input type=checkbox name=hreturn_profit value=1 checked onclick="CalculateProfit();InitCalendar();"><a href="javascript:alert(\'You can return the principal to user account when the package is finished.\')" class=hlp>
         Return principal after the plan completion</td>
 </tr>';
   echo '<tr>
- <td colspan=2><input type=checkbox name=use_compound value=1 checked onclick="checkd();CalculateProfit();InitCalendar();"><a href="javascript:alert(\'You can use the compounding for this package.\')" class=hlp> 
+ <td colspan=2><input type=checkbox name=use_compound value=1 checked onclick="checkd();CalculateProfit();InitCalendar();"><a href="javascript:alert(\'You can use the compounding for this package.\')" class=hlp>
         Use compounding</td>
 </tr><tr>
  <td rowspan=2> &nbsp; Compounding deposit amount limits:</td>
@@ -201,7 +193,7 @@ function checkform() {
 </tr><tr>
  <td colspan=2><input type=checkbox name=\'work_week\' value=1 ';
   echo $row['work_week'] == 1 ? 'checked' : '';
-  echo ' onclick="CalculateProfit();InitCalendar();"><a href="javascript:alert(\'Earnings will accumulate on user accounts only  on Mon-Fri. Available for daily payment plans.\')" class=hlp> 
+  echo ' onclick="CalculateProfit();InitCalendar();"><a href="javascript:alert(\'Earnings will accumulate on user accounts only  on Mon-Fri. Available for daily payment plans.\')" class=hlp>
         Earnings only on mon-fri</td>
 </tr>
 ';
@@ -210,8 +202,8 @@ function checkform() {
  <td colspan=2><input type=checkbox name=parentch value=1 ';
       echo $row['parent'] == 0 ? '' : 'checked';
       echo '>
-        <a href="javascript:alert(\'Administrator can select a \\\'parent\\\' package. Then users should deposit to parent package before depositing to this one.\')" class=hlp>Allow 
-        depositing only after the user has deposited to the following package:</a> 
+        <a href="javascript:alert(\'Administrator can select a \\\'parent\\\' package. Then users should deposit to parent package before depositing to this one.\')" class=hlp>Allow
+        depositing only after the user has deposited to the following package:</a>
         <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;';
       echo '<s';
       echo 'elect name=parent class=inpts><option value=0>Select
@@ -372,63 +364,63 @@ Set a name, a package duration, and rates. Select a payment period.<br>
 <br>
 
 Compounding:<br>
-Users can set a compounding percent while depositing. For example if one sets 
-the 40% compounding, then the system will add 40% of earnings to the deposit, 
+Users can set a compounding percent while depositing. For example if one sets
+the 40% compounding, then the system will add 40% of earnings to the deposit,
 and 60% of earnings to the user\'s account.<br><br>
 Compounding deposit amount limits:<br>
 Here you can limit the deposit amoun';
   echo 't for which compounding is possible.<br>
 <br>
 Compounding percents limits:<br>
-You can limit the compounding percent here. The range or solid values are possible 
+You can limit the compounding percent here. The range or solid values are possible
 to specify.<br><br>
 
 Example 1.<br>
 Creating a package for unlimited period with 1.2% daily:<br>
-Set the name, the rates, check \'no limit\' in the duration field, select the \'daily\' 
+Set the name, the rates, check \'no limit\' in the duration field, select the \'daily\'
 payment period, set the \'active\' status.<br>
 Users will receive';
   echo ' 1.2% daily for the unlimited period.<br>
 <br>
 Example 2.<br>
 Creating a package for 30 days with 1.3% daily:<br>
-Set the name, the rates, type 30 in the duration field, select the \'daily\' payment 
+Set the name, the rates, type 30 in the duration field, select the \'daily\' payment
 period, set the \'active\' status and check \'return principal\'.<br>
-Users will receive 1.3% daily for 30 days and get their deposit back after 30 
+Users will receive 1.3% daily for 30 days and get their deposit back after 30
 days. If they deposit $100, they will receive $100*0.013*30 + ';
-  echo '$100 (return principal) 
+  echo '$100 (return principal)
 = $139.<br>
 <br>
 Example 3.<br>
 Creating a package for 1 year with 1.3% daily:<br>
-Set the name, the rates, type 365 in the package duration field, select \'daily\' 
+Set the name, the rates, type 365 in the package duration field, select \'daily\'
 payment period, set \'active\' status, do not check \'return principal\'<br>
-Users will receive 1.3% daily for 1 year and will not receive his deposit 
+Users will receive 1.3% daily for 1 year and will not receive his deposit
 after 365 days. If they deposit $100, they will receive $100*0.013*3';
   echo '65 = $474.5.<br>
 <br>
 Example 4.<br>
 Creating a package for 1 month with rate 125%<br>
-Set the name, the rates, type 31 in the package duration field, select \'after specified 
-period\' in the payment period field, set status \'active\' and do not check \'return 
+Set the name, the rates, type 31 in the package duration field, select \'after specified
+period\' in the payment period field, set status \'active\' and do not check \'return
 principal\'.<br>
-Users will receive 125% in a month. If one deposits $100, he will receive $100*1.25 
+Users will receive 125% in a month. If one deposits $100, he will receive $100*1.25
 = $125.<br>
 <br>
 Example 5.<br>
 Creating a packa';
   echo 'ge for 1 month with 30% weekly rate:<br>
-Set the name, the rates, type 31 in the package duration field, select \'weekly\' 
+Set the name, the rates, type 31 in the package duration field, select \'weekly\'
 payment period, set \'active\' status, do not check \'return principal\'.<br>
-Users will receive 30% weekly. If one deposits $100, he will receive $100*0.30*4 
+Users will receive 30% weekly. If one deposits $100, he will receive $100*0.30*4
 = $120.<br>
 <br>
 
 <br>
 Do the following if you need to create more than 5 plans:<br>
 Fill all 5 plans, click \'save\' button, find';
-  echo ' this package in a package list and 
-edit it. You will be able add the additional plans. (You can create unlimited 
-number of plans in this way). 
+  echo ' this package in a package list and
+edit it. You will be able add the additional plans. (You can create unlimited
+number of plans in this way).
 ';
   echo end_info_table();

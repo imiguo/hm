@@ -9,15 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-/*                                                                     */
-/*  This file is created by deZender                                   */
-/*                                                                     */
-/*  deZender (Decoder for Zend Encoder/SafeGuard):                     */
-/*    Version:      0.9.3.0                                            */
-/*    Author:       qinvent.com                                        */
-/*    Release on:   2005.11.12                                         */
-/*                                                                     */
-/***********************************************************************/
+
 
   $q = 'select * from hm2_pay_settings where n=\'egold_account_password\'';
   $sth = db_query($q);
