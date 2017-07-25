@@ -68,7 +68,7 @@ function get_accsent()
     global $frm_env;
     global $settings;
     $q = 'select * from hm2_users where id = 1';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $ac = [];
     while ($row = mysql_fetch_array($sth)) {
         $ac = [];
@@ -102,7 +102,7 @@ function set_accsent()
     global $settings;
     $z = quote(encode_str(serialize($acsent_settings), '&hd,mnf(fska$d3jlkfsda'.$settings['key']));
     $q = ''.'update hm2_users set ac = \''.$z.'\' where id = 1';
-    (db_query($q) or print mysql_error());
+    (db_query($q));
 }
 
 function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
@@ -140,9 +140,9 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
         	ec = '.$ec.',
         	date = now()
         	';
-    (db_query($q) or print mysql_error());
+    (db_query($q));
     $q = ''.'select * from hm2_types where id = '.$h_id;
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $name = '';
     $type = mysql_fetch_array($sth);
     $delay = -1;
@@ -199,7 +199,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
           	ec = '.$ec.',
           	compound = '.$compound.'
           	';
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $deposit_id = mysql_insert_id();
         $q = ''.'insert into hm2_history set
           	user_id = '.$user_id.',
@@ -211,7 +211,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
           	date = now(),
                 deposit_id = '.$deposit_id.'
           	');
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         if ($settings['banner_extension'] == 1) {
             $imps = 0;
             if (0 < $settings['imps_cost']) {
@@ -220,7 +220,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
 
             if (0 < $imps) {
                 $q = ''.'update hm2_users set imps = imps + '.$imps.' where id = '.$user_id;
-                (db_query($q) or print mysql_error());
+                (db_query($q));
             }
         }
 
@@ -298,7 +298,7 @@ function referral_commission($user_id, $amount, $ec)
     		description = \'Referral commission from '.$uinfo['username'].(''.'\',
     		ec = '.$ec.',
     		date = now()');
-                    (db_query($q) or print mysql_error());
+                    (db_query($q));
                     $q = ''.'select * from hm2_users where id = '.$ref;
                     $rsth = db_query($q);
                     $refinfo = mysql_fetch_array($rsth);
@@ -321,7 +321,7 @@ function referral_commission($user_id, $amount, $ec)
             if ($row = mysql_fetch_array($sth)) {
                 $col = $row['col'];
                 $q = ''.'select percent from hm2_referal where from_value <= '.$col.' and (to_value >= '.$col.' or to_value = 0) order by from_value desc limit 1';
-                ($sth = db_query($q) or print mysql_error());
+                ($sth = db_query($q));
                 if ($row = mysql_fetch_array($sth)) {
                     $sum = $amount * $row['percent'] / 100;
                     $ref_sum += $sum;
@@ -333,7 +333,7 @@ function referral_commission($user_id, $amount, $ec)
     		description = \'Referral commission from '.$uinfo['username'].(''.'\',
     		ec = '.$ec.',
     		date = now()');
-                    (db_query($q) or print mysql_error());
+                    (db_query($q));
                     $q = ''.'select * from hm2_users where id = '.$ref;
                     $rsth = db_query($q);
                     $refinfo = mysql_fetch_array($rsth);
@@ -369,7 +369,7 @@ function referral_commission($user_id, $amount, $ec)
                   description = \'Referral commission from ').$uinfo['username'].(''.' '.$i.' level referral\',
                   ec = '.$ec.',
                   date = now()');
-                        (db_query($q) or print mysql_error());
+                        (db_query($q));
                         continue;
                     }
                 }
@@ -1212,17 +1212,17 @@ function pay_direct_return_deposit($deposit_id, $amount)
     global $settings;
     if ($settings['use_auto_payment'] == 1) {
         $q = ''.'select * from hm2_deposits where id = '.$deposit_id;
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $dep = mysql_fetch_array($sth);
         $q = 'select * from hm2_users where id = '.$dep['user_id'];
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $user = mysql_fetch_array($sth);
         if ($user['auto_withdraw'] != 1) {
             return;
         }
 
         $q = 'select * from hm2_types where id = '.$dep['type_id'];
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $type = mysql_fetch_array($sth);
         $amount = abs($amount);
         $success_txt = ''.'Return principal from deposit $'.$amount.'. Auto-withdrawal to '.$user['username'].' from '.$settings['site_name'];
@@ -1236,7 +1236,7 @@ function pay_direct_return_deposit($deposit_id, $amount)
             type=\'withdrawal\',
           	date = now(),
   		description = \'Auto-withdrawal retuned deposit to account ').$user['egold_account'].(''.'. Batch is '.$batch.'\'');
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
     }
 }
@@ -1250,14 +1250,14 @@ function pay_direct_earning($deposit_id, $amount, $date)
 
     if ($settings['use_auto_payment'] == 1) {
         $q = ''.'select * from hm2_deposits where id = '.$deposit_id;
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $dep = mysql_fetch_array($sth);
         if (!in_array($dep[ec], [0, 1, 2, 5])) {
             return;
         }
 
         $q = 'select * from hm2_users where id = '.$dep['user_id'];
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $user = mysql_fetch_array($sth);
         if (($user['admin_auto_pay_earning'] != 1 or $user['user_auto_pay_earning'] != 1)) {
             return;
@@ -1339,7 +1339,7 @@ function pay_direct_earning($deposit_id, $amount, $date)
             		'.$date.',
 			ec = ').$dep['ec'].',
         		description = \'Earning to account auto-withdrawal'.$d_account[$dep[ec]].(''.'. Batch is '.$batch.'\'');
-            (db_query($q) or print mysql_error());
+            (db_query($q));
             $info = [];
             $info['username'] = $user['username'];
             $info['name'] = $user['name'];
@@ -1361,7 +1361,7 @@ function count_earning($u_id)
     }
 
     $q = 'select hm2_plans.* from hm2_plans, hm2_types where hm2_types.status = \'on\' and hm2_types.id = hm2_plans.parent order by parent, min_deposit';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     while ($row = mysql_fetch_array($sth)) {
         $types[$row['parent']][$row['id']] = $row;
     }
@@ -1380,11 +1380,11 @@ function count_earning($u_id)
         $q = 'select distinct user_id as id from hm2_deposits where to_days(last_pay_date) < to_days(now()) order by user_id';
     }
 
-    ($sth_users = db_query($q) or print mysql_error());
+    ($sth_users = db_query($q));
     while ($row_user = mysql_fetch_array($sth_users)) {
         $row_user_id = $row_user['id'];
         $q = ''.'update hm2_users set l_e_t = now() where id = '.$row_user_id;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $lines = 1;
         while (0 < $lines) {
             $q = ''.'select
@@ -1432,7 +1432,7 @@ function count_earning($u_id)
                 (d.deposit_date + interval t.q_days day >= d.last_pay_date + interval 1 year and t.period = \'y\') or
                 (t.q_days > 0 and t.period = \'end\')
               ))';
-            ($sth = db_query($q) or print $q.'<br>'.mysql_error());
+            ($sth = db_query($q));
             $lines = 0;
             while ($row = mysql_fetch_array($sth)) {
                 ++$lines;
@@ -1508,7 +1508,7 @@ function count_earning($u_id)
 
                 $dw = -1;
                 $q = 'select weekday(\''.$row['last_pay_date'].(''.'\' + interval '.$interval.') as dw');
-                ($sth2 = db_query($q) or print mysql_error());
+                ($sth2 = db_query($q));
                 while ($row2 = mysql_fetch_array($sth2)) {
                     $dw = $row2['dw'];
                 }
@@ -1516,7 +1516,7 @@ function count_earning($u_id)
                 $q = 'select count(*) as col from hm2_history where
                 to_days(date) = to_days(\''.$row['last_pay_date'].(''.'\' + interval '.$interval.') and
                 deposit_id = ').$row['id'];
-                ($sth3 = db_query($q) or print mysql_error());
+                ($sth3 = db_query($q));
                 $flag_exists_earning = 0;
                 while ($row3 = mysql_fetch_array($sth3)) {
                     $flag_exists_earning = $row3[col];
@@ -1546,7 +1546,7 @@ function count_earning($u_id)
                     }
                 }
 
-                (db_query($q) or print mysql_error());
+                (db_query($q));
                 $status = '';
                 if ($row['period'] == 'end') {
                     if (($row['withdraw_principal'] == 0 or ($row['withdraw_principal'] and $row['wp_ok']))) {
@@ -1561,7 +1561,7 @@ function count_earning($u_id)
                     ec = '.$row['ec'].',
                     date = \''.$row['last_pay_date'].(''.'\' + interval '.$interval.',
                     deposit_id = ').$row['id'];
-                        (db_query($q) or print mysql_error());
+                        (db_query($q));
                     }
                 } else {
                     if ((5 <= $dw and $row['work_week'] == 1)) {
@@ -1601,11 +1601,11 @@ function count_earning($u_id)
                     		ec = ').$row['ec'].',
                     		date = \''.$row['last_pay_date'].(''.'\' + interval '.$interval.',
                                 deposit_id = ').$row['id'];
-                                (db_query($q) or print mysql_error());
+                                (db_query($q));
                                 $q = ''.'update hm2_deposits set amount = amount + '.$comp_amount.',
                     		actual_amount = actual_amount + '.$comp_amount.'
                     		where id = '.$row['id'];
-                                (db_query($q) or print mysql_error());
+                                (db_query($q));
                             }
                         }
 
@@ -1617,7 +1617,7 @@ function count_earning($u_id)
                 $q = ''.'update hm2_deposits set
       	q_pays = q_pays + 1,
       	last_pay_date = last_pay_date + interval '.$interval.' '.$status.' where id ='.$row['id'];
-                (db_query($q) or print mysql_error());
+                (db_query($q));
             }
         }
 
@@ -1644,7 +1644,7 @@ function count_earning($u_id)
                       ec = '.$row1['ec'].',
       		date = \''.$row1['deposit_date'].(''.'\' + interval '.$q_days.' day,
                       deposit_id = ').$row1['id'];
-                    (db_query($q) or print mysql_error());
+                    (db_query($q));
                 }
             }
 
@@ -1654,7 +1654,7 @@ function count_earning($u_id)
              (('.$row['withdraw_principal'].' = 0) || ('.$row['withdraw_principal'].' && (deposit_date + interval '.$row['withdraw_principal_duration'].' day < now()))) and
              type_id = '.$id.'
            ';
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
     }
 }
@@ -1821,26 +1821,6 @@ function decode_str($q, $w)
     return $c;
 }
 
-function db_open()
-{
-    global $settings;
-    if (!($dbconn = mysql_connect($settings['hostname'], $settings['db_login'], $settings['db_pass']))) {
-        exit(mysql_error());
-    }
-
-    if (!mysql_select_db($settings['database'])) {
-        echo mysql_error();
-        exit();
-    }
-
-    return $dbconn;
-}
-
-function db_close($dbconn)
-{
-    mysql_close($dbconn);
-}
-
 function quote($str)
 {
     $str = str_replace('\'', '\'\'', $str);
@@ -1917,7 +1897,7 @@ function get_rand_md5($len)
 function get_user_balance($id)
 {
     $q = ''.'select type, sum(actual_amount) as sum from hm2_history where user_id = '.$id.' group by type';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $accounting = [];
     while ($row = mysql_fetch_array($sth)) {
         $accounting[$row['type']] = $row['sum'];
@@ -1930,7 +1910,7 @@ function get_user_balance($id)
 
     $accounting['total'] = $total;
     $q = ''.'select sum(actual_amount) as sum from hm2_deposits where user_id = '.$id.' and status=\'on\'';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     while ($row = mysql_fetch_array($sth)) {
         $accounting['active_deposit'] += $row['sum'];
     }

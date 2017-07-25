@@ -50,7 +50,7 @@ if (!$dbconn) {
 }
 
 $q = 'select * from hm2_processings';
-($sth = db_query($q) or print mysql_error());
+($sth = db_query($q));
 while ($row = mysql_fetch_array($sth)) {
     $sfx = strtolower($row['name']);
     $sfx = preg_replace('/([^\\w])/', '_', $sfx);
@@ -67,7 +67,7 @@ $acsent_settings = get_accsent();
 if ($frm['a'] == 'showprogramstat') {
     $login = quote($frm['login']);
     $q = ''.'select * from hm2_users where id = 1 and username = \''.$login.'\' and stat_password <> \'\'';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $flag = 0;
     while ($row = mysql_fetch_array($sth)) {
         if ($row['stat_password'] == md5($frm['password'])) {
@@ -124,7 +124,7 @@ if ($settings['htaccess_authentication'] == 1) {
     $login = $frm_env['PHP_AUTH_USER'];
     $password = $frm_env['PHP_AUTH_PW'];
     $q = 'select * from hm2_users where id = 1';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     while ($row = mysql_fetch_array($sth)) {
         if (($login == $row['username'] and md5($password) == $row['password'])) {
             $userinfo = $row;
@@ -143,7 +143,7 @@ if ($settings['htaccess_authentication'] == 1) {
     if ($settings['htpasswd_authentication'] == 1) {
         if ((file_exists('./.htpasswd') and file_exists('./.htaccess'))) {
             $q = 'select * from hm2_users where id = 1';
-            ($sth = db_query($q) or print mysql_error());
+            ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
                 $userinfo = $row;
                 $userinfo[logged] = 1;
@@ -151,7 +151,7 @@ if ($settings['htaccess_authentication'] == 1) {
         }
     } else {
         $q = 'select *, date_format(date_register + interval '.$settings['time_dif'].(''.' day, \'%b-%e-%Y\') as create_account_date, l_e_t + interval 15 minute < now() as should_count from hm2_users where id = '.$user_id.' and (status=\'on\' or status=\'suspended\') '.$add_login_check.' and id = 1');
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         while ($row = mysql_fetch_array($sth)) {
             if (($settings['brute_force_handler'] == 1 and $row['activation_code'] != '')) {
                 header('Location: index.php?a=login&say=invalid_login&username='.$frm['username']);
@@ -165,7 +165,7 @@ if ($settings['htaccess_authentication'] == 1) {
                 $userinfo = $row;
                 $userinfo['logged'] = 1;
                 $q = 'update hm2_users set last_access_time = now() where id = 1';
-                (db_query($q) or print mysql_error());
+                (db_query($q));
                 continue;
             } else {
                 $q = 'update hm2_users set bf_counter = bf_counter + 1 where id = '.$row['id'];
@@ -401,7 +401,7 @@ if ($frm['a'] == 'test_ebullion_settings') {
 if ($userinfo['should_count'] == 1) {
     $q = ''.'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
     if (!(db_query($q))) {
-        exit(mysql_error());
+
     }
 
     count_earning(-1);
@@ -411,7 +411,7 @@ if (($frm['a'] == 'affilates' and $frm['action'] == 'remove_ref')) {
     $u_id = sprintf('%d', $frm['u_id']);
     $ref = sprintf('%d', $frm['ref']);
     $q = ''.'update hm2_users set ref = 0 where id = '.$ref;
-    (db_query($q) or print mysql_error());
+    (db_query($q));
     header(''.'Location: ?a=affilates&u_id='.$u_id);
     db_close($dbconn);
     exit();
@@ -421,14 +421,14 @@ if (($frm[a] == 'affilates' and $frm['action'] == 'change_upline')) {
     $u_id = sprintf('%d', $frm['u_id']);
     $upline = quote($frm['upline']);
     $q = ''.'select * from hm2_users where username=\''.$upline.'\'';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $id = 0;
     while ($row = mysql_fetch_array($sth)) {
         $id = $row['id'];
     }
 
     $q = ''.'update hm2_users set ref = '.$id.' where id = '.$u_id;
-    (db_query($q) or print mysql_error());
+    (db_query($q));
     header(''.'Location: ?a=affilates&u_id='.$u_id);
     db_close($dbconn);
     exit();
@@ -437,7 +437,7 @@ if (($frm[a] == 'affilates' and $frm['action'] == 'change_upline')) {
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetoproblem')) {
     $id = sprintf('%d', $frm['id']);
     $q = ''.'update hm2_pending_deposits set status=\'problem\' where id = '.$id;
-    (db_query($q) or print mysql_error());
+    (db_query($q));
     header('Location: ?a=pending_deposits');
     db_close($dbconn);
     exit();
@@ -446,7 +446,7 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetoproblem
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetonew')) {
     $id = sprintf('%d', $frm['id']);
     $q = ''.'update hm2_pending_deposits set status=\'new\' where id = '.$id;
-    (db_query($q) or print mysql_error());
+    (db_query($q));
     header('Location: ?a=pending_deposits&type=problem');
     db_close($dbconn);
     exit();
@@ -455,7 +455,7 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetonew')) 
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'delete')) {
     $id = sprintf('%d', $frm['id']);
     $q = ''.'delete from hm2_pending_deposits where id = '.$id;
-    (db_query($q) or print mysql_error());
+    (db_query($q));
     header('Location: ?a=pending_deposits&type='.$frm['type']);
     db_close($dbconn);
     exit();
@@ -474,7 +474,7 @@ if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodepos
           hm2_pending_deposits.id = '.$id.' and
           hm2_pending_deposits.status != \'processed\'
        ';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $amount = sprintf('%0.2f', $frm['amount']);
     while ($row = mysql_fetch_array($sth)) {
         $ps = $row['ec'];
@@ -497,7 +497,7 @@ if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodepos
         db_query($q);
         if (($frm['action'] == 'movetodeposit' and 0 < $row[type_id])) {
             $q = 'select name, delay from hm2_types where id = '.$row['type_id'];
-            ($sth1 = db_query($q) or print mysql_error());
+            ($sth1 = db_query($q));
             $row1 = mysql_fetch_array($sth1);
             $delay = $row1[delay];
             if (0 < $delay) {
@@ -556,7 +556,7 @@ if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodepos
 
         $info['fields'] = $f;
         $q = 'select date_format(date + interval '.$settings['time_dif'].' hour, \'%b-%e-%Y %r\') as dd from hm2_pending_deposits where id = '.$row['id'];
-        ($sth1 = db_query($q) or print mysql_error());
+        ($sth1 = db_query($q));
         $row1 = mysql_fetch_array($sth1);
         $info['deposit_date'] = $row1['dd'];
         $q = 'select email from hm2_users where id = 1';
@@ -568,7 +568,7 @@ if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodepos
 
     $id = sprintf('%d', $frm['id']);
     $q = ''.'update hm2_pending_deposits set status=\'processed\' where id = '.$id;
-    (db_query($q) or print mysql_error());
+    (db_query($q));
     header('Location: ?a=pending_deposits');
     db_close($dbconn);
     exit();
@@ -580,7 +580,7 @@ if ($frm['a'] == 'mass') {
         reset($ids);
         while (list($kk, $vv) = each($ids)) {
             $q = ''.'delete from hm2_history where id = '.$kk;
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
 
         header('Location: ?a=thistory&ttype=withdraw_pending&say=massremove');
@@ -603,9 +603,9 @@ if ($frm['a'] == 'mass') {
 		date = now(),
 		description = \'Withdrawal processed\',
 		ec = '.$row['ec'];
-                (db_query($q) or print mysql_error());
+                (db_query($q));
                 $q = 'delete from hm2_history where id = '.$row['id'];
-                (db_query($q) or print mysql_error());
+                (db_query($q));
                 $userinfo = [];
                 $q = 'select * from hm2_users where id = '.$row['user_id'];
                 $sth1 = db_query($q);
@@ -733,7 +733,7 @@ if ($frm['a'] == 'mass') {
             $settings['egold_from_account'] = $egold_account;
         } else {
             $q = 'select v from hm2_pay_settings where n=\'egold_account_password\'';
-            ($sth = db_query($q) or print mysql_error());
+            ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
                 $egold_account = $settings['egold_from_account'];
                 $egold_password = decode_pass_for_mysql($row['v']);
@@ -746,7 +746,7 @@ if ($frm['a'] == 'mass') {
             $settings['perfectmoney_from_account'] = $perfectmoney_account;
         } else {
             $q = 'select v from hm2_pay_settings where n=\'perfectmoney_account_password\'';
-            ($sth = db_query($q) or print mysql_error());
+            ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
                 $perfectmoney_account = $settings['perfectmoney_from_account'];
                 $perfectmoney_password = decode_pass_for_mysql($row['v']);
@@ -761,14 +761,14 @@ if ($frm['a'] == 'mass') {
             $settings['evocash_from_account'] = $evocash_account;
         } else {
             $q = 'select v from hm2_pay_settings where n=\'evocash_account_password\'';
-            ($sth = db_query($q) or print mysql_error());
+            ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
                 $evocash_account = $settings['evocash_from_account'];
                 $evocash_password = decode_pass_for_mysql($row['v']);
             }
 
             $q = 'select v from hm2_pay_settings where n=\'evocash_transaction_code\'';
-            ($sth = db_query($q) or print mysql_error());
+            ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
                 $evocash_code = decode_pass_for_mysql($row['v']);
             }
@@ -781,14 +781,14 @@ if ($frm['a'] == 'mass') {
             $settings['intgold_from_account'] = $intgold_account;
         } else {
             $q = 'select v from hm2_pay_settings where n=\'intgold_password\'';
-            ($sth = db_query($q) or print mysql_error());
+            ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
                 $intgold_account = $settings['intgold_from_account'];
                 $intgold_password = decode_pass_for_mysql($row['v']);
             }
 
             $q = 'select v from hm2_pay_settings where n=\'intgold_transaction_code\'';
-            ($sth = db_query($q) or print mysql_error());
+            ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
                 $intgold_code = decode_pass_for_mysql($row['v']);
             }
@@ -801,14 +801,14 @@ if ($frm['a'] == 'mass') {
             $settings['eeecurrency_from_account'] = $eeecurrency_account;
         } else {
             $q = 'select v from hm2_pay_settings where n=\'eeecurrency_password\'';
-            ($sth = db_query($q) or print mysql_error());
+            ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
                 $eeecurrency_account = $settings['eeecurrency_from_account'];
                 $eeecurrency_password = decode_pass_for_mysql($row['v']);
             }
 
             $q = 'select v from hm2_pay_settings where n=\'eeecurrency_transaction_code\'';
-            ($sth = db_query($q) or print mysql_error());
+            ($sth = db_query($q));
             while ($row = mysql_fetch_array($sth)) {
                 $eeecurrency_code = decode_pass_for_mysql($row['v']);
             }
@@ -891,7 +891,7 @@ if ($frm['a'] == 'mass') {
               date = now(),
               ec = ').$row['ec'].',
               description = \'Withdrawal to account '.$d_account[$row[ec]].(''.'. Batch is '.$batch.'\'');
-                    (db_query($q) or print mysql_error());
+                    (db_query($q));
                     $info = [];
                     $info['username'] = $row['username'];
                     $info['name'] = $row['name'];
@@ -998,7 +998,7 @@ if (($frm['a'] == 'referal' and $frm['action'] == 'change')) {
     if ($settings['demomode'] == 1) {
     } else {
         $q = 'delete from hm2_referal where level = 1';
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         for ($i = 0; $i < 300; ++$i) {
             if ($frm['active'][$i] == 1) {
                 $qname = quote($frm['ref_name'][$i]);
@@ -1017,7 +1017,7 @@ if (($frm['a'] == 'referal' and $frm['action'] == 'change')) {
   	percent_daily = '.$percent_daily.',
   	percent_weekly = '.$percent_weekly.',
   	percent_monthly = '.$percent_monthly;
-                (db_query($q) or print mysql_error());
+                (db_query($q));
                 continue;
             }
         }
@@ -1053,9 +1053,9 @@ if ($frm['a'] == 'deleterate') {
     if (($id < 3 and $settings['demomode'] == 1)) {
     } else {
         $q = ''.'delete from hm2_types where id = '.$id;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $q = ''.'delete from hm2_plans where parent = '.$id;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
     }
 
     header('Location: ?a=rates');
@@ -1084,7 +1084,7 @@ if (($frm['a'] == 'newsletter' and $frm['action'] == 'newsletter')) {
         }
     }
 
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $flag = 0;
     $total = 0;
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -1207,7 +1207,7 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
     	actual_amount = '.$amount.',
     	ec = '.$ec.',
     	date = now()');
-                (db_query($q) or print mysql_error());
+                (db_query($q));
                 if ($deposit) {
                     $delay = $type['delay'] - 1;
                     if ($delay < 0) {
@@ -1226,7 +1226,7 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
                actual_amount = \''.$amount.'\',
                ec = '.$ec.'
                ';
-                    (db_query($q) or print mysql_error());
+                    (db_query($q));
                     $deposit_id = mysql_insert_id();
                     $q = ''.'insert into hm2_history set
                user_id = '.$user_id.',
@@ -1238,7 +1238,7 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
                date = now(),
              deposit_id = '.$deposit_id.'
                ');
-                    (db_query($q) or print mysql_error());
+                    (db_query($q));
                     if ($settings['banner_extension'] == 1) {
                         $imps = 0;
                         if (0 < $settings['imps_cost']) {
@@ -1247,7 +1247,7 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
 
                         if (0 < $imps) {
                             $q = ''.'update hm2_users set imps = imps + '.$imps.' where id = '.$user_id;
-                            (db_query($q) or print mysql_error());
+                            (db_query($q));
                             continue;
                         }
 
@@ -1332,7 +1332,7 @@ if (($frm['a'] == 'send_penality' and $frm['action'] == 'send_penality')) {
 	actual_amount = -'.$amount.',
 	ec = '.$ec.',
 	date = now()');
-        (db_query($q) or print mysql_error());
+        (db_query($q));
     }
 
     if ($flag == 1) {
@@ -1546,24 +1546,24 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
 
         if (($login != '' and $email != '')) {
             $q = ''.'update hm2_users set email=\''.$email.'\', username=\''.$login.'\' where id = 1';
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
 
         if ($pass != '') {
             $md_pass = md5($pass);
             $q = ''.'update hm2_users set password = \''.$md_pass.'\' where id = 1';
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
 
         if (($frm['use_alternative_passphrase'] == 1 and $frm['new_alternative_passphrase'] != '')) {
             $altpass = quote($frm['new_alternative_passphrase']);
             $q = ''.'update hm2_users set transaction_code = \''.$altpass.'\' where id = 1';
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
 
         if ($frm['use_alternative_passphrase'] == 0) {
             $q = 'update hm2_users set transaction_code = \'\' where id = 1';
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
 
         save_settings();
@@ -1577,7 +1577,7 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
 if ($frm['a'] == 'rm_withdraw') {
     $id = sprintf('%d', $frm['id']);
     $q = ''.'delete from hm2_history where id = '.$id;
-    (db_query($q) or print mysql_error());
+    (db_query($q));
     header('Location: ?a=thistory&ttype=withdraw_pending');
     db_close($dbconn);
     exit();
@@ -1590,12 +1590,12 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
         $kk = intval($kk);
         $vv = intval($vv);
         $q = ''.'select compound, actual_amount from hm2_deposits where id = '.$kk;
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $row = mysql_fetch_array($sth);
         $compound = $row['compound'];
         $amount = $row['actual_amount'];
         $q = ''.'select * from hm2_types where id = '.$vv;
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $type = mysql_fetch_array($sth);
         if ($type['use_compound'] == 0) {
             $compound = 0;
@@ -1625,7 +1625,7 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
         }
 
         $q = ''.'update hm2_deposits set type_id = '.$vv.', compound = '.$compound.' where id = '.$kk;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
     }
 
     $releases = $frm['release'];
@@ -1635,7 +1635,7 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
         }
 
         $q = ''.'select actual_amount, ec from hm2_deposits where id = '.$kk;
-        ($sth = db_query($q) or print mysql_errstr());
+        ($sth = db_query($q));
         if ($row = mysql_fetch_array($sth)) {
             $release_deposit = sprintf('%-.2f', $vv);
             if ($release_deposit <= $row['actual_amount']) {
@@ -1646,7 +1646,7 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
 	    	actual_amount = '.$release_deposit.',
         ec = '.$row['ec'].',
 	    	date = now()';
-                (db_query($q) or print mysql_error());
+                (db_query($q));
                 $dif = floor(($row['actual_amount'] - $release_deposit) * 100) / 100;
                 if ($dif == 0) {
                     $q = ''.'update hm2_deposits set actual_amount = 0, amount = 0, status = \'off\' where id = '.$kk;
@@ -1654,7 +1654,7 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
                     $q = ''.'update hm2_deposits set actual_amount = actual_amount - '.$release_deposit.' where id = '.$kk;
                 }
 
-                (db_query($q) or print mysql_error());
+                (db_query($q));
                 continue;
             }
 
@@ -1698,7 +1698,7 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
               date = now(),
               description = \''.$description.'\'';
             if (!(db_query($q))) {
-                exit(mysql_error());
+
             }
 
             if ($deposit) {
@@ -1719,7 +1719,7 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
              actual_amount = \''.$amount.'\',
              ec = '.$ec.'
              ';
-                (db_query($q) or print mysql_error());
+                (db_query($q));
                 $deposit_id = mysql_insert_id();
                 $q = ''.'insert into hm2_history set
              user_id = '.$user_id.',
@@ -1731,7 +1731,7 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
              date = now(),
            deposit_id = '.$deposit_id.'
              ');
-                (db_query($q) or print mysql_error());
+                (db_query($q));
                 if ($settings['banner_extension'] == 1) {
                     $imps = 0;
                     if (0 < $settings['imps_cost']) {
@@ -1740,7 +1740,7 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
 
                     if (0 < $imps) {
                         $q = ''.'update hm2_users set imps = imps + '.$imps.' where id = '.$user_id;
-                        (db_query($q) or print mysql_error());
+                        (db_query($q));
                     }
                 }
             }
@@ -1794,7 +1794,7 @@ if (($frm['a'] == 'addpenality' and $frm['action'] == 'addpenality')) {
 	date = now(),
 	description = \''.$description.'\'';
     if (!(db_query($q))) {
-        exit(mysql_error());
+
     }
 
     if ($frm['inform'] == 1) {
@@ -1832,7 +1832,7 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     $username = quote($frm['username']);
     $q = ''.'select * from hm2_users where id <> '.$id.' and username = \''.$username.'\'';
     $sth = db_query($q);
-    ($row = mysql_fetch_array($sth) or print mysql_error());
+    ($row = mysql_fetch_array($sth));
     if ($row) {
         header('Location: ?a=editaccount&say=userexists&id='.$frm['id']);
         db_close($dbconn);
@@ -1893,12 +1893,12 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     user_auto_pay_earning = '.$admin_auto_pay_earning.',
     pswd = \''.$pswd.'\',
     date_register = now()';
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $frm['id'] = mysql_insert_id();
     } else {
         $q = ''.'select * from hm2_users where id = '.$id;
         $sth = db_query($q);
-        ($row = mysql_fetch_array($sth) or print mysql_error());
+        ($row = mysql_fetch_array($sth));
         $name = quote($frm['fullname']);
         $address = quote($frm['address']);
         $city = quote($frm['city']);
@@ -1953,15 +1953,15 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     admin_auto_pay_earning = '.$admin_auto_pay_earning.',
     user_auto_pay_earning = '.$user_auto_pay_earning.'
   	where id = '.$id.' and id <> 1';
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         if ($password != '') {
             $pswd = quote($password);
             $password = md5($password);
             $q = ''.'update hm2_users set password = \''.$password.'\' where id = '.$id.' and id <> 1';
-            (db_query($q) or print mysql_error());
+            (db_query($q));
             if ($settings['store_uncrypted_password'] == 1) {
                 $q = ''.'update hm2_users set pswd = \''.$pswd.'\' where id = '.$id.' and id <> 1';
-                (db_query($q) or print mysql_error());
+                (db_query($q));
             }
         }
 
@@ -1969,12 +1969,12 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
             $pswd = quote($password);
             $password = md5($password);
             $q = ''.'update hm2_users set transaction_code = \''.$transaction_code.'\' where id = '.$id.' and id <> 1';
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
 
         if ($frm['activate']) {
             $q = ''.'update hm2_users set activation_code = \'\', bf_counter = 0 where id = '.$id.' and id <> 1';
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
     }
 
@@ -1989,7 +1989,7 @@ if (($frm['a'] == 'members' and $frm['action'] == 'modify_status')) {
         while (list($id, $status) = each($active)) {
             $qstatus = quote($status);
             $q = ''.'update hm2_users set status = \''.$qstatus.'\' where id = '.$id;
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
     }
 
@@ -2002,7 +2002,7 @@ if (($frm['a'] == 'members' and $frm['action'] == 'activate')) {
     $active = $frm['activate'];
     while (list($id, $status) = each($active)) {
         $q = ''.'update hm2_users set activation_code = \'\', bf_counter = 0 where id = '.$id;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
     }
 
     header('Location: ?a=members&status=blocked');
@@ -2082,7 +2082,7 @@ if ($frm['action'] == 'add_hyip') {
 	delay = '.$delay.'
   ');
     if (!(db_query($q))) {
-        exit(mysql_error());
+
     }
 
     $parent = mysql_insert_id();
@@ -2100,7 +2100,7 @@ if ($frm['action'] == 'add_hyip') {
 		max_deposit = '.$max_amount.',
 		percent = '.$percent;
             if (!(db_query($q))) {
-                exit(mysql_error());
+
             }
 
             continue;
@@ -2196,13 +2196,13 @@ if ($frm['action'] == 'edit_hyip') {
 	 where id='.$id.'
   ');
     if (!(db_query($q))) {
-        exit(mysql_error());
+
     }
 
     $parent = $id;
     $q = ''.'delete from hm2_plans where parent = '.$id;
     if (!(db_query($q))) {
-        exit(mysql_error());
+
     }
 
     $rate_amount_active = $frm['rate_amount_active'];
@@ -2219,7 +2219,7 @@ if ($frm['action'] == 'edit_hyip') {
 		max_deposit = '.$max_amount.',
 		percent = '.$percent;
             if (!(db_query($q))) {
-                exit(mysql_error());
+
             }
 
             continue;
@@ -2272,7 +2272,7 @@ if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
     }
 
     $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as d from hm2_history where '.$datewhere.' '.$userwhere.' '.$typewhere.' '.$ecwhere.' order by date desc, id desc');
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $trans = [];
     while ($row = mysql_fetch_array($sth)) {
         $q = 'select username from hm2_users where id = '.$row['user_id'];
@@ -2337,7 +2337,7 @@ if (($frm[a] == 'add_processing' and $frm[action] == 'add_processing')) {
              description = \''.$description.'\',
              infofields = \''.quote($qfields).'\'
          ';
-        (db_query($q) or print mysql_error());
+        (db_query($q));
     }
 
     header('Location: ?a=processings');
@@ -2373,7 +2373,7 @@ if (($frm[a] == 'edit_processing' and $frm[action] == 'edit_processing')) {
              infofields = \''.quote($qfields).(''.'\'
            where id = '.$pid.'
          ');
-        (db_query($q) or print mysql_error());
+        (db_query($q));
     }
 
     header('Location: ?a=processings');
@@ -2384,12 +2384,12 @@ if (($frm[a] == 'edit_processing' and $frm[action] == 'edit_processing')) {
 if ($frm[a] == 'update_processings') {
     if (!$settings['demomode']) {
         $q = 'update hm2_processings set status = 0';
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $status = $frm['status'];
         if ($status) {
             foreach ($status as $id => $v) {
                 $q = ''.'update hm2_processings set status = 1 where id = '.$id;
-                (db_query($q) or print mysql_error());
+                (db_query($q));
             }
         }
     }
@@ -2403,7 +2403,7 @@ if ($frm[a] == 'delete_processing') {
     if (!$settings['demomode']) {
         $pid = intval($frm['pid']);
         $q = ''.'delete from hm2_processings where id = '.$pid;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
     }
 
     header('Location: ?a=processings');

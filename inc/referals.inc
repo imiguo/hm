@@ -73,7 +73,7 @@ $smarty->assign('site_name', $settings['site_name']);
   $referals = [];
   while ($row = mysql_fetch_array($sth)) {
       $q = 'select count(*) as col from hm2_deposits where user_id = '.$row['id'];
-      ($sth2 = db_query($q) or print mysql_error());
+      ($sth2 = db_query($q));
       while ($row2 = mysql_fetch_array($sth2)) {
           $row[q_deposits] = $row2[col];
       }
@@ -90,7 +90,7 @@ $smarty->assign('site_name', $settings['site_name']);
           while ($row1 = mysql_fetch_array($sth1)) {
               array_push($parents, $row1['id']);
               $q = 'select count(*) as col from hm2_deposits where user_id = '.$row1['id'];
-              ($sth2 = db_query($q) or print mysql_error());
+              ($sth2 = db_query($q));
               while ($row2 = mysql_fetch_array($sth2)) {
                   $q_deposits = $row2[col];
               }

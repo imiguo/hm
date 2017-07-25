@@ -11,7 +11,7 @@
 
 $u_id = sprintf('%d', $frm['u_id']);
   $q = ''.'select * from hm2_users where id = '.$u_id;
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $username = $row['username'];
       $ref = $row['ref'];
@@ -19,14 +19,14 @@ $u_id = sprintf('%d', $frm['u_id']);
 
   if (0 < $ref) {
       $q = ''.'select * from hm2_users where id = '.$ref;
-      ($sth = db_query($q) or print mysql_error());
+      ($sth = db_query($q));
       while ($row = mysql_fetch_array($sth)) {
           $upline_name = $row['username'];
       }
   }
 
   $q = ''.'select count(*) as col from hm2_users where ref='.$u_id;
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $q_affilates = $row[col];
   }
@@ -88,11 +88,11 @@ $u_id = sprintf('%d', $frm['u_id']);
   $q_other_active = 0;
   $q_other = 0;
   $q = ''.'select * from hm2_users where ref='.$u_id.' order by id desc';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $row['stat'] = 'Not deposited yet';
       $q = 'select count(*) as col from hm2_deposits where user_id = '.$row[id];
-      ($sth2 = db_query($q) or print mysql_error());
+      ($sth2 = db_query($q));
       while ($row2 = mysql_fetch_array($sth2)) {
           $row['stat'] = (0 < $row2['col'] ? 'Deposited' : 'Not deposited yet');
       }
@@ -109,7 +109,7 @@ $u_id = sprintf('%d', $frm['u_id']);
           while ($row1 = mysql_fetch_array($sth1)) {
               array_push($parents, $row1['id']);
               $q = 'select count(*) as col from hm2_deposits where user_id = '.$row1['id'];
-              ($sth2 = db_query($q) or print mysql_error());
+              ($sth2 = db_query($q));
               while ($row2 = mysql_fetch_array($sth2)) {
                   $q_deposits = $row2[col];
               }

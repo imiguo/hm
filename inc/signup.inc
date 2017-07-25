@@ -44,7 +44,6 @@
       } else {
           $q = ''.'select * from hm2_users where username = \''.$username.'\'';
           if (!($sth = db_query($q))) {
-              exit(mysql_errstr());
           }
 
           $row = mysql_fetch_array($sth);
@@ -125,7 +124,7 @@
           $q = ''.'select id from hm2_users where username = \''.$ref.'\'';
       }
 
-    ($sth = db_query($q) or print mysql_errstr);
+    ($sth = db_query($q));
       while ($row = mysql_fetch_array($sth)) {
           $ref_id = $row['id'];
       }
@@ -215,7 +214,7 @@
                        transaction_code = \''.$transaction_code.'\',
                        ref = '.$ref_id;
           if (!(db_query($q))) {
-              exit(mysql_error());
+
           }
 
           if ($settings['phpbb_register']) {
@@ -251,12 +250,12 @@
 		type=\'bonus\',
 		date = now(),
 		description = \'Startup bonus\'';
-              (db_query($q) or print mysql_error());
+              (db_query($q));
           }
 
           if (0 < $ref) {
               $q = ''.'select * from hm2_referal_stats where date = current_date() and user_id = '.$ref_id;
-              ($sth = db_query($q) or print mysql_error());
+              ($sth = db_query($q));
               $f = 0;
               while ($row = mysql_fetch_array($sth)) {
                   $f = 1;
@@ -309,7 +308,7 @@
   include './inc/countries.inc';
   $ref = quote($frm_cookie['Referer']);
   $q = ''.'select * from hm2_users where username = \''.$ref.'\'';
-  ($sth = db_query($q) or print mysql_errstr);
+  ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $smarty->assign('referer', $row);
   }

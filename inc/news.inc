@@ -11,7 +11,6 @@
 
 $q = 'select count(*) as call from hm2_news';
   if (!($sth = db_query($q))) {
-      echo mysql_error();
   }
 
   $row = mysql_fetch_array($sth);
@@ -28,16 +27,16 @@ $q = 'select count(*) as call from hm2_news';
   }
 
   $from = ($page - 1) * $onpage;
-  $q = 'select 
+  $q = 'select
                  *,
                  date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as d
-           from 
-                 hm2_news 
-           order by 
+           from
+                 hm2_news
+           order by
                  date desc
-           limit 
+           limit
                  '.$from.', '.$onpage);
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $news = [];
   while ($row = mysql_fetch_array($sth)) {
       if ($row['full_text'] == '') {

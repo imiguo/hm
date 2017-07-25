@@ -22,7 +22,7 @@ $q = 'select
          order by balance asc
          limit 0, 10
         ';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $stats = [];
   while ($row = mysql_fetch_array($sth)) {
       $row['balance'] = number_format(abs($row['balance']), 2);

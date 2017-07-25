@@ -15,7 +15,7 @@ header('Content-type: text/vnd.wap.wml');
   $type_found = 0;
   $options = [];
   $q = ''.'select type from hm2_history where user_id = '.$id.' group by type order by type';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $row['type_name'] = $transtype[$row['type']];
       $row['selected'] = ($row['type'] == $frm['type'] ? 1 : 0);
@@ -54,7 +54,7 @@ header('Content-type: text/vnd.wap.wml');
 
   $datewhere = '\''.$frm['year_from'].'-'.$frm['month_from'].'-'.$frm['day_from'].'\' + interval 0 day < date + interval '.$settings['time_dif'].' hour and '.'\''.$frm['year_to'].'-'.$frm['month_to'].'-'.$frm['day_to'].'\' + interval 1 day > date + interval '.$settings['time_dif'].' hour ';
   $q = ''.'select count(*) as call from hm2_history where '.$datewhere.' '.$typewhere.' and user_id = '.$id;
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $count_all = $row['call'];
   $page = $frm['page'];
@@ -70,7 +70,7 @@ header('Content-type: text/vnd.wap.wml');
 
   $from = ($page - 1) * $onpage;
   $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as d from hm2_history where '.$datewhere.' '.$typewhere.' and user_id = '.$id.' order by date desc, id desc limit '.$from.', '.$onpage);
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $trans = [];
   while ($row = mysql_fetch_array($sth)) {
       $row['transtype'] = $transtype[$row['type']];

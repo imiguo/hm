@@ -17,18 +17,18 @@ $ok = 1;
   $on_hold = 0;
   if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
       $q = ''.'select id from hm2_deposits where user_id = '.$userinfo['id'];
-      ($sth = db_query($q) or print mysql_error());
+      ($sth = db_query($q));
       $deps = [];
       $deps[0] = 0;
       while ($row = mysql_fetch_array($sth)) {
           array_push($deps, $row[id]);
       }
 
-      $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and 
-	deposit_id in (').join(',', $deps).') and 
-			(type=\'earning\' or 
+      $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and
+	deposit_id in (').join(',', $deps).') and
+			(type=\'earning\' or
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));';
-      ($sth = db_query($q) or print mysql_error());
+      ($sth = db_query($q));
       while ($row = mysql_fetch_array($sth)) {
           $on_hold = $row[amount];
       }
@@ -40,22 +40,22 @@ $ok = 1;
       $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
   }
 
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $deps = [];
   $deps[0] = 0;
   while ($row = mysql_fetch_array($sth)) {
-      $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and 
-		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and 
-			(type=\'earning\' or 
+      $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec.' and
+		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and
+			(type=\'earning\' or
 		(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));');
-      ($sth1 = db_query($q) or print mysql_error());
+      ($sth1 = db_query($q));
       while ($row1 = mysql_fetch_array($sth1)) {
           $on_hold += $row1[amount];
       }
   }
 
   $q = ''.'select * from hm2_types where id = '.$h_id.' and closed = 0';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $type = mysql_fetch_array($sth);
   $delay = -1;
   if (!$type) {
@@ -102,7 +102,7 @@ $ok = 1;
 
   $smarty->assign('use_compound', $use_compound);
   $q = ''.'select count(*) as col, min(min_deposit) as min from hm2_plans where parent = '.$h_id;
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   if ($row) {
       if ($row['col'] == 0) {
@@ -130,7 +130,7 @@ $ok = 1;
   $accounting = get_user_balance($userinfo['id']);
   $max_deposit = $accounting['total'];
   $q = ''.'select min(max_deposit) as min, max(max_deposit) as max from hm2_plans where parent = '.$h_id;
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   if ($row) {
       if (0 < $row['min']) {
@@ -179,7 +179,7 @@ $ok = 1;
           }
       }
 
-      $q = 'insert into hm2_deposits set 
+      $q = 'insert into hm2_deposits set
            user_id = '.$userinfo['id'].(''.',
            type_id = '.$h_id.',
            deposit_date = now(),
@@ -190,9 +190,9 @@ $ok = 1;
            compound = '.$compound.',
            ec = '.$ec.'
     ');
-      (db_query($q) or print mysql_error());
+      (db_query($q));
       $deposit_id = mysql_insert_id();
-      $q = 'insert into hm2_history set 
+      $q = 'insert into hm2_history set
            user_id = '.$userinfo['id'].(''.',
            amount = -'.$amount.',
            actual_amount = -'.$amount.',
@@ -202,7 +202,7 @@ $ok = 1;
            ec = '.$ec.',
            deposit_id = '.$deposit_id.'
     ');
-      (db_query($q) or print mysql_error());
+      (db_query($q));
       $user_id = $userinfo['id'];
       referral_commission($user_id, $amount, $ec);
       header('Location: ?a=deposit&say=deposit_success');

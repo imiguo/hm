@@ -19,7 +19,7 @@ echo '<html>
   }
 
   $q = 'select count(*) as col from hm2_history where type=\'withdraw_pending\'';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $count_all = $row['col'];
   $page = $frm['page'];
@@ -35,7 +35,7 @@ echo '<html>
 
   $from = ($page - 1) * $onpage;
   $q = ''.'select *, date_format(date, \'%b-%e-%Y %r\') as d from hm2_history where type=\'withdraw_pending\' order by date desc, id desc limit '.$from.', '.$onpage;
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $trans = [];
   while ($row = mysql_fetch_array($sth)) {
       $q = 'select username from hm2_users where id = '.$row['user_id'];

@@ -92,7 +92,7 @@ if ($frm['complete']) {
           ';
   }
 
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $deps = [];
   $deps[0] = 0;
   $hold = [];
@@ -116,7 +116,7 @@ if ($frm['complete']) {
           $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
       }
 
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
       $deps = [];
       $deps[0] = 0;
       $on_hold = 0;
@@ -125,7 +125,7 @@ if ($frm['complete']) {
 		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and 
 			(type=\'earning\' or 
 		(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));');
-          ($sth1 = db_query($q) or print mysql_error());
+          ($sth1 = db_query($q));
           while ($row1 = mysql_fetch_array($sth1)) {
               $on_hold += $row1[amount];
           }
@@ -186,7 +186,7 @@ if ($frm['complete']) {
           $q = ''.'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
       }
 
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
       $deps = [];
       $deps[0] = 0;
       $on_hold = 0;
@@ -195,7 +195,7 @@ if ($frm['complete']) {
 		deposit_id = '.$row[id].' and date > now() - interval '.$row[hold].' day and 
 			(type=\'earning\' or 
 		(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));');
-          ($sth1 = db_query($q) or print mysql_error());
+          ($sth1 = db_query($q));
           while ($row1 = mysql_fetch_array($sth1)) {
               $on_hold += $row1[amount];
           }

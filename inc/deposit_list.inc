@@ -10,14 +10,14 @@
  */
 
 $q = 'select * from hm2_types where status = \'on\'';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $plans = [];
   $total = 0;
   while ($row = mysql_fetch_array($sth)) {
       $row['deposits'] = [];
       $q = 'select * from hm2_plans where parent = '.$row['id'].' order by id';
       if (!($sth1 = db_query($q))) {
-          exit(mysql_error());
+
       }
 
       $row['plans'] = [];

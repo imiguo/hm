@@ -16,7 +16,7 @@ $id = intval($frm['type']);
                date_format((now() + interval '.$settings['time_dif'].(''.' hour) + interval q_days day, \'%m/%d/%Y\') as to_date
         from hm2_types where id = '.$id);
   if (!($sth = db_query($q))) {
-      exit(mysql_error());
+      
   }
 
   $trow = mysql_fetch_array($sth);
@@ -29,7 +29,7 @@ $id = intval($frm['type']);
   $i = 0;
   $q = ''.'select * from hm2_plans where parent = '.$id.' order by id';
   if (!($sth = db_query($q))) {
-      exit(mysql_error());
+      
   }
 
   while ($row = mysql_fetch_array($sth)) {

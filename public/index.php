@@ -24,23 +24,16 @@ if (file_exists('install.php')) {
 
 $userinfo = [];
 $settings = [];
-require 'lib/config.inc.php';
-require '../smarty/Smarty.class.php';
+require '../lib/config.inc.php';
 $smarty = new Smarty();
 $smarty->compile_check = true;
 $smarty->force_compile = true;
 $smarty->template_dir = TMPL_PATH;
-$smarty->compile_dir = './tmpl_c';
+$smarty->compile_dir = '../tmpl_c';
 $smarty->default_modifiers = ['myescape'];
 
 if (HTTPS) {
     $frm_env['HTTPS'] = 1;
-}
-
-$dbconn = db_open();
-if (!$dbconn) {
-    echo 'Cannot connect mysql';
-    exit();
 }
 
 if (isset($frm['ref']) && $frm['ref'] != '') {
@@ -48,11 +41,11 @@ if (isset($frm['ref']) && $frm['ref'] != '') {
     if ($frm_cookie['Referer'] == '') {
         $ref = quote($frm['ref']);
         $q = ''.'select id from hm2_users where username = \''.$ref.'\'';
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         while ($row = mysql_fetch_array($sth)) {
             $ref_id = $row['id'];
             $q = ''.'select * from hm2_referal_stats where date = current_date() and user_id = '.$ref_id;
-            ($sth = db_query($q) or print mysql_error());
+            ($sth = db_query($q));
             $f = 0;
             while ($row = mysql_fetch_array($sth)) {
                 $f = 1;
@@ -72,7 +65,6 @@ if (isset($frm['ref']) && $frm['ref'] != '') {
 
     if ($settings['redirect_referrals'] != '') {
         header('Location: '.$settings['redirect_referrals']);
-        db_close($dbconn);
         exit();
     }
 }
@@ -92,7 +84,7 @@ if ((empty($frm_env['HTTPS']) and isset($settings['redirect_to_https']) and $set
 }
 
 $q = 'select * from hm2_processings';
-($sth = db_query($q) or print mysql_error());
+($sth = db_query($q));
 while ($row = mysql_fetch_array($sth)) {
     $sfx = strtolower($row['name']);
     $sfx = preg_replace('/([^\\w])/', '_', $sfx);
@@ -117,7 +109,7 @@ if (($frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and $frm['TRANSACTION_ID'] !=
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = ''.'delete from hm2_history where id = '.$id;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
         amount = -'.abs($row['amount']).(''.',
@@ -127,7 +119,7 @@ if (($frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and $frm['TRANSACTION_ID'] !=
         ec = 8,
         date = now()
         ';
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $sth = db_query($q);
         $userinfo = mysql_fetch_array($sth);
@@ -144,7 +136,6 @@ if (($frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and $frm['TRANSACTION_ID'] !=
     }
 
     echo 1;
-    db_close($dbconn);
     exit();
 }
 
@@ -161,7 +152,7 @@ if (($frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANSACTION_ID'] != '')) {
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = ''.'delete from hm2_history where id = '.$id;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
         amount = -'.abs($row['amount']).(''.',
@@ -171,7 +162,7 @@ if (($frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANSACTION_ID'] != '')) {
         ec = 2,
         date = now()
         ';
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $sth = db_query($q);
         $userinfo = mysql_fetch_array($sth);
@@ -188,7 +179,6 @@ if (($frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANSACTION_ID'] != '')) {
     }
 
     echo 1;
-    db_close($dbconn);
     exit();
 }
 
@@ -205,7 +195,7 @@ if ((($frm['user3'] == 'pay_withdraw' and $frm['transaction_id'] != '') and $frm
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = ''.'delete from hm2_history where id = '.$id;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
         amount = -'.abs($row['amount']).(''.',
@@ -215,7 +205,7 @@ if ((($frm['user3'] == 'pay_withdraw' and $frm['transaction_id'] != '') and $frm
         ec = 4,
         date = now()
         ';
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $sth = db_query($q);
         $userinfo = mysql_fetch_array($sth);
@@ -232,28 +222,25 @@ if ((($frm['user3'] == 'pay_withdraw' and $frm['transaction_id'] != '') and $frm
     }
 
     echo 1;
-    db_close($dbconn);
     exit();
 }
 
 if ($settings['ssl_url'] != '') {
     if ($SERVER_PORT == 80) {
         header('Location: '.$settings['ssl_url'].'/');
-        db_close($dbconn);
         exit();
     }
 }
 
 if ($frm['a'] == 'run_crontab') {
     count_earning(-2);
-    db_close($dbconn);
     exit();
 }
 
 $q = 'delete from hm2_online where ip=\''.$frm_env['REMOTE_ADDR'].'\' or date + interval 30 minute < now()';
-(db_query($q) or print mysql_error());
+(db_query($q));
 $q = 'insert into hm2_online set ip=\''.$frm_env['REMOTE_ADDR'].'\', date = now()';
-(db_query($q) or print mysql_error());
+(db_query($q));
 $userinfo = [];
 $userinfo['logged'] = 0;
 if ($frm['a'] == 'logout') {
@@ -262,7 +249,6 @@ if ($frm['a'] == 'logout') {
     $frm_cookie['password'] = '';
     if ($settings['redirect_logout'] != '') {
         header('Location: '.$settings['redirect_logout']);
-        db_close($dbconn);
         exit();
     }
 
@@ -284,7 +270,7 @@ if ($settings['show_info_box_members_online'] == 1) {
         $settings['show_info_box_members_online_generated'] = $stats[visitors];
     } else {
         $q = 'select count(*) as col from hm2_users where last_access_time + interval 30 minute > now()';
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $row = mysql_fetch_array($sth);
         $settings['show_info_box_members_online_generated'] = $row['col'];
     }
@@ -295,7 +281,7 @@ if ($settings['show_info_box_total_accounts'] == 1) {
         $settings['info_box_total_accounts_generated'] = $stats[total_users];
     } else {
         $q = 'select count(*) as col from hm2_users where id > 1';
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $row = mysql_fetch_array($sth);
         $settings['info_box_total_accounts_generated'] = $row['col'];
     }
@@ -306,7 +292,7 @@ if ($settings['show_info_box_active_accounts'] == 1) {
         $settings['info_box_total_active_accounts_generated'] = $stats[active_accounts];
     } else {
         $q = 'select count(distinct user_id) as col from hm2_deposits ';
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $row = mysql_fetch_array($sth);
         $settings['info_box_total_active_accounts_generated'] = $row['col'];
     }
@@ -315,7 +301,7 @@ if ($settings['show_info_box_active_accounts'] == 1) {
 if ($settings['show_info_box_vip_accounts'] == 1) {
     $q = 'select count(distinct user_id) as col from hm2_deposits where actual_amount > '.sprintf('%.02f',
             $settings['vip_users_deposit_amount']);
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $row = mysql_fetch_array($sth);
     $settings['info_box_total_vip_accounts_generated'] = $row['col'];
 }
@@ -325,7 +311,7 @@ if ($settings['show_info_box_deposit_funds'] == 1) {
         $settings['info_box_deposit_funds_generated'] = number_format($stats[total_deposited], 2);
     } else {
         $q = 'select sum(amount) as sum from hm2_deposits';
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $row = mysql_fetch_array($sth);
         $settings['info_box_deposit_funds_generated'] = number_format($row['sum'], 2);
     }
@@ -333,7 +319,7 @@ if ($settings['show_info_box_deposit_funds'] == 1) {
 
 if ($settings['show_info_box_today_deposit_funds'] == 1) {
     $q = ''.'select sum(amount) as sum from hm2_deposits where to_days(deposit_date) = to_days(now() + interval '.$settings['time_dif'].' day)';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $row = mysql_fetch_array($sth);
     $settings['info_box_today_deposit_funds_generated'] = number_format($row['sum'], 2);
 }
@@ -343,7 +329,7 @@ if ($settings['show_info_box_total_withdraw'] == 1) {
         $settings['info_box_withdraw_funds_generated'] = number_format(abs($stats[total_withdraw]), 2);
     } else {
         $q = 'select sum(amount) as sum from hm2_history where type=\'withdrawal\'';
-        ($sth = db_query($q) or print mysql_error());
+        ($sth = db_query($q));
         $row = mysql_fetch_array($sth);
         $settings['info_box_withdraw_funds_generated'] = number_format(abs($row['sum']), 2);
     }
@@ -351,14 +337,14 @@ if ($settings['show_info_box_total_withdraw'] == 1) {
 
 if ($settings['show_info_box_visitor_online'] == 1) {
     $q = 'select count(*) as sum from hm2_online';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $row = mysql_fetch_array($sth);
     $settings['info_box_visitor_online_generated'] = $row['sum'];
 }
 
 if ($settings['show_info_box_newest_member'] == 1) {
     $q = 'select username from hm2_users where status = \'on\' order by id desc limit 0,1';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $row = mysql_fetch_array($sth);
     $settings['show_info_box_newest_member_generated'] = $row['username'];
 }
@@ -366,7 +352,7 @@ if ($settings['show_info_box_newest_member'] == 1) {
 $ref = quote($frm_cookie['Referer']);
 if ($ref) {
     $q = ''.'select * from hm2_users where username = \''.$ref.'\'';
-    ($sth = db_query($q) or print mysql_errstr);
+    ($sth = db_query($q));
     while ($row = mysql_fetch_array($sth)) {
         $smarty->assign('referer', $row);
     }
@@ -380,26 +366,6 @@ $mddomain = $frm_env['HTTP_HOST'];
 $mddomain = preg_replace('/^www\\./', '', $mddomain);
 $mdscriptname = $frm_env['SCRIPT_NAME'];
 $mdscriptname = preg_replace('/index\\.php/', '', $mdscriptname);
-$key = strtoupper(md5($mddomain.'asdfds89ufsdkfnsjfdksh').md5($mdscriptname.'8hbfnbdnf').md5('grv'.$mddomain));
-$flag = 0;
-for ($i = 0; $i < 5; ++$i) {
-    $j = $i;
-    if ($i == 0) {
-        $j = '';
-    }
-
-    $skey = substr($settings['key'.$j], 100, -200);
-    if ($key == $skey) {
-        $flag = 1;
-        continue;
-    }
-}
-
-if ($flag != 1) {
-    echo 'settings verify fail';
-    db_close($dbconn);
-    exit();
-}
 
 $smarty->assign('settings', $settings);
 if ($frm['a'] == 'do_login') {
@@ -420,14 +386,12 @@ if ($frm['a'] == 'do_login') {
             session_start();
             if ($_SESSION['validation_number'] != $frm['validation_number']) {
                 header('Location: ?a=login&say=invalid_login&username='.$frm['username']);
-                db_close($dbconn);
                 exit();
             }
         }
 
         if (($settings['brute_force_handler'] == 1 and $row['activation_code'] != '')) {
             header('Location: ?a=login&say=invalid_login&username='.$frm['username']);
-            db_close($dbconn);
             exit();
         }
 
@@ -443,7 +407,6 @@ if ($frm['a'] == 'do_login') {
             $info['max_tries'] = $settings['brute_force_max_tries'];
             send_template_mail('brute_force_activation', $row['email'], $settings['system_email'], $info);
             header('Location: ?a=login&say=invalid_login&username='.$frm['username']);
-            db_close($dbconn);
             exit();
         }
 
@@ -451,7 +414,6 @@ if ($frm['a'] == 'do_login') {
             $q = 'update hm2_users set bf_counter = bf_counter + 1 where id = '.$row['id'];
             db_query($q);
             header('Location: ?a=login&say=invalid_login&username='.$frm['username']);
-            db_close($dbconn);
             exit();
         }
 
@@ -462,13 +424,13 @@ if ($frm['a'] == 'do_login') {
         $userinfo['logged'] = 1;
         $ip = $frm_env['REMOTE_ADDR'];
         $q = ''.'update hm2_users set hid = \''.$qhid.'\', bf_counter = 0, last_access_time = now(), last_access_ip = \''.$ip.'\' where id = '.$row['id'];
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(''.', date = now(), ip = \''.$ip.'\'');
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         if ($settings['generate_password_after_login'] == 1) {
             $new_pass = gen_confirm_code(10, 0);
             $q = 'update hm2_users set password = \''.md5($new_pass).'\' where id = '.$userinfo['id'];
-            (db_query($q) or print mysql_error());
+            (db_query($q));
             $info = [];
             $info['username'] = $userinfo['username'];
             $info['name'] = $userinfo['name'];
@@ -482,7 +444,6 @@ if ($frm['a'] == 'do_login') {
 
     if ($userinfo['logged'] == 0) {
         header('Location: ?a=login&say=invalid_login&username='.$frm['username']);
-        db_close($dbconn);
         exit();
     }
 
@@ -494,7 +455,6 @@ if ($frm['a'] == 'do_login') {
         echo '<head><title>HYIP Manager</title><meta http-equiv=\'Refresh\' content=\'1; URL=admin.php\'></head>';
         echo '<body><center><a href=\'admin.php\'>Go to admin area</a></center></body>';
         flush();
-        db_close($dbconn);
         exit();
     }
 } else {
@@ -506,7 +466,7 @@ if ($frm['a'] == 'do_login') {
         $add_login_check = '';
     }
 
-    list($user_id, $chid) = split('-', $password, 2);
+    list($user_id, $chid) = explode('-', $password, 2);
     $user_id = sprintf('%d', $user_id);
     $chid = quote($chid);
     if (0 < $user_id) {
@@ -516,7 +476,6 @@ if ($frm['a'] == 'do_login') {
             if (($settings['brute_force_handler'] == 1 and $row['activation_code'] != '')) {
                 setcookie('password', '', time() + 630720000);
                 header('Location: ?a=login&say=invalid_login&username='.$frm['username']);
-                db_close($dbconn);
                 exit();
             }
 
@@ -527,7 +486,7 @@ if ($frm['a'] == 'do_login') {
                 $userinfo['logged'] = 1;
                 $q = ''.'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
                 if (!(db_query($q))) {
-                    exit(mysql_error());
+
                 }
 
                 continue;
@@ -547,7 +506,6 @@ if ($frm['a'] == 'do_login') {
                     send_template_mail('brute_force_activation', $row['email'], $settings['system_email'], $info);
                     setcookie('password', '', time() + 630720000);
                     header('Location: ?a=login&say=invalid_login&username='.$frm['username']);
-                    db_close($dbconn);
                     exit();
                     continue;
                 }
@@ -618,7 +576,6 @@ if (($frm['a'] == 'deletewappass' and $userinfo['logged'] == 1)) {
     $q = ''.'update hm2_users set stat_password = \'\' where id = '.$id;
     db_query($q);
     header('Location: ?a=edit_account');
-    db_close($dbconn);
     exit();
 }
 
@@ -627,7 +584,6 @@ if (($frm['a'] == 'cancelwithdraw' and $userinfo['logged'] == 1)) {
     $q = ''.'delete from hm2_history where id = '.$id.' and type=\'withdraw_pending\' and user_id = '.$userinfo['id'];
     db_query($q);
     header('Location: ?a=withdraw_history');
-    db_close($dbconn);
     exit();
 }
 
@@ -650,18 +606,18 @@ if ($settings[banner_extension] == 1) {
 
         if ($frm[imps] != 'no') {
             $q = ''.'update hm2_users set imps = imps -1 where imps > 0 and id = '.$id;
-            (db_query($q) or print mysql_error());
+            (db_query($q));
         }
 
         exit();
     }
 
     $q = 'select count(*) as col from hm2_users where imps > 0 and bnum > 0';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     while ($row = mysql_fetch_array($sth)) {
         $z = rand(1, $row[col]) - 1;
         $q = ''.'select bnum, burl from hm2_users where imps > 0 and bnum > 0 order by id limit '.$z.', 1';
-        ($sth1 = db_query($q) or print mysql_error());
+        ($sth1 = db_query($q));
         while ($row1 = mysql_fetch_array($sth1)) {
             $smarty->assign('banner_ext_bnum', $row1[bnum]);
             $smarty->assign('banner_ext_burl', $row1[burl]);
@@ -669,71 +625,71 @@ if ($settings[banner_extension] == 1) {
     }
 }
 
-include 'inc/news_box.inc';
+include '../inc/news_box.inc';
 if (($frm['a'] == 'signup' and $userinfo['logged'] != 1)) {
-    include 'inc/signup.inc';
+    include '../inc/signup.inc';
 } else {
     if (($frm['a'] == 'forgot_password' and $userinfo['logged'] != 1)) {
-        include 'inc/forgot_password.inc';
+        include '../inc/forgot_password.inc';
     } else {
         if (($frm['a'] == 'confirm_registration' and $settings['use_opt_in'] == 1)) {
-            include 'inc/confirm_registration.inc';
+            include '../inc/confirm_registration.inc';
         } else {
             if ($frm['a'] == 'login') {
-                include 'inc/login.inc';
+                include '../inc/login.inc';
             } else {
                 if ((($frm['a'] == 'do_login' or $frm['a'] == 'account') and $userinfo['logged'] == 1)) {
-                    include 'inc/account_main.inc';
+                    include '../inc/account_main.inc';
                 } else {
                     if (($frm['a'] == 'deposit' and $userinfo['logged'] == 1)) {
                         if (substr($frm['type'], 0, 8) == 'account_') {
                             $ps = substr($frm['type'], 8);
                             if ($exchange_systems[$ps][status] == 1) {
-                                include 'inc/deposit.account.confirm.inc';
+                                include '../inc/deposit.account.confirm.inc';
                             } else {
-                                include 'inc/deposit.inc';
+                                include '../inc/deposit.inc';
                             }
                         } else {
                             if (substr($frm['type'], 0, 8) == 'process_') {
                                 $ps = substr($frm['type'], 8);
                                 if ($exchange_systems[$ps][status] == 1) {
                                     if ($ps == 0) {
-                                        include 'inc/deposit.egold.confirm.inc';
+                                        include '../inc/deposit.egold.confirm.inc';
                                     } else {
                                         if ($ps == 1) {
-                                            include 'inc/deposit.evocash.confirm.inc';
+                                            include '../inc/deposit.evocash.confirm.inc';
                                         } else {
                                             if ($ps == 2) {
-                                                include 'inc/deposit.intgold.confirm.inc';
+                                                include '../inc/deposit.intgold.confirm.inc';
                                             } else {
                                                 if ($ps == 3) {
-                                                    include 'inc/deposit.perfectmoney.confirm.inc';
+                                                    include '../inc/deposit.perfectmoney.confirm.inc';
                                                 } else {
                                                     if ($ps == 4) {
-                                                        include 'inc/deposit.stormpay.confirm.inc';
+                                                        include '../inc/deposit.stormpay.confirm.inc';
                                                     } else {
                                                         if ($ps == 5) {
-                                                            include 'inc/deposit.ebullion.confirm.inc';
+                                                            include '../inc/deposit.ebullion.confirm.inc';
                                                         } else {
                                                             if ($ps == 6) {
-                                                                include 'inc/deposit.paypal.confirm.inc';
+                                                                include '../inc/deposit.paypal.confirm.inc';
                                                             } else {
                                                                 if ($ps == 7) {
-                                                                    include 'inc/deposit.goldmoney.confirm.inc';
+                                                                    include '../inc/deposit.goldmoney.confirm.inc';
                                                                 } else {
                                                                     if ($ps == 8) {
-                                                                        include 'inc/deposit.eeecurrency.confirm.inc';
+                                                                        include '../inc/deposit.eeecurrency.confirm.inc';
                                                                     } else {
                                                                         if ($ps == 9) {
-                                                                            include 'inc/deposit.pecunix.confirm.inc';
+                                                                            include '../inc/deposit.pecunix.confirm.inc';
                                                                         } else {
                                                                             if ($ps == 10) {
-                                                                                include 'inc/deposit.payeer.confirm.inc';
+                                                                                include '../inc/deposit.payeer.confirm.inc';
                                                                             } else {
                                                                                 if ($ps == 11) {
-                                                                                    include 'inc/deposit.bitcoin.confirm.inc';
+                                                                                    include '../inc/deposit.bitcoin.confirm.inc';
                                                                                 } else {
-                                                                                    include 'inc/deposit.other.confirm.inc';
+                                                                                    include '../inc/deposit.other.confirm.inc';
                                                                                 }
                                                                             }
                                                                         }
@@ -747,128 +703,127 @@ if (($frm['a'] == 'signup' and $userinfo['logged'] != 1)) {
                                         }
                                     }
                                 } else {
-                                    include 'inc/deposit.inc';
+                                    include '../inc/deposit.inc';
                                 }
                             } else {
-                                include 'inc/deposit.inc';
+                                include '../inc/deposit.inc';
                             }
                         }
                     } else {
                         if ((($frm['a'] == 'add_funds' and $settings[use_add_funds] == 1) and $userinfo['logged'] == 1)) {
-                            include 'inc/add_funds.inc';
+                            include '../inc/add_funds.inc';
                         } else {
                             if (($frm['a'] == 'withdraw' and $userinfo['logged'] == 1)) {
-                                include 'inc/withdrawal.inc';
+                                include '../inc/withdrawal.inc';
                             } else {
                                 if (($frm['a'] == 'withdraw_history' and $userinfo['logged'] == 1)) {
-                                    include 'inc/withdrawal_history.inc';
+                                    include '../inc/withdrawal_history.inc';
                                 } else {
                                     if (($frm['a'] == 'deposit_history' and $userinfo['logged'] == 1)) {
-                                        include 'inc/deposit_history.inc';
+                                        include '../inc/deposit_history.inc';
                                     } else {
                                         if (($frm['a'] == 'earnings' and $userinfo['logged'] == 1)) {
-                                            include 'inc/earning_history.inc';
+                                            include '../inc/earning_history.inc';
                                         } else {
                                             if (($frm['a'] == 'deposit_list' and $userinfo['logged'] == 1)) {
-                                                include 'inc/deposit_list.inc';
+                                                include '../inc/deposit_list.inc';
                                             } else {
                                                 if (($frm['a'] == 'edit_account' and $userinfo['logged'] == 1)) {
-                                                    include 'inc/edit_account.inc';
+                                                    include '../inc/edit_account.inc';
                                                 } else {
                                                     if (($frm['a'] == 'withdraw_principal' and $userinfo['logged'] == 1)) {
-                                                        include 'inc/withdraw_principal.inc';
+                                                        include '../inc/withdraw_principal.inc';
                                                     } else {
                                                         if (($frm['a'] == 'change_compound' and $userinfo['logged'] == 1)) {
-                                                            include 'inc/change_compound.inc';
+                                                            include '../inc/change_compound.inc';
                                                         } else {
                                                             if (($frm['a'] == 'internal_transfer' and $userinfo['logged'] == 1)) {
-                                                                include 'inc/internal_transfer.inc';
+                                                                include '../inc/internal_transfer.inc';
                                                             } else {
                                                                 if ($frm['a'] == 'support') {
-                                                                    include 'inc/support.inc';
+                                                                    include '../inc/support.inc';
                                                                 } else {
                                                                     if ($frm['a'] == 'faq') {
-                                                                        include 'inc/faq.inc';
+                                                                        include '../inc/faq.inc';
                                                                     } else {
                                                                         if ($frm['a'] == 'company') {
-                                                                            include 'inc/company.inc';
+                                                                            include '../inc/company.inc';
                                                                         } else {
                                                                             if ($frm['a'] == 'rules') {
-                                                                                include 'inc/rules.inc';
+                                                                                include '../inc/rules.inc';
                                                                             } else {
                                                                                 if ($frm['a'] == 'show_validation_image') {
-                                                                                    include 'inc/show_validation_image.inc';
+                                                                                    include '../inc/show_validation_image.inc';
                                                                                 } else {
                                                                                     if ((($frm['a'] == 'members_stats' and $settings['show_stats_box']) and $settings['show_members_stats'])) {
-                                                                                        include 'inc/members_stats.inc';
+                                                                                        include '../inc/members_stats.inc';
                                                                                     } else {
                                                                                         if ((($frm['a'] == 'paidout' and $settings['show_stats_box']) and $settings['show_paidout_stats'])) {
-                                                                                            include 'inc/paidout.inc';
+                                                                                            include '../inc/paidout.inc';
                                                                                         } else {
                                                                                             if ((($frm['a'] == 'top10' and $settings['show_stats_box']) and $settings['show_top10_stats'])) {
-                                                                                                include 'inc/top10.inc';
+                                                                                                include '../inc/top10.inc';
                                                                                             } else {
                                                                                                 if ((($frm['a'] == 'last10' and $settings['show_stats_box']) and $settings['show_last10_stats'])) {
-                                                                                                    include 'inc/last10.inc';
+                                                                                                    include '../inc/last10.inc';
                                                                                                 } else {
                                                                                                     if ((($frm['a'] == 'refs10' and $settings['show_stats_box']) and $settings['show_refs10_stats'])) {
-                                                                                                        include 'inc/refs10.inc';
+                                                                                                        include '../inc/refs10.inc';
                                                                                                     } else {
                                                                                                         if ($_GET['a'] == 'return_egold') {
-                                                                                                            include 'inc/deposit.egold.status.inc';
+                                                                                                            include '../inc/deposit.egold.status.inc';
                                                                                                         } else {
                                                                                                             if ($_GET['a'] == 'return_perfectmoney') {
-                                                                                                                include 'inc/deposit.perfectmoney.status.inc';
+                                                                                                                include '../inc/deposit.perfectmoney.status.inc';
                                                                                                             } else {
                                                                                                                 if ($_GET['a'] == 'return_payeer') {
-                                                                                                                    include 'inc/deposit.payeer.status.inc';
+                                                                                                                    include '../inc/deposit.payeer.status.inc';
                                                                                                                 } else {
                                                                                                                     if ((($frm['a'] == 'referallinks' and $settings['use_referal_program'] == 1) and $userinfo['logged'] == 1)) {
-                                                                                                                        include 'inc/referal.links.inc';
+                                                                                                                        include '../inc/referal.links.inc';
                                                                                                                     } else {
                                                                                                                         if ((($frm['a'] == 'referals' and $settings['use_referal_program'] == 1) and $userinfo['logged'] == 1)) {
-                                                                                                                            include 'inc/referals.inc';
+                                                                                                                            include '../inc/referals.inc';
                                                                                                                         } else {
                                                                                                                             if ($frm['a'] == 'news') {
-                                                                                                                                include 'inc/news.inc';
+                                                                                                                                include '../inc/news.inc';
                                                                                                                             } else {
                                                                                                                                 if ($frm['a'] == 'calendar') {
-                                                                                                                                    include 'inc/calendar.inc';
+                                                                                                                                    include '../inc/calendar.inc';
                                                                                                                                 } else {
                                                                                                                                     if (($frm['a'] == 'exchange' and $userinfo['logged'] == 1)) {
-                                                                                                                                        include 'inc/exchange.inc';
+                                                                                                                                        include '../inc/exchange.inc';
                                                                                                                                     } else {
                                                                                                                                         if (($frm['a'] == 'banner' and $userinfo[logged] == 1)) {
-                                                                                                                                            include 'inc/banner.inc';
+                                                                                                                                            include '../inc/banner.inc';
                                                                                                                                         } else {
                                                                                                                                             if ($frm['a'] == 'activate') {
-                                                                                                                                                include 'inc/activate.inc';
+                                                                                                                                                include '../inc/activate.inc';
                                                                                                                                             } else {
                                                                                                                                                 if ($frm['a'] == 'show_package_info') {
-                                                                                                                                                    include 'inc/package_info.inc';
+                                                                                                                                                    include '../inc/package_info.inc';
                                                                                                                                                 } else {
                                                                                                                                                     if ($frm['a'] == 'ref_plans') {
-                                                                                                                                                        include 'inc/ref_plans.inc';
+                                                                                                                                                        include '../inc/ref_plans.inc';
                                                                                                                                                     } else {
                                                                                                                                                         if ($frm['a'] == 'cust') {
                                                                                                                                                             $file = $frm['page'];
                                                                                                                                                             $file = basename($file);
                                                                                                                                                             if (file_exists(TMPL_PATH.'custom/'.$file.'.tpl')) {
                                                                                                                                                                 $smarty->display('custom/'.$file.'.tpl');
-                                                                                                                                                                db_close($dbconn);
                                                                                                                                                                 exit();
                                                                                                                                                             } else {
-                                                                                                                                                                include 'inc/home.inc';
+                                                                                                                                                                include '../inc/home.inc';
                                                                                                                                                             }
                                                                                                                                                         } else {
                                                                                                                                                             if ($frm['a'] == 'invest_page') {
                                                                                                                                                                 $smarty->assign('frm',
                                                                                                                                                                     $frm);
-                                                                                                                                                                include 'inc/invest_page.inc';
+                                                                                                                                                                include '../inc/invest_page.inc';
                                                                                                                                                             } else {
                                                                                                                                                                 $smarty->assign('frm',
                                                                                                                                                                     $frm);
-                                                                                                                                                                include 'inc/home.inc';
+                                                                                                                                                                include '../inc/home.inc';
                                                                                                                                                             }
                                                                                                                                                         }
                                                                                                                                                     }
@@ -909,5 +864,4 @@ if (($frm['a'] == 'signup' and $userinfo['logged'] != 1)) {
         }
     }
 }
-db_close($dbconn);
 exit();

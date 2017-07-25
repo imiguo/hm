@@ -11,7 +11,7 @@
 
 $id = sprintf('%d', $frm['id']);
   $q = ''.'select * from hm2_types where id = '.$id;
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $flag = 0;
   while ($row = mysql_fetch_array($sth)) {
       $smarty->assign('package', $row);

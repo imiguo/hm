@@ -12,7 +12,7 @@
 $month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 $admin_stat_password = '';
 $q = 'select * from hm2_users where id=1';
-($sth = db_query($q) or print mysql_error());
+($sth = db_query($q));
 while ($row = mysql_fetch_array($sth)) {
     if ($row['stat_password'] != '') {
         $admin_stat_password = '*****';

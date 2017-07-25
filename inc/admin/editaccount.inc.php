@@ -12,7 +12,7 @@
   $id = sprintf('%d', $frm['id']);
   $q = ''.'select * from hm2_users where id = '.$id.' and id <> 1';
   if (!($sth = db_query($q))) {
-      exit(mysql_error());
+      
   }
 
   $row = mysql_fetch_array($sth);

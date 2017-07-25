@@ -60,7 +60,7 @@ echo '<form method=post name=nform>
           hm2_users.id = hm2_pending_deposits.user_id
         order by date desc
        ');
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $col = 0;
   while ($row = mysql_fetch_array($sth)) {
       $infofields = unserialize($row['fields']);

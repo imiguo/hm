@@ -28,7 +28,7 @@ echo '<b>';
       $q = 'select hm2_wires.*, hm2_users.username from hm2_wires, hm2_users where hm2_wires.status=\'new\' and hm2_users.id = hm2_wires.user_id order by wire_date desc';
   }
 
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $col = 0;
   while ($row = mysql_fetch_array($sth)) {
       ++$col;

@@ -12,7 +12,7 @@
 $id = sprintf('%d', $frm['id']);
   $q = ''.'select * from hm2_types where id= '.$id;
   if (!($sth = db_query($q))) {
-      exit(mysql_error());
+      
   }
 
   $row = mysql_fetch_array($sth);
@@ -22,7 +22,7 @@ $id = sprintf('%d', $frm['id']);
 
   $q = ''.'select * from hm2_plans where parent = '.$id.' order by id';
   if (!($sth = db_query($q))) {
-      exit(mysql_error());
+      
   }
 
   $rates = [];
@@ -32,7 +32,7 @@ $id = sprintf('%d', $frm['id']);
 
   $q = ''.'select * from hm2_types where status = \'on\' and id <> '.$id;
   if (!($sth = db_query($q))) {
-      exit(mysql_error());
+      
   }
 
   $packages = [];

@@ -35,9 +35,9 @@ check_if_stolen();
 $userinfo = [];
 $userinfo['logged'] = 0;
 $q = 'delete from hm2_online where ip=\''.$frm_env['REMOTE_ADDR'].'\' or date + interval 30 minute < now()';
-(db_query($q) or print mysql_error());
+(db_query($q));
 $q = 'insert into hm2_online set ip=\''.$frm_env['REMOTE_ADDR'].'\', date = now()';
-(db_query($q) or print mysql_error());
+(db_query($q));
 if ($frm['a'] == 'logout') {
     setcookie('username', '', time() + 630720000);
     setcookie('password', '', time() + 630720000);
@@ -71,7 +71,7 @@ if ($frm['a'] == 'do_login') {
         $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(''.',
   	date = now(), ip = \''.$ip.'\'');
         if (!(db_query($q))) {
-            exit(mysql_error());
+
         }
 
         setcookie('username', $frm['username'], time() + 630720000);
@@ -79,7 +79,7 @@ if ($frm['a'] == 'do_login') {
         $ip = $frm_env['REMOTE_ADDR'];
         $q = ''.'update hm2_users set last_access_time = now(), last_access_ip = \''.$ip.'\' where username=\''.$username.'\'';
         if (!(db_query($q))) {
-            exit(mysql_error());
+
         }
     }
 
@@ -107,7 +107,7 @@ if ($frm['a'] == 'do_login') {
             $userinfo['logged'] = 1;
             $q = ''.'update hm2_users set last_access_time = now() where username=\''.$username.'\'';
             if (!(db_query($q))) {
-                exit(mysql_error());
+
             }
 
             continue;

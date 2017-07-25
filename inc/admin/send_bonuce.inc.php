@@ -11,11 +11,11 @@
 
 $q = 'select count(*) as col from hm2_users where id > 1';
   $sth = db_query($q);
-  ($row = mysql_fetch_array($sth) or print mysql_error());
+  ($row = mysql_fetch_array($sth));
   $all_c = $row['col'];
   $q = 'select count(*) as col from hm2_users, hm2_deposits where hm2_users.id > 1 and hm2_deposits.user_id = hm2_users.id group by hm2_users.id';
   $sth = db_query($q);
-  ($row = mysql_fetch_array($sth) or print mysql_error());
+  ($row = mysql_fetch_array($sth));
   $act_c = sprintf('%d', $row['col']);
   $pas_c = $all_c - $act_c;
   $types = [];

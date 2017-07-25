@@ -35,7 +35,7 @@ if (!in_array($theme, $theme_list)) {
     exit;
 }
 
-foreach (glob('./*') as $file) {
+foreach (glob('./public/*') as $file) {
     if (is_link($file)) {
         unlink($file);
     }
@@ -44,5 +44,5 @@ if ('clear' == $theme) {
     exit;
 }
 foreach (glob('../templates/'.$theme.'/*') as $file) {
-    symlink($file, './'.basename($file));
+    symlink(realpath($file), './public/'.basename($file));
 }

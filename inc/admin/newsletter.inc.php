@@ -20,11 +20,11 @@ You cannot send newsletters!';
 ';
   $q = 'select count(*) as col from hm2_users where id > 1';
   $sth = db_query($q);
-  ($row = mysql_fetch_array($sth) or print mysql_error());
+  ($row = mysql_fetch_array($sth));
   $all_c = $row['col'];
   $q = 'select count(distinct user_id) as col from hm2_deposits';
   $sth = db_query($q);
-  ($row = mysql_fetch_array($sth) or print mysql_error());
+  ($row = mysql_fetch_array($sth));
   $act_c = sprintf('%d', $row['col']);
   $pas_c = $all_c - $act_c;
   echo '

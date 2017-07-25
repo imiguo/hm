@@ -23,7 +23,7 @@ echo '<b>Deposit Details:</b><br><br>
           hm2_pending_deposits.id = '.$id.' and
           hm2_users.id = hm2_pending_deposits.user_id
        ');
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $q = 'select * from hm2_processings where id = '.$row['ec'];
   $sth = db_query($q);

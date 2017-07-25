@@ -23,7 +23,7 @@ $q = ''.'select
          order by col desc, u1.id
          limit 0, 20
         ';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $stats = [];
   while ($row = mysql_fetch_array($sth)) {
       $q2 = ''.'select 
@@ -35,14 +35,14 @@ $q = ''.'select
                   u.ref = '.$row[id].' and
                   u.id = d.user_id
            ';
-      ($sth1 = db_query($q2) or print mysql_error());
+      ($sth1 = db_query($q2));
       $row1 = mysql_fetch_array($sth1);
       $row[active_col] = $row1[col];
       array_push($stats, $row);
   }
 
   $q = ''.'select date_format(\''.$settings[refs10_start_date].'\' + interval '.$settings['time_dif'].' hour, \'%b-%e-%Y\') as d';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $smarty->assign('start_date', $row[d]);
   $smarty->assign('stats', $stats);

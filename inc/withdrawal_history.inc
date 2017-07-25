@@ -30,7 +30,7 @@ $id = $userinfo['id'];
   $order = ($settings['use_history_balance_mode'] ? 'asc' : 'desc');
   $dformat = ($settings['use_history_balance_mode'] ? '%b-%e-%Y<br>%r' : '%b-%e-%Y %r');
   $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \''.$dformat.'\') as d from hm2_history where '.$datewhere.' '.$typewhere.' and user_id = '.$id.' order by date '.$order.', id '.$order);
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $trans = [];
   while ($row = mysql_fetch_array($sth)) {
       $row['transtype'] = $transtype[$row['type']];

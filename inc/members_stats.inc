@@ -24,7 +24,7 @@ function compare($a, $b)
         ';
   $q = 'select count(distinct(user_id)) as cnt
 	from hm2_deposits';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $count_all = $row['cnt'];
   $q = 'select 
@@ -38,7 +38,7 @@ function compare($a, $b)
          group by
                h.type, u.username
         ';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $stats = [];
   while ($row = mysql_fetch_array($sth)) {
       $stats[$row['username']][$row['type']] = $row['amt'];

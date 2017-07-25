@@ -11,7 +11,7 @@
 
 $q = 'select * from hm2_types where status = \'on\'';
   if (!($sth = db_query($q))) {
-      exit(mysql_error());
+      
   }
 
   $packages = [];

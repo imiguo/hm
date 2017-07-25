@@ -18,14 +18,14 @@ while (list($kk, $vv) = each($ab)) {
 $smarty->assign('ab_formated', $ab_formated);
 $smarty->assign('frm', $frm);
 $q = 'select type_id from hm2_deposits where user_id = '.$userinfo['id'];
-($sth = db_query($q) or print mysql_error());
+($sth = db_query($q));
 $already_deposits = [];
 while ($row = mysql_fetch_array($sth)) {
     array_push($already_deposits, $row['type_id']);
 }
 
 $q = 'select * from hm2_types where status = \'on\' and closed = 0 order by id';
-($sth = db_query($q) or print mysql_error());
+($sth = db_query($q));
 $plans = [];
 $i = 0;
 $min_deposit = 1000000000;
@@ -44,7 +44,7 @@ while ($row = mysql_fetch_array($sth)) {
     $compounding_available += $row['use_compound'];
     $q = 'select * from hm2_plans where parent = '.$row['id'].' order by id';
     if (!($sth1 = db_query($q))) {
-        exit(mysql_error());
+
     }
 
     $row['plans'] = [];
@@ -80,18 +80,18 @@ $smarty->assign('ps', $ps);
 $hold = [];
 if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
     $q = ''.'select id from hm2_deposits where user_id = '.$userinfo['id'];
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     $deps = [];
     $deps[0] = 0;
     while ($row = mysql_fetch_array($sth)) {
         array_push($deps, $row[id]);
     }
 
-    $q = 'select sum(actual_amount) as amount, ec from hm2_history where user_id = '.$userinfo['id'].' and 
-	deposit_id in ('.join(',', $deps).') and 
-			(type=\'earning\' or 
+    $q = 'select sum(actual_amount) as amount, ec from hm2_history where user_id = '.$userinfo['id'].' and
+	deposit_id in ('.join(',', $deps).') and
+			(type=\'earning\' or
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\'))) group by ec';
-    ($sth = db_query($q) or print mysql_error());
+    ($sth = db_query($q));
     while ($row = mysql_fetch_array($sth)) {
         array_push($hold, ['ec' => $row[ec], 'amount' => number_format($row[amount], 2)]);
     }
@@ -99,7 +99,7 @@ if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
 
 if ($settings['hold_only_first_days'] == 1) {
     $q = ''.'select
-              sum(hm2_history.actual_amount) as am, 
+              sum(hm2_history.actual_amount) as am,
 	      hm2_history.ec
             from
               hm2_history,
@@ -109,15 +109,15 @@ if ($settings['hold_only_first_days'] == 1) {
               hm2_history.user_id = '.$userinfo[id].' and
 	      hm2_history.deposit_id = hm2_deposits.id and
               hm2_types.id = hm2_deposits.type_id and
-              now() - interval hm2_types.hold day < hm2_history.date and 
+              now() - interval hm2_types.hold day < hm2_history.date and
               hm2_deposits.deposit_date + interval hm2_types.hold day > now() and
-	      (hm2_history.type=\'earning\' or 
-		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\'))) 
+	      (hm2_history.type=\'earning\' or
+		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\')))
 	    group by hm2_history.ec
           ';
 } else {
     $q = ''.'select
-              sum(hm2_history.actual_amount) as am, 
+              sum(hm2_history.actual_amount) as am,
 	      hm2_history.ec
             from
               hm2_history,
@@ -127,14 +127,14 @@ if ($settings['hold_only_first_days'] == 1) {
               hm2_history.user_id = '.$userinfo[id].' and
 	      hm2_history.deposit_id = hm2_deposits.id and
               hm2_types.id = hm2_deposits.type_id and
-              now() - interval hm2_types.hold day < hm2_history.date and 
-	      (hm2_history.type=\'earning\' or 
-		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\'))) 
+              now() - interval hm2_types.hold day < hm2_history.date and
+	      (hm2_history.type=\'earning\' or
+		(hm2_history.type=\'deposit\' and (hm2_history.description like \'Compou%\' or hm2_history.description like \'<b>Archived transactions</b>:<br>Compound%\')))
 	    group by hm2_history.ec
           ';
 }
 
-($sth = db_query($q) or print mysql_error());
+($sth = db_query($q));
 $deps = [];
 $deps[0] = 0;
 while ($row = mysql_fetch_array($sth)) {

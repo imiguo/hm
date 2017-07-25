@@ -29,14 +29,14 @@ header('Content-type: text/vnd.wap.wml');
 
   $smarty->assign('ab_formated', $ab_formated);
   $q = 'select *, date_format(deposit_date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as dd from hm2_deposits where user_id = '.$id.' and status = \'on\' order by deposit_date desc limit 1');
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   if ($row = mysql_fetch_array($sth)) {
       $smarty->assign('last_deposit', number_format($row['amount'], 2));
       $smarty->assign('last_deposit_date', $row['dd']);
   }
 
   $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as dd from hm2_history where user_id = '.$id.' and type = \'withdrawal\' order by date desc limit 1');
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   if ($row = mysql_fetch_array($sth)) {
       $smarty->assign('last_withdrawal', number_format(abs($row['actual_amount']), 2));
       $smarty->assign('last_withdrawal_date', $row['dd']);

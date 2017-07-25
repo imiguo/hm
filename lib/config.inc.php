@@ -9,13 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
+require '../bootstrap.php';
 ini_set('error_reporting', 'E_ALL & ~E_NOTICE & ~E_DEPRECATED');
 define('ROOT', dirname(dirname(__DIR__)));
 define('SUBDOMAIN', !empty($_SERVER['SUBDOMAIN']) ? $_SERVER['SUBDOMAIN'] : '');
 if (SUBDOMAIN && is_dir(ROOT.'/templates/'.SUBDOMAIN.'/tmpl/')) {
     define('TMPL_PATH', ROOT.'/templates/'.SUBDOMAIN.'/tmpl/');
 } else {
-    define('TMPL_PATH', dirname(__DIR__).'/tmpl/');
+    define('TMPL_PATH', dirname(__DIR__).'/public/tmpl/');
 }
 if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
     define('HTTPS', true);
@@ -34,11 +35,16 @@ if (file_exists('local')) {
     $settingsFile = 'settings.prod.php';
 }
 
-function class_autoloader($class)
+function shutdown()
 {
-    include 'classes/'.$class.'.php';
+    $error = error_get_last();
+    $error && dd($error);
+    echo 'Script executed with success', PHP_EOL;
 }
-spl_autoload_register('class_autoloader');
+
+if (function_exists('dd')) {
+    register_shutdown_function('shutdown');
+}
 
 require 'function.inc.php';
 
@@ -148,5 +154,4 @@ $ip = $frm_env['REMOTE_ADDR'];
 $time = time();
 $url = $frm_env['REQUEST_URI'];
 $agent = $frm_env['HTTP_USER_AGENT'];
-db_open();
 $ret = db_query("insert hm2_visit (`ip`, `time`, `url`, `agent`) values('$ip', '$time', '$url', '$agent')");

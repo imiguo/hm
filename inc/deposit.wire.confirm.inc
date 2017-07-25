@@ -13,7 +13,7 @@ $ok = 1;
   $amount = sprintf('%0.2f', $frm['amount']);
   $h_id = sprintf('%d', $frm['h_id']);
   $q = ''.'select * from hm2_types where id = '.$h_id.' and closed = 0';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $type = mysql_fetch_array($sth);
   if (!$type) {
       $smarty->assign('wrong_plan', 1);
@@ -53,13 +53,13 @@ $ok = 1;
 
   $smarty->assign('use_compound', $use_compound);
   $q = 'select `value` from hm2_settings where name=\'wire_text\'';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $wire_txt = $row['value'];
   }
 
   $q = ''.'select count(*) as col, min(min_deposit) as min from hm2_plans where parent = '.$h_id;
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   if ($row) {
       if ($row['col'] == 0) {
@@ -80,7 +80,7 @@ $ok = 1;
   $accounting = get_user_balance($userinfo['id']);
   $max_deposit = 0;
   $q = ''.'select min(max_deposit) as min, max(max_deposit) as max from hm2_plans where parent = '.$h_id;
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   if ($row) {
       if (0 < $row['min']) {
@@ -137,7 +137,7 @@ $ok = 1;
 	wire_date = now(),
 	status = \'new\',
 	compound = '.$compound);
-      (db_query($q) or print mysql_error());
+      (db_query($q));
       $info = [];
       $info['username'] = $userinfo['username'];
       $info['name'] = $userinfo['name'];

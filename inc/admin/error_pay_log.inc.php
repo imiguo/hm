@@ -19,7 +19,7 @@ echo '
 </tr>
 ';
   $q = 'select * from hm2_pay_errors order by id desc';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   while ($row = mysql_fetch_array($sth)) {
       $txt = $row['txt'];
       $txt = preg_replace('/<.*?>/', '', $txt);

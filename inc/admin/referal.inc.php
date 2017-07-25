@@ -168,7 +168,7 @@ function checkref(a) {
  <th bgcolor=FFEA00>Monthly</th>-->
 </tr>';
   $q = 'select * from hm2_referal where level = 1 order by from_value';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $num = 0;
   while ($row = mysql_fetch_array($sth)) {
       echo '<tr>

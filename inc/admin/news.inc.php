@@ -17,7 +17,7 @@ if ($settings['demomode'] != 1) {
         $full_text = quote($frm_orig['full_text']);
         $full_text = preg_replace('/\\r/', '', $full_text);
         $q = ''.'insert into hm2_news set date=now(), title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\'';
-        (db_query($q) or print mysql_error());
+        (db_query($q));
     }
 
     if (($frm['action'] == 'edit' and $frm['save'] == 1)) {
@@ -28,14 +28,14 @@ if ($settings['demomode'] != 1) {
         $full_text = quote($frm_orig['full_text']);
         $full_text = preg_replace('/\\r/', '', $full_text);
         $q = ''.'update hm2_news set title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\' where id = '.$id;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
         $frm['action'] = '';
     }
 
     if ($frm['action'] == 'delete') {
         $id = intval($frm['id']);
         $q = ''.'delete from hm2_news where id = '.$id;
-        (db_query($q) or print mysql_error());
+        (db_query($q));
     }
 }
 
@@ -54,7 +54,7 @@ You cannot add/edit news!';
 
 ';
   $q = 'select count(*) as call from hm2_news';
-  ($sth = db_query($q) or print mysql_error());
+  ($sth = db_query($q));
   $row = mysql_fetch_array($sth);
   $count_all = $row['call'];
 
@@ -74,7 +74,7 @@ You cannot add/edit news!';
       $from = ($page - 1) * $onpage;
       $edit_row = [];
       $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as d from hm2_news order by date desc limit '.$from.', '.$onpage);
-      ($sth = db_query($q) or peint(mysql_error()));
+      ($sth = db_query($q));
       while ($row = mysql_fetch_array($sth)) {
           if (($frm['action'] == 'edit' and $row['id'] == $frm['id'])) {
               $edit_row = $row;
