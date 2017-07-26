@@ -10,10 +10,8 @@
  */
 
 require '../lib/config.inc.php';
-$smarty = new Smarty();
+$smarty = app('smarty');
 $smarty->compile_check = true;
-$smarty->template_dir = TMPL_PATH;
-$smarty->compile_dir = '../tmpl_c';
 
 if ($settings['accesswap'] == 0) {
     exit();
@@ -54,8 +52,7 @@ if ($frm['a'] == 'do_login') {
         exit();
     } else {
         $ip = $frm_env['REMOTE_ADDR'];
-        $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(''.',
-  	date = now(), ip = \''.$ip.'\'');
+        $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(''.',date = now(), ip = \''.$ip.'\'');
         if (!(db_query($q))) {
         }
 

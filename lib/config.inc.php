@@ -11,19 +11,6 @@
 
 ini_set('error_reporting', 'E_ALL & ~E_NOTICE & ~E_DEPRECATED');
 
-define('SUBDOMAIN', !empty($_SERVER['SUBDOMAIN']) ? $_SERVER['SUBDOMAIN'] : '');
-if (SUBDOMAIN && is_dir(APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/')) {
-    define('TMPL_PATH', APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/');
-} else {
-    define('TMPL_PATH', dirname(__DIR__).'/tmpl/');
-}
-
-if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
-    define('HTTPS', true);
-} else {
-    define('HTTPS', false);
-}
-
 require 'function.inc.php';
 
 global $frm;

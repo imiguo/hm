@@ -12,13 +12,11 @@
 $userinfo = [];
 $settings = [];
 require '../lib/config.inc.php';
-$smarty = new Smarty();
 
+$smarty = app('smarty');
 $smarty->compile_check = true;
 $smarty->force_compile = true;
 $smarty->debugging = env('smarty_debug');
-$smarty->template_dir = TMPL_PATH;
-$smarty->compile_dir = '../tmpl_c';
 $smarty->default_modifiers = ['escape'];
 
 if (HTTPS) {
