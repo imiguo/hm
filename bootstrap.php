@@ -13,7 +13,8 @@ require __DIR__.'/vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-$dotenv = new Dotenv\Dotenv(__DIR__);
+define('APP_PATH', __DIR__);
+
 $environmentFile = env('APP_ENV') ? '.env.'.env('APP_ENV') : '.env';
 $dotenv = new Dotenv\Dotenv(APP_PATH, $environmentFile);
 $dotenv->load();

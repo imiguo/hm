@@ -11,10 +11,9 @@
 
 require '../bootstrap.php';
 ini_set('error_reporting', 'E_ALL & ~E_NOTICE & ~E_DEPRECATED');
-define('ROOT', dirname(dirname(__DIR__)));
 define('SUBDOMAIN', !empty($_SERVER['SUBDOMAIN']) ? $_SERVER['SUBDOMAIN'] : '');
-if (SUBDOMAIN && is_dir(ROOT.'/templates/'.SUBDOMAIN.'/tmpl/')) {
-    define('TMPL_PATH', ROOT.'/templates/'.SUBDOMAIN.'/tmpl/');
+if (SUBDOMAIN && is_dir(APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/')) {
+    define('TMPL_PATH', APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/');
 } else {
     define('TMPL_PATH', dirname(__DIR__).'/tmpl/');
 }
@@ -79,7 +78,6 @@ while (list($kk, $vv) = each($frm)) {
     $frm_orig[$kk] = $vv_orig;
 }
 
-$gpc = ini_get('magic_quotes_gpc');
 reset($frm_cookie);
 while (list($kk, $vv) = each($frm_cookie)) {
     if (is_array($vv)) {
