@@ -86,7 +86,7 @@ if ($settings['demomode'] == 1) {
     $add_login_check = '';
 }
 
-[$user_id, $chid] = explode('-', $password, 2);
+list($user_id, $chid) = explode('-', $password, 2);
 $user_id = sprintf('%d', $user_id);
 $chid = quote($chid);
 if ($settings['htaccess_authentication'] == 1) {
@@ -414,7 +414,7 @@ if ($frm['a'] == 'mass') {
     if ($frm['action2'] == 'massremove') {
         $ids = $frm['pend'];
         reset($ids);
-        while ([$kk, $vv] = each($ids)) {
+        while (list($kk, $vv) = each($ids)) {
             $q = 'delete from hm2_history where id = '.$kk;
             (db_query($q));
         }
@@ -426,7 +426,7 @@ if ($frm['a'] == 'mass') {
     if ($frm['action2'] == 'masssetprocessed') {
         $ids = $frm['pend'];
         reset($ids);
-        while ([$kk, $vv] = each($ids)) {
+        while (list($kk, $vv) = each($ids)) {
             $q = 'select * from hm2_history where id = '.$kk;
             $sth = db_query($q);
             while ($row = mysql_fetch_array($sth)) {
@@ -477,7 +477,7 @@ if ($frm['a'] == 'mass') {
         header('Content-type: text/plain');
         $ec = -1;
         $s = '-1';
-        while ([$kk, $vv] = each($ids)) {
+        while (list($kk, $vv) = each($ids)) {
             $s .= ','.$kk;
         }
 
@@ -648,7 +648,7 @@ if ($frm['a'] == 'mass') {
 
         @set_time_limit(9999999);
         reset($ids);
-        while ([$kk, $vv] = each($ids)) {
+        while (list($kk, $vv) = each($ids)) {
             $q = 'select h.*, u.egold_account, u.evocash_account, u.intgold_account, u.ebullion_account, u.eeecurrency_account, u.username, u.name, u.email from hm2_history as h, hm2_users as u where h.id = '.$kk.' and u.id = h.user_id and h.ec in (0, 1, 2, 5, 8, 9)';
             $sth = db_query($q);
             while ($row = mysql_fetch_array($sth)) {
@@ -667,37 +667,37 @@ if ($frm['a'] == 'mass') {
                 $success_txt = 'Withdrawal to '.$row['username'].' from '.$settings['site_name'];
                 if ($row['ec'] == 0) {
                     $error_txt = 'Error, tried to send '.$to_withdraw.' to e-gold account # '.$row['egold_account'].'. Error:';
-                    [$res, $text, $batch] = send_money_to_egold($egold_password, $to_withdraw,
+                    list($res, $text, $batch) = send_money_to_egold($egold_password, $to_withdraw,
                         $row['egold_account'], $success_txt, $error_txt);
                 }
 
                 if ($row['ec'] == 1) {
                     $error_txt = 'Error, tried to send '.$to_withdraw.' to evocash account # '.$row['evocash_account'].'. Error:';
-                    [$res, $text, $batch] = send_money_to_evocash(''.$evocash_password.'|'.$evocash_code,
+                    list($res, $text, $batch) = send_money_to_evocash(''.$evocash_password.'|'.$evocash_code,
                         $to_withdraw, $row['evocash_account'], $success_txt, $error_txt);
                 }
 
                 if ($row['ec'] == 2) {
                     $error_txt = 'Error, tried to send '.$to_withdraw.' to IntGold account # '.$row['intgold_account'].'. Error:';
-                    [$res, $text, $batch] = send_money_to_intgold(''.$intgold_password.'|'.$intgold_code,
+                    list($res, $text, $batch) = send_money_to_intgold(''.$intgold_password.'|'.$intgold_code,
                         $to_withdraw, $row['intgold_account'], $success_txt, $error_txt);
                 }
 
                 if ($row['ec'] == 3) {
                     $error_txt = 'Error, tried to send '.$to_withdraw.' to Perfect Money account # '.$row['perfectmoney_account'].'. Error:';
-                    [$res, $text, $batch] = send_money_to_perfectmoney(''.$perfectmoney_password.'|'.$perfectmoney_code,
+                    list($res, $text, $batch) = send_money_to_perfectmoney(''.$perfectmoney_password.'|'.$perfectmoney_code,
                         $to_withdraw, $row['perfectmoney_account'], $success_txt, $error_txt);
                 }
 
                 if ($row['ec'] == 5) {
                     $error_txt = 'Error, tried to send '.$to_withdraw.' to e-Bullion account # '.$row['ebullion_account'].'. Error:';
-                    [$res, $text, $batch] = send_money_to_ebullion('', $to_withdraw, $row['ebullion_account'],
+                    list($res, $text, $batch) = send_money_to_ebullion('', $to_withdraw, $row['ebullion_account'],
                         $success_txt, $error_txt);
                 }
 
                 if ($row['ec'] == 8) {
                     $error_txt = 'Error, tried to send '.$to_withdraw.' to eeeCurrency account # '.$row['eeecurrency_account'].'. Error:';
-                    [$res, $text, $batch] = send_money_to_eeecurrency(''.$eeecurrency_password.'|'.$eeecurrency_code,
+                    list($res, $text, $batch) = send_money_to_eeecurrency(''.$eeecurrency_password.'|'.$eeecurrency_code,
                         $to_withdraw, $row['eeecurrency_account'], $success_txt, $error_txt);
                 }
 
@@ -1399,7 +1399,7 @@ if ($frm['a'] == 'rm_withdraw') {
 if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
     $u_id = sprintf('%d', $frm['u_id']);
     $type_ids = $frm['type_id'];
-    while ([$kk, $vv] = each($type_ids)) {
+    while (list($kk, $vv) = each($type_ids)) {
         $kk = intval($kk);
         $vv = intval($vv);
         $q = 'select compound, actual_amount from hm2_deposits where id = '.$kk;
@@ -1442,7 +1442,7 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
     }
 
     $releases = $frm['release'];
-    while ([$kk, $vv] = each($releases)) {
+    while (list($kk, $vv) = each($releases)) {
         if ($vv == 0) {
             continue;
         }
@@ -1786,7 +1786,7 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
 if (($frm['a'] == 'members' and $frm['action'] == 'modify_status')) {
     if ($settings['demomode'] != 1) {
         $active = $frm['active'];
-        while ([$id, $status] = each($active)) {
+        while (list($id, $status) = each($active)) {
             $qstatus = quote($status);
             $q = 'update hm2_users set status = \''.$qstatus.'\' where id = '.$id;
             (db_query($q));
@@ -1799,7 +1799,7 @@ if (($frm['a'] == 'members' and $frm['action'] == 'modify_status')) {
 
 if (($frm['a'] == 'members' and $frm['action'] == 'activate')) {
     $active = $frm['activate'];
-    while ([$id, $status] = each($active)) {
+    while (list($id, $status) = each($active)) {
         $q = 'update hm2_users set activation_code = \'\', bf_counter = 0 where id = '.$id;
         (db_query($q));
     }

@@ -302,37 +302,37 @@ if ($frm['action'] == 'preview') {
                             $success_txt = 'Withdraw to '.$userinfo['username'].' from '.$settings['site_name'];
                             if ($ec == 0) {
                                 $error_txt = 'Error, tried sent '.$to_withdraw.' to e-gold account # '.$userinfo['egold_account'].'. Error:';
-                                [$res, $text, $batch] = send_money_to_egold('', $to_withdraw, $userinfo['egold_account'], $success_txt, $error_txt);
+                                list($res, $text, $batch) = send_money_to_egold('', $to_withdraw, $userinfo['egold_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 1) {
                                 $error_txt = 'Error, tried sent '.$to_withdraw.' to evocash account # '.$userinfo['evocash_account'].'. Error:';
-                                [$res, $text, $batch] = send_money_to_evocash('', $to_withdraw, $userinfo['evocash_account'], $success_txt, $error_txt);
+                                list($res, $text, $batch) = send_money_to_evocash('', $to_withdraw, $userinfo['evocash_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 2) {
                                 $error_txt = 'Error, tried sent '.$to_withdraw.' to IntGold account # '.$userinfo['intgold_account'].'. Error:';
-                                [$res, $text, $batch] = send_money_to_intgold('', $to_withdraw, $userinfo['intgold_account'], $success_txt, $error_txt);
+                                list($res, $text, $batch) = send_money_to_intgold('', $to_withdraw, $userinfo['intgold_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 3) {
                                 $error_txt = 'Error, tried sent '.$to_withdraw.' to PerfectMoney account # '.$userinfo['perfectmoney_account'].'. Error:';
-                                [$res, $text, $batch] = send_money_to_perfectmoney('', $to_withdraw, $userinfo['perfectmoney_account'], $success_txt, $error_txt);
+                                list($res, $text, $batch) = send_money_to_perfectmoney('', $to_withdraw, $userinfo['perfectmoney_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 5) {
                                 $error_txt = 'Error, tried sent '.$to_withdraw.' to e-bullion account # '.$userinfo['ebullion_account'].'. Error:';
-                                [$res, $text, $batch] = send_money_to_ebullion('', $to_withdraw, $userinfo['ebullion_account'], $success_txt, $error_txt);
+                                list($res, $text, $batch) = send_money_to_ebullion('', $to_withdraw, $userinfo['ebullion_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 8) {
                                 $error_txt = 'Error, tried sent '.$to_withdraw.' to eeeCurrency account # '.$userinfo['eeecurrency_account'].'. Error:';
-                                [$res, $text, $batch] = send_money_to_eeecurrency('', $to_withdraw, $userinfo['eeecurrency_account'], $success_txt, $error_txt);
+                                list($res, $text, $batch) = send_money_to_eeecurrency('', $to_withdraw, $userinfo['eeecurrency_account'], $success_txt, $error_txt);
                             }
 
                             if ($ec == 9) {
                                 $error_txt = 'Error, tried sent '.$to_withdraw.' to Pecunix account # '.$userinfo['pecunix_account'].'. Error:';
-                                [$res, $text, $batch] = send_money_to_pecunix('', $to_withdraw, $userinfo['pecunix_account'], $success_txt, $error_txt);
+                                list($res, $text, $batch) = send_money_to_pecunix('', $to_withdraw, $userinfo['pecunix_account'], $success_txt, $error_txt);
                             }
 
                             if ($res == 1) {
@@ -378,7 +378,7 @@ if ($frm['action'] == 'preview') {
         $ab_formated = [];
         $ab['withdraw_pending'] = 0 - $ab['withdraw_pending'];
         reset($ab);
-        while ([$kk, $vv] = each($ab)) {
+        while (list($kk, $vv) = each($ab)) {
             $vv = floor($vv * 100) / 100;
             $ab_formated[$kk] = number_format($vv, 2);
         }

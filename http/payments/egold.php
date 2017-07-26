@@ -14,7 +14,7 @@ include 'lib/config.inc.php';
 $mymd5 = $settings['md5altphrase'];
 if ($frm['a'] == 'pay_withdraw') {
     $batch = $frm['PAYMENT_BATCH_NUM'];
-    [$id, $str] = explode('-', $frm['withdraw']);
+    list($id, $str) = explode('-', $frm['withdraw']);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';

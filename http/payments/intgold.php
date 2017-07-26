@@ -14,7 +14,7 @@ include 'lib/config.inc.php';
 $mymd5 = $settings['md5altphrase_intgold'];
 if ($frm['CUSTOM2'] == 'pay_withdraw') {
     $batch = $frm['TRANSACTION_ID'];
-    [$id, $str] = explode('-', $frm['CUSTOM1']);
+    list($id, $str) = explode('-', $frm['CUSTOM1']);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';
