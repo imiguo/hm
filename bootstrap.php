@@ -36,7 +36,7 @@ $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
 app()->singleton('klein', Klein\Klein::class);
-app()->singleton('mysql', function() {
+app()->singleton('mysql', function () {
     return new mysqli(getenv('DB_HOST'), getenv('DB_USERNAME'), getenv('DB_PASSWORD'), getenv('DB_DATABASE'));
 });
 
