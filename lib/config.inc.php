@@ -10,37 +10,18 @@
  */
 
 ini_set('error_reporting', 'E_ALL & ~E_NOTICE & ~E_DEPRECATED');
+
 define('SUBDOMAIN', !empty($_SERVER['SUBDOMAIN']) ? $_SERVER['SUBDOMAIN'] : '');
 if (SUBDOMAIN && is_dir(APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/')) {
     define('TMPL_PATH', APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/');
 } else {
     define('TMPL_PATH', dirname(__DIR__).'/tmpl/');
 }
+
 if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
     define('HTTPS', true);
 } else {
     define('HTTPS', false);
-}
-
-if (file_exists('local')) {
-    define('ENV', 'local');
-    $settingsFile = 'settings.local.php';
-} elseif (file_exists('test')) {
-    define('ENV', 'test');
-    $settingsFile = 'settings.test.php';
-} else {
-    define('ENV', 'prod');
-    $settingsFile = 'settings.prod.php';
-}
-
-function shutdown()
-{
-    $error = error_get_last();
-    $error && dd($error);
-}
-
-if (function_exists('dd')) {
-    register_shutdown_function('shutdown');
 }
 
 require 'function.inc.php';
@@ -54,8 +35,8 @@ if (!extension_loaded('gd')) {
 $get = $_GET;
 $post = $_POST;
 $frm = array_merge($get, $post);
-$frm_cookie = $_COOKIE;
 $frm_orig = $frm;
+$frm_cookie = $_COOKIE;
 $gpc = ini_get('magic_quotes_gpc');
 reset($frm);
 while (list($kk, $vv) = each($frm)) {

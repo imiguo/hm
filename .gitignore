@@ -16,6 +16,7 @@ sftp-config.*
 
 *.css
 *.txt
+*.env
 
 /vendor
 

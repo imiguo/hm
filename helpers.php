@@ -58,3 +58,12 @@ if (!function_exists('mysql_real_escape_string')) {
         return app('mysql')->real_escape_string($escapestr);
     }
 }
+
+if (function_exists('dd')) {
+    function shutdown_print_error()
+    {
+        $error = error_get_last();
+        $error && dd($error);
+    }
+    register_shutdown_function('shutdown_echo_error');
+}
