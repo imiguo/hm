@@ -10,6 +10,7 @@
  */
 
 require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/helpers.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -20,7 +21,6 @@ $dotenv = new Dotenv\Dotenv(APP_PATH, $environmentFile);
 $dotenv->load();
 
 $capsule = new Capsule();
-
 $capsule->addConnection([
     'driver'    => getenv('DB_CONNECTION'),
     'host'      => getenv('DB_HOST'),
@@ -32,39 +32,12 @@ $capsule->addConnection([
     'collation' => 'utf8_unicode_ci',
     'prefix'    => 'hm2_',
 ]);
-
-// Make this Capsule instance available globally via static methods... (optional)
 $capsule->setAsGlobal();
-
-// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
 
-if (extension_loaded('mysql')) {
-    mysql_connect(getenv('DB_HOST'), getenv('DB_USERNAME'), getenv('DB_PASSWORD'));
-    mysql_select_db(getenv('DB_DATABASE'));
-} else {
-    function mysql_query($query)
-    {
-        return Mysql::instance()->query($query);
-    }
+app()->singleton('klein', Klein\Klein::class);
+app()->singleton('mysql', function() {
+    return new mysqli(getenv('DB_HOST'), getenv('DB_USERNAME'), getenv('DB_PASSWORD'), getenv('DB_DATABASE'));
+});
 
-    function mysql_fetch_array($result)
-    {
-        return $result->fetch_array();
-    }
-
-    function mysql_fetch_assoc($result)
-    {
-        return $result->fetch_assoc();
-    }
-
-    function mysql_insert_id()
-    {
-        return Mysql::instance()->insert_id;
-    }
-
-    function mysql_real_escape_string($escapestr)
-    {
-        return Mysql::instance()->real_escape_string($escapestr);
-    }
-}
+require __DIR__.'/routes.php';
