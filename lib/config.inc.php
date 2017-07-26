@@ -16,7 +16,7 @@ define('SUBDOMAIN', !empty($_SERVER['SUBDOMAIN']) ? $_SERVER['SUBDOMAIN'] : '');
 if (SUBDOMAIN && is_dir(ROOT.'/templates/'.SUBDOMAIN.'/tmpl/')) {
     define('TMPL_PATH', ROOT.'/templates/'.SUBDOMAIN.'/tmpl/');
 } else {
-    define('TMPL_PATH', dirname(__DIR__).'/public/tmpl/');
+    define('TMPL_PATH', dirname(__DIR__).'/tmpl/');
 }
 if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
     define('HTTPS', true);

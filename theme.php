@@ -40,9 +40,18 @@ foreach (glob('./public/*') as $file) {
         unlink($file);
     }
 }
+foreach (glob('./*') as $file) {
+    if (is_link($file)) {
+        unlink($file);
+    }
+}
 if ('clear' == $theme) {
     exit;
 }
 foreach (glob('../templates/'.$theme.'/*') as $file) {
-    symlink(realpath($file), './public/'.basename($file));
+    if (strpos($file, '/tmpl')) {
+        symlink(realpath($file), './'.basename($file));
+    } else {
+        symlink(realpath($file), './public/'.basename($file));
+    }
 }
