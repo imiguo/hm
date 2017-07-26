@@ -54,7 +54,8 @@ app()->singleton('mysql', function () {
 app()->singleton('smarty', function () {
     $smarty = new Smarty();
     $smarty->template_dir = TMPL_PATH;
-    $smarty->compile_dir = APP_PATH.'/tmpl_c';;
+    $smarty->compile_dir = APP_PATH.'/tmpl_c';
+
     return $smarty;
 });
 
