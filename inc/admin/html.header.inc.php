@@ -55,10 +55,10 @@
     echo '" width=1 height=1> ';
   }
   */
-  echo '          <a href=index.php?a=logout class=toplink>Home</a> &middot; <a href=index.php?a=faq class=toplink>FAQ</a>
-          &middot; <a href=index.php?a=rules class=toplink>Rules</a> &middot;
-          <a href=index.php?a=logout class=toplink>Logout</a> &middot;
-          <a href=index.php?a=support class=toplink>Support</a></b></span>&nbsp; &nbsp;</td>
+  echo '          <a href=/?a=logout class=toplink>Home</a> &middot; <a href=/?a=faq class=toplink>FAQ</a>
+          &middot; <a href=/?a=rules class=toplink>Rules</a> &middot;
+          <a href=/?a=logout class=toplink>Logout</a> &middot;
+          <a href=/?a=support class=toplink>Support</a></b></span>&nbsp; &nbsp;</td>
  	    </tr>
 	  </table>
      </td>

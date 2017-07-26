@@ -9,29 +9,16 @@
  * with this source code in the file LICENSE.
  */
 
-if (file_exists('install.php')) {
-    echo 'Delete install.php file for security reason please!';
-    exit();
-}
-
-require 'lib/config.inc.php';
-require '../smarty/Smarty.class.php';
+require '../lib/config.inc.php';
 $smarty = new Smarty();
 $smarty->compile_check = true;
 $smarty->template_dir = TMPL_PATH;
-$smarty->compile_dir = './tmpl_c';
+$smarty->compile_dir = '../tmpl_c';
 
 if ($settings['accesswap'] == 0) {
     exit();
 }
 
-$dbconn = db_open();
-if (!$dbconn) {
-    echo 'Cannot connect mysql';
-    exit();
-}
-
-check_if_stolen();
 $userinfo = [];
 $userinfo['logged'] = 0;
 $q = 'delete from hm2_online where ip=\''.$frm_env['REMOTE_ADDR'].'\' or date + interval 30 minute < now()';
@@ -64,7 +51,6 @@ if ($frm['a'] == 'do_login') {
 
     if ($userinfo['logged'] == 0) {
         header('Location: wap.php?a=login&say=invalid_login&username='.$frm['username']);
-        db_close($dbconn);
         exit();
     } else {
         $ip = $frm_env['REMOTE_ADDR'];
@@ -85,7 +71,6 @@ if ($frm['a'] == 'do_login') {
         setcookie('username', $frm['username'], time() + 630720000);
         setcookie('password', md5($frm['password']), time() + 630720000);
         header('Location: wap.php?ok');
-        db_close($dbconn);
         exit();
     }
 } else {
@@ -118,24 +103,22 @@ if ($userinfo['logged'] == 1) {
 
 $smarty->assign('userinfo', $userinfo);
 if ($frm['a'] == 'login') {
-    include 'inc/wap/login.inc';
+    include APP_PATH.'/inc/wap/login.inc';
 } else {
     if ((($frm['a'] == 'do_login' or $frm['a'] == 'account') and $userinfo['logged'] == 1)) {
-        include 'inc/wap/account_main.inc';
+        include APP_PATH.'/inc/wap/account_main.inc';
     } else {
         if (($frm['a'] == 'earnings' and $userinfo['logged'] == 1)) {
-            include 'inc/wap/earning_history.inc';
+            include APP_PATH.'/inc/wap/earning_history.inc';
         } else {
             if (($frm['a'] == 'admin_pending' and $userinfo['id'] == 1)) {
-                include 'inc/admin/wap/pending.inc.php';
+                include APP_PATH.'/inc/admin/wap/pending.inc.php';
             } else {
                 if ($userinfo['id'] == 1) {
-                    include 'inc/admin/wap/main.inc.php';
-                    db_close($dbconn);
+                    include APP_PATH.'/inc/admin/wap/main.inc.php';
                     exit();
                 } else {
-                    include 'inc/wap/home.inc';
-                    db_close($dbconn);
+                    include APP_PATH.'/inc/wap/home.inc';
                     exit();
                 }
             }
@@ -143,5 +126,4 @@ if ($frm['a'] == 'login') {
     }
 }
 
-db_close($dbconn);
 exit();

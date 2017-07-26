@@ -9,29 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-function shop_pin_html()
-{
-    echo '<html><body>Enter pin:<br>
-<form method=post>
-<input type=hidden name=a value=enter_pin>
-<input type=text name=pin value=""><br>
-<input type=submit value="Go">
-</form></body></html>';
-}
-
-$arr = get_defined_vars();
-while (list($kk, $vv) = each($arr)) {
-    if (gettype($$kk) != 'array') {
-        $$kk = '';
-        continue;
-    }
-}
-
-if (file_exists('install.php')) {
-    echo 'Delete install.php file for security reason please!';
-    exit();
-}
-
 $settings = [];
 $userinfo = [];
 $frm['a'] = '';
@@ -97,7 +74,7 @@ if ($frm['a'] == 'showprogramstat') {
 
 if ($frm['a'] == 'logout') {
     setcookie('password', '', time() - 86400);
-    header('Location: index.php');
+    header('Location: /');
     exit();
 }
 
@@ -146,7 +123,7 @@ if ($settings['htaccess_authentication'] == 1) {
         ($sth = db_query($q));
         while ($row = mysql_fetch_array($sth)) {
             if (($settings['brute_force_handler'] == 1 and $row['activation_code'] != '')) {
-                header('Location: index.php?a=login&say=invalid_login&username='.$frm['username']);
+                header('Location: /?a=login&say=invalid_login&username='.$frm['username']);
                 exit();
             }
 
@@ -172,7 +149,7 @@ if ($settings['htaccess_authentication'] == 1) {
                     $info['ip'] = $frm_env['REMOTE_ADDR'];
                     $info['max_tries'] = $settings['brute_force_max_tries'];
                     send_template_mail('brute_force_activation', $row['email'], $settings['system_email'], $info);
-                    header('Location: index.php?a=login&say=invalid_login&username='.$frm['username']);
+                    header('Location: /?a=login&say=invalid_login&username='.$frm['username']);
                     exit();
                     continue;
                 }
@@ -184,7 +161,7 @@ if ($settings['htaccess_authentication'] == 1) {
 }
 
 if ($userinfo['logged'] != 1) {
-    header('Location: index.php');
+    header('Location: /');
     exit();
 }
 

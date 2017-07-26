@@ -10,11 +10,6 @@
  */
 
 include 'lib/config.inc.php';
-$dbconn = db_open();
-if (!$dbconn) {
-    echo 'Cannot connect mysql';
-    exit();
-}
 
 list($action, $user_id, $h_id) = preg_split('/\\|/', $frm['custom']);
 if ($action == 'pay_withdraw') {
@@ -56,8 +51,8 @@ if ($action == 'pay_withdraw') {
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 
-    header('Location: admin.php?a=pay_withdraw&say=yes');
-    db_close($dbconn);
+    $admin_url = getenv('ADMIN_URL');
+    header("Location: {$admin_url}?a=pay_withdraw&say=yes");
     exit();
 }
 
@@ -85,13 +80,10 @@ if (function_exists('curl_init')) {
         $account = $frm['payer_email'];
         if ($action == 'checkpayment') {
             add_deposit(6, $user_id, $amount, $batch, $account, $h_id, $compound);
-            header('Location: index.php?a=return_egold&process=yes');
-            db_close($dbconn);
+            header('Location: /?a=return_egold&process=yes');
             exit();
         }
     }
 }
 
-header('Location: index.php?a=return_egold&process=no');
-db_close($dbconn);
-exit();
+header('Location: /?a=return_egold&process=no');

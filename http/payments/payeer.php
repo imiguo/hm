@@ -9,12 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-include 'lib/config.inc.php';
-$dbconn = db_open();
-if (!$dbconn) {
-    echo 'Cannot connect mysql';
-    exit();
-}
+include APP_PATH.'/lib/config.inc.php';
 
 file_put_contents('../log/payeer_processing_'.ENV.'.txt', json_encode($frm).PHP_EOL, FILE_APPEND);
 file_put_contents('../log/payeer_processing_'.ENV.'.txt', 'IP:'.$frm_env['REMOTE_ADDR'].PHP_EOL, FILE_APPEND);
@@ -63,7 +58,5 @@ if ($frm['a'] == 'checkpayment') {
      exit($_POST['m_orderid'].'|error');
     }
 
-    db_close($dbconn);
     echo '1';
-    exit();
 }

@@ -10,11 +10,6 @@
  */
 
 include 'lib/config.inc.php';
-$dbconn = db_open();
-if (!$dbconn) {
-    echo 'Cannot connect mysql';
-    exit();
-}
 
 $mymd5 = $settings['md5altphrase_evocash'];
 if ($frm['a'] == 'pay_withdraw') {
@@ -57,7 +52,6 @@ if ($frm['a'] == 'pay_withdraw') {
     }
 
     echo 1;
-    db_close($dbconn);
     exit();
 }
 
@@ -74,6 +68,4 @@ if (($hash == strtoupper($frm['merchanthashcheck']) and $exchange_systems[1]['st
     }
 }
 
-db_close($dbconn);
 echo '1';
-exit();

@@ -10,11 +10,6 @@
  */
 
 include 'lib/config.inc.php';
-$dbconn = db_open();
-if (!$dbconn) {
-    echo 'Cannot connect mysql';
-    exit();
-}
 
 if ($frm['a'] == 'pay_withdraw') {
     $batch = $frm['ATIP_TRANSACTION_ID'];
@@ -88,7 +83,6 @@ $keyID = '';
 $fp = @popen(''.$gpg_command, 'r');
 if (!$fp) {
     echo 'GPG not found';
-    db_close($dbconn);
     exit();
 }
 
@@ -123,8 +117,6 @@ if (($keyID == $settings['ebullion_keyID'] and $exchange_systems[5]['status'] ==
     }
 }
 
-db_close($dbconn);
 echo '1';
 unlink($tmpfile);
 unlink($xmlfile);
-exit();

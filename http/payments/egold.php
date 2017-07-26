@@ -10,15 +10,10 @@
  */
 
 include 'lib/config.inc.php';
-$dbconn = db_open();
-if (!$dbconn) {
-    echo 'Cannot connect mysql';
-    exit();
-}
 
-$mymd5 = $settings['md5altphrase_goldmoney'];
+$mymd5 = $settings['md5altphrase'];
 if ($frm['a'] == 'pay_withdraw') {
-    $batch = $frm['OMI_TXN_ID'];
+    $batch = $frm['PAYMENT_BATCH_NUM'];
     list($id, $str) = explode('-', $frm['withdraw']);
     $id = sprintf('%d', $id);
     if ($str == '') {
@@ -26,7 +21,7 @@ if ($frm['a'] == 'pay_withdraw') {
     }
 
     $str = quote($str);
-    $q = 'select * from hm2_history where id = '.$id.' and str = \''.$str.'\'';
+    $q = 'select * from hm2_history where id = '.$id.' and str = \''.$str.'\' and type=\'withdraw_pending\'';
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = 'delete from hm2_history where id = '.$id;
@@ -37,7 +32,7 @@ if ($frm['a'] == 'pay_withdraw') {
 	type = \'withdrawal\',
 	description = \'Withdraw processed. Batch id = '.$batch.'\',
 	actual_amount = -').abs($row['amount']).',
-	ec = 7,
+	ec = 0,
 	date = now()
 	';
         (db_query($q));
@@ -48,38 +43,34 @@ if ($frm['a'] == 'pay_withdraw') {
         $info['username'] = $userinfo['username'];
         $info['name'] = $userinfo['name'];
         $info['amount'] = sprintf('%.02f', abs($row['amount']));
-        $info['account'] = $frm['OMI_MERCHANT_HLD_NO'];
+        $info['account'] = $frm['PAYEE_ACCOUNT'];
         $info['batch'] = $batch;
         $info['paying_batch'] = $batch;
         $info['receiving_batch'] = $batch;
-        $info['currency'] = $exchange_systems[7]['name'];
+        $info['currency'] = $exchange_systems[0]['name'];
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 
     echo 1;
-    db_close($dbconn);
     exit();
 }
 
-if ($frm['OMI_MODE'] != 'LIVE') {
-    echo '1';
-    db_close($dbconn);
-    exit();
-}
+$hash = strtoupper(md5($frm['PAYMENT_ID'].':'.$frm['PAYEE_ACCOUNT'].':'.$frm['PAYMENT_AMOUNT'].':'.$frm['PAYMENT_UNITS'].':'.$frm['PAYMENT_METAL_ID'].':'.$frm['PAYMENT_BATCH_NUM'].':'.$frm['PAYER_ACCOUNT'].':'.$mymd5.':'.$frm['ACTUAL_PAYMENT_OUNCES'].':'.$frm['USD_PER_OUNCE'].':'.$frm['FEEWEIGHT'].':'.$frm['TIMESTAMPGMT']));
+if (($hash == strtoupper($frm['V2_HASH']) and $exchange_systems[0]['status'] == 1)) {
+    $ip = $frm_env['REMOTE_ADDR'];
+    if (!preg_match('/63\\.240\\.230\\.\\d/i', $ip)) {
+        exit();
+    }
 
-$hash = strtoupper(md5($frm['OMI_MERCHANT_REF_NO'].'?'.$frm['OMI_MODE'].'?'.$frm['OMI_MERCHANT_HLD_NO'].'?'.$frm['OMI_PAYER_HLD_NO'].'?'.$frm['OMI_CURRENCY_CODE'].'?'.$frm['OMI_CURRENCY_AMT'].'?'.$frm['OMI_GOLDGRAM_AMT'].'?'.$frm['OMI_TXN_ID'].'?'.$frm['OMI_TXN_DATETIME'].'?'.$mymd5));
-if (($hash == strtoupper($frm['OMI_HASH']) and $exchange_systems[7]['status'] == 1)) {
     $user_id = sprintf('%d', $frm['userid']);
     $h_id = sprintf('%d', $frm['hyipid']);
     $compound = sprintf('%d', $frm['compound']);
-    $amount = $frm['OMI_CURRENCY_AMT'];
-    $batch = $frm['OMI_TXN_ID'];
-    $account = $frm['OMI_PAYER_HLD_NO'];
-    if (($frm['a'] == 'checkpayment' and $frm['OMI_CURRENCY_CODE'] == 840)) {
-        add_deposit(7, $user_id, $amount, $batch, $account, $h_id, $compound);
+    $amount = $frm['PAYMENT_AMOUNT'];
+    $batch = $frm['PAYMENT_BATCH_NUM'];
+    $account = $frm['PAYER_ACCOUNT'];
+    if ((($frm['a'] == 'checkpayment' and $frm['PAYMENT_METAL_ID'] == 1) and $frm['PAYMENT_UNITS'] == 1)) {
+        add_deposit(0, $user_id, $amount, $batch, $account, $h_id, $compound);
     }
 }
 
-db_close($dbconn);
 echo '1';
-exit();

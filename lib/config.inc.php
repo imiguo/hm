@@ -9,7 +9,6 @@
  * with this source code in the file LICENSE.
  */
 
-require '../bootstrap.php';
 ini_set('error_reporting', 'E_ALL & ~E_NOTICE & ~E_DEPRECATED');
 define('SUBDOMAIN', !empty($_SERVER['SUBDOMAIN']) ? $_SERVER['SUBDOMAIN'] : '');
 if (SUBDOMAIN && is_dir(APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/')) {

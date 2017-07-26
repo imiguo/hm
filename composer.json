@@ -2,7 +2,8 @@
     "require": {
         "illuminate/database": "^5.4",
         "vlucas/phpdotenv": "^2.4",
-        "smarty/smarty": "^3.1"
+        "smarty/smarty": "^3.1",
+        "klein/klein": "^2.1"
     },
     "autoload": {
         "classmap": ["classes/"]

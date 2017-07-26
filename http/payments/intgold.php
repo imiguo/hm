@@ -10,11 +10,6 @@
  */
 
 include 'lib/config.inc.php';
-$dbconn = db_open();
-if (!$dbconn) {
-    echo 'Cannot connect mysql';
-    exit();
-}
 
 $mymd5 = $settings['md5altphrase_intgold'];
 if ($frm['CUSTOM2'] == 'pay_withdraw') {
@@ -57,13 +52,11 @@ if ($frm['CUSTOM2'] == 'pay_withdraw') {
     }
 
     echo 1;
-    db_close($dbconn);
     exit();
 }
 
 if (($mymd5 == $frm['HASH'] and ($frm['TRANSACTION_ID'] != '' and $exchange_systems[2]['status'] == 1))) {
     if ($frm['RESULT'] != '0') {
-        db_close($dbconn);
         exit();
     }
 
@@ -78,6 +71,4 @@ if (($mymd5 == $frm['HASH'] and ($frm['TRANSACTION_ID'] != '' and $exchange_syst
     }
 }
 
-db_close($dbconn);
 echo '1';
-exit();

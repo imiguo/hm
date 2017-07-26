@@ -170,7 +170,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                 echo '">
 <INPUT type=hidden name=POSTURL value="';
                 echo $settings['site_url'];
-                echo '/index.php">
+                echo '/">
 <INPUT type=hidden name=RETURNURL value="';
                 echo $frm_env['HTTPS'] ? 'https' : 'http';
                 echo '://';
@@ -219,7 +219,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                     echo '?a=pay_withdraw&say=yes">
   <input type="hidden" name="notify_URL" value="';
                     echo $settings['site_url'];
-                    echo '/index.php">
+                    echo '/">
 
   <input type="hidden" name="cancel_URL" value="';
                     echo $frm_env['HTTPS'] ? 'https' : 'http';
@@ -389,7 +389,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                                     echo '">
 <INPUT type=hidden name=POSTURL value="';
                                     echo $settings['site_url'];
-                                    echo '/index.php">
+                                    echo '/">
 <INPUT type=hidden name=RETURNURL value="';
                                     echo $frm_env['HTTPS'] ? 'https' : 'http';
                                     echo '://';

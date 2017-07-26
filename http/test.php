@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-require '../common/function.php';
+require APP_PATH.'/../common/function.php';
 
 if (!validate()) {
     header('HTTP/1.1 403 Forbidden');
@@ -17,7 +17,7 @@ if (!validate()) {
     exit;
 }
 
-include 'lib/config.inc.php';
+include APP_PATH.'/lib/config.inc.php';
 ini_set('display_errors', '1');
 
 function mail_test()
