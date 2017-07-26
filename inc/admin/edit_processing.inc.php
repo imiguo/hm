@@ -15,7 +15,6 @@ $id = intval($frm['pid']);
   $row = mysql_fetch_array($sth);
   if (!$row) {
       header('Location: ?a=processings');
-      db_close($dbconn);
       exit();
   }
 

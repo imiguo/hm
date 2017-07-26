@@ -11,13 +11,11 @@
 
   if ($frm['say'] == 'confirm') {
       $smarty->display('after_registration_confirm.tpl');
-      db_close($dbconn);
       exit();
   }
 
   if ($frm['say'] == 'done') {
       $smarty->display('after_registration.tpl');
-      db_close($dbconn);
       exit();
   }
 
@@ -299,7 +297,6 @@
               header('Location: ?a=signup&say=done');
           }
 
-          db_close($dbconn);
           exit();
       }
   }

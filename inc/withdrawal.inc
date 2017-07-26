@@ -20,14 +20,12 @@ if ($frm['action'] == 'preview') {
         $row = mysql_fetch_array($sth);
         if ($row['cnt'] < 1) {
             header('Location: ?a=withdraw&say=no_deposits');
-            db_close($dbconn);
             exit();
         }
     }
 
     if ($amount <= 0) {
         header('Location: ?a=withdraw&say=zero');
-        db_close($dbconn);
         exit();
     }
 
@@ -85,13 +83,11 @@ if ($frm['action'] == 'preview') {
             header('Location: ?a=withdraw&say=not_enought');
         }
 
-        db_close($dbconn);
         exit();
     }
 
     if ($amount < $settings['min_withdrawal_amount']) {
         header('Location: ?a=withdraw&say=less_min');
-        db_close($dbconn);
         exit();
     }
 
@@ -105,7 +101,6 @@ if ($frm['action'] == 'preview') {
 
         if ($settings[max_daily_withdraw] < $dw + $amount) {
             header('Location: ?a=withdraw&say=daily_limit');
-            db_close($dbconn);
             exit();
         }
     }
@@ -171,7 +166,6 @@ if ($frm['action'] == 'preview') {
     if ($frm['action'] == 'withdraw') {
         if (($settings['use_transaction_code'] == 1 and $frm['transaction_code'] != $userinfo['transaction_code'])) {
             header('Location: ?a=withdraw&say=invalid_transaction_code');
-            db_close($dbconn);
             exit();
         }
 
@@ -181,7 +175,6 @@ if ($frm['action'] == 'preview') {
         $ec = sprintf('%d', $frm['ec']);
         if ($amount <= 0) {
             header('Location: ?a=withdraw&say=zero');
-            db_close($dbconn);
             exit();
         }
 
@@ -191,7 +184,6 @@ if ($frm['action'] == 'preview') {
             $row = mysql_fetch_array($sth);
             if ($row['cnt'] < 1) {
                 header('Location: ?a=withdraw&say=no_deposits');
-                db_close($dbconn);
                 exit();
             }
         }
@@ -250,7 +242,6 @@ if ($frm['action'] == 'preview') {
                 header('Location: ?a=withdraw&say=not_enought');
             }
 
-            db_close($dbconn);
             exit();
         }
 
@@ -264,7 +255,6 @@ if ($frm['action'] == 'preview') {
 
             if ($settings[max_daily_withdraw] < $dw + $amount) {
                 header('Location: ?a=withdraw&say=daily_limit');
-                db_close($dbconn);
                 exit();
             }
         }
@@ -272,7 +262,6 @@ if ($frm['action'] == 'preview') {
         if ($amount <= $ab['total']) {
             if ($amount < $settings['min_withdrawal_amount']) {
                 header('Location: ?a=withdraw&say=less_min');
-                db_close($dbconn);
                 exit();
             }
 
@@ -365,7 +354,6 @@ if ($frm['action'] == 'preview') {
                                 send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
                                 send_template_mail('withdraw_admin_notification', $settings['system_email'], $settings['system_email'], $info);
                                 header(''.'Location: ?a=withdraw&say=processed&batch='.$batch);
-                                db_close($dbconn);
                                 exit();
                             }
                         }
@@ -374,7 +362,6 @@ if ($frm['action'] == 'preview') {
             }
 
             header('Location: ?a=withdraw&say=processed');
-            db_close($dbconn);
             exit();
         } else {
             if ($amount <= $ab[total] + $on_hold) {
@@ -383,7 +370,6 @@ if ($frm['action'] == 'preview') {
                 header('Location: ?a=withdraw&say=not_enought');
             }
 
-            db_close($dbconn);
             exit();
         }
     } else {

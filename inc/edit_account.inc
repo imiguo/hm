@@ -12,7 +12,6 @@
 if ($frm['action'] == 'confirm') {
     $smarty->assign('say', $frm['say']);
     $smarty->display('edit_account_confirmation.tpl');
-    db_close($dbconn);
     exit();
 }
 
@@ -98,12 +97,10 @@ if ($frm['action'] == 'edit_account') {
                         $frm = array_merge($frm, $_SESSION['fields']);
                     } else {
                         header('Location: ?a=edit_account');
-                        db_close($dbconn);
                         exit();
                     }
                 } else {
                     header('Location: ?a=edit_account&action=confirm&say=invalid_code');
-                    db_close($dbconn);
                     exit();
                 }
             } else {
@@ -117,7 +114,6 @@ if ($frm['action'] == 'edit_account') {
                 $info['ip'] = $frm_env['REMOTE_ADDR'];
                 send_template_mail('account_update_confirmation', $userinfo['email'], $settings['system_email'], $info);
                 header('Location: ?a=edit_account&action=confirm');
-                db_close($dbconn);
                 exit();
             }
         }

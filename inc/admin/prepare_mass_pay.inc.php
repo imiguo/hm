@@ -11,7 +11,6 @@
 
 if (!is_array($frm['pend'])) {
     echo 'Please select withdraw requests first';
-    db_close($dbconn);
     exit();
 } else {
     $ids = implode(', ', array_keys($frm['pend']));
