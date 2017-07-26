@@ -65,5 +65,5 @@ if (function_exists('dd')) {
         $error = error_get_last();
         $error && dd($error);
     }
-    register_shutdown_function('shutdown_echo_error');
+    register_shutdown_function('shutdown_print_error');
 }
