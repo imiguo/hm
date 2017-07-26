@@ -15,7 +15,7 @@ require '../lib/config.inc.php';
 $smarty = new Smarty();
 $smarty->compile_check = true;
 $smarty->force_compile = true;
-$smarty->debugging = true;
+$smarty->debugging = getenv('smarty_debug');
 $smarty->template_dir = TMPL_PATH;
 $smarty->compile_dir = '../tmpl_c';
 $smarty->default_modifiers = ['escape'];
