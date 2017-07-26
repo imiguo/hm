@@ -35,7 +35,7 @@ if (file_exists('install.php')) {
 $settings = [];
 $userinfo = [];
 $frm['a'] = '';
-include 'lib/config.inc.php';
+include '../lib/config.inc.php';
 global $frm;
 if (HTTPS) {
     $frm_env['HTTPS'] = 1;
@@ -43,11 +43,6 @@ if (HTTPS) {
 
 $userinfo = [];
 $userinfo['logged'] = 0;
-$dbconn = db_open();
-if (!$dbconn) {
-    echo 'Cannot connect mysql';
-    exit();
-}
 
 $q = 'select * from hm2_processings';
 ($sth = db_query($q));
@@ -63,7 +58,6 @@ while ($row = mysql_fetch_array($sth)) {
 }
 
 define('THE_GC_SCRIPT_V2005_04_01', 'answer');
-$acsent_settings = get_accsent();
 if ($frm['a'] == 'showprogramstat') {
     $login = quote($frm['login']);
     $q = 'select * from hm2_users where id = 1 and username = \''.$login.'\' and stat_password <> \'\'';
@@ -80,32 +74,30 @@ if ($frm['a'] == 'showprogramstat') {
         echo '<center>Wrong login or password</center>';
     } else {
         if ($frm['page'] == 'members') {
-            include 'inc/admin/members_program.inc.php';
+            include APP_PATH.'/inc/admin/members_program.inc.php';
         } else {
             if ($frm['page'] == 'pendingwithdrawal') {
-                include 'inc/admin/pending_program.inc.php';
+                include APP_PATH.'/inc/admin/pending_program.inc.php';
             } else {
                 if ($frm['page'] == 'whoonline') {
-                    include 'inc/admin/whoonline_program.inc.php';
+                    include APP_PATH.'/inc/admin/whoonline_program.inc.php';
                 } else {
                     if ($frm['page'] == 'TrayInfo') {
-                        include 'inc/admin/tray_info.php';
+                        include APP_PATH.'/inc/admin/tray_info.php';
                     } else {
-                        include 'inc/admin/main_program.inc.php';
+                        include APP_PATH.'/inc/admin/main_program.inc.php';
                     }
                 }
             }
         }
     }
 
-    db_close($dbconn);
     exit();
 }
 
 if ($frm['a'] == 'logout') {
     setcookie('password', '', time() - 86400);
     header('Location: index.php');
-    db_close($dbconn);
     exit();
 }
 
@@ -117,7 +109,7 @@ if ($settings['demomode'] == 1) {
     $add_login_check = '';
 }
 
-list($user_id, $chid) = split('-', $password, 2);
+list($user_id, $chid) = explode('-', $password, 2);
 $user_id = sprintf('%d', $user_id);
 $chid = quote($chid);
 if ($settings['htaccess_authentication'] == 1) {
@@ -155,7 +147,6 @@ if ($settings['htaccess_authentication'] == 1) {
         while ($row = mysql_fetch_array($sth)) {
             if (($settings['brute_force_handler'] == 1 and $row['activation_code'] != '')) {
                 header('Location: index.php?a=login&say=invalid_login&username='.$frm['username']);
-                db_close($dbconn);
                 exit();
             }
 
@@ -182,7 +173,6 @@ if ($settings['htaccess_authentication'] == 1) {
                     $info['max_tries'] = $settings['brute_force_max_tries'];
                     send_template_mail('brute_force_activation', $row['email'], $settings['system_email'], $info);
                     header('Location: index.php?a=login&say=invalid_login&username='.$frm['username']);
-                    db_close($dbconn);
                     exit();
                     continue;
                 }
@@ -195,94 +185,13 @@ if ($settings['htaccess_authentication'] == 1) {
 
 if ($userinfo['logged'] != 1) {
     header('Location: index.php');
-    db_close($dbconn);
     exit();
-}
-
-if ((time() - 900 < $acsent_settings[timestamp] and $acsent_settings[pin] != '')) {
-    if ($frm[a] == 'enter_pin') {
-        if ($frm[pin] == $acsent_settings[pin]) {
-            $acsent_settings[last_ip] = $frm_env['REMOTE_ADDR'];
-            $acsent_settings[last_browser] = $frm_env['HTTP_USER_AGENT'];
-            $acsent_settings[timestamp] = 0;
-            $acsent_settings[pin] = '';
-            set_accsent();
-        }
-
-        header('Location: admin.php');
-        exit();
-    }
-
-    shop_pin_html();
-    exit();
-}
-
-$NEWPIN = get_rand_md5(7);
-$message = 'Hello,
-
-Someone tried login admin area
-ip: '.$frm_env['REMOTE_ADDR'].'
-browser: '.$frm_env['HTTP_USER_AGENT'].'
-
-Pin code for entering admin area is:
-'.$NEWPIN.'
-
-This code will be expired in 15 minutes.';
-if ($acsent_settings[detect_ip] == 'disabled') {
-} else {
-    if ($acsent_settings[detect_ip] == 'medium') {
-        $z1 = preg_replace(''.'/\\.(\\d+)$/', '', $acsent_settings[last_ip]);
-        $z2 = preg_replace(''.'/\\.(\\d+)$/', '', $frm_env['REMOTE_ADDR']);
-        if ($z1 != $z2) {
-            $acsent_settings['pin'] = $NEWPIN;
-            $acsent_settings['timestamp'] = time();
-            send_mail($acsent_settings['email'], 'Pin code', $message);
-            set_accsent();
-            header('Location: admin.php');
-            db_close($dbconn);
-            exit();
-        }
-    } else {
-        if ($acsent_settings[detect_ip] == 'high') {
-            if ($acsent_settings['last_ip'] != $frm_env['REMOTE_ADDR']) {
-                $acsent_settings['pin'] = $NEWPIN;
-                $acsent_settings['timestamp'] = time();
-                send_mail($acsent_settings['email'], 'Pin code', $message);
-                set_accsent();
-                header('Location: admin.php');
-                db_close($dbconn);
-                exit();
-            }
-        } else {
-            echo 'Settings broken. Contact script developer please';
-            exit();
-        }
-    }
-}
-
-if ($acsent_settings[detect_browser] == 'disabled') {
-} else {
-    if ($acsent_settings[detect_browser] == 'enabled') {
-        if ($acsent_settings['last_browser'] != $frm_env['HTTP_USER_AGENT']) {
-            $acsent_settings['pin'] = $NEWPIN;
-            $acsent_settings['timestamp'] = time();
-            send_mail($acsent_settings['email'], 'Pin code', $message);
-            set_accsent();
-            header('Location: admin.php');
-            db_close($dbconn);
-            exit();
-        }
-    } else {
-        echo 'Settings broken. Contact script developer please';
-        exit();
-    }
 }
 
 if ($frm['a'] == 'encrypt_mysql') {
     if ($settings['demomode'] != 1) {
         if (($userinfo['transaction_code'] != '' and $userinfo['transaction_code'] != $frm['alternative_passphrase'])) {
             header('Location: ?a=security&say=invalid_passphrase');
-            db_close($dbconn);
             exit();
         }
 
@@ -293,24 +202,10 @@ if ($frm['a'] == 'encrypt_mysql') {
         }
 
         header('Location: admin.php?a=security&say=done');
-        db_close($dbconn);
         exit();
     }
 
     header('Location: admin.php?a=security');
-    db_close($dbconn);
-    exit();
-}
-
-if (($frm['a'] == 'change_login_security' and $frm['act'] == 'change')) {
-    $acsent_settings['detect_ip'] = $frm['ip'];
-    $acsent_settings['detect_browser'] = $frm['browser'];
-    $acsent_settings['last_browser'] = $frm_env['HTTP_USER_AGENT'];
-    $acsent_settings['last_ip'] = $frm_env['REMOTE_ADDR'];
-    $acsent_settings['email'] = $frm['email'];
-    set_accsent();
-    header('Location: ?a=security');
-    db_close($dbconn);
     exit();
 }
 
@@ -321,14 +216,12 @@ if (($frm['a'] == 'startup_bonus' and $frm['act'] == 'set')) {
     $settings['activation_fee'] = sprintf('%0.2f', $frm['activation_fee']);
     save_settings();
     header('Location: ?a=startup_bonus&say=yes');
-    db_close($dbconn);
     exit();
 }
 
 if (($frm['a'] == 'exchange_rates' and $frm['action'] == 'save')) {
     if ($settings['demomode']) {
         header('Location: ?a=exchange_rates&say=demo');
-        db_close($dbconn);
         exit();
     }
 
@@ -364,37 +257,31 @@ if (($frm['a'] == 'exchange_rates' and $frm['action'] == 'save')) {
     }
 
     header('Location: ?a=exchange_rates');
-    db_close($dbconn);
     exit();
 }
 
 if ($frm['a'] == 'test_egold_settings') {
-    include 'inc/admin/auto_pay_settings_test.inc.php';
-    db_close($dbconn);
+    include APP_PATH.'/inc/admin/auto_pay_settings_test.inc.php';
     exit();
 }
 
 if ($frm['a'] == 'test_evocash_settings') {
-    include 'inc/admin/auto_pay_settings_evocash_test.inc.php';
-    db_close($dbconn);
+    include APP_PATH.'/inc/admin/auto_pay_settings_evocash_test.inc.php';
     exit();
 }
 
 if ($frm['a'] == 'test_intgold_settings') {
-    include 'inc/admin/auto_pay_settings_intgold_test.inc.php';
-    db_close($dbconn);
+    include APP_PATH.'/inc/admin/auto_pay_settings_intgold_test.inc.php';
     exit();
 }
 
 if ($frm['a'] == 'test_eeecurrency_settings') {
-    include 'inc/admin/auto_pay_settings_eeecurrency_test.inc.php';
-    db_close($dbconn);
+    include APP_PATH.'/inc/admin/auto_pay_settings_eeecurrency_test.inc.php';
     exit();
 }
 
 if ($frm['a'] == 'test_ebullion_settings') {
-    include 'inc/admin/auto_pay_settings_ebullion_test.inc.php';
-    db_close($dbconn);
+    include APP_PATH.'/inc/admin/auto_pay_settings_ebullion_test.inc.php';
     exit();
 }
 
@@ -412,7 +299,6 @@ if (($frm['a'] == 'affilates' and $frm['action'] == 'remove_ref')) {
     $q = 'update hm2_users set ref = 0 where id = '.$ref;
     (db_query($q));
     header(''.'Location: ?a=affilates&u_id='.$u_id);
-    db_close($dbconn);
     exit();
 }
 
@@ -429,7 +315,6 @@ if (($frm[a] == 'affilates' and $frm['action'] == 'change_upline')) {
     $q = 'update hm2_users set ref = '.$id.' where id = '.$u_id;
     (db_query($q));
     header(''.'Location: ?a=affilates&u_id='.$u_id);
-    db_close($dbconn);
     exit();
 }
 
@@ -438,7 +323,6 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetoproblem
     $q = 'update hm2_pending_deposits set status=\'problem\' where id = '.$id;
     (db_query($q));
     header('Location: ?a=pending_deposits');
-    db_close($dbconn);
     exit();
 }
 
@@ -447,7 +331,6 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetonew')) 
     $q = 'update hm2_pending_deposits set status=\'new\' where id = '.$id;
     (db_query($q));
     header('Location: ?a=pending_deposits&type=problem');
-    db_close($dbconn);
     exit();
 }
 
@@ -456,7 +339,6 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'delete')) {
     $q = 'delete from hm2_pending_deposits where id = '.$id;
     (db_query($q));
     header('Location: ?a=pending_deposits&type='.$frm['type']);
-    db_close($dbconn);
     exit();
 }
 
@@ -569,7 +451,6 @@ if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodepos
     $q = 'update hm2_pending_deposits set status=\'processed\' where id = '.$id;
     (db_query($q));
     header('Location: ?a=pending_deposits');
-    db_close($dbconn);
     exit();
 }
 
@@ -583,7 +464,6 @@ if ($frm['a'] == 'mass') {
         }
 
         header('Location: ?a=thistory&ttype=withdraw_pending&say=massremove');
-        db_close($dbconn);
         exit();
     }
 
@@ -627,7 +507,6 @@ if ($frm['a'] == 'mass') {
         }
 
         header('Location: ?a=thistory&ttype=withdraw_pending&say=massprocessed');
-        db_close($dbconn);
         exit();
     }
 
@@ -635,7 +514,6 @@ if ($frm['a'] == 'mass') {
         $ids = $frm['pend'];
         if (!$ids) {
             echo 'Nothing selected.';
-            db_close($dbconn);
             exit();
         }
 
@@ -716,7 +594,6 @@ if ($frm['a'] == 'mass') {
             echo $ac.','.abs($to_withdraw).'';
         }
 
-        db_close($dbconn);
         exit();
     }
 
@@ -908,7 +785,6 @@ if ($frm['a'] == 'mass') {
             }
         }
 
-        db_close($dbconn);
         exit();
     }
 }
@@ -917,7 +793,6 @@ if (($frm['a'] == 'auto-pay-settings' and $frm['action'] == 'auto-pay-settings')
     if ($settings['demomode'] != 1) {
         if (($userinfo['transaction_code'] != '' and $userinfo['transaction_code'] != $frm['alternative_passphrase'])) {
             header('Location: ?a=auto-pay-settings&say=invalid_passphrase');
-            db_close($dbconn);
             exit();
         }
 
@@ -989,7 +864,6 @@ if (($frm['a'] == 'auto-pay-settings' and $frm['action'] == 'auto-pay-settings')
     }
 
     header('Location: ?a=auto-pay-settings&say=done');
-    db_close($dbconn);
     exit();
 }
 
@@ -1043,7 +917,6 @@ if (($frm['a'] == 'referal' and $frm['action'] == 'change')) {
     }
 
     header('Location: ?a=referal');
-    db_close($dbconn);
     exit();
 }
 
@@ -1058,7 +931,6 @@ if ($frm['a'] == 'deleterate') {
     }
 
     header('Location: ?a=rates');
-    db_close($dbconn);
     exit();
 }
 
@@ -1076,7 +948,6 @@ if (($frm['a'] == 'newsletter' and $frm['action'] == 'newsletter')) {
                     $q = 'select u.* from hm2_users as u left outer join hm2_deposits as d on u.id = d.user_id where u.id > 1 and d.user_id is NULL';
                 } else {
                     header('Location: ?a=newsletter&say=someerror');
-                    db_close($dbconn);
                     exit();
                 }
             }
@@ -1124,7 +995,6 @@ obj.appendChild(menu);
     if ($flag == 1) {
     }
 
-    db_close($dbconn);
     echo '<br><br><br>Sent '.$total.'.</center></body></html>';
     exit();
 }
@@ -1141,7 +1011,6 @@ if (($frm['a'] == 'edit_emails' and $frm['action'] == 'update_statuses')) {
     }
 
     header('Location: ?a=edit_emails');
-    db_close($dbconn);
     exit();
 }
 
@@ -1149,7 +1018,6 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
     $amount = sprintf('%0.2f', $frm['amount']);
     if ($amount == 0) {
         header('Location: ?a=send_bonuce&say=wrongamount');
-        db_close($dbconn);
         exit();
     }
 
@@ -1161,7 +1029,6 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
         $type = mysql_fetch_array($sth);
         if (!$type) {
             header('Location: ?a=send_bonuce&say=wrongplan');
-            db_close($dbconn);
             exit();
         }
     }
@@ -1180,7 +1047,6 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
                     $q = 'select u.* from hm2_users as u left outer join hm2_deposits as d on u.id = d.user_id where u.id > 1 and d.user_id is NULL';
                 } else {
                     header('Location: ?a=send_bonuce&say=someerror');
-                    db_close($dbconn);
                     exit();
                 }
             }
@@ -1264,11 +1130,9 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
             }
 
             $_SESSION['code'] = '';
-            db_close($dbconn);
             exit();
         } else {
             header('Location: ?a=send_bonuce&say=invalid_code');
-            db_close($dbconn);
             exit();
         }
     }
@@ -1291,7 +1155,6 @@ if (($frm['a'] == 'send_penality' and $frm['action'] == 'send_penality')) {
     $amount = sprintf('%0.2f', abs($frm['amount']));
     if ($amount == 0) {
         header('Location: ?a=send_penality&say=wrongamount');
-        db_close($dbconn);
         exit();
     }
 
@@ -1309,7 +1172,6 @@ if (($frm['a'] == 'send_penality' and $frm['action'] == 'send_penality')) {
                     $q = 'select u.* from hm2_users as u left outer join hm2_deposits as d on u.id = d.user_id where u.user_id > 1 and d.user_id is NULL';
                 } else {
                     header('Location: ?a=send_penality&say=someerror');
-                    db_close($dbconn);
                     exit();
                 }
             }
@@ -1340,7 +1202,6 @@ if (($frm['a'] == 'send_penality' and $frm['action'] == 'send_penality')) {
         header('Location: ?a=send_penality&say=notsend');
     }
 
-    db_close($dbconn);
     exit();
 }
 
@@ -1381,7 +1242,6 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
     } else {
         if (($userinfo['transaction_code'] != '' and $userinfo['transaction_code'] != $frm['alternative_passphrase'])) {
             header('Location: ?a=settings&say=invalid_passphrase');
-            db_close($dbconn);
             exit();
         }
 
@@ -1569,7 +1429,6 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
     }
 
     header('Location: ?a=settings&say=done');
-    db_close($dbconn);
     exit();
 }
 
@@ -1578,7 +1437,6 @@ if ($frm['a'] == 'rm_withdraw') {
     $q = 'delete from hm2_history where id = '.$id;
     (db_query($q));
     header('Location: ?a=thistory&ttype=withdraw_pending');
-    db_close($dbconn);
     exit();
 }
 
@@ -1662,7 +1520,6 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
     }
 
     header(''.'Location: ?a=releasedeposits&u_id='.$u_id);
-    db_close($dbconn);
     exit();
 }
 
@@ -1675,7 +1532,6 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
         $type = mysql_fetch_array($sth);
         if (!$type) {
             header('Location: ?a=send_bonuce&say=wrongplan');
-            db_close($dbconn);
             exit();
         }
     }
@@ -1754,12 +1610,10 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
             }
 
             header(''.'Location: ?a=addbonuse&say=done&id='.$id);
-            db_close($dbconn);
             exit();
         } else {
             $id = sprintf('%d', $frm['id']);
             header(''.'Location: ?a=addbonuse&id='.$id.'&say=invalid_code');
-            db_close($dbconn);
             exit();
         }
     }
@@ -1805,7 +1659,6 @@ if (($frm['a'] == 'addpenality' and $frm['action'] == 'addpenality')) {
     }
 
     header(''.'Location: ?a=addpenality&say=done&id='.$id);
-    db_close($dbconn);
     exit();
 }
 
@@ -1814,7 +1667,6 @@ if ($frm['a'] == 'deleteaccount') {
     $q = 'delete from hm2_users where id = '.$id.' and id <> 1';
     db_query($q);
     header('Location: ?a=members&q='.$frm['q'].'&p='.$frm['p'].'&status='.$frm['status']);
-    db_close($dbconn);
     exit();
 }
 
@@ -1822,7 +1674,6 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     $id = sprintf('%d', $frm['id']);
     if ((($settings['demomode'] == 1 and $id <= 3) and 0 < $id)) {
         header('Location: ?a=editaccount&id='.$frm['id']);
-        db_close($dbconn);
         exit();
     }
 
@@ -1832,19 +1683,16 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     ($row = mysql_fetch_array($sth));
     if ($row) {
         header('Location: ?a=editaccount&say=userexists&id='.$frm['id']);
-        db_close($dbconn);
         exit();
     }
 
     if (($frm['password'] != '' and $frm['password'] != $frm['password2'])) {
         header('Location: ?a=editaccount&say=incorrect_password&id='.$frm['id']);
-        db_close($dbconn);
         exit();
     }
 
     if (($frm['transaction_code'] != '' and $frm['transaction_code'] != $frm['transaction_code2'])) {
         header('Location: ?a=editaccount&say=incorrect_transaction_code&id='.$frm['id']);
-        db_close($dbconn);
         exit();
     }
 
@@ -1976,7 +1824,6 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     }
 
     header('Location: ?a=editaccount&id='.$frm['id'].'&say=saved');
-    db_close($dbconn);
     exit();
 }
 
@@ -1991,7 +1838,6 @@ if (($frm['a'] == 'members' and $frm['action'] == 'modify_status')) {
     }
 
     header('Location: ?a=members');
-    db_close($dbconn);
     exit();
 }
 
@@ -2003,7 +1849,6 @@ if (($frm['a'] == 'members' and $frm['action'] == 'activate')) {
     }
 
     header('Location: ?a=members&status=blocked');
-    db_close($dbconn);
     exit();
 }
 
@@ -2103,7 +1948,6 @@ if ($frm['action'] == 'add_hyip') {
     }
 
     header('Location: ?a=rates');
-    db_close($dbconn);
     exit();
 }
 
@@ -2111,7 +1955,6 @@ if ($frm['action'] == 'edit_hyip') {
     $id = sprintf('%d', $frm['hyip_id']);
     if (($id < 3 and $settings['demomode'] == 1)) {
         header('Location: ?a=rates');
-        db_close($dbconn);
         exit();
     }
 
@@ -2219,7 +2062,6 @@ if ($frm['action'] == 'edit_hyip') {
     }
 
     header('Location: ?a=rates');
-    db_close($dbconn);
     exit();
 }
 
@@ -2289,7 +2131,6 @@ if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
                 2).'","'.$exchange_systems[$trans[$i]['ec']]['name'].'","'.$trans[$i]['d'].'","'.$trans[$i]['description'].'"'.'';
     }
 
-    db_close($dbconn);
     exit();
 }
 
@@ -2333,7 +2174,6 @@ if (($frm[a] == 'add_processing' and $frm[action] == 'add_processing')) {
     }
 
     header('Location: ?a=processings');
-    db_close($dbconn);
     exit();
 }
 
@@ -2369,7 +2209,6 @@ if (($frm[a] == 'edit_processing' and $frm[action] == 'edit_processing')) {
     }
 
     header('Location: ?a=processings');
-    db_close($dbconn);
     exit();
 }
 
@@ -2387,7 +2226,6 @@ if ($frm[a] == 'update_processings') {
     }
 
     header('Location: ?a=processings');
-    db_close($dbconn);
     exit();
 }
 
@@ -2399,11 +2237,10 @@ if ($frm[a] == 'delete_processing') {
     }
 
     header('Location: ?a=processings');
-    db_close($dbconn);
     exit();
 }
 
-include 'inc/admin/html.header.inc.php';
+include APP_PATH.'/inc/admin/html.header.inc.php';
 echo '
   <tr>
     <td valign="top">
@@ -2414,7 +2251,7 @@ echo '
              <tr bgcolor="#FFFFFF" valign="top">
               <td width=300 align=center>
 				   <!-- Image Table: Start -->';
-include 'inc/admin/menu.inc.php';
+include APP_PATH.'/inc/admin/menu.inc.php';
 echo '				   <br>
 
               </td>
@@ -2426,117 +2263,117 @@ echo '				   <br>
                 <td width=100% height';
 echo '=100% valign=top>';
 if ($frm['a'] == 'rates') {
-    include 'inc/admin/rates.inc.php';
+    include APP_PATH.'/inc/admin/rates.inc.php';
 } else {
     if ($frm['a'] == 'editrate') {
-        include 'inc/admin/edit_hyip.inc.php';
+        include APP_PATH.'/inc/admin/edit_hyip.inc.php';
     } else {
         if ($frm['a'] == 'add_hyip') {
-            include 'inc/admin/add_hyip.inc.php';
+            include APP_PATH.'/inc/admin/add_hyip.inc.php';
         } else {
             if ($frm['a'] == 'members') {
-                include 'inc/admin/members.inc.php';
+                include APP_PATH.'/inc/admin/members.inc.php';
             } else {
                 if ($frm['a'] == 'editaccount') {
-                    include 'inc/admin/editaccount.inc.php';
+                    include APP_PATH.'/inc/admin/editaccount.inc.php';
                 } else {
                     if ($frm['a'] == 'addmember') {
-                        include 'inc/admin/addmember.inc.php';
+                        include APP_PATH.'/inc/admin/addmember.inc.php';
                     } else {
                         if ($frm['a'] == 'userexists') {
-                            include 'inc/admin/error_userexists.inc.php';
+                            include APP_PATH.'/inc/admin/error_userexists.inc.php';
                         } else {
                             if ($frm['a'] == 'userfunds') {
-                                include 'inc/admin/manage_user_funds.inc.php';
+                                include APP_PATH.'/inc/admin/manage_user_funds.inc.php';
                             } else {
                                 if ($frm['a'] == 'addbonuse') {
-                                    include 'inc/admin/addbonuse.inc.php';
+                                    include APP_PATH.'/inc/admin/addbonuse.inc.php';
                                 } else {
                                     if (($frm['a'] == 'mass' and $frm['action2'] == 'masspay')) {
-                                        include 'inc/admin/prepare_mass_pay.inc.php';
+                                        include APP_PATH.'/inc/admin/prepare_mass_pay.inc.php';
                                     } else {
                                         if ($frm['a'] == 'thistory') {
-                                            include 'inc/admin/transactions_history.php';
+                                            include APP_PATH.'/inc/admin/transactions_history.php';
                                         } else {
                                             if ($frm['a'] == 'addpenality') {
-                                                include 'inc/admin/addpenality.inc.php';
+                                                include APP_PATH.'/inc/admin/addpenality.inc.php';
                                             } else {
                                                 if ($frm['a'] == 'releasedeposits') {
-                                                    include 'inc/admin/releaseusersdeposits.inc.php';
+                                                    include APP_PATH.'/inc/admin/releaseusersdeposits.inc.php';
                                                 } else {
                                                     if ($frm['a'] == 'pay_withdraw') {
-                                                        include 'inc/admin/process_withdraw.php';
+                                                        include APP_PATH.'/inc/admin/process_withdraw.php';
                                                     } else {
                                                         if ($frm['a'] == 'settings') {
-                                                            include 'inc/admin/settings.inc.php';
+                                                            include APP_PATH.'/inc/admin/settings.inc.php';
                                                         } else {
                                                             if ($frm['a'] == 'info_box') {
-                                                                include 'inc/admin/info_box_settings.inc.php';
+                                                                include APP_PATH.'/inc/admin/info_box_settings.inc.php';
                                                             } else {
                                                                 if ($frm['a'] == 'send_bonuce') {
-                                                                    include 'inc/admin/send_bonuce.inc.php';
+                                                                    include APP_PATH.'/inc/admin/send_bonuce.inc.php';
                                                                 } else {
                                                                     if ($frm['a'] == 'send_penality') {
-                                                                        include 'inc/admin/send_penality.inc.php';
+                                                                        include APP_PATH.'/inc/admin/send_penality.inc.php';
                                                                     } else {
                                                                         if ($frm['a'] == 'newsletter') {
-                                                                            include 'inc/admin/newsletter.inc.php';
+                                                                            include APP_PATH.'/inc/admin/newsletter.inc.php';
                                                                         } else {
                                                                             if ($frm['a'] == 'edit_emails') {
-                                                                                include 'inc/admin/emails.inc.php';
+                                                                                include APP_PATH.'/inc/admin/emails.inc.php';
                                                                             } else {
                                                                                 if ($frm['a'] == 'referal') {
-                                                                                    include 'inc/admin/referal.inc.php';
+                                                                                    include APP_PATH.'/inc/admin/referal.inc.php';
                                                                                 } else {
                                                                                     if ($frm['a'] == 'auto-pay-settings') {
-                                                                                        include 'inc/admin/auto_pay_settings.inc.php';
+                                                                                        include APP_PATH.'/inc/admin/auto_pay_settings.inc.php';
                                                                                     } else {
                                                                                         if ($frm['a'] == 'error_pay_log') {
-                                                                                            include 'inc/admin/error_pay_log.inc.php';
+                                                                                            include APP_PATH.'/inc/admin/error_pay_log.inc.php';
                                                                                         } else {
                                                                                             if ($frm['a'] == 'news') {
-                                                                                                include 'inc/admin/news.inc.php';
+                                                                                                include APP_PATH.'/inc/admin/news.inc.php';
                                                                                             } else {
                                                                                                 if ($frm['a'] == 'wire_settings') {
-                                                                                                    include 'inc/admin/wire_settings.inc.php';
+                                                                                                    include APP_PATH.'/inc/admin/wire_settings.inc.php';
                                                                                                 } else {
                                                                                                     if ($frm['a'] == 'wires') {
-                                                                                                        include 'inc/admin/wires.inc.php';
+                                                                                                        include APP_PATH.'/inc/admin/wires.inc.php';
                                                                                                     } else {
                                                                                                         if ($frm['a'] == 'wiredetails') {
-                                                                                                            include 'inc/admin/wiredetails.inc.php';
+                                                                                                            include APP_PATH.'/inc/admin/wiredetails.inc.php';
                                                                                                         } else {
                                                                                                             if ($frm['a'] == 'affilates') {
-                                                                                                                include 'inc/admin/affilates.inc.php';
+                                                                                                                include APP_PATH.'/inc/admin/affilates.inc.php';
                                                                                                             } else {
                                                                                                                 if ($frm['a'] == 'custompages') {
-                                                                                                                    include 'inc/admin/custompage.inc.php';
+                                                                                                                    include APP_PATH.'/inc/admin/custompage.inc.php';
                                                                                                                 } else {
                                                                                                                     if ($frm['a'] == 'exchange_rates') {
-                                                                                                                        include 'inc/admin/exchange_rates.inc.php';
+                                                                                                                        include APP_PATH.'/inc/admin/exchange_rates.inc.php';
                                                                                                                     } else {
                                                                                                                         if ($frm['a'] == 'security') {
-                                                                                                                            include 'inc/admin/security.inc.php';
+                                                                                                                            include APP_PATH.'/inc/admin/security.inc.php';
                                                                                                                         } else {
                                                                                                                             if ($frm['a'] == 'processings') {
-                                                                                                                                include 'inc/admin/processings.inc.php';
+                                                                                                                                include APP_PATH.'/inc/admin/processings.inc.php';
                                                                                                                             } else {
                                                                                                                                 if ($frm['a'] == 'add_processing') {
-                                                                                                                                    include 'inc/admin/add_processing.inc.php';
+                                                                                                                                    include APP_PATH.'/inc/admin/add_processing.inc.php';
                                                                                                                                 } else {
                                                                                                                                     if ($frm['a'] == 'edit_processing') {
-                                                                                                                                        include 'inc/admin/edit_processing.inc.php';
+                                                                                                                                        include APP_PATH.'/inc/admin/edit_processing.inc.php';
                                                                                                                                     } else {
                                                                                                                                         if ($frm['a'] == 'pending_deposits') {
-                                                                                                                                            include 'inc/admin/pending_deposits.inc.php';
+                                                                                                                                            include APP_PATH.'/inc/admin/pending_deposits.inc.php';
                                                                                                                                         } else {
                                                                                                                                             if ($frm['a'] == 'pending_deposit_details') {
-                                                                                                                                                include 'inc/admin/pending_deposit_details.inc.php';
+                                                                                                                                                include APP_PATH.'/inc/admin/pending_deposit_details.inc.php';
                                                                                                                                             } else {
                                                                                                                                                 if ($frm['a'] == 'startup_bonus') {
-                                                                                                                                                    include 'inc/admin/startup_bonus.inc.php';
+                                                                                                                                                    include APP_PATH.'/inc/admin/startup_bonus.inc.php';
                                                                                                                                                 } else {
-                                                                                                                                                    include 'inc/admin/main.inc.php';
+                                                                                                                                                    include APP_PATH.'/inc/admin/main.inc.php';
                                                                                                                                                 }
                                                                                                                                             }
                                                                                                                                         }
@@ -2591,6 +2428,5 @@ echo '
 	 </td>
   </tr>
 ';
-include 'inc/admin/html.footer.inc.php';
-db_close($dbconn);
+include APP_PATH.'/inc/admin/html.footer.inc.php';
 exit();

@@ -39,11 +39,11 @@ if ($fp) {
 $settings['md5altphrase_ebullion'] = decode_pass_for_mysql($settings['md5altphrase_ebullion']);
 
 $settings['use_alternative_passphrase'] = ($userinfo['transaction_code'] != '' ? 1 : 0);
-if ($frm['say'] == 'invalid_passphrase') {
+if (isset($frm['say']) && $frm['say'] == 'invalid_passphrase') {
     echo '<b style="color:red">Invalid Alternative Passphrase. No data has been updated.</b><br><br>';
 }
 
-if ($frm['say'] == 'done') {
+if (isset($frm['say']) && $frm['say'] == 'done') {
     echo '<b style="color:green">Changes has been successfully saved.</b><br><br>';
 }
 
@@ -716,7 +716,7 @@ echo $settings['graph_max_chars'];
 echo '" class=inpts size=10></td>
 </tr><tr>
  <td colspan=2><input type=checkbox name=use_number_validation_number value=1 ';
-echo $settings[use_number_validation_number] == 1 ? 'checked' : '';
+echo $settings['use_number_validation_number'] == 1 ? 'checked' : '';
 echo '> Show numbers only in the validation image</td>
 </tr><tr>
  <td>Turing image text color:</td>

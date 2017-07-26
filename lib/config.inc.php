@@ -38,7 +38,6 @@ function shutdown()
 {
     $error = error_get_last();
     $error && dd($error);
-    echo 'Script executed with success', PHP_EOL;
 }
 
 if (function_exists('dd')) {

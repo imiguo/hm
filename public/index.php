@@ -97,7 +97,7 @@ while ($row = mysql_fetch_array($sth)) {
     ];
 }
 
-if (($frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and $frm['TRANSACTION_ID'] != '')) {
+if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and $frm['TRANSACTION_ID'] != '')) {
     $batch = $frm['TRANSACTION_ID'];
     list($id, $str) = explode('-', $frm['CUSTOM1']);
     $id = sprintf('%d', $id);
@@ -140,7 +140,7 @@ if (($frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and $frm['TRANSACTION_ID'] !=
     exit();
 }
 
-if (($frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANSACTION_ID'] != '')) {
+if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANSACTION_ID'] != '')) {
     $batch = $frm['TRANSACTION_ID'];
     list($id, $str) = explode('-', $frm['CUSTOM1']);
     $id = sprintf('%d', $id);
@@ -183,7 +183,7 @@ if (($frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANSACTION_ID'] != '')) {
     exit();
 }
 
-if ((($frm['user3'] == 'pay_withdraw' and $frm['transaction_id'] != '') and $frm['transaction_type'] == 'Payment')) {
+if (((isset($frm['user3']) and $frm['user3'] == 'pay_withdraw' and $frm['transaction_id'] != '') and $frm['transaction_type'] == 'Payment')) {
     $batch = $frm['transaction_id'];
     list($id, $str) = explode('-', $frm['user1']);
     $id = sprintf('%d', $id);
@@ -261,13 +261,13 @@ if ($frm['a'] == 'home') {
 }
 
 $stats = [];
-if ($settings[crontab_stats] == 1) {
+if ($settings['crontab_stats'] == 1) {
     $s = file('stats.php');
     $stats = unserialize($s[0]);
 }
 
 if ($settings['show_info_box_members_online'] == 1) {
-    if ($settings[crontab_stats] == 1) {
+    if ($settings['crontab_stats'] == 1) {
         $settings['show_info_box_members_online_generated'] = $stats[visitors];
     } else {
         $q = 'select count(*) as col from hm2_users where last_access_time + interval 30 minute > now()';
@@ -278,7 +278,7 @@ if ($settings['show_info_box_members_online'] == 1) {
 }
 
 if ($settings['show_info_box_total_accounts'] == 1) {
-    if ($settings[crontab_stats] == 1) {
+    if ($settings['crontab_stats'] == 1) {
         $settings['info_box_total_accounts_generated'] = $stats[total_users];
     } else {
         $q = 'select count(*) as col from hm2_users where id > 1';
@@ -289,7 +289,7 @@ if ($settings['show_info_box_total_accounts'] == 1) {
 }
 
 if ($settings['show_info_box_active_accounts'] == 1) {
-    if ($settings[crontab_stats] == 1) {
+    if ($settings['crontab_stats'] == 1) {
         $settings['info_box_total_active_accounts_generated'] = $stats[active_accounts];
     } else {
         $q = 'select count(distinct user_id) as col from hm2_deposits ';
@@ -308,7 +308,7 @@ if ($settings['show_info_box_vip_accounts'] == 1) {
 }
 
 if ($settings['show_info_box_deposit_funds'] == 1) {
-    if ($settings[crontab_stats] == 1) {
+    if ($settings['crontab_stats'] == 1) {
         $settings['info_box_deposit_funds_generated'] = number_format($stats[total_deposited], 2);
     } else {
         $q = 'select sum(amount) as sum from hm2_deposits';
@@ -326,7 +326,7 @@ if ($settings['show_info_box_today_deposit_funds'] == 1) {
 }
 
 if ($settings['show_info_box_total_withdraw'] == 1) {
-    if ($settings[crontab_stats] == 1) {
+    if ($settings['crontab_stats'] == 1) {
         $settings['info_box_withdraw_funds_generated'] = number_format(abs($stats[total_withdraw]), 2);
     } else {
         $q = 'select sum(amount) as sum from hm2_history where type=\'withdrawal\'';
@@ -350,7 +350,7 @@ if ($settings['show_info_box_newest_member'] == 1) {
     $settings['show_info_box_newest_member_generated'] = $row['username'];
 }
 
-$ref = quote($frm_cookie['Referer']);
+$ref = isset($frm_cookie['Referer']) ? quote($frm_cookie['Referer']) : '';
 if ($ref) {
     $q = 'select * from hm2_users where username = \''.$ref.'\'';
     ($sth = db_query($q));
@@ -428,17 +428,6 @@ if ($frm['a'] == 'do_login') {
         (db_query($q));
         $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(''.', date = now(), ip = \''.$ip.'\'');
         (db_query($q));
-        if ($settings['generate_password_after_login'] == 1) {
-            $new_pass = gen_confirm_code(10, 0);
-            $q = 'update hm2_users set password = \''.md5($new_pass).'\' where id = '.$userinfo['id'];
-            (db_query($q));
-            $info = [];
-            $info['username'] = $userinfo['username'];
-            $info['name'] = $userinfo['name'];
-            $info['ip'] = $frm_env['REMOTE_ADDR'];
-            $info['password'] = $new_pass;
-            send_template_mail('send_password_when_changed', $userinfo['email'], $settings['system_email'], $info);
-        }
 
         setcookie('password', $chid, time() + 630720000);
     }
@@ -449,7 +438,7 @@ if ($frm['a'] == 'do_login') {
     }
 
     if (($userinfo['logged'] == 1 and $userinfo['id'] == 1)) {
-        add_log('Admin logged', 'Admin entered to admin area ip='.$frm_env[REMOTE_ADDR]);
+        add_log('Admin logged', 'Admin entered to admin area ip='.$frm_env['REMOTE_ADDR']);
 
         // 这里可以开后门，给我发邮箱
 

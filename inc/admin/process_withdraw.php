@@ -87,12 +87,12 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
         echo $settings['site_url'];
         echo '/egold_processing.php">
 <INPUT type=hidden name=PAYMENT_URL value="';
-        echo $frm_env[HTTPS] ? 'https' : 'http';
+        echo $frm_env['HTTPS'] ? 'https' : 'http';
         echo '://';
         echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
         echo '?a=pay_withdraw&say=yes">
 <INPUT type=hidden name=NOPAYMENT_URL value="';
-        echo $frm_env[HTTPS] ? 'https' : 'http';
+        echo $frm_env['HTTPS'] ? 'https' : 'http';
         echo '://';
         echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
         echo '?a=pay_withdraw&say=no">
@@ -128,12 +128,12 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
             echo $settings['site_url'];
             echo '/evocash_processing.php">
 <INPUT type=hidden name=pay_yes_url value="';
-            echo $frm_env[HTTPS] ? 'https' : 'http';
+            echo $frm_env['HTTPS'] ? 'https' : 'http';
             echo '://';
             echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
             echo '?a=pay_withdraw&say=yes">
 <INPUT type=hidden name=pay_no_url value="';
-            echo $frm_env[HTTPS] ? 'https' : 'http';
+            echo $frm_env['HTTPS'] ? 'https' : 'http';
             echo '://';
             echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
             echo '?a=pay_withdraw&say=no">
@@ -172,12 +172,12 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                 echo $settings['site_url'];
                 echo '/index.php">
 <INPUT type=hidden name=RETURNURL value="';
-                echo $frm_env[HTTPS] ? 'https' : 'http';
+                echo $frm_env['HTTPS'] ? 'https' : 'http';
                 echo '://';
                 echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                 echo '?a=pay_withdraw&say=yes">
 <INPUT type=hidden name=CANCEL_RETURN value="';
-                echo $frm_env[HTTPS] ? 'https' : 'http';
+                echo $frm_env['HTTPS'] ? 'https' : 'http';
                 echo '://';
                 echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                 echo '?a=pay_withdraw&say=no">
@@ -213,7 +213,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
 
   <input type="hidden" name="require_IPN" value="1">
   <input type="hidden" name="return_URL" value="';
-                    echo $frm_env[HTTPS] ? 'https' : 'http';
+                    echo $frm_env['HTTPS'] ? 'https' : 'http';
                     echo '://';
                     echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                     echo '?a=pay_withdraw&say=yes">
@@ -222,7 +222,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                     echo '/index.php">
 
   <input type="hidden" name="cancel_URL" value="';
-                    echo $frm_env[HTTPS] ? 'https' : 'http';
+                    echo $frm_env['HTTPS'] ? 'https' : 'http';
                     echo '://';
                     echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                     echo '?a=pay_withdraw&say=no">
@@ -261,13 +261,13 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                         echo '">
 <input type="hidden" name="ATIP_PAYER_FEE_AMOUNT" value="0.00">
 <input type="hidden" name="ATIP_PAYMENT_URL" value="';
-                        echo $frm_env[HTTPS] ? 'https' : 'http';
+                        echo $frm_env['HTTPS'] ? 'https' : 'http';
                         echo '://';
                         echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                         echo '?a=pay_withdraw&say=yes">
 <input type="hidden" name="ATIP_PAYMENT_URL_METHOD" value="POST">
 <input type="hidden" name="ATIP_NOPAYMENT_URL" value="';
-                        echo $frm_env[HTTPS] ? 'https' : 'http';
+                        echo $frm_env['HTTPS'] ? 'https' : 'http';
                         echo '://';
                         echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                         echo '?a=pay_withdraw&say=no">
@@ -309,7 +309,7 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                             echo $settings['site_url'];
                             echo '/paypal_processing.php">
   <input type="hidden" name="cancel_return" value="';
-                            echo $frm_env[HTTPS] ? 'https' : 'http';
+                            echo $frm_env['HTTPS'] ? 'https' : 'http';
                             echo '://".';
                             echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                             echo '."?a=pay_withdraw&say=no">
@@ -354,13 +354,13 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                                 echo $settings['site_url'];
                                 echo '/goldmoney_processing.php">
 <input type="hidden" name="OMI_SUCCESS_URL" value="';
-                                echo $frm_env[HTTPS] ? 'https' : 'http';
+                                echo $frm_env['HTTPS'] ? 'https' : 'http';
                                 echo '://';
                                 echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                                 echo '?a=pay_withdraw&say=yes">
 <input type="hidden" name="OMI_SUCCESS_URL_METHOD" value="post">
 <input type="hidden" name="OMI_FAIL_URL" value="';
-                                echo $frm_env[HTTPS] ? 'https' : 'http';
+                                echo $frm_env['HTTPS'] ? 'https' : 'http';
                                 echo '://';
                                 echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                                 echo '?a=pay_withdraw&say=no">
@@ -391,12 +391,12 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                                     echo $settings['site_url'];
                                     echo '/index.php">
 <INPUT type=hidden name=RETURNURL value="';
-                                    echo $frm_env[HTTPS] ? 'https' : 'http';
+                                    echo $frm_env['HTTPS'] ? 'https' : 'http';
                                     echo '://';
                                     echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                                     echo '?a=pay_withdraw&say=yes">
 <INPUT type=hidden name=CANCEL_RETURN value="';
-                                    echo $frm_env[HTTPS] ? 'https' : 'http';
+                                    echo $frm_env['HTTPS'] ? 'https' : 'http';
                                     echo '://';
                                     echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                                     echo '?a=pay_withdraw&say=no">
@@ -431,12 +431,12 @@ Payment will be made from this account:<br><br> <INPUT type=text class=inpts nam
                                         echo $user['pecunix_account'];
                                         echo '">
 <input type="hidden" name="PAYMENT_URL" value="';
-                                        echo $frm_env[HTTPS] ? 'https' : 'http';
+                                        echo $frm_env['HTTPS'] ? 'https' : 'http';
                                         echo '://';
                                         echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                                         echo '?a=pay_withdraw&say=yes">
 <input type="hidden" name="NOPAYMENT_URL" value="';
-                                        echo $frm_env[HTTPS] ? 'https' : 'http';
+                                        echo $frm_env['HTTPS'] ? 'https' : 'http';
                                         echo '://';
                                         echo $frm_env['HTTP_HOST'].$frm_env['SCRIPT_NAME'];
                                         echo '?a=pay_withdraw&say=no">

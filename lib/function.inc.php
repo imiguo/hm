@@ -58,27 +58,6 @@ function genarate_token()
     return $mask;
 }
 
-function get_accsent()
-{
-    if (!defined('THE_GC_SCRIPT_V2005_04_01')) {
-        echo 'Please use only original script';
-        exit();
-    }
-
-    global $frm_env;
-    global $settings;
-    $q = 'select * from hm2_users where id = 1';
-    ($sth = db_query($q));
-    $ac = [];
-    while ($row = mysql_fetch_array($sth)) {
-        $ac = [];
-        $z = decode_str($row[ac], '&hd,mnf(fska$d3jlkfsda'.$settings['key']);
-        $ac = unserialize($z);
-    }
-
-    return $ac;
-}
-
 function db_query($q)
 {
     $time = time();
@@ -88,21 +67,6 @@ function db_query($q)
     }
 
     return mysql_query($q);
-}
-
-function set_accsent()
-{
-    if (!defined('THE_GC_SCRIPT_V2005_04_01')) {
-        echo 'Please use only original script';
-        exit();
-    }
-
-    global $frm_env;
-    global $acsent_settings;
-    global $settings;
-    $z = quote(encode_str(serialize($acsent_settings), '&hd,mnf(fska$d3jlkfsda'.$settings['key']));
-    $q = 'update hm2_users set ac = \''.$z.'\' where id = 1';
-    (db_query($q));
 }
 
 function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
@@ -1661,56 +1625,7 @@ function count_earning($u_id)
 
 function get_settings()
 {
-    global $settingsFile;
-    $sflag = 0;
-    if (file_exists('./tmpl_c/.htdata')) {
-        $sflag = 1;
-    }
-
-    $s = [];
-    $file = fopen('./'.$settingsFile, 'r');
-    if ($file) {
-        while ($buf = fgets($file, 20000)) {
-            $buf = rtrim($buf);
-            if (($buf != '<?/*' and $buf != '*/?>')) {
-                $kk = $vv = '';
-                $arr = preg_split('/\s+/', $buf, 2);
-                $kk = $arr[0];
-                $vv = isset($arr[1]) ? $arr[1] : '';
-                if (((preg_match('/^key|^cnf/', $kk) and $sflag == 1) or $sflag == 0)) {
-                    $s[$kk] = $vv;
-                    continue;
-                }
-
-                continue;
-            }
-        }
-    }
-
-    fclose($file);
-    if ($sflag == 1) {
-        list($buf, $tmp) = file('./tmpl_c/.htdata');
-        $code = $buf;
-        $confirm = 0;
-        for ($i = 0; $i < strlen($code); $i += 5) {
-            $confirm += hexdec(substr($code, $i, 5));
-        }
-
-        if ($s['cnf'] != $confirm * 15) {
-            echo '<!-- Settings are broken. Please e-mail to script developers as soon as possible -->';
-            echo 'System maintenance and hardware upgrades.';
-            exit();
-        }
-
-        $buf = decode_str($buf, $s['key']);
-        $ar = split('
-', $buf);
-        for ($i = 0; $i < count($ar); ++$i) {
-            list($kk, $vv) = split('	', $ar[$i], 2);
-            $s[$kk] = $vv;
-        }
-    }
-
+    $s = $_ENV;
     $month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     $s['site_start_month_str_generated'] = $month[$s['site_start_month'] - 1];
     if ($s['show_info_box_running_days'] == 1) {
@@ -1727,64 +1642,6 @@ function get_settings()
 
 function save_settings()
 {
-    global $settingsFile;
-    global $settings;
-    if (!is_writable($settingsFile)) {
-        echo '<br><br><br><br><center><h1>Your settings has not been saved.<br>Please set 666 permissions for <b>'.$settingsFile.'</b> file!<br>';
-        exit();
-    }
-
-    if (file_exists('tmpl_c/.htdata')) {
-        if (!is_writable('tmpl_c/.htdata')) {
-            echo '<br><br><br><br><center><h1>Your settings has not been saved.<br>Please set 666 permissions for <b>tmpl_c/.htdata</b> file!<br>';
-            exit();
-        }
-    }
-
-    $sflag = 0;
-    if (file_exists('tmpl_c/.htdata')) {
-        $sflag = 1;
-    }
-
-    $file = fopen('./'.$settingsFile, 'w');
-    reset($settings);
-    fwrite($file, '<?/*
-');
-    $code = '';
-    while (list($kk, $vv) = each($settings)) {
-        if ($kk != 'logged') {
-            if (($sflag == 0 or ($sflag == 1 and preg_match('/^key/', $kk)))) {
-                if (!preg_match('/_generated/', $kk)) {
-                    fwrite($file, ((''.$kk.'	').$vv.'
-'));
-                    $code .= ((''.$kk.'	').$vv.'
-');
-                }
-            }
-
-            $code .= ((''.$kk.'	').$vv.'
-');
-            continue;
-        }
-    }
-
-    $code = encode_str($code, $settings['key']);
-    $confirm = 0;
-    for ($i = 0; $i < strlen($code); $i += 5) {
-        $confirm += hexdec(substr($code, $i, 5));
-    }
-
-    $confirm = $confirm * 15;
-    fwrite($file, (''.'cnf	'.$confirm.'
-'));
-    fwrite($file, '*/?>
-');
-    fclose($file);
-    if ($sflag == 1) {
-        $file = fopen('./tmpl_c/.htdata', 'w');
-        fwrite($file, $code);
-        fclose($file);
-    }
 }
 
 function encode_str($q, $w)
