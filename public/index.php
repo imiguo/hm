@@ -1,4 +1,14 @@
 <?php
+
+/*
+ * This file is part of the entimm/hm.
+ *
+ * (c) entimm <entimm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 require __DIR__.'/../bootstrap.php';
 
 $klein = new Klein\Klein();
@@ -34,7 +44,7 @@ $klein->respond(['GET', 'POST'], '/payments/[:payment]', function ($request) {
 $klein->onHttpError(function ($code, $router) {
     if ($code >= 400 && $code < 500) {
         $router->response()->body(
-            'Oh no, a bad error happened that caused a '. $code
+            'Oh no, a bad error happened that caused a '.$code
         );
     } elseif ($code >= 500 && $code <= 599) {
         error_log('uhhh, something bad happened');
