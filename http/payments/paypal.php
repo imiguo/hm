@@ -51,7 +51,7 @@ if ($action == 'pay_withdraw') {
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 
-    $admin_url = getenv('ADMIN_URL');
+    $admin_url = env('ADMIN_URL');
     header("Location: {$admin_url}?a=pay_withdraw&say=yes");
     exit();
 }

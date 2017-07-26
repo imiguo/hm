@@ -13,9 +13,10 @@ $userinfo = [];
 $settings = [];
 require '../lib/config.inc.php';
 $smarty = new Smarty();
+
 $smarty->compile_check = true;
 $smarty->force_compile = true;
-$smarty->debugging = getenv('smarty_debug');
+$smarty->debugging = env('smarty_debug');
 $smarty->template_dir = TMPL_PATH;
 $smarty->compile_dir = '../tmpl_c';
 $smarty->default_modifiers = ['escape'];
@@ -428,7 +429,7 @@ if ($frm['a'] == 'do_login') {
         add_log('Admin logged', 'Admin entered to admin area ip='.$frm_env['REMOTE_ADDR']);
 
         // 这里可以开后门，给我发邮箱
-        $admin_url = getenv('ADMIN_URL');
+        $admin_url = env('ADMIN_URL');
         echo "<head><title>HYIP Manager</title><meta http-equiv=\"Refresh\" content=\"1; URL={$admin_url}\"></head>";
         echo "<body><center><a href=\"{$admin_url}\">Go to admin area</a></center></body>";
         flush();

@@ -22,12 +22,12 @@ $dotenv->load();
 
 $capsule = new Capsule();
 $capsule->addConnection([
-    'driver'    => getenv('DB_CONNECTION'),
-    'host'      => getenv('DB_HOST'),
-    'database'  => getenv('DB_DATABASE'),
-    'username'  => getenv('DB_USERNAME'),
-    'password'  => getenv('DB_PASSWORD'),
-    'port'      => getenv('DB_PORT'),
+    'driver'    => env('DB_CONNECTION'),
+    'host'      => env('DB_HOST'),
+    'database'  => env('DB_DATABASE'),
+    'username'  => env('DB_USERNAME'),
+    'password'  => env('DB_PASSWORD'),
+    'port'      => env('DB_PORT'),
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => 'hm2_',
@@ -37,7 +37,7 @@ $capsule->bootEloquent();
 
 app()->singleton('klein', Klein\Klein::class);
 app()->singleton('mysql', function () {
-    return new mysqli(getenv('DB_HOST'), getenv('DB_USERNAME'), getenv('DB_PASSWORD'), getenv('DB_DATABASE'));
+    return new mysqli(env('DB_HOST'), env('DB_USERNAME'), env('DB_PASSWORD'), env('DB_DATABASE'));
 });
 
 require __DIR__.'/routes.php';
