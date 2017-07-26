@@ -55,6 +55,7 @@ app()->singleton('smarty', function () {
     $smarty = new Smarty();
     $smarty->template_dir = TMPL_PATH;
     $smarty->compile_dir = TMPL_COMPILE_PATH;
+
     return $smarty;
 });
 
