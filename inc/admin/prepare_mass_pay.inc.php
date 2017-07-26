@@ -51,7 +51,7 @@ if (!is_array($frm['pend'])) {
   $ids = $frm['pend'];
   if (is_array($ids)) {
       reset($ids);
-      while ([$kk, $vv] = each($ids)) {
+      while (list($kk, $vv) = each($ids)) {
           echo '<input type=hidden name=pend['.$kk.'] value=1>';
       }
   }

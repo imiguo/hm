@@ -71,7 +71,7 @@ $id = $userinfo['id'];
   $ab['deposit'] = 0 - $ab['deposit'];
   $ab['earning'] = $ab['earning'];
   reset($ab);
-  while ([$kk, $vv] = each($ab)) {
+  while (list($kk, $vv) = each($ab)) {
       $ab_formated[$kk] = number_format(abs($vv), 2);
   }
 

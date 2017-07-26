@@ -11,7 +11,7 @@
 
 $ab = get_user_balance($userinfo['id']);
   $ab_formated = [];
-  while ([$kk, $vv] = each($ab)) {
+  while (list($kk, $vv) = each($ab)) {
       $ab_formated[$kk] = number_format($vv, 2);
   }
 

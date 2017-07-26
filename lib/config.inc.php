@@ -39,7 +39,7 @@ $frm_orig = $frm;
 $frm_cookie = $_COOKIE;
 $gpc = ini_get('magic_quotes_gpc');
 reset($frm);
-while ([$kk, $vv] = each($frm)) {
+while (list($kk, $vv) = each($frm)) {
     if (is_array($vv)) {
     } else {
         if ($gpc == '1') {
@@ -58,7 +58,7 @@ while ([$kk, $vv] = each($frm)) {
 }
 
 reset($frm_cookie);
-while ([$kk, $vv] = each($frm_cookie)) {
+while (list($kk, $vv) = each($frm_cookie)) {
     if (is_array($vv)) {
     } else {
         if ($gpc == '1') {
