@@ -149,8 +149,7 @@ if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANS
         description = \'Withdraw processed. Batch id = '.$batch.'\',
         actual_amount = -').abs($row['amount']).',
         ec = 2,
-        date = now()
-        ';
+        date = now()';
         (db_query($q));
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $sth = db_query($q);
@@ -256,7 +255,7 @@ if ($settings['crontab_stats'] == 1) {
 
 if ($settings['show_info_box_members_online'] == 1) {
     if ($settings['crontab_stats'] == 1) {
-        $settings['show_info_box_members_online_generated'] = $stats[visitors];
+        $settings['show_info_box_members_online_generated'] = $stats['visitors'];
     } else {
         $q = 'select count(*) as col from hm2_users where last_access_time + interval 30 minute > now()';
         ($sth = db_query($q));
@@ -267,7 +266,7 @@ if ($settings['show_info_box_members_online'] == 1) {
 
 if ($settings['show_info_box_total_accounts'] == 1) {
     if ($settings['crontab_stats'] == 1) {
-        $settings['info_box_total_accounts_generated'] = $stats[total_users];
+        $settings['info_box_total_accounts_generated'] = $stats['total_users'];
     } else {
         $q = 'select count(*) as col from hm2_users where id > 1';
         ($sth = db_query($q));
@@ -278,7 +277,7 @@ if ($settings['show_info_box_total_accounts'] == 1) {
 
 if ($settings['show_info_box_active_accounts'] == 1) {
     if ($settings['crontab_stats'] == 1) {
-        $settings['info_box_total_active_accounts_generated'] = $stats[active_accounts];
+        $settings['info_box_total_active_accounts_generated'] = $stats['active_accounts'];
     } else {
         $q = 'select count(distinct user_id) as col from hm2_deposits ';
         ($sth = db_query($q));
@@ -297,7 +296,7 @@ if ($settings['show_info_box_vip_accounts'] == 1) {
 
 if ($settings['show_info_box_deposit_funds'] == 1) {
     if ($settings['crontab_stats'] == 1) {
-        $settings['info_box_deposit_funds_generated'] = number_format($stats[total_deposited], 2);
+        $settings['info_box_deposit_funds_generated'] = number_format($stats['total_deposited'], 2);
     } else {
         $q = 'select sum(amount) as sum from hm2_deposits';
         ($sth = db_query($q));
@@ -315,7 +314,7 @@ if ($settings['show_info_box_today_deposit_funds'] == 1) {
 
 if ($settings['show_info_box_total_withdraw'] == 1) {
     if ($settings['crontab_stats'] == 1) {
-        $settings['info_box_withdraw_funds_generated'] = number_format(abs($stats[total_withdraw]), 2);
+        $settings['info_box_withdraw_funds_generated'] = number_format(abs($stats['total_withdraw']), 2);
     } else {
         $q = 'select sum(amount) as sum from hm2_history where type=\'withdrawal\'';
         ($sth = db_query($q));
@@ -529,7 +528,7 @@ if ($userinfo['logged'] == 1) {
 }
 
 if (((((($frm['a'] != 'show_validation_image' and !$userinfo['logged']) and extension_loaded('gd')) and $settings['graph_validation'] == 1) and 0 < $settings['graph_max_chars']) and $frm['action'] != 'signup')) {
-    $userinfo[validation_enabled] = 1;
+    $userinfo['validation_enabled'] = 1;
     session_start();
     $validation_number = gen_confirm_code($settings['graph_max_chars'], 0);
     if ($settings['use_number_validation_number']) {
@@ -543,9 +542,9 @@ if (((((($frm['a'] != 'show_validation_image' and !$userinfo['logged']) and exte
 
     $_SESSION['validation_number'] = $validation_number;
     session_register('validation_number');
-    $userinfo[session_name] = session_name();
-    $userinfo[session_id] = session_id();
-    $userinfo[rand] = rand();
+    $userinfo['session_name'] = session_name();
+    $userinfo['session_id'] = session_id();
+    $userinfo['rand'] = rand();
 }
 
 if (($frm['a'] == 'deletewappass' and $userinfo['logged'] == 1)) {
@@ -570,9 +569,9 @@ if ($frm['a'] == 'home') {
 }
 
 $smarty->assign('frm', $frm);
-if ($settings[banner_extension] == 1) {
-    if ($frm[a] == 'show_banner') {
-        $id = sprintf('%d', $frm[id]);
+if ($settings['banner_extension'] == 1) {
+    if ($frm['a'] == 'show_banner') {
+        $id = sprintf('%d', $frm['id']);
         $f = @fopen(''.'./tmpl_c/banners/'.$id, 'rb');
         if ($f) {
             $contents = fread($f, filesize(''.'./tmpl_c/banners/'.$id));
@@ -581,7 +580,7 @@ if ($settings[banner_extension] == 1) {
             fclose($fd);
         }
 
-        if ($frm[imps] != 'no') {
+        if ($frm['imps'] != 'no') {
             $q = 'update hm2_users set imps = imps -1 where imps > 0 and id = '.$id;
             (db_query($q));
         }
@@ -592,12 +591,12 @@ if ($settings[banner_extension] == 1) {
     $q = 'select count(*) as col from hm2_users where imps > 0 and bnum > 0';
     ($sth = db_query($q));
     while ($row = mysql_fetch_array($sth)) {
-        $z = rand(1, $row[col]) - 1;
+        $z = rand(1, $row['col']) - 1;
         $q = 'select bnum, burl from hm2_users where imps > 0 and bnum > 0 order by id limit '.$z.', 1';
         ($sth1 = db_query($q));
         while ($row1 = mysql_fetch_array($sth1)) {
-            $smarty->assign('banner_ext_bnum', $row1[bnum]);
-            $smarty->assign('banner_ext_burl', $row1[burl]);
+            $smarty->assign('banner_ext_bnum', $row1['bnum']);
+            $smarty->assign('banner_ext_burl', $row1['burl']);
         }
     }
 }
@@ -626,7 +625,7 @@ if ((($frm['a'] == 'do_login' or $frm['a'] == 'account') and $userinfo['logged']
 if (($frm['a'] == 'deposit' and $userinfo['logged'] == 1)) {
     if (substr($frm['type'], 0, 8) == 'account_') {
         $ps = substr($frm['type'], 8);
-        if ($exchange_systems[$ps][status] == 1) {
+        if ($exchange_systems[$ps]['status'] == 1) {
             include '../inc/deposit.account.confirm.inc';
         } else {
             include '../inc/deposit.inc';
@@ -634,7 +633,7 @@ if (($frm['a'] == 'deposit' and $userinfo['logged'] == 1)) {
     } else {
         if (substr($frm['type'], 0, 8) == 'process_') {
             $ps = substr($frm['type'], 8);
-            if ($exchange_systems[$ps][status] == 1) {
+            if ($exchange_systems[$ps]['status'] == 1) {
                 switch ($ps) {
                     case 0:
                         include '../inc/deposit.egold.confirm.inc';
@@ -683,7 +682,7 @@ if (($frm['a'] == 'deposit' and $userinfo['logged'] == 1)) {
         }
     }
 } else {
-    if ((($frm['a'] == 'add_funds' and $settings[use_add_funds] == 1) and $userinfo['logged'] == 1)) {
+    if ((($frm['a'] == 'add_funds' and $settings['use_add_funds'] == 1) and $userinfo['logged'] == 1)) {
         include '../inc/add_funds.inc';
         exit;
     }
@@ -795,7 +794,7 @@ if (($frm['a'] == 'deposit' and $userinfo['logged'] == 1)) {
         include '../inc/exchange.inc';
         exit;
     }
-    if (($frm['a'] == 'banner' and $userinfo[logged] == 1)) {
+    if (($frm['a'] == 'banner' and $userinfo['logged'] == 1)) {
         include '../inc/banner.inc';
         exit;
     }

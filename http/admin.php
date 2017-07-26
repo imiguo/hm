@@ -258,7 +258,7 @@ if (($frm['a'] == 'affilates' and $frm['action'] == 'remove_ref')) {
     exit;
 }
 
-if (($frm[a] == 'affilates' and $frm['action'] == 'change_upline')) {
+if (($frm['a'] == 'affilates' and $frm['action'] == 'change_upline')) {
     $u_id = sprintf('%d', $frm['u_id']);
     $upline = quote($frm['upline']);
     $q = 'select * from hm2_users where username=\''.$upline.'\'';
@@ -2090,7 +2090,7 @@ if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
     exit;
 }
 
-if (($frm[a] == 'add_processing' and $frm[action] == 'add_processing')) {
+if (($frm['a'] == 'add_processing' and $frm[action] == 'add_processing')) {
     if (!$settings['demomode']) {
         $status = ($frm['status'] ? 1 : 0);
         $name = quote($frm['name']);
@@ -2133,7 +2133,7 @@ if (($frm[a] == 'add_processing' and $frm[action] == 'add_processing')) {
     exit;
 }
 
-if (($frm[a] == 'edit_processing' and $frm[action] == 'edit_processing')) {
+if (($frm['a'] == 'edit_processing' and $frm[action] == 'edit_processing')) {
     if (!$settings['demomode']) {
         $pid = intval($frm['pid']);
         $status = ($frm['status'] ? 1 : 0);
@@ -2168,7 +2168,7 @@ if (($frm[a] == 'edit_processing' and $frm[action] == 'edit_processing')) {
     exit;
 }
 
-if ($frm[a] == 'update_processings') {
+if ($frm['a'] == 'update_processings') {
     if (!$settings['demomode']) {
         $q = 'update hm2_processings set status = 0';
         (db_query($q));
@@ -2185,7 +2185,7 @@ if ($frm[a] == 'update_processings') {
     exit;
 }
 
-if ($frm[a] == 'delete_processing') {
+if ($frm['a'] == 'delete_processing') {
     if (!$settings['demomode']) {
         $pid = intval($frm['pid']);
         $q = 'delete from hm2_processings where id = '.$pid;
