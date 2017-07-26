@@ -188,27 +188,6 @@ if ($userinfo['logged'] != 1) {
     exit();
 }
 
-if ($frm['a'] == 'encrypt_mysql') {
-    if ($settings['demomode'] != 1) {
-        if (($userinfo['transaction_code'] != '' and $userinfo['transaction_code'] != $frm['alternative_passphrase'])) {
-            header('Location: ?a=security&say=invalid_passphrase');
-            exit();
-        }
-
-        if (!file_exists('./tmpl_c/.htdata')) {
-            $fp = fopen('./tmpl_c/.htdata', 'w');
-            fclose($fp);
-            save_settings();
-        }
-
-        header('Location: admin.php?a=security&say=done');
-        exit();
-    }
-
-    header('Location: admin.php?a=security');
-    exit();
-}
-
 if (($frm['a'] == 'startup_bonus' and $frm['act'] == 'set')) {
     $settings['startup_bonus'] = sprintf('%0.2f', $frm['startup_bonus']);
     $settings['startup_bonus_ec'] = sprintf('%d', $frm['ec']);
