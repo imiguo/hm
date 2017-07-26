@@ -14,7 +14,7 @@ include 'lib/config.inc.php';
 $mymd5 = $settings['md5altphrase_goldmoney'];
 if ($frm['a'] == 'pay_withdraw') {
     $batch = $frm['OMI_TXN_ID'];
-    list($id, $str) = explode('-', $frm['withdraw']);
+    [$id, $str] = explode('-', $frm['withdraw']);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';

@@ -86,7 +86,7 @@ while ($row = mysql_fetch_array($sth)) {
 
 if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and $frm['TRANSACTION_ID'] != '')) {
     $batch = $frm['TRANSACTION_ID'];
-    list($id, $str) = explode('-', $frm['CUSTOM1']);
+    [$id, $str] = explode('-', $frm['CUSTOM1']);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';
@@ -129,7 +129,7 @@ if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and
 
 if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANSACTION_ID'] != '')) {
     $batch = $frm['TRANSACTION_ID'];
-    list($id, $str) = explode('-', $frm['CUSTOM1']);
+    [$id, $str] = explode('-', $frm['CUSTOM1']);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';
@@ -172,7 +172,7 @@ if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANS
 
 if (((isset($frm['user3']) and $frm['user3'] == 'pay_withdraw' and $frm['transaction_id'] != '') and $frm['transaction_type'] == 'Payment')) {
     $batch = $frm['transaction_id'];
-    list($id, $str) = explode('-', $frm['user1']);
+    [$id, $str] = explode('-', $frm['user1']);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';
@@ -443,7 +443,7 @@ if ($frm['a'] == 'do_login') {
         $add_login_check = '';
     }
 
-    list($user_id, $chid) = explode('-', $password, 2);
+    [$user_id, $chid] = explode('-', $password, 2);
     $user_id = sprintf('%d', $user_id);
     $chid = quote($chid);
     if (0 < $user_id) {

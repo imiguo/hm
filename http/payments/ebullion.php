@@ -13,7 +13,7 @@ include 'lib/config.inc.php';
 
 if ($frm['a'] == 'pay_withdraw') {
     $batch = $frm['ATIP_TRANSACTION_ID'];
-    list($id, $str) = explode('-', $frm['withdraw']);
+    [$id, $str] = explode('-', $frm['withdraw']);
     if ($str == '') {
         $str = 'abcdef';
     }

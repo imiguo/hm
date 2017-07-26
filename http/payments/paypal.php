@@ -11,10 +11,10 @@
 
 include 'lib/config.inc.php';
 
-list($action, $user_id, $h_id) = preg_split('/\\|/', $frm['custom']);
+[$action, $user_id, $h_id] = preg_split('/\\|/', $frm['custom']);
 if ($action == 'pay_withdraw') {
     $batch = $frm['txn_id'];
-    list($id, $str) = explode('-', $user_id);
+    [$id, $str] = explode('-', $user_id);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';

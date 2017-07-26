@@ -17,7 +17,7 @@ file_put_contents('../log/perfectmoney_processing_'.ENV.'.txt', 'IP:'.$frm_env['
 $mymd5 = $settings['md5altphrase_perfectmoney'];
 if ($frm['a'] == 'pay_withdraw') {
     $batch = $frm['PAYMENT_BATCH_NUM'];
-    list($id, $str) = explode('-', $frm['withdraw']);
+    [$id, $str] = explode('-', $frm['withdraw']);
     $id = sprintf('%d', $id);
     if ($str == '') {
         $str = 'abcdef';
