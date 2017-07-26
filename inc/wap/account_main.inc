@@ -23,7 +23,7 @@ header('Content-type: text/vnd.wap.wml');
   $ab['deposit'] = 0 - $ab['deposit'];
   $ab['earning'] = number_format($ab['earning'], 2);
   reset($ab);
-  while (list($kk, $vv) = each($ab)) {
+  while ([$kk, $vv] = each($ab)) {
       $ab_formated[$kk] = number_format($vv, 2);
   }
 

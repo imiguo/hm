@@ -482,7 +482,7 @@ function send_money_to_evocash($e_password, $amount, $account, $memo, $error_txt
             $evocash_code = decode_pass_for_mysql($row['v']);
         }
     } else {
-        list($evocash_password, $evocash_code) = preg_split('/\\|/', $e_password);
+        [$evocash_password, $evocash_code] = preg_split('/\\|/', $e_password);
     }
 
     $ch = curl_init();
@@ -538,7 +538,7 @@ function send_money_to_intgold($e_password, $amount, $account, $memo, $error_txt
             $intgold_code = decode_pass_for_mysql($row['v']);
         }
     } else {
-        list($intgold_password, $intgold_code) = preg_split('/\\|/', $e_password);
+        [$intgold_password, $intgold_code] = preg_split('/\\|/', $e_password);
     }
 
     $ch = curl_init();
@@ -589,7 +589,7 @@ function send_money_to_eeecurrency($e_password, $amount, $account, $memo, $error
             $eeecurrency_code = decode_pass_for_mysql($row['v']);
         }
     } else {
-        list($eeecurrency_password, $eeecurrency_code) = preg_split('/\\|/', $e_password);
+        [$eeecurrency_password, $eeecurrency_code] = preg_split('/\\|/', $e_password);
     }
 
     $ch = curl_init();
@@ -1191,7 +1191,7 @@ function pay_direct_return_deposit($deposit_id, $amount)
         $amount = abs($amount);
         $success_txt = 'Return principal from deposit $'.$amount.'. Auto-withdrawal to '.$user['username'].' from '.$settings['site_name'];
         $error_txt = 'Auto-withdrawal error, tried to return '.$amount.' to e-gold account # '.$user['egold_account'].'. Error:';
-        list($res, $text, $batch) = send_money_to_egold('', $amount, $user['egold_account'], $success_txt, $error_txt);
+        [$res, $text, $batch] = send_money_to_egold('', $amount, $user['egold_account'], $success_txt, $error_txt);
         if ($res == 1) {
             $q = 'insert into hm2_history set
           	user_id = '.$user['id'].(''.',
@@ -1242,43 +1242,43 @@ function pay_direct_earning($deposit_id, $amount, $date)
         $success_txt = 'Earning from deposit $'.$dep['actual_amount'].'. Auto withdraw to '.$user['username'].' from '.$settings['site_name'];
         if ($dep[ec] == 0) {
             $error_txt = 'Auto-withdrawal error, tried to send '.$to_withdraw.' earning to e-gold account # '.$user['egold_account'].'. Error:';
-            list($res, $text, $batch) = send_money_to_egold('', $to_withdraw, $user['egold_account'], $success_txt,
+            [$res, $text, $batch] = send_money_to_egold('', $to_withdraw, $user['egold_account'], $success_txt,
                 $error_txt);
         }
 
         if ($dep[ec] == 1) {
             $error_txt = 'Error, tried to send '.$to_withdraw.' to Evocash account # '.$user['evocash_account'].'. Error:';
-            list($res, $text, $batch) = send_money_to_evocash('', $to_withdraw, $user['evocash_account'], $success_txt,
+            [$res, $text, $batch] = send_money_to_evocash('', $to_withdraw, $user['evocash_account'], $success_txt,
                 $error_txt);
         }
 
         if ($dep[ec] == 2) {
             $error_txt = 'Error, tried to send '.$to_withdraw.' to IntGold account # '.$user['intgold_account'].'. Error:';
-            list($res, $text, $batch) = send_money_to_intgold('', $to_withdraw, $user['intgold_account'], $success_txt,
+            [$res, $text, $batch] = send_money_to_intgold('', $to_withdraw, $user['intgold_account'], $success_txt,
                 $error_txt);
         }
 
         if ($dep[ec] == 3) {
             $error_txt = 'Error, tried to send '.$to_withdraw.' to Perfect Money account # '.$user['perfectmoney_account'].'. Error:';
-            list($res, $text, $batch) = send_money_to_perfectmoney('', $to_withdraw, $user['perfectmoney_account'], $success_txt,
+            [$res, $text, $batch] = send_money_to_perfectmoney('', $to_withdraw, $user['perfectmoney_account'], $success_txt,
                 $error_txt);
         }
 
         if ($dep[ec] == 5) {
             $error_txt = 'Error, tried to send '.$to_withdraw.' to e-Bullion account # '.$user['intgold_account'].'. Error:';
-            list($res, $text, $batch) = send_money_to_ebullion('', $to_withdraw, $user['ebullion_account'],
+            [$res, $text, $batch] = send_money_to_ebullion('', $to_withdraw, $user['ebullion_account'],
                 $success_txt, $error_txt);
         }
 
         if ($dep[ec] == 8) {
             $error_txt = 'Error, tried to send '.$to_withdraw.' to eeeCurrency account # '.$user['eeecurrency_account'].'. Error:';
-            list($res, $text, $batch) = send_money_to_eeecurrency('', $to_withdraw, $user['eeecurrency_account'],
+            [$res, $text, $batch] = send_money_to_eeecurrency('', $to_withdraw, $user['eeecurrency_account'],
                 $success_txt, $error_txt);
         }
 
         if ($dep[ec] == 9) {
             $error_txt = 'Error, tried to send '.$to_withdraw.' to Pecunix account # '.$user['pecunix_account'].'. Error:';
-            list($res, $text, $batch) = send_money_to_pecunix('', $to_withdraw, $user['pecunix_account'], $success_txt,
+            [$res, $text, $batch] = send_money_to_pecunix('', $to_withdraw, $user['pecunix_account'], $success_txt,
                 $error_txt);
         }
 
@@ -1408,7 +1408,7 @@ function count_earning($u_id)
                 $last_percent = 0;
                 reset($types);
                 reset($types[$row['type_id']]);
-                while (list($key, $plan) = each($types[$row['type_id']])) {
+                while ([$key, $plan] = each($types[$row['type_id']])) {
                     if (($plan['min_deposit'] <= $row['actual_amount'] and ($row['actual_amount'] <= $plan['max_deposit'] or $plan['max_deposit'] == 0))) {
                         $percent = $plan['percent'];
                     }
@@ -1761,7 +1761,7 @@ function get_user_balance($id)
     }
 
     $total = 0;
-    while (list($kk, $vv) = each($accounting)) {
+    while ([$kk, $vv] = each($accounting)) {
         $total += $vv;
     }
 

@@ -34,7 +34,7 @@ if ($frm['complete']) {
   $ab_formated = [];
   $ab['withdraw_pending'] = 0 - $ab['withdraw_pending'];
   reset($ab);
-  while (list($kk, $vv) = each($ab)) {
+  while ([$kk, $vv] = each($ab)) {
       $vv = floor($vv * 100) / 100;
       $ab_formated[$kk] = number_format($vv, 2);
   }
