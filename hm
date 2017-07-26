@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+require 'bootstrap.php';
+
+if (!isset($argv)) {
+    exit;
+}
+$action = isset($argv[1]) ? $argv[1] : '';
+
+switch ($action) {
+    case 'theme':
+        include 'console/theme.php';
+        break;
+
+    case 'migrate':
+        include 'console/migrate.php';
+        break;
+
+    default:
+        # code...
+        break;
+}
