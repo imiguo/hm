@@ -3,7 +3,8 @@
         "illuminate/database": "^5.4",
         "vlucas/phpdotenv": "^2.4",
         "smarty/smarty": "^3.1",
-        "klein/klein": "^2.1"
+        "klein/klein": "^2.1",
+        "illuminate/container": "^5.4"
     },
     "autoload": {
         "classmap": ["classes/"]
