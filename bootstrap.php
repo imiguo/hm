@@ -11,13 +11,14 @@
 
 require __DIR__.'/vendor/autoload.php';
 require __DIR__.'/helpers.php';
-require __DIR__.'/constants.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $environmentFile = env('APP_ENV') ? '.env.'.env('APP_ENV') : '.env';
-$dotenv = new Dotenv\Dotenv(APP_PATH, $environmentFile);
+$dotenv = new Dotenv\Dotenv(__DIR__, $environmentFile);
 $dotenv->load();
+
+require __DIR__.'/constants.php';
 
 $capsule = new Capsule();
 $capsule->addConnection([

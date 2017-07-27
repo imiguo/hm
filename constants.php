@@ -10,11 +10,19 @@
  */
 
 define('APP_PATH', __DIR__);
-define('SUBDOMAIN', !empty($_SERVER['SUBDOMAIN']) ? $_SERVER['SUBDOMAIN'] : '');
-if (SUBDOMAIN && is_dir(APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/')) {
-    define('TMPL_PATH', APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/');
-} else {
-    define('TMPL_PATH', __DIR__.'/tmpl/');
+
+define('THEME', $_SERVER['THEME'] ?? env('THEME') ?: 'default');
+
+define('TMPL_PATH', dirname(APP_PATH).'/templates/'.THEME.'/tmpl/');
+
+foreach (glob(dirname(TMPL_PATH).'/public/*') as $file) {
+    $target = APP_PATH.'/public/'.basename($file);
+    if (!is_link($target)) {
+        symlink($file, $target);
+    } elseif (false === strpos(readlink($target), THEME.'/public/')) {
+        unlink($target);
+        symlink($file, $target);
+    }
 }
 
 if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
