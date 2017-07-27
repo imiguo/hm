@@ -11,22 +11,9 @@
 
 require __DIR__.'/vendor/autoload.php';
 require __DIR__.'/helpers.php';
+require __DIR__.'/constants.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-
-define('APP_PATH', __DIR__);
-define('SUBDOMAIN', !empty($_SERVER['SUBDOMAIN']) ? $_SERVER['SUBDOMAIN'] : '');
-if (SUBDOMAIN && is_dir(APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/')) {
-    define('TMPL_PATH', APP_PATH.'/templates/'.SUBDOMAIN.'/tmpl/');
-} else {
-    define('TMPL_PATH', __DIR__.'/tmpl/');
-}
-
-if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
-    define('HTTPS', true);
-} else {
-    define('HTTPS', false);
-}
 
 $environmentFile = env('APP_ENV') ? '.env.'.env('APP_ENV') : '.env';
 $dotenv = new Dotenv\Dotenv(APP_PATH, $environmentFile);
