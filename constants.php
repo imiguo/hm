@@ -15,6 +15,7 @@ define('THEME', $_SERVER['THEME'] ?? env('THEME') ?: 'default');
 
 define('TMPL_PATH', dirname(APP_PATH).'/templates/'.THEME.'/tmpl/');
 
+// fixme: 这里可能需要改善下，每次请求都检测可能不是很好
 foreach (glob(dirname(TMPL_PATH).'/public/*') as $file) {
     $target = APP_PATH.'/public/'.basename($file);
     if (!is_link($target)) {
