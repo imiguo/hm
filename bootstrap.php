@@ -23,7 +23,9 @@ require __DIR__.'/constants.php';
 $cacheThemeFile = CACHE_PATH.'theme';
 if (!is_file($cacheThemeFile) || THEME != file_get_contents($cacheThemeFile)) {
     foreach (glob(APP_PATH.'/public/*') as $file) {
-        if (strpos($file, 'index.php') !== false) continue;
+        if (strpos($file, 'index.php') !== false) {
+            continue;
+        }
         unlink($file);
     }
     foreach (glob(dirname(TMPL_PATH).'/public/*') as $file) {
