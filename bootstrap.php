@@ -20,6 +20,18 @@ $dotenv->load();
 
 require __DIR__.'/constants.php';
 
+$cacheThemeFile = CACHE_PATH.'theme';
+if (!is_file($cacheThemeFile) || THEME != file_get_contents($cacheThemeFile)) {
+    foreach (glob(APP_PATH.'/public/*') as $file) {
+        if (strpos($file, 'index.php') !== false) continue;
+        unlink($file);
+    }
+    foreach (glob(dirname(TMPL_PATH).'/public/*') as $file) {
+        $target = APP_PATH.'/public/'.basename($file);
+        symlink($file, $target);
+    }
+}
+
 $capsule = new Capsule();
 $capsule->addConnection([
     'driver'    => env('DB_CONNECTION'),
