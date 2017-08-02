@@ -26,7 +26,7 @@ echo '<html>
   }
 
   $q = 'select count(*) from hm2_users where status = \''.$qstatus.'\' and id <> 1 '.$searchpart.' order by id desc';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $total = $row[0];
   $page = sprintf('%d', $frm['p']);
@@ -47,7 +47,7 @@ echo '<html>
   $end = $page * $qonpage;
   $end = ($total < $end ? $total : $end);
   $q = 'select *, date_format(date_register, \'%b-%e-%Y\') as dr from hm2_users where status = \''.$qstatus.'\' and id <> 1 '.$searchpart.' order by id desc limit '.$start.', '.$qonpage;
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $members = [];
   while ($row = mysql_fetch_array($sth)) {
       $ar = get_user_balance($row['id']);

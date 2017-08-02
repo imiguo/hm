@@ -14,7 +14,7 @@ $id = $userinfo['id'];
   $type_found = 0;
   $options = [];
   $q = 'select type from hm2_history where user_id = '.$id.' group by type order by type';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
       if ($row['type'] == 'exchange_in') {
           $row['type'] = 'exchange';
@@ -71,7 +71,7 @@ $id = $userinfo['id'];
   }
 
   $q = 'select count(*) as count from hm2_history where '.$datewhere.' '.$typewhere.' '.$ecwhere.' and user_id = '.$id;
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $count_all = $row['count'];
   $page = $frm['page'];
@@ -89,7 +89,7 @@ $id = $userinfo['id'];
   $order = ($settings['use_history_balance_mode'] ? 'asc' : 'desc');
   $dformat = ($settings['use_history_balance_mode'] ? '%b-%e-%Y<br>%r' : '%b-%e-%Y %r');
   $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \''.$dformat.'\') as d from hm2_history where '.$datewhere.' '.$typewhere.' '.$ecwhere.' and user_id = '.$id.' order by date '.$order.', id '.$order.' limit '.$from.', '.$onpage);
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $trans = [];
   while ($row = mysql_fetch_array($sth)) {
       $row['transtype'] = $transtype[$row['type']];

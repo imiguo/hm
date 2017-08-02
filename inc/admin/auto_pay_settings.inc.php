@@ -425,7 +425,7 @@ function test_pecunix() {';
 </form>
 ';
   $q = 'select * from hm2_pay_errors limit 1';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
       echo '<a href=?a=error_pay_log>Check error transactions</a>
 <br><br>

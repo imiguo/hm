@@ -106,7 +106,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
         	';
     db_query($q);
     $q = 'select * from hm2_types where id = '.$h_id;
-    ($sth = db_query($q));
+    $sth = db_query($q);
     $name = '';
     $type = mysql_fetch_array($sth);
     $delay = -1;
@@ -285,7 +285,7 @@ function referral_commission($user_id, $amount, $ec)
             if ($row = mysql_fetch_array($sth)) {
                 $col = $row['col'];
                 $q = 'select percent from hm2_referal where from_value <= '.$col.' and (to_value >= '.$col.' or to_value = 0) order by from_value desc limit 1';
-                ($sth = db_query($q));
+                $sth = db_query($q);
                 if ($row = mysql_fetch_array($sth)) {
                     $sum = $amount * $row['percent'] / 100;
                     $ref_sum += $sum;
@@ -1176,17 +1176,17 @@ function pay_direct_return_deposit($deposit_id, $amount)
     global $settings;
     if ($settings['use_auto_payment'] == 1) {
         $q = 'select * from hm2_deposits where id = '.$deposit_id;
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $dep = mysql_fetch_array($sth);
         $q = 'select * from hm2_users where id = '.$dep['user_id'];
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $user = mysql_fetch_array($sth);
         if ($user['auto_withdraw'] != 1) {
             return;
         }
 
         $q = 'select * from hm2_types where id = '.$dep['type_id'];
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $type = mysql_fetch_array($sth);
         $amount = abs($amount);
         $success_txt = 'Return principal from deposit $'.$amount.'. Auto-withdrawal to '.$user['username'].' from '.$settings['site_name'];
@@ -1216,14 +1216,14 @@ function pay_direct_earning($deposit_id, $amount, $date)
 
     if ($settings['use_auto_payment'] == 1) {
         $q = 'select * from hm2_deposits where id = '.$deposit_id;
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $dep = mysql_fetch_array($sth);
         if (!in_array($dep[ec], [0, 1, 2, 5])) {
             return;
         }
 
         $q = 'select * from hm2_users where id = '.$dep['user_id'];
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $user = mysql_fetch_array($sth);
         if (($user['admin_auto_pay_earning'] != 1 or $user['user_auto_pay_earning'] != 1)) {
             return;
@@ -1398,7 +1398,7 @@ function count_earning($u_id)
                 (d.deposit_date + interval t.q_days day >= d.last_pay_date + interval 1 year and t.period = \'y\') or
                 (t.q_days > 0 and t.period = \'end\')
               ))';
-            ($sth = db_query($q));
+            $sth = db_query($q);
             $lines = 0;
             while ($row = mysql_fetch_array($sth)) {
                 ++$lines;
@@ -1739,7 +1739,7 @@ function get_rand_md5($len)
 function get_user_balance($id)
 {
     $q = 'select type, sum(actual_amount) as sum from hm2_history where user_id = '.$id.' group by type';
-    ($sth = db_query($q));
+    $sth = db_query($q);
     $accounting = [];
     while ($row = mysql_fetch_array($sth)) {
         $accounting[$row['type']] = $row['sum'];
@@ -1752,7 +1752,7 @@ function get_user_balance($id)
 
     $accounting['total'] = $total;
     $q = 'select sum(actual_amount) as sum from hm2_deposits where user_id = '.$id.' and status=\'on\'';
-    ($sth = db_query($q));
+    $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $accounting['active_deposit'] += $row['sum'];
     }

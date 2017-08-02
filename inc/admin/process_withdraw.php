@@ -13,7 +13,7 @@ echo ' <b>Process Withdrawal:</b><br><br>';
 
 $id = sprintf('%d', $frm['id']);
 $q = 'select * from hm2_history where id='.$id.' and type=\'withdraw_pending\'';
-($sth = db_query($q));
+$sth = db_query($q);
 $do_not_show_form = 0;
 if ($trans = mysql_fetch_array($sth)) {
     $q = 'select * from hm2_users where id = '.$trans['user_id'];

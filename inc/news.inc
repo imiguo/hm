@@ -36,7 +36,7 @@ $q = 'select count(*) as call from hm2_news';
                  date desc
            limit
                  '.$from.', '.$onpage);
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $news = [];
   while ($row = mysql_fetch_array($sth)) {
       if ($row['full_text'] == '') {

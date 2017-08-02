@@ -27,7 +27,7 @@ $qonpage = 50;
   }
 
   $q = 'select count(*) from hm2_users where '.$where_status.' and id <> 1 '.$searchpart.' order by id desc';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $total = $row[0];
   $page = sprintf('%d', $frm['p']);
@@ -48,7 +48,7 @@ $qonpage = 50;
   $end = $page * $qonpage;
   $end = ($total < $end ? $total : $end);
   $q = 'select *, date_format(date_register + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y\') as dr from hm2_users where '.$where_status.' and id <> 1 '.$searchpart.' order by id desc limit ').(0 < $start ? $start : 0).(''.', '.$qonpage);
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $members = [];
   while ($row = mysql_fetch_array($sth)) {
       $ar = get_user_balance($row['id']);

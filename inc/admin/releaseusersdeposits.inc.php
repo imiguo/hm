@@ -11,7 +11,7 @@
 
 $user_id = sprintf('%d', $frm['u_id']);
   $q = 'select * from hm2_types where status = \'on\'';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $plans = [];
   $deposits_cnt = 0;
   while ($row = mysql_fetch_array($sth)) {

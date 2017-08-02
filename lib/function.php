@@ -18,7 +18,7 @@ function bind_ref()
     if ($frm_cookie['Referer'] == '') {
         $ref = quote($frm['ref']);
         $q = 'select id from hm2_users where username = \''.$ref.'\'';
-        ($sth = db_query($q));
+        $sth = db_query($q);
         while ($row = mysql_fetch_array($sth)) {
             $ref_id = $row['id'];
             $q = 'select * from hm2_referal_stats where date = current_date() and user_id = '.$ref_id;
@@ -196,7 +196,7 @@ function show_info_box()
             $settings['show_info_box_members_online_generated'] = $stats['visitors'];
         } else {
             $q = 'select count(*) as col from hm2_users where last_access_time + interval 30 minute > now()';
-            ($sth = db_query($q));
+            $sth = db_query($q);
             $row = mysql_fetch_array($sth);
             $settings['show_info_box_members_online_generated'] = $row['col'];
         }
@@ -207,7 +207,7 @@ function show_info_box()
             $settings['info_box_total_accounts_generated'] = $stats['total_users'];
         } else {
             $q = 'select count(*) as col from hm2_users where id > 1';
-            ($sth = db_query($q));
+            $sth = db_query($q);
             $row = mysql_fetch_array($sth);
             $settings['info_box_total_accounts_generated'] = $row['col'];
         }
@@ -218,7 +218,7 @@ function show_info_box()
             $settings['info_box_total_active_accounts_generated'] = $stats['active_accounts'];
         } else {
             $q = 'select count(distinct user_id) as col from hm2_deposits ';
-            ($sth = db_query($q));
+            $sth = db_query($q);
             $row = mysql_fetch_array($sth);
             $settings['info_box_total_active_accounts_generated'] = $row['col'];
         }
@@ -227,7 +227,7 @@ function show_info_box()
     if ($settings['show_info_box_vip_accounts'] == 1) {
         $q = 'select count(distinct user_id) as col from hm2_deposits where actual_amount > '.sprintf('%.02f',
                 $settings['vip_users_deposit_amount']);
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $row = mysql_fetch_array($sth);
         $settings['info_box_total_vip_accounts_generated'] = $row['col'];
     }
@@ -237,7 +237,7 @@ function show_info_box()
             $settings['info_box_deposit_funds_generated'] = number_format($stats['total_deposited'], 2);
         } else {
             $q = 'select sum(amount) as sum from hm2_deposits';
-            ($sth = db_query($q));
+            $sth = db_query($q);
             $row = mysql_fetch_array($sth);
             $settings['info_box_deposit_funds_generated'] = number_format($row['sum'], 2);
         }
@@ -245,7 +245,7 @@ function show_info_box()
 
     if ($settings['show_info_box_today_deposit_funds'] == 1) {
         $q = 'select sum(amount) as sum from hm2_deposits where to_days(deposit_date) = to_days(now() + interval '.$settings['time_dif'].' day)';
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $row = mysql_fetch_array($sth);
         $settings['info_box_today_deposit_funds_generated'] = number_format($row['sum'], 2);
     }
@@ -255,7 +255,7 @@ function show_info_box()
             $settings['info_box_withdraw_funds_generated'] = number_format(abs($stats['total_withdraw']), 2);
         } else {
             $q = 'select sum(amount) as sum from hm2_history where type=\'withdrawal\'';
-            ($sth = db_query($q));
+            $sth = db_query($q);
             $row = mysql_fetch_array($sth);
             $settings['info_box_withdraw_funds_generated'] = number_format(abs($row['sum']), 2);
         }
@@ -263,14 +263,14 @@ function show_info_box()
 
     if ($settings['show_info_box_visitor_online'] == 1) {
         $q = 'select count(*) as sum from hm2_online';
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $row = mysql_fetch_array($sth);
         $settings['info_box_visitor_online_generated'] = $row['sum'];
     }
 
     if ($settings['show_info_box_newest_member'] == 1) {
         $q = 'select username from hm2_users where status = \'on\' order by id desc limit 0,1';
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $row = mysql_fetch_array($sth);
         $settings['show_info_box_newest_member_generated'] = $row['username'];
     }

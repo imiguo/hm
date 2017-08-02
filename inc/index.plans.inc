@@ -12,14 +12,14 @@
 $already_deposits = [];
   if (0 < $userinfo['id']) {
       $q = 'select type_id from hm2_deposits where user_id = '.$userinfo['id'];
-      ($sth = db_query($q));
+      $sth = db_query($q);
       while ($row = mysql_fetch_array($sth)) {
           array_push($already_deposits, $row['type_id']);
       }
   }
 
   $q = 'select * from hm2_types where status = \'on\' order by id';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $plans = [];
   while ($row = mysql_fetch_array($sth)) {
       if (0 < $userinfo['id']) {

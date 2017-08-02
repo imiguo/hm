@@ -17,7 +17,7 @@ $ok = 1;
   $on_hold = 0;
   if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
       $q = 'select id from hm2_deposits where user_id = '.$userinfo['id'];
-      ($sth = db_query($q));
+      $sth = db_query($q);
       $deps = [];
       $deps[0] = 0;
       while ($row = mysql_fetch_array($sth)) {
@@ -28,7 +28,7 @@ $ok = 1;
 	deposit_id in (').join(',', $deps).') and
 			(type=\'earning\' or
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));';
-      ($sth = db_query($q));
+      $sth = db_query($q);
       while ($row = mysql_fetch_array($sth)) {
           $on_hold = $row[amount];
       }
@@ -40,7 +40,7 @@ $ok = 1;
       $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
   }
 
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $deps = [];
   $deps[0] = 0;
   while ($row = mysql_fetch_array($sth)) {
@@ -55,7 +55,7 @@ $ok = 1;
   }
 
   $q = 'select * from hm2_types where id = '.$h_id.' and closed = 0';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $type = mysql_fetch_array($sth);
   $delay = -1;
   if (!$type) {
@@ -102,7 +102,7 @@ $ok = 1;
 
   $smarty->assign('use_compound', $use_compound);
   $q = 'select count(*) as col, min(min_deposit) as min from hm2_plans where parent = '.$h_id;
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   if ($row) {
       if ($row['col'] == 0) {
@@ -130,7 +130,7 @@ $ok = 1;
   $accounting = get_user_balance($userinfo['id']);
   $max_deposit = $accounting['total'];
   $q = 'select min(max_deposit) as min, max(max_deposit) as max from hm2_plans where parent = '.$h_id;
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   if ($row) {
       if (0 < $row['min']) {

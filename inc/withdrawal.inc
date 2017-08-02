@@ -32,7 +32,7 @@ if ($frm['action'] == 'preview') {
     $on_hold = 0;
     if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
         $q = 'select id from hm2_deposits where user_id = '.$userinfo['id'];
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $deps = [];
         $deps[0] = 0;
         while ($row = mysql_fetch_array($sth)) {
@@ -43,7 +43,7 @@ if ($frm['action'] == 'preview') {
 	deposit_id in (').join(',', $deps).') and
 			(type=\'earning\' or
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));';
-        ($sth = db_query($q));
+        $sth = db_query($q);
         while ($row = mysql_fetch_array($sth)) {
             $on_hold = $row[amount];
         }
@@ -55,7 +55,7 @@ if ($frm['action'] == 'preview') {
         $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
     }
 
-    ($sth = db_query($q));
+    $sth = db_query($q);
     $deps = [];
     $deps[0] = 0;
     while ($row = mysql_fetch_array($sth)) {
@@ -70,7 +70,7 @@ if ($frm['action'] == 'preview') {
     }
 
     $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec);
-    ($sth = db_query($q));
+    $sth = db_query($q);
     $ab['total'] = 0;
     while ($row = mysql_fetch_array($sth)) {
         $ab['total'] = $row['amount'] - $on_hold;
@@ -93,7 +93,7 @@ if ($frm['action'] == 'preview') {
 
     if (0 < $settings[max_daily_withdraw]) {
         $q = 'select sum(actual_amount) as am from hm2_history where type in (\'withdraw\', \'withdraw_pending\') and user_id = '.$userinfo[id];
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $dw = 0;
         while ($row = mysql_fetch_array($sth)) {
             $dw = 0 - $row[am];
@@ -191,7 +191,7 @@ if ($frm['action'] == 'preview') {
         $on_hold = 0;
         if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
             $q = 'select id from hm2_deposits where user_id = '.$userinfo['id'];
-            ($sth = db_query($q));
+            $sth = db_query($q);
             $deps = [];
             $deps[0] = 0;
             while ($row = mysql_fetch_array($sth)) {
@@ -202,7 +202,7 @@ if ($frm['action'] == 'preview') {
 	deposit_id in (').join(',', $deps).') and
 			(type=\'earning\' or
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\')));';
-            ($sth = db_query($q));
+            $sth = db_query($q);
             while ($row = mysql_fetch_array($sth)) {
                 $on_hold = $row[amount];
             }
@@ -214,7 +214,7 @@ if ($frm['action'] == 'preview') {
             $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
         }
 
-      ($sth = db_query($q));
+      $sth = db_query($q);
         $deps = [];
         $deps[0] = 0;
         while ($row = mysql_fetch_array($sth)) {
@@ -229,7 +229,7 @@ if ($frm['action'] == 'preview') {
         }
 
         $q = 'select sum(actual_amount) as amount from hm2_history where user_id = '.$userinfo['id'].(''.' and ec = '.$ec);
-        ($sth = db_query($q));
+        $sth = db_query($q);
         $ab['total'] = 0;
         while ($row = mysql_fetch_array($sth)) {
             $ab['total'] = $row['amount'] - $on_hold;
@@ -247,7 +247,7 @@ if ($frm['action'] == 'preview') {
 
         if (0 < $settings[max_daily_withdraw]) {
             $q = 'select sum(actual_amount) as am from hm2_history where type in (\'withdraw\', \'withdraw_pending\') and user_id = '.$userinfo[id];
-            ($sth = db_query($q));
+            $sth = db_query($q);
             $dw = 0;
             while ($row = mysql_fetch_array($sth)) {
                 $dw = 0 - $row[am];
@@ -273,7 +273,7 @@ if ($frm['action'] == 'preview') {
   	date = now(),
   	ec = '.$ec.',
   	description = \''.$description.'\'');
-            ($sth = db_query($q));
+            $sth = db_query($q);
             $last_id = mysql_insert_id();
             $info = [];
             $info['username'] = $userinfo['username'];
@@ -285,7 +285,7 @@ if ($frm['action'] == 'preview') {
             if (($settings['use_auto_payment'] == 1 and ((((($ec == 0 or $ec == 1) or $ec == 2) or $ec == 5) or $ec == 8) or $ec == 9))) {
                 if (($settings['min_auto_withdraw'] <= $amount and $amount <= $settings['max_auto_withdraw'])) {
                     $q = 'select sum(amount) as sum from hm2_history where type=\'withdrawal\' and date + interval 24 hour > now() and user_id = '.$userinfo['id'];
-                    ($sth = db_query($q));
+                    $sth = db_query($q);
                     if ($row = mysql_fetch_array($sth)) {
                         if ((abs($row['sum']) + $amount <= $settings['max_auto_withdraw_user'] and $userinfo['auto_withdraw'] == 1)) {
                             $fee = floor($amount * $settings['withdrawal_fee']) / 100;
@@ -410,7 +410,7 @@ if ($frm['action'] == 'preview') {
         $hold = [];
         if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
             $q = 'select id from hm2_deposits where user_id = '.$userinfo['id'].' and status=\'on\'';
-            ($sth = db_query($q));
+            $sth = db_query($q);
             $deps = [];
             $deps[0] = 0;
             while ($row = mysql_fetch_array($sth)) {
@@ -421,7 +421,7 @@ if ($frm['action'] == 'preview') {
 	deposit_id in ('.join(',', $deps).') and
 			(type=\'earning\' or
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\'))) group by ec';
-            ($sth = db_query($q));
+            $sth = db_query($q);
             while ($row = mysql_fetch_array($sth)) {
                 array_push($hold, ['ec' => $row[ec], 'amount' => number_format($row[amount], 2)]);
             }
@@ -464,7 +464,7 @@ if ($frm['action'] == 'preview') {
           ';
         }
 
-      ($sth = db_query($q));
+      $sth = db_query($q);
         $deps = [];
         $deps[0] = 0;
         while ($row = mysql_fetch_array($sth)) {

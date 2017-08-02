@@ -85,7 +85,7 @@ show_info_box();
 $ref = isset($frm_cookie['Referer']) ? quote($frm_cookie['Referer']) : '';
 if ($ref) {
     $q = 'select * from hm2_users where username = \''.$ref.'\'';
-    ($sth = db_query($q));
+    $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $smarty->assign('referer', $row);
     }
@@ -195,7 +195,7 @@ if ($settings['banner_extension'] == 1) {
     }
 
     $q = 'select count(*) as col from hm2_users where imps > 0 and bnum > 0';
-    ($sth = db_query($q));
+    $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $z = rand(1, $row['col']) - 1;
         $q = 'select bnum, burl from hm2_users where imps > 0 and bnum > 0 order by id limit '.$z.', 1';

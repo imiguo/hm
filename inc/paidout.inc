@@ -38,7 +38,7 @@ $frm['month'] = intval($frm['month']);
         where
               '.$datewhere.' and type = \''.$type.'\' and user_id != 1
        ';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $count_all = $row['cnt'];
   $page = intval($frm['page']);
@@ -65,7 +65,7 @@ $frm['month'] = intval($frm['month']);
         order by h.id desc
         limit '.$from.', '.$onpage.'
        ');
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $stats = [];
   $total_withdraw = 0;
   while ($row = mysql_fetch_array($sth)) {

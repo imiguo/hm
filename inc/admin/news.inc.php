@@ -54,7 +54,7 @@ You cannot add/edit news!';
 
 ';
   $q = 'select count(*) as call from hm2_news';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $count_all = $row['call'];
 
@@ -74,7 +74,7 @@ You cannot add/edit news!';
       $from = ($page - 1) * $onpage;
       $edit_row = [];
       $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as d from hm2_news order by date desc limit '.$from.', '.$onpage);
-      ($sth = db_query($q));
+      $sth = db_query($q);
       while ($row = mysql_fetch_array($sth)) {
           if (($frm['action'] == 'edit' and $row['id'] == $frm['id'])) {
               $edit_row = $row;

@@ -23,7 +23,7 @@ $q = 'select
          order by col desc, u1.id
          limit 0, 20
         ';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $stats = [];
   while ($row = mysql_fetch_array($sth)) {
       $q2 = 'select
@@ -42,7 +42,7 @@ $q = 'select
   }
 
   $q = 'select date_format(\''.$settings[refs10_start_date].'\' + interval '.$settings['time_dif'].' hour, \'%b-%e-%Y\') as d';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $smarty->assign('start_date', $row[d]);
   $smarty->assign('stats', $stats);

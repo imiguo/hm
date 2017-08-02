@@ -15,14 +15,14 @@ $id = sprintf('%d', $frm['id']);
   $userinfo = mysql_fetch_array($sth);
   $ab = get_user_balance($id);
   $q = 'select count(*) as col from hm2_users where ref='.$userinfo[id];
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $q_affilates = 0;
   while ($row = mysql_fetch_array($sth)) {
       $q_affilates = $row['col'];
   }
 
   $q = 'select ec, sum(actual_amount) as sum from hm2_history where user_id = '.$id.' group by ec';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
       $balance[$row['ec']] = $row['sum'];
   }

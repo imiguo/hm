@@ -20,7 +20,7 @@ if ((($settings['show_news_box'] and ($frm['a'] == '' or $frm['a'] == 'home')) o
                  date desc
            limit
                  0, '.$max_news);
-    ($sth = db_query($q));
+    $sth = db_query($q);
     $news = [];
     while ($row = mysql_fetch_array($sth)) {
         if ($row['small_text'] == '') {

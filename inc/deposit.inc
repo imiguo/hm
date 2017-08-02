@@ -18,14 +18,14 @@ while (list($kk, $vv) = each($ab)) {
 $smarty->assign('ab_formated', $ab_formated);
 $smarty->assign('frm', $frm);
 $q = 'select type_id from hm2_deposits where user_id = '.$userinfo['id'];
-($sth = db_query($q));
+$sth = db_query($q);
 $already_deposits = [];
 while ($row = mysql_fetch_array($sth)) {
     array_push($already_deposits, $row['type_id']);
 }
 
 $q = 'select * from hm2_types where status = \'on\' and closed = 0 order by id';
-($sth = db_query($q));
+$sth = db_query($q);
 $plans = [];
 $i = 0;
 $min_deposit = 1000000000;
@@ -79,7 +79,7 @@ $smarty->assign('ps', $ps);
 $hold = [];
 if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
     $q = 'select id from hm2_deposits where user_id = '.$userinfo['id'];
-    ($sth = db_query($q));
+    $sth = db_query($q);
     $deps = [];
     $deps[0] = 0;
     while ($row = mysql_fetch_array($sth)) {
@@ -90,7 +90,7 @@ if ($settings['allow_withdraw_when_deposit_ends'] == 1) {
 	deposit_id in ('.join(',', $deps).') and
 			(type=\'earning\' or
 	(type=\'deposit\' and (description like \'Compou%\' or description like \'<b>Archived transactions</b>:<br>Compound%\'))) group by ec';
-    ($sth = db_query($q));
+    $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         array_push($hold, ['ec' => $row[ec], 'amount' => number_format($row[amount], 2)]);
     }
@@ -133,7 +133,7 @@ if ($settings['hold_only_first_days'] == 1) {
           ';
 }
 
-($sth = db_query($q));
+$sth = db_query($q);
 $deps = [];
 $deps[0] = 0;
 while ($row = mysql_fetch_array($sth)) {

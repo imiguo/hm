@@ -122,7 +122,7 @@
           $q = 'select id from hm2_users where username = \''.$ref.'\'';
       }
 
-    ($sth = db_query($q));
+    $sth = db_query($q);
       while ($row = mysql_fetch_array($sth)) {
           $ref_id = $row['id'];
       }
@@ -252,7 +252,7 @@
 
           if (0 < $ref) {
               $q = 'select * from hm2_referal_stats where date = current_date() and user_id = '.$ref_id;
-              ($sth = db_query($q));
+              $sth = db_query($q);
               $f = 0;
               while ($row = mysql_fetch_array($sth)) {
                   $f = 1;
@@ -304,7 +304,7 @@
   include './inc/countries.inc';
   $ref = quote($frm_cookie['Referer']);
   $q = 'select * from hm2_users where username = \''.$ref.'\'';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
       $smarty->assign('referer', $row);
   }

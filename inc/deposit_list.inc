@@ -10,7 +10,7 @@
  */
 
 $q = 'select * from hm2_types where status = \'on\'';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   $plans = [];
   $total = 0;
   while ($row = mysql_fetch_array($sth)) {

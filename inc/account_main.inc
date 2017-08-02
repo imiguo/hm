@@ -19,7 +19,7 @@ $id = $userinfo['id'];
   $smarty->assign('last_access', $last_access);
   if ($settings[estimate_earnings_for_end_of_day] == 1) {
       $q = 'select * from hm2_deposits where user_id = '.$userinfo['id'];
-      ($sth = db_query($q));
+      $sth = db_query($q);
       $est_earn = 0;
       while ($row = mysql_fetch_array($sth)) {
           $q = 'select sum(actual_amount) as sum from hm2_history where deposit_id = '.$row[id].' and type=\'earning\'';
@@ -30,7 +30,7 @@ $id = $userinfo['id'];
       }
 
       $q = 'select hm2_deposits.*, to_days(now()) - to_days(last_pay_date) as cnt, hm2_types.period from hm2_deposits, hm2_types where hm2_types.id = hm2_deposits.type_id and user_id = '.$userinfo['id'].' and hm2_deposits.status=\'on\'';
-      ($sth = db_query($q));
+      $sth = db_query($q);
       while ($row = mysql_fetch_array($sth)) {
           $q = 'select * from hm2_plans where parent='.$row[type_id].' and '.$row[actual_amount].' > min_deposit order by min_deposit desc limit 1';
           ($sth1 = db_query($q));
@@ -78,7 +78,7 @@ $id = $userinfo['id'];
   $smarty->assign('currency_sign', '$');
   $smarty->assign('ab_formated', $ab_formated);
   $q = 'select count(*) as col, sum(amount) as actual_amount, ec from hm2_pending_deposits where user_id = '.$id.' and status != \'processed\' group by ec';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   while ($row = mysql_fetch_array($sth)) {
       $exchange_systems[$row['ec']]['pending_col'] = $row['col'];
       $exchange_systems[$row['ec']]['pending_amount'] = number_format($row['actual_amount'], 2);
@@ -99,21 +99,21 @@ $id = $userinfo['id'];
   $smarty->assign('ps', $ps);
   $id = $userinfo['id'];
   $q = 'select *, date_format(deposit_date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as dd from hm2_deposits where user_id = '.$id.' and status = \'on\' order by deposit_date desc limit 1');
-  ($sth = db_query($q));
+  $sth = db_query($q);
   if ($row = mysql_fetch_array($sth)) {
       $smarty->assign('last_deposit', number_format($row['amount'], 2));
       $smarty->assign('last_deposit_date', $row['dd']);
   }
 
   $q = 'select *, date_format(date + interval '.$settings['time_dif'].(''.' hour, \'%b-%e-%Y %r\') as dd from hm2_history where user_id = '.$id.' and type = \'withdrawal\' order by date desc limit 1');
-  ($sth = db_query($q));
+  $sth = db_query($q);
   if ($row = mysql_fetch_array($sth)) {
       $smarty->assign('last_withdrawal', number_format(abs($row['actual_amount']), 2));
       $smarty->assign('last_withdrawal_date', $row['dd']);
   }
 
   $q = 'select count(*) as col from hm2_wires where user_id = '.$id.' and status != \'processed\'';
-  ($sth = db_query($q));
+  $sth = db_query($q);
   if ($row = mysql_fetch_array($sth)) {
       $smarty->assign('wires', $row['col']);
   }
