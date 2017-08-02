@@ -122,7 +122,7 @@
           $q = 'select id from hm2_users where username = \''.$ref.'\'';
       }
 
-    $sth = db_query($q);
+      $sth = db_query($q);
       while ($row = mysql_fetch_array($sth)) {
           $ref_id = $row['id'];
       }

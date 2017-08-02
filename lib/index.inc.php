@@ -75,8 +75,8 @@ function custom2_pay_withdraw_eeecurrency()
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = 'delete from hm2_history where id = '.$id;
-            db_query($q);
-            $q = 'insert into hm2_history set
+        db_query($q);
+        $q = 'insert into hm2_history set
             user_id = '.$row['user_id'].',
             amount = -'.abs($row['amount']).(',
             type = \'withdrawal\',
