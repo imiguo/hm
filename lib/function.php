@@ -120,14 +120,14 @@ function custom2_pay_withdraw()
         $q = 'delete from hm2_history where id = '.$id;
         db_query($q);
         $q = 'insert into hm2_history set
-        user_id = '.$row['user_id'].',
-        amount = -'.abs($row['amount']).(',
-        type = \'withdrawal\',
-        description = \'Withdraw processed. Batch id = '.$batch.'\',
-        actual_amount = -').abs($row['amount']).',
-        ec = 2,
-        date = now()';
-        (db_query($q));
+            user_id = '.$row['user_id'].',
+            amount = -'.abs($row['amount']).(',
+            type = \'withdrawal\',
+            description = \'Withdraw processed. Batch id = '.$batch.'\',
+            actual_amount = -').abs($row['amount']).',
+            ec = 2,
+            date = now()';
+        db_query($q);
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $sth = db_query($q);
         $userinfo = mysql_fetch_array($sth);
@@ -157,21 +157,20 @@ function user3_pay_withdraw_payment()
     }
 
     $str = quote($str);
-    $q = 'select * from hm2_history where id = '.$id.' and str=\''.$str.'\'';
+    $q = 'select * from hm2_history where id = '.$id.' and str = \''.$str.'\'';
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = 'delete from hm2_history where id = '.$id;
         db_query($q);
         $q = 'insert into hm2_history set
-        user_id = '.$row['user_id'].',
-        amount = -'.abs($row['amount']).(',
-        type = \'withdrawal\',
-        description = \'Withdraw processed. Batch id = '.$batch.'\',
-        actual_amount = -').abs($row['amount']).',
-        ec = 4,
-        date = now()
-        ';
-        (db_query($q));
+            user_id = '.$row['user_id'].',
+            amount = -'.abs($row['amount']).(',
+            type = \'withdrawal\',
+            description = \'Withdraw processed. Batch id = '.$batch.'\',
+            actual_amount = -').abs($row['amount']).',
+            ec = 4,
+            date = now()';
+        db_query($q);
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $sth = db_query($q);
         $userinfo = mysql_fetch_array($sth);
@@ -183,7 +182,7 @@ function user3_pay_withdraw_payment()
         $info['batch'] = $batch;
         $info['paying_batch'] = $batch;
         $info['receiving_batch'] = $batch;
-        $info['currency'] = $exchange_systems[2]['name'];
+        $info['currency'] = $exchange_systems[4]['name'];
         send_template_mail('withdraw_user_notification', $userinfo['email'], $settings['system_email'], $info);
     }
 }
