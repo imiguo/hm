@@ -10,7 +10,7 @@
  */
 
 require '../lib/config.inc.php';
-require '../lib/function.php';
+require '../lib/index.inc.php';
 
 $smarty = app('smarty');
 $smarty->default_modifiers = ['escape'];
