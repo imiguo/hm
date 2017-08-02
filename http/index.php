@@ -29,19 +29,19 @@ if ((empty($frm_env['HTTPS']) and isset($settings['redirect_to_https']) and $set
 }
 
 if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and $frm['TRANSACTION_ID'] != '')) {
-    custom2_pay_withdraw_eeecurrency();
+    // custom2_pay_withdraw_eeecurrency();
     echo 1;
     exit;
 }
 
 if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANSACTION_ID'] != '')) {
-    custom2_pay_withdraw();
+    // custom2_pay_withdraw();
     echo 1;
     exit;
 }
 
 if (((isset($frm['user3']) and $frm['user3'] == 'pay_withdraw' and $frm['transaction_id'] != '') and $frm['transaction_type'] == 'Payment')) {
-    user3_pay_withdraw_payment();
+    // user3_pay_withdraw_payment();
     echo 1;
     exit;
 }
