@@ -137,7 +137,7 @@ $ok = 1;
 	wire_date = now(),
 	status = \'new\',
 	compound = '.$compound);
-      (db_query($q));
+      db_query($q);
       $info = [];
       $info['username'] = $userinfo['username'];
       $info['name'] = $userinfo['name'];

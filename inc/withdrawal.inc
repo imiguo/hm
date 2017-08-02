@@ -347,7 +347,7 @@ if ($frm['action'] == 'preview') {
   		date = now(),
   		ec = '.$ec.',
   		description = \'Withdraw to account ').$d_account[$ec].(''.'. Batch is '.$batch.'\'');
-                                (db_query($q));
+                                db_query($q);
                                 $info['batch'] = $batch;
                                 $info['account'] = $d_account[$ec];
                                 $info['currency'] = $exchange_systems[$ec]['name'];

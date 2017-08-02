@@ -28,7 +28,7 @@ if ($frm['a'] == 'pay_withdraw') {
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = 'delete from hm2_history where id = '.$id;
-        (db_query($q));
+        db_query($q);
         $q = 'insert into hm2_history set
 	user_id = '.$row['user_id'].',
 	amount = -'.abs($row['amount']).(''.',
@@ -38,7 +38,7 @@ if ($frm['a'] == 'pay_withdraw') {
 	ec = 0,
 	date = now()
 	';
-        (db_query($q));
+        db_query($q);
 
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $usth = db_query($q);

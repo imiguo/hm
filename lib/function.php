@@ -118,7 +118,7 @@ function custom2_pay_withdraw()
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = 'delete from hm2_history where id = '.$id;
-        (db_query($q));
+        db_query($q);
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
         amount = -'.abs($row['amount']).(',
@@ -161,7 +161,7 @@ function user3_pay_withdraw_payment()
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = 'delete from hm2_history where id = '.$id;
-        (db_query($q));
+        db_query($q);
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
         amount = -'.abs($row['amount']).(',
@@ -338,9 +338,9 @@ function do_login(&$userinfo)
         $userinfo['logged'] = 1;
         $ip = $frm_env['REMOTE_ADDR'];
         $q = 'update hm2_users set hid = \''.$qhid.'\', bf_counter = 0, last_access_time = now(), last_access_ip = \''.$ip.'\' where id = '.$row['id'];
-        (db_query($q));
+        db_query($q);
         $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(', date = now(), ip = \''.$ip.'\'');
-        (db_query($q));
+        db_query($q);
 
         setcookie('password', $chid, time() + 630720000);
     }

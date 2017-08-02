@@ -52,9 +52,9 @@ if ($frm['a'] == 'run_crontab') {
 }
 
 $q = 'delete from hm2_online where ip=\''.$frm_env['REMOTE_ADDR'].'\' or date + interval 30 minute < now()';
-(db_query($q));
+db_query($q);
 $q = 'insert into hm2_online set ip=\''.$frm_env['REMOTE_ADDR'].'\', date = now()';
-(db_query($q));
+db_query($q);
 
 $userinfo = [];
 $userinfo['logged'] = 0;
@@ -188,7 +188,7 @@ if ($settings['banner_extension'] == 1) {
 
         if ($frm['imps'] != 'no') {
             $q = 'update hm2_users set imps = imps -1 where imps > 0 and id = '.$id;
-            (db_query($q));
+            db_query($q);
         }
 
         exit;

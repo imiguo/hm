@@ -17,7 +17,7 @@ if ($settings['demomode'] != 1) {
         $full_text = quote($frm_orig['full_text']);
         $full_text = preg_replace('/\\r/', '', $full_text);
         $q = 'insert into hm2_news set date=now(), title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\'';
-        (db_query($q));
+        db_query($q);
     }
 
     if (($frm['action'] == 'edit' and $frm['save'] == 1)) {
@@ -28,14 +28,14 @@ if ($settings['demomode'] != 1) {
         $full_text = quote($frm_orig['full_text']);
         $full_text = preg_replace('/\\r/', '', $full_text);
         $q = 'update hm2_news set title=\''.$title.'\', small_text=\''.$small_text.'\', full_text=\''.$full_text.'\' where id = '.$id;
-        (db_query($q));
+        db_query($q);
         $frm['action'] = '';
     }
 
     if ($frm['action'] == 'delete') {
         $id = intval($frm['id']);
         $q = 'delete from hm2_news where id = '.$id;
-        (db_query($q));
+        db_query($q);
     }
 }
 

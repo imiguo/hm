@@ -140,38 +140,38 @@ if ($frm['action'] == 'edit_account') {
         $transaction_code = quote($frm['transaction_code']);
         if (($userinfo['email'] != $frm['email'] and $settings['usercanchangeemail'] == 1)) {
             $q = 'update hm2_users set email = \''.$email.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q));
+            db_query($q);
         }
 
         if (($userinfo['egold_account'] != $frm['egold_account'] and $settings['usercanchangeegoldacc'])) {
             $q = 'update hm2_users set egold_account = \''.$egold.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q));
+            db_query($q);
         }
 
         if (($userinfo['perfectmoney_account'] != $frm['perfectmoney_account'] and $settings['usercanchangeperfectmoneyacc'])) {
             $q = 'update hm2_users set perfectmoney_account = \''.$perfectmoney.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q));
+            db_query($q);
         }
 
         if ($frm['password'] != '') {
             $q = 'update hm2_users set password = \''.$enc_password.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q));
+            db_query($q);
             if ($settings['store_uncrypted_password'] == 1) {
                 $pswd = quote($frm['password']);
                 $q = 'update hm2_users set pswd = \''.$pswd.'\' where id > 1 and id = '.$userinfo['id'];
-                (db_query($q));
+                db_query($q);
             }
         }
 
         if ($frm['transaction_code'] != '') {
             $q = 'update hm2_users set transaction_code = \''.$transaction_code.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q));
+            db_query($q);
         }
 
         if ($frm['wappassword'] != '') {
             $enc_password = quote(md5($frm['wappassword']));
             $q = 'update hm2_users set stat_password = \''.$enc_password.'\' where id > 1 and id = '.$userinfo['id'];
-            (db_query($q));
+            db_query($q);
         }
 
         $edit_location = '';
@@ -196,7 +196,7 @@ if ($frm['action'] == 'edit_account') {
 				 eeecurrency_account = \''.$eeecurrency.'\',
                                  user_auto_pay_earning = '.$user_auto_pay_earning.'
             where id > 1 and id = '.$userinfo['id'];
-        (db_query($q));
+        db_query($q);
         $q = 'select * from hm2_users where id ='.$userinfo['id'];
         $sth = db_query($q);
         $userinfo = mysql_fetch_array($sth);

@@ -20,9 +20,9 @@ if ($settings['accesswap'] == 0) {
 $userinfo = [];
 $userinfo['logged'] = 0;
 $q = 'delete from hm2_online where ip=\''.$frm_env['REMOTE_ADDR'].'\' or date + interval 30 minute < now()';
-(db_query($q));
+db_query($q);
 $q = 'insert into hm2_online set ip=\''.$frm_env['REMOTE_ADDR'].'\', date = now()';
-(db_query($q));
+db_query($q);
 if ($frm['a'] == 'logout') {
     setcookie('username', '', time() + 630720000);
     setcookie('password', '', time() + 630720000);

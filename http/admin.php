@@ -132,7 +132,7 @@ if ($settings['htaccess_authentication'] == 1) {
                 $userinfo = $row;
                 $userinfo['logged'] = 1;
                 $q = 'update hm2_users set last_access_time = now() where id = 1';
-                (db_query($q));
+                db_query($q);
                 continue;
             } else {
                 $q = 'update hm2_users set bf_counter = bf_counter + 1 where id = '.$row['id'];
@@ -252,7 +252,7 @@ if (($frm['a'] == 'affilates' and $frm['action'] == 'remove_ref')) {
     $u_id = sprintf('%d', $frm['u_id']);
     $ref = sprintf('%d', $frm['ref']);
     $q = 'update hm2_users set ref = 0 where id = '.$ref;
-    (db_query($q));
+    db_query($q);
     header(''.'Location: ?a=affilates&u_id='.$u_id);
     exit;
 }
@@ -268,7 +268,7 @@ if (($frm['a'] == 'affilates' and $frm['action'] == 'change_upline')) {
     }
 
     $q = 'update hm2_users set ref = '.$id.' where id = '.$u_id;
-    (db_query($q));
+    db_query($q);
     header(''.'Location: ?a=affilates&u_id='.$u_id);
     exit;
 }
@@ -276,7 +276,7 @@ if (($frm['a'] == 'affilates' and $frm['action'] == 'change_upline')) {
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetoproblem')) {
     $id = sprintf('%d', $frm['id']);
     $q = 'update hm2_pending_deposits set status=\'problem\' where id = '.$id;
-    (db_query($q));
+    db_query($q);
     header('Location: ?a=pending_deposits');
     exit;
 }
@@ -284,7 +284,7 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetoproblem
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetonew')) {
     $id = sprintf('%d', $frm['id']);
     $q = 'update hm2_pending_deposits set status=\'new\' where id = '.$id;
-    (db_query($q));
+    db_query($q);
     header('Location: ?a=pending_deposits&type=problem');
     exit;
 }
@@ -292,7 +292,7 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetonew')) 
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'delete')) {
     $id = sprintf('%d', $frm['id']);
     $q = 'delete from hm2_pending_deposits where id = '.$id;
-    (db_query($q));
+    db_query($q);
     header('Location: ?a=pending_deposits&type='.$frm['type']);
     exit;
 }
@@ -404,7 +404,7 @@ if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodepos
 
     $id = sprintf('%d', $frm['id']);
     $q = 'update hm2_pending_deposits set status=\'processed\' where id = '.$id;
-    (db_query($q));
+    db_query($q);
     header('Location: ?a=pending_deposits');
     exit;
 }
@@ -415,7 +415,7 @@ if ($frm['a'] == 'mass') {
         reset($ids);
         while (list($kk, $vv) = each($ids)) {
             $q = 'delete from hm2_history where id = '.$kk;
-            (db_query($q));
+            db_query($q);
         }
 
         header('Location: ?a=thistory&ttype=withdraw_pending&say=massremove');
@@ -437,9 +437,9 @@ if ($frm['a'] == 'mass') {
 		date = now(),
 		description = \'Withdrawal processed\',
 		ec = '.$row['ec'];
-                (db_query($q));
+                db_query($q);
                 $q = 'delete from hm2_history where id = '.$row['id'];
-                (db_query($q));
+                db_query($q);
                 $userinfo = [];
                 $q = 'select * from hm2_users where id = '.$row['user_id'];
                 $sth1 = db_query($q);
@@ -722,7 +722,7 @@ if ($frm['a'] == 'mass') {
               date = now(),
               ec = ').$row['ec'].',
               description = \'Withdrawal to account '.$d_account[$row[ec]].(''.'. Batch is '.$batch.'\'');
-                    (db_query($q));
+                    db_query($q);
                     $info = [];
                     $info['username'] = $row['username'];
                     $info['name'] = $row['name'];
@@ -826,7 +826,7 @@ if (($frm['a'] == 'referal' and $frm['action'] == 'change')) {
     if ($settings['demomode'] == 1) {
     } else {
         $q = 'delete from hm2_referal where level = 1';
-        (db_query($q));
+        db_query($q);
         for ($i = 0; $i < 300; ++$i) {
             if ($frm['active'][$i] == 1) {
                 $qname = quote($frm['ref_name'][$i]);
@@ -845,7 +845,7 @@ if (($frm['a'] == 'referal' and $frm['action'] == 'change')) {
   	percent_daily = '.$percent_daily.',
   	percent_weekly = '.$percent_weekly.',
   	percent_monthly = '.$percent_monthly;
-                (db_query($q));
+                db_query($q);
                 continue;
             }
         }
@@ -880,9 +880,9 @@ if ($frm['a'] == 'deleterate') {
     if (($id < 3 and $settings['demomode'] == 1)) {
     } else {
         $q = 'delete from hm2_types where id = '.$id;
-        (db_query($q));
+        db_query($q);
         $q = 'delete from hm2_plans where parent = '.$id;
-        (db_query($q));
+        db_query($q);
     }
 
     header('Location: ?a=rates');
@@ -1027,7 +1027,7 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
     	actual_amount = '.$amount.',
     	ec = '.$ec.',
     	date = now()');
-                (db_query($q));
+                db_query($q);
                 if ($deposit) {
                     $delay = $type['delay'] - 1;
                     if ($delay < 0) {
@@ -1046,7 +1046,7 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
                actual_amount = \''.$amount.'\',
                ec = '.$ec.'
                ';
-                    (db_query($q));
+                    db_query($q);
                     $deposit_id = mysql_insert_id();
                     $q = 'insert into hm2_history set
                user_id = '.$user_id.',
@@ -1058,7 +1058,7 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
                date = now(),
              deposit_id = '.$deposit_id.'
                ');
-                    (db_query($q));
+                    db_query($q);
                     if ($settings['banner_extension'] == 1) {
                         $imps = 0;
                         if (0 < $settings['imps_cost']) {
@@ -1067,7 +1067,7 @@ if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['ac
 
                         if (0 < $imps) {
                             $q = 'update hm2_users set imps = imps + '.$imps.' where id = '.$user_id;
-                            (db_query($q));
+                            db_query($q);
                             continue;
                         }
 
@@ -1148,7 +1148,7 @@ if (($frm['a'] == 'send_penality' and $frm['action'] == 'send_penality')) {
 	actual_amount = -'.$amount.',
 	ec = '.$ec.',
 	date = now()');
-        (db_query($q));
+        db_query($q);
     }
 
     if ($flag == 1) {
@@ -1360,24 +1360,24 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
 
         if (($login != '' and $email != '')) {
             $q = 'update hm2_users set email=\''.$email.'\', username=\''.$login.'\' where id = 1';
-            (db_query($q));
+            db_query($q);
         }
 
         if ($pass != '') {
             $md_pass = md5($pass);
             $q = 'update hm2_users set password = \''.$md_pass.'\' where id = 1';
-            (db_query($q));
+            db_query($q);
         }
 
         if (($frm['use_alternative_passphrase'] == 1 and $frm['new_alternative_passphrase'] != '')) {
             $altpass = quote($frm['new_alternative_passphrase']);
             $q = 'update hm2_users set transaction_code = \''.$altpass.'\' where id = 1';
-            (db_query($q));
+            db_query($q);
         }
 
         if ($frm['use_alternative_passphrase'] == 0) {
             $q = 'update hm2_users set transaction_code = \'\' where id = 1';
-            (db_query($q));
+            db_query($q);
         }
 
         save_settings();
@@ -1390,7 +1390,7 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
 if ($frm['a'] == 'rm_withdraw') {
     $id = sprintf('%d', $frm['id']);
     $q = 'delete from hm2_history where id = '.$id;
-    (db_query($q));
+    db_query($q);
     header('Location: ?a=thistory&ttype=withdraw_pending');
     exit;
 }
@@ -1437,7 +1437,7 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
         }
 
         $q = 'update hm2_deposits set type_id = '.$vv.', compound = '.$compound.' where id = '.$kk;
-        (db_query($q));
+        db_query($q);
     }
 
     $releases = $frm['release'];
@@ -1458,7 +1458,7 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
 	    	actual_amount = '.$release_deposit.',
         ec = '.$row['ec'].',
 	    	date = now()';
-                (db_query($q));
+                db_query($q);
                 $dif = floor(($row['actual_amount'] - $release_deposit) * 100) / 100;
                 if ($dif == 0) {
                     $q = 'update hm2_deposits set actual_amount = 0, amount = 0, status = \'off\' where id = '.$kk;
@@ -1466,7 +1466,7 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
                     $q = 'update hm2_deposits set actual_amount = actual_amount - '.$release_deposit.' where id = '.$kk;
                 }
 
-                (db_query($q));
+                db_query($q);
                 continue;
             }
 
@@ -1528,7 +1528,7 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
              actual_amount = \''.$amount.'\',
              ec = '.$ec.'
              ';
-                (db_query($q));
+                db_query($q);
                 $deposit_id = mysql_insert_id();
                 $q = 'insert into hm2_history set
              user_id = '.$user_id.',
@@ -1540,7 +1540,7 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
              date = now(),
            deposit_id = '.$deposit_id.'
              ');
-                (db_query($q));
+                db_query($q);
                 if ($settings['banner_extension'] == 1) {
                     $imps = 0;
                     if (0 < $settings['imps_cost']) {
@@ -1549,7 +1549,7 @@ if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action
 
                     if (0 < $imps) {
                         $q = 'update hm2_users set imps = imps + '.$imps.' where id = '.$user_id;
-                        (db_query($q));
+                        db_query($q);
                     }
                 }
             }
@@ -1693,7 +1693,7 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     user_auto_pay_earning = '.$admin_auto_pay_earning.',
     pswd = \''.$pswd.'\',
     date_register = now()';
-        (db_query($q));
+        db_query($q);
         $frm['id'] = mysql_insert_id();
     } else {
         $q = 'select * from hm2_users where id = '.$id;
@@ -1753,15 +1753,15 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     admin_auto_pay_earning = '.$admin_auto_pay_earning.',
     user_auto_pay_earning = '.$user_auto_pay_earning.'
   	where id = '.$id.' and id <> 1';
-        (db_query($q));
+        db_query($q);
         if ($password != '') {
             $pswd = quote($password);
             $password = md5($password);
             $q = 'update hm2_users set password = \''.$password.'\' where id = '.$id.' and id <> 1';
-            (db_query($q));
+            db_query($q);
             if ($settings['store_uncrypted_password'] == 1) {
                 $q = 'update hm2_users set pswd = \''.$pswd.'\' where id = '.$id.' and id <> 1';
-                (db_query($q));
+                db_query($q);
             }
         }
 
@@ -1769,12 +1769,12 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
             $pswd = quote($password);
             $password = md5($password);
             $q = 'update hm2_users set transaction_code = \''.$transaction_code.'\' where id = '.$id.' and id <> 1';
-            (db_query($q));
+            db_query($q);
         }
 
         if ($frm['activate']) {
             $q = 'update hm2_users set activation_code = \'\', bf_counter = 0 where id = '.$id.' and id <> 1';
-            (db_query($q));
+            db_query($q);
         }
     }
 
@@ -1788,7 +1788,7 @@ if (($frm['a'] == 'members' and $frm['action'] == 'modify_status')) {
         while (list($id, $status) = each($active)) {
             $qstatus = quote($status);
             $q = 'update hm2_users set status = \''.$qstatus.'\' where id = '.$id;
-            (db_query($q));
+            db_query($q);
         }
     }
 
@@ -1800,7 +1800,7 @@ if (($frm['a'] == 'members' and $frm['action'] == 'activate')) {
     $active = $frm['activate'];
     while (list($id, $status) = each($active)) {
         $q = 'update hm2_users set activation_code = \'\', bf_counter = 0 where id = '.$id;
-        (db_query($q));
+        db_query($q);
     }
 
     header('Location: ?a=members&status=blocked');
@@ -2125,7 +2125,7 @@ if (($frm['a'] == 'add_processing' and $frm[action] == 'add_processing')) {
              description = \''.$description.'\',
              infofields = \''.quote($qfields).'\'
          ';
-        (db_query($q));
+        db_query($q);
     }
 
     header('Location: ?a=processings');
@@ -2160,7 +2160,7 @@ if (($frm['a'] == 'edit_processing' and $frm[action] == 'edit_processing')) {
              infofields = \''.quote($qfields).(''.'\'
            where id = '.$pid.'
          ');
-        (db_query($q));
+        db_query($q);
     }
 
     header('Location: ?a=processings');
@@ -2170,12 +2170,12 @@ if (($frm['a'] == 'edit_processing' and $frm[action] == 'edit_processing')) {
 if ($frm['a'] == 'update_processings') {
     if (!$settings['demomode']) {
         $q = 'update hm2_processings set status = 0';
-        (db_query($q));
+        db_query($q);
         $status = $frm['status'];
         if ($status) {
             foreach ($status as $id => $v) {
                 $q = 'update hm2_processings set status = 1 where id = '.$id;
-                (db_query($q));
+                db_query($q);
             }
         }
     }
@@ -2188,7 +2188,7 @@ if ($frm['a'] == 'delete_processing') {
     if (!$settings['demomode']) {
         $pid = intval($frm['pid']);
         $q = 'delete from hm2_processings where id = '.$pid;
-        (db_query($q));
+        db_query($q);
     }
 
     header('Location: ?a=processings');

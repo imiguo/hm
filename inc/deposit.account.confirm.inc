@@ -190,7 +190,7 @@ $ok = 1;
            compound = '.$compound.',
            ec = '.$ec.'
     ');
-      (db_query($q));
+      db_query($q);
       $deposit_id = mysql_insert_id();
       $q = 'insert into hm2_history set
            user_id = '.$userinfo['id'].(''.',
@@ -202,7 +202,7 @@ $ok = 1;
            ec = '.$ec.',
            deposit_id = '.$deposit_id.'
     ');
-      (db_query($q));
+      db_query($q);
       $user_id = $userinfo['id'];
       referral_commission($user_id, $amount, $ec);
       header('Location: ?a=deposit&say=deposit_success');

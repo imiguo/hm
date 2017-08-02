@@ -247,7 +247,7 @@
 		type=\'bonus\',
 		date = now(),
 		description = \'Startup bonus\'';
-              (db_query($q));
+              db_query($q);
           }
 
           if (0 < $ref) {

@@ -137,7 +137,7 @@ $ok = 1;
             date = now(),
             status = \'new\',
             compound = '.$compound);
-      (db_query($q));
+      db_query($q);
       $fields = '';
       $infofields = unserialize($processing['infofields']);
       foreach ($infofields as $id => $name) {

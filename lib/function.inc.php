@@ -104,7 +104,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
         	ec = '.$ec.',
         	date = now()
         	';
-    (db_query($q));
+    db_query($q);
     $q = 'select * from hm2_types where id = '.$h_id;
     ($sth = db_query($q));
     $name = '';
@@ -163,7 +163,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
           	ec = '.$ec.',
           	compound = '.$compound.'
           	';
-        (db_query($q));
+        db_query($q);
         $deposit_id = mysql_insert_id();
         $q = 'insert into hm2_history set
           	user_id = '.$user_id.',
@@ -175,7 +175,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
           	date = now(),
                 deposit_id = '.$deposit_id.'
           	');
-        (db_query($q));
+        db_query($q);
         if ($settings['banner_extension'] == 1) {
             $imps = 0;
             if (0 < $settings['imps_cost']) {
@@ -184,7 +184,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
 
             if (0 < $imps) {
                 $q = 'update hm2_users set imps = imps + '.$imps.' where id = '.$user_id;
-                (db_query($q));
+                db_query($q);
             }
         }
 
@@ -262,7 +262,7 @@ function referral_commission($user_id, $amount, $ec)
     		description = \'Referral commission from '.$uinfo['username'].('\',
     		ec = '.$ec.',
     		date = now()');
-                    (db_query($q));
+                    db_query($q);
                     $q = 'select * from hm2_users where id = '.$ref;
                     $rsth = db_query($q);
                     $refinfo = mysql_fetch_array($rsth);
@@ -297,7 +297,7 @@ function referral_commission($user_id, $amount, $ec)
     		description = \'Referral commission from '.$uinfo['username'].('\',
     		ec = '.$ec.',
     		date = now()');
-                    (db_query($q));
+                    db_query($q);
                     $q = 'select * from hm2_users where id = '.$ref;
                     $rsth = db_query($q);
                     $refinfo = mysql_fetch_array($rsth);
@@ -333,7 +333,7 @@ function referral_commission($user_id, $amount, $ec)
                   description = \'Referral commission from ').$uinfo['username'].(' '.$i.' level referral\',
                   ec = '.$ec.',
                   date = now()');
-                        (db_query($q));
+                        db_query($q);
                         continue;
                     }
                 }
@@ -1200,7 +1200,7 @@ function pay_direct_return_deposit($deposit_id, $amount)
             type=\'withdrawal\',
           	date = now(),
   		description = \'Auto-withdrawal retuned deposit to account ').$user['egold_account'].('. Batch is '.$batch.'\'');
-            (db_query($q));
+            db_query($q);
         }
     }
 }
@@ -1303,7 +1303,7 @@ function pay_direct_earning($deposit_id, $amount, $date)
             		'.$date.',
 			ec = ').$dep['ec'].',
         		description = \'Earning to account auto-withdrawal'.$d_account[$dep[ec]].('. Batch is '.$batch.'\'');
-            (db_query($q));
+            db_query($q);
             $info = [];
             $info['username'] = $user['username'];
             $info['name'] = $user['name'];
@@ -1325,7 +1325,7 @@ function count_earning($u_id)
     }
 
     $q = 'select hm2_plans.* from hm2_plans, hm2_types where hm2_types.status = \'on\' and hm2_types.id = hm2_plans.parent order by parent, min_deposit';
-    ($sth = db_query($q));
+    $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $types[$row['parent']][$row['id']] = $row;
     }
@@ -1348,7 +1348,7 @@ function count_earning($u_id)
     while ($row_user = mysql_fetch_array($sth_users)) {
         $row_user_id = $row_user['id'];
         $q = 'update hm2_users set l_e_t = now() where id = '.$row_user_id;
-        (db_query($q));
+        db_query($q);
         $lines = 1;
         while (0 < $lines) {
             $q = 'select
@@ -1510,7 +1510,7 @@ function count_earning($u_id)
                     }
                 }
 
-                (db_query($q));
+                db_query($q);
                 $status = '';
                 if ($row['period'] == 'end') {
                     if (($row['withdraw_principal'] == 0 or ($row['withdraw_principal'] and $row['wp_ok']))) {
@@ -1525,7 +1525,7 @@ function count_earning($u_id)
                     ec = '.$row['ec'].',
                     date = \''.$row['last_pay_date'].('\' + interval '.$interval.',
                     deposit_id = ').$row['id'];
-                        (db_query($q));
+                        db_query($q);
                     }
                 } else {
                     if ((5 <= $dw and $row['work_week'] == 1)) {
@@ -1565,11 +1565,11 @@ function count_earning($u_id)
                     		ec = ').$row['ec'].',
                     		date = \''.$row['last_pay_date'].('\' + interval '.$interval.',
                                 deposit_id = ').$row['id'];
-                                (db_query($q));
+                                db_query($q);
                                 $q = 'update hm2_deposits set amount = amount + '.$comp_amount.',
                     		actual_amount = actual_amount + '.$comp_amount.'
                     		where id = '.$row['id'];
-                                (db_query($q));
+                                db_query($q);
                             }
                         }
 
@@ -1581,7 +1581,7 @@ function count_earning($u_id)
                 $q = 'update hm2_deposits set
       	q_pays = q_pays + 1,
       	last_pay_date = last_pay_date + interval '.$interval.' '.$status.' where id ='.$row['id'];
-                (db_query($q));
+                db_query($q);
             }
         }
 
@@ -1608,7 +1608,7 @@ function count_earning($u_id)
                       ec = '.$row1['ec'].',
       		date = \''.$row1['deposit_date'].('\' + interval '.$q_days.' day,
                       deposit_id = ').$row1['id'];
-                    (db_query($q));
+                    db_query($q);
                 }
             }
 
@@ -1618,7 +1618,7 @@ function count_earning($u_id)
              (('.$row['withdraw_principal'].' = 0) || ('.$row['withdraw_principal'].' && (deposit_date + interval '.$row['withdraw_principal_duration'].' day < now()))) and
              type_id = '.$id.'
            ';
-            (db_query($q));
+            db_query($q);
         }
     }
 }
@@ -1655,23 +1655,6 @@ function encode_str($q, $w)
         }
 
         $c .= sprintf('%02x', ord(substr($q, $i, 1)) ^ ord(substr($l, $j, 1)));
-        ++$j;
-    }
-
-    return $c;
-}
-
-function decode_str($q, $w)
-{
-    $l = strtoupper(md5($w));
-    $j = 0;
-    for ($i = 0; $i < strlen($q); $i += 2) {
-        if (strlen($l) == $j + 10) {
-            $j = 0;
-        }
-
-        $a = hexdec(substr($q, $i, 2));
-        $c .= chr($a ^ ord(substr($l, $j, 1)));
         ++$j;
     }
 
