@@ -810,7 +810,7 @@ if (($frm['a'] == 'deposit' and $userinfo['logged'] == 1)) {
         if ($frm['a'] == 'cust') {
             $file = $frm['page'];
             $file = basename($file);
-            if (file_exists(TMPL_PATH.'custom/'.$file.'.tpl')) {
+            if (file_exists(TMPL_PATH.'/custom/'.$file.'.tpl')) {
                 $smarty->display('custom/'.$file.'.tpl');
             } else {
                 include '../inc/home.inc';

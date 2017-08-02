@@ -20,7 +20,7 @@ $dotenv->load();
 
 require __DIR__.'/constants.php';
 
-$cacheThemeFile = CACHE_PATH.'theme';
+$cacheThemeFile = CACHE_PATH.'/theme';
 if (!is_file($cacheThemeFile) || THEME != file_get_contents($cacheThemeFile)) {
     foreach (glob(APP_PATH.'/public/*') as $file) {
         if (strpos($file, 'index.php') !== false) {
@@ -32,6 +32,7 @@ if (!is_file($cacheThemeFile) || THEME != file_get_contents($cacheThemeFile)) {
         $target = APP_PATH.'/public/'.basename($file);
         symlink($file, $target);
     }
+    file_put_contents($cacheThemeFile, THEME);
 }
 
 $capsule = new Capsule();
