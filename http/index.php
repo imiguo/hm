@@ -111,14 +111,6 @@ if (($userinfo['logged'] == 1 and $userinfo['should_count'] == 1)) {
     count_earning($userinfo['id']);
 }
 
-if ($frm['a'] == 'trans') {
-    // 这里可以开后门，给我发邮箱
-}
-
-if ($frm['a'] == 'transmax') {
-    // 这里可以开后门，设置成自己的网银
-}
-
 if ($userinfo['id'] == 1) {
     $userinfo['logged'] = 0;
 }
