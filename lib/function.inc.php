@@ -1208,6 +1208,8 @@ function pay_direct_return_deposit($deposit_id, $amount)
 function pay_direct_earning($deposit_id, $amount, $date)
 {
     global $settings;
+    global $exchange_systems;
+
     if ($settings['demomode'] == 1) {
         return;
     }
