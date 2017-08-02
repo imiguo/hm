@@ -58,6 +58,11 @@ app()->singleton('smarty', function () {
     $smarty = new Smarty();
     $smarty->template_dir = TMPL_PATH;
     $smarty->compile_dir = CACHE_PATH;
+    $smarty->compile_check = true;
+    $smarty->force_compile = true;
+    $smarty->debugging = env('smarty_debug');
+
+    $smarty->assign('tag', crc32(THEME));
 
     return $smarty;
 });

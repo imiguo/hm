@@ -9,14 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-$userinfo = [];
-$settings = [];
 require '../lib/config.inc.php';
 
+$userinfo = [];
+$settings = [];
+
 $smarty = app('smarty');
-$smarty->compile_check = true;
-$smarty->force_compile = true;
-$smarty->debugging = env('smarty_debug');
 $smarty->default_modifiers = ['escape'];
 
 if (HTTPS) {

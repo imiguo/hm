@@ -10,8 +10,8 @@
  */
 
 require '../lib/config.inc.php';
+
 $smarty = app('smarty');
-$smarty->compile_check = true;
 
 if ($settings['accesswap'] == 0) {
     exit();
