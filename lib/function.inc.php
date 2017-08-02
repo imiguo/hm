@@ -89,9 +89,9 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
         return 0;
     }
 
-    $desc = 'Add funds to account from '.$exchange_systems[$ec]['name'].(''.'. Batch id = '.$batch);
+    $desc = 'Add funds to account from '.$exchange_systems[$ec]['name'].('. Batch id = '.$batch);
     if ($ec == 4) {
-        $desc = 'Add funds to account from '.$exchange_systems[$ec]['name'].(''.' '.$amount.' - StormPay Fee. Batch id = '.$batch);
+        $desc = 'Add funds to account from '.$exchange_systems[$ec]['name'].(' '.$amount.' - StormPay Fee. Batch id = '.$batch);
         $amount = $amount - $amount * 6.9 / 100 - 0.69;
     }
 
@@ -169,7 +169,7 @@ function add_deposit($ec, $user_id, $amount, $batch, $account, $h_id, $compound)
           	user_id = '.$user_id.',
           	amount = \'-'.$amount.'\',
           	type = \'deposit\',
-          	description = \'Deposit to '.quote($name).(''.'\',
+          	description = \'Deposit to '.quote($name).('\',
           	actual_amount = -'.$amount.',
           	ec = '.$ec.',
           	date = now(),
@@ -259,7 +259,7 @@ function referral_commission($user_id, $amount, $ec)
     		amount = '.$sum.',
     		actual_amount = '.$sum.',
     		type = \'commissions\',
-    		description = \'Referral commission from '.$uinfo['username'].(''.'\',
+    		description = \'Referral commission from '.$uinfo['username'].('\',
     		ec = '.$ec.',
     		date = now()');
                     (db_query($q));
@@ -294,7 +294,7 @@ function referral_commission($user_id, $amount, $ec)
     		amount = '.$sum.',
     		actual_amount = '.$sum.',
     		type = \'commissions\',
-    		description = \'Referral commission from '.$uinfo['username'].(''.'\',
+    		description = \'Referral commission from '.$uinfo['username'].('\',
     		ec = '.$ec.',
     		date = now()');
                     (db_query($q));
@@ -326,11 +326,11 @@ function referral_commission($user_id, $amount, $ec)
                         $sum = $amount * $settings['ref'.$i.'_cms'] / 100;
                         $ref_sum += $sum;
                         $q = 'insert into hm2_history set
-                  user_id = '.$row['ref'].(''.',
+                  user_id = '.$row['ref'].(',
                   amount = '.$sum.',
                   actual_amount = '.$sum.',
                   type = \'commissions\',
-                  description = \'Referral commission from ').$uinfo['username'].(''.' '.$i.' level referral\',
+                  description = \'Referral commission from ').$uinfo['username'].(' '.$i.' level referral\',
                   ec = '.$ec.',
                   date = now()');
                         (db_query($q));
@@ -387,11 +387,11 @@ function send_money_to_perfectmoney($e_password, $amount, $account, $memo, $erro
     if (preg_match_all("/<input name='(.*)' type='hidden' value='(.*)'>/", $a, $parts, PREG_SET_ORDER)) {
         return [1, '', $parts[1]];
     } else {
-        $e = quote(''.$error_txt.' '.$a);
+        $e = quote($error_txt.' '.$a);
         $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
         db_query($q);
 
-        return [0, $error_txt.(''.' '.$a), ''];
+        return [0, $error_txt.(' '.$a), ''];
     }
 }
 
@@ -442,13 +442,13 @@ function send_money_to_egold($e_password, $amount, $account, $memo, $error_txt)
         if (preg_match('/<input type=hidden name=ERROR VALUE="(.*?)">/ims', $a, $parts)) {
             $txt = preg_replace('/&lt;/i', '<', $parts[1]);
             $txt = preg_replace('/&gt;/i', '>', $txt);
-            $e = quote(''.$error_txt.' '.$txt);
+            $e = quote($error_txt.' '.$txt);
             $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
             db_query($q);
 
-            return [0, $error_txt.(''.' '.$txt), ''];
+            return [0, $error_txt.(' '.$txt), ''];
         } else {
-            $e = quote(''.$error_txt.' Unknown error');
+            $e = quote($error_txt.' Unknown error');
             $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
             db_query($q);
 
@@ -488,7 +488,7 @@ function send_money_to_evocash($e_password, $amount, $account, $memo, $error_txt
     $ch = curl_init();
     $memo = rawurlencode($memo);
     curl_setopt($ch, CURLOPT_URL,
-        'https://www.evocash.com/evoswift/instantpayment.cfm?payingaccountid='.$settings['evocash_from_account'].'&username='.$settings['evocash_username'].(''.'&password='.$evocash_password.'&transaction_code=').$evocash_code.(''.'&amount='.$amount.'&reference=&memo='.$memo.'&receivingaccountid='.$account));
+        'https://www.evocash.com/evoswift/instantpayment.cfm?payingaccountid='.$settings['evocash_from_account'].'&username='.$settings['evocash_username'].('&password='.$evocash_password.'&transaction_code=').$evocash_code.('&amount='.$amount.'&reference=&memo='.$memo.'&receivingaccountid='.$account));
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $a = curl_exec($ch);
@@ -499,13 +499,13 @@ function send_money_to_evocash($e_password, $amount, $account, $memo, $error_txt
     } else {
         if (preg_match('/<INPUT TYPE="Hidden" NAME="Error" VALUE="(.*?)">/ims', $a, $parts)) {
             $txt = $parts[1];
-            $e = quote(''.$error_txt.' '.$txt);
+            $e = quote($error_txt.' '.$txt);
             $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
             db_query($q);
 
-            return [0, $error_txt.(''.' '.$txt), ''];
+            return [0, $error_txt.(' '.$txt), ''];
         } else {
-            $e = quote(''.$error_txt.' Unknown error');
+            $e = quote($error_txt.' Unknown error');
             $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
             db_query($q);
 
@@ -548,20 +548,20 @@ function send_money_to_intgold($e_password, $amount, $account, $memo, $error_txt
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)');
     curl_setopt($ch, CURLOPT_POSTFIELDS,
-        'ACCOUNTID='.$settings['intgold_from_account'].'&PASSWORD='.$intgold_password.'&SECPASSWORD='.$intgold_code.'&RECEIVER='.$account.(''.'&AMOUNT='.$amount.'&NOTE='.$memo));
+        'ACCOUNTID='.$settings['intgold_from_account'].'&PASSWORD='.$intgold_password.'&SECPASSWORD='.$intgold_code.'&RECEIVER='.$account.('&AMOUNT='.$amount.'&NOTE='.$memo));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $a = curl_exec($ch);
     curl_close($ch);
     $parts = [];
-    if (preg_match(''.'/Success\\s*TRANSACTION_ID:(.*?)$/ims', $a, $parts)) {
+    if (preg_match('/Success\\s*TRANSACTION_ID:(.*?)$/ims', $a, $parts)) {
         return [1, '', $parts[1]];
     } else {
-        $e = quote(''.$error_txt.' '.$a);
+        $e = quote($error_txt.' '.$a);
         $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
         db_query($q);
 
-        return [0, $error_txt.(''.' '.$a), ''];
+        return [0, $error_txt.(' '.$a), ''];
     }
 }
 
@@ -599,19 +599,19 @@ function send_money_to_eeecurrency($e_password, $amount, $account, $memo, $error
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)');
     curl_setopt($ch, CURLOPT_POSTFIELDS,
-        'ACCOUNTID='.$settings['eeecurrency_from_account'].'&PASSWORD='.$eeecurrency_password.'&SECPASSWORD='.$eeecurrency_code.'&RECEIVER='.$account.(''.'&AMOUNT='.$amount.'&NOTE='.$memo));
+        'ACCOUNTID='.$settings['eeecurrency_from_account'].'&PASSWORD='.$eeecurrency_password.'&SECPASSWORD='.$eeecurrency_code.'&RECEIVER='.$account.('&AMOUNT='.$amount.'&NOTE='.$memo));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $a = curl_exec($ch);
     curl_close($ch);
     $parts = [];
-    if (preg_match(''.'/Success\\s*TRANSACTION_ID:(.*?)$/ims', $a, $parts)) {
+    if (preg_match('/Success\\s*TRANSACTION_ID:(.*?)$/ims', $a, $parts)) {
         return [1, '', $parts[1]];
     } else {
-        $e = quote(''.$error_txt.' '.$a);
+        $e = quote($error_txt.' '.$a);
         $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
         db_query($q);
 
-        return [0, $error_txt.(''.' '.$a), ''];
+        return [0, $error_txt.(' '.$a), ''];
     }
 }
 
@@ -644,7 +644,7 @@ function send_money_to_pecunix($e_password, $amount, $account, $memo, $error_txt
     curl_close($ch);
     preg_match('/Date: \\w+, \\d+ \\w+ \\d+ (\\d+)/', $a, $m);
     $hour = $m[1];
-    $token = strtoupper(md5($pecunix_password.':'.gmdate('Ymd').(''.':'.$hour)));
+    $token = strtoupper(md5($pecunix_password.':'.gmdate('Ymd').(':'.$hour)));
     $data = '
     <TransferRequest>
       <Transfer>
@@ -677,13 +677,13 @@ function send_money_to_pecunix($e_password, $amount, $account, $memo, $error_txt
         return [1, '', $out['batch']];
     } else {
         if ($out['status'] == 'error') {
-            $e = quote(''.$error_txt.' '.$out['text'].' '.$out['additional']);
+            $e = quote($error_txt.' '.$out['text'].' '.$out['additional']);
             $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
             db_query($q);
 
             return [0, $e, ''];
         } else {
-            $e = quote(''.$error_txt.' Parse error: '.$a);
+            $e = quote($error_txt.' Parse error: '.$a);
             $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
             db_query($q);
 
@@ -719,14 +719,14 @@ function send_money_to_ebullion($dump, $amount, $account, $memo, $error_txt)
     $fd = fopen($infile, 'w');
     fwrite($fd, $payment);
     fclose($fd);
-    $atippath = './tmpl_c/';
+    $atippath = CACHE_PATH;
     $gpg_path = escapeshellcmd($settings['gpg_path']);
     $passphrase = decode_pass_for_mysql($settings['md5altphrase_ebullion']);
     $atip_status_url = $settings['site_url'];
     $gpg_options = ' --yes --no-tty --no-secmem-warning --no-options --no-default-keyring --batch --homedir '.$atippath.' --keyring=pubring.gpg --secret-keyring=secring.gpg --armor --throw-keyid --always-trust --passphrase-fd 0';
-    $gpg_command = 'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --recipient A20077\\@e-bullion.com --local-user '.$settings['def_payee_account_ebullion'].(''.'\\@e-bullion.com --output '.$outfile.' --sign --encrypt '.$infile.' 2>&1');
+    $gpg_command = 'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --recipient A20077\\@e-bullion.com --local-user '.$settings['def_payee_account_ebullion'].('\\@e-bullion.com --output '.$outfile.' --sign --encrypt '.$infile.' 2>&1');
     $buf = '';
-    $fp = popen(''.$gpg_command, 'r');
+    $fp = popen($gpg_command, 'r');
     while (!feof($fp)) {
         $buf = fgets($fp, 4096);
     }
@@ -754,14 +754,14 @@ function send_money_to_ebullion($dump, $amount, $account, $memo, $error_txt)
     $verification = urldecode($verification);
     $xmlfile = tempnam('', 'xml.cert.');
     $tmpfile = tempnam('', 'xml.tmp.');
-    $fd = fopen(''.$tmpfile, 'w');
+    $fd = fopen($tmpfile, 'w');
     fwrite($fd, $verification);
     fclose($fd);
     $gpg_options = ' --yes --no-tty --no-secmem-warning --no-options --no-default-keyring --batch --homedir '.$atippath.' --keyring=pubring.gpg --secret-keyring=secring.gpg --armor --passphrase-fd 0';
     $gpg_command = 'echo \''.$passphrase.'\' | '.$gpg_path.' '.$gpg_options.' --output '.$xmlfile.' --decrypt '.$tmpfile.' 2>&1';
     $buf = '';
     $keyID = '';
-    $fp = popen(''.$gpg_command, 'r');
+    $fp = popen($gpg_command, 'r');
     while (!feof($fp)) {
         $buf = fgets($fp, 4096);
         $pos = strstr($buf, 'key ID');
@@ -773,12 +773,12 @@ function send_money_to_ebullion($dump, $amount, $account, $memo, $error_txt)
 
     pclose($fp);
     if ($keyID == $settings['ebullion_keyID']) {
-        if (is_file(''.$xmlfile)) {
-            $fx = fopen(''.$xmlfile, 'r');
-            $xmlcert = fread($fx, filesize(''.$xmlfile));
+        if (is_file($xmlfile)) {
+            $fx = fopen($xmlfile, 'r');
+            $xmlcert = fread($fx, filesize($xmlfile));
             fclose($fx);
         } else {
-            $e = quote(''.$error_txt.' Can not found decrypted verification response!');
+            $e = quote($error_txt.' Can not found decrypted verification response!');
             $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
             db_query($q);
 
@@ -790,13 +790,13 @@ function send_money_to_ebullion($dump, $amount, $account, $memo, $error_txt)
             return [1, '', $data['batch']];
         } else {
             if ($data['status'] == 'error') {
-                $e = quote(''.$error_txt.' '.$data['text'].' '.$data['additional']);
+                $e = quote($error_txt.' '.$data['text'].' '.$data['additional']);
                 $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
                 db_query($q);
 
                 return [0, $error_txt.$data['text'].' '.$data['additional']];
             } else {
-                $e = quote(''.$error_txt.' Unknown error');
+                $e = quote($error_txt.' Unknown error');
                 $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
                 db_query($q);
 
@@ -804,7 +804,7 @@ function send_money_to_ebullion($dump, $amount, $account, $memo, $error_txt)
             }
         }
     } else {
-        $e = quote(''.$error_txt.' Can not decrypt verification response! ');
+        $e = quote($error_txt.' Can not decrypt verification response! ');
         $q = 'insert into hm2_pay_errors set date = now(), txt = \''.$e.'\'';
         db_query($q);
 
@@ -1125,8 +1125,8 @@ function send_template_mail($email_id, $to, $from, $info)
             $v = $v[0];
         }
 
-        $text = preg_replace(''.'/#'.$k.'#/', $v, $text);
-        $subject = preg_replace(''.'/#'.$k.'#/', $v, $subject);
+        $text = preg_replace('/#'.$k.'#/', $v, $text);
+        $subject = preg_replace('/#'.$k.'#/', $v, $subject);
     }
 
     $text = preg_replace('/#site_name#/', $settings['site_name'], $text);
@@ -1194,12 +1194,12 @@ function pay_direct_return_deposit($deposit_id, $amount)
         list($res, $text, $batch) = send_money_to_egold('', $amount, $user['egold_account'], $success_txt, $error_txt);
         if ($res == 1) {
             $q = 'insert into hm2_history set
-          	user_id = '.$user['id'].(''.',
+          	user_id = '.$user['id'].(',
             amount = -'.$amount.',
           	actual_amount = -'.$amount.',
             type=\'withdrawal\',
           	date = now(),
-  		description = \'Auto-withdrawal retuned deposit to account ').$user['egold_account'].(''.'. Batch is '.$batch.'\'');
+  		description = \'Auto-withdrawal retuned deposit to account ').$user['egold_account'].('. Batch is '.$batch.'\'');
             (db_query($q));
         }
     }
@@ -1296,13 +1296,13 @@ function pay_direct_earning($deposit_id, $amount, $date)
                 $user['pecunix_account'],
             ];
             $q = 'insert into hm2_history set
-            user_id = '.$user['id'].(''.',
+            user_id = '.$user['id'].(',
         		amount = -'.$amount.',
             		actual_amount = -'.$amount.',
         		type=\'withdrawal\',
             		'.$date.',
 			ec = ').$dep['ec'].',
-        		description = \'Earning to account auto-withdrawal'.$d_account[$dep[ec]].(''.'. Batch is '.$batch.'\'');
+        		description = \'Earning to account auto-withdrawal'.$d_account[$dep[ec]].('. Batch is '.$batch.'\'');
             (db_query($q));
             $info = [];
             $info['username'] = $user['username'];
@@ -1471,14 +1471,14 @@ function count_earning($u_id)
                 }
 
                 $dw = -1;
-                $q = 'select weekday(\''.$row['last_pay_date'].(''.'\' + interval '.$interval.') as dw');
+                $q = 'select weekday(\''.$row['last_pay_date'].('\' + interval '.$interval.') as dw');
                 ($sth2 = db_query($q));
                 while ($row2 = mysql_fetch_array($sth2)) {
                     $dw = $row2['dw'];
                 }
 
                 $q = 'select count(*) as col from hm2_history where
-                to_days(date) = to_days(\''.$row['last_pay_date'].(''.'\' + interval '.$interval.') and
+                to_days(date) = to_days(\''.$row['last_pay_date'].('\' + interval '.$interval.') and
                 deposit_id = ').$row['id'];
                 ($sth3 = db_query($q));
                 $flag_exists_earning = 0;
@@ -1493,17 +1493,17 @@ function count_earning($u_id)
                     type = \'earning\',
                     description = \'No interest on '.($dw == 5 ? 'Saturday' : 'Sunday').'\',
                     actual_amount = 0,
-                    date = \''.$row['last_pay_date'].(''.'\' + interval '.$interval.',
+                    date = \''.$row['last_pay_date'].('\' + interval '.$interval.',
                     ec = ').$row['ec'].',
                     str = \'gg\',
                     deposit_id = '.$row['id'];
                     } else {
-                        $q = 'insert into hm2_history set user_id = '.$row['user_id'].(''.',
+                        $q = 'insert into hm2_history set user_id = '.$row['user_id'].(',
                     amount = '.$inc.',
                     type = \'earning\',
-                    description = \'Earning from deposit $').number_format($row['actual_amount'], 2).(''.' - '.$percent.' %\',
+                    description = \'Earning from deposit $').number_format($row['actual_amount'], 2).(' - '.$percent.' %\',
                     actual_amount = '.$inc.',
-                    date = \'').$row['last_pay_date'].(''.'\' + interval '.$interval.',
+                    date = \'').$row['last_pay_date'].('\' + interval '.$interval.',
                     ec = ').$row['ec'].',
                     str = \'gg\',
                     deposit_id = '.$row['id'];
@@ -1523,7 +1523,7 @@ function count_earning($u_id)
                     type=\'release_deposit\',
                     actual_amount = '.$row['actual_amount'].',
                     ec = '.$row['ec'].',
-                    date = \''.$row['last_pay_date'].(''.'\' + interval '.$interval.',
+                    date = \''.$row['last_pay_date'].('\' + interval '.$interval.',
                     deposit_id = ').$row['id'];
                         (db_query($q));
                     }
@@ -1557,13 +1557,13 @@ function count_earning($u_id)
                             if ((0 < $row['compound'] and $row['compound'] <= 100)) {
                                 $comp_amount = $inc * $row['compound'] / 100;
                                 $inc = floor((floor($inc * 100000) / 100000 - floor($comp_amount * 100000) / 100000) * 100) / 100;
-                                $q = 'insert into hm2_history set user_id = '.$row['user_id'].(''.',
+                                $q = 'insert into hm2_history set user_id = '.$row['user_id'].(',
                         amount = -'.$comp_amount.',
                     		type=\'deposit\',
                     		description = \'Compounding deposit\',
                     		actual_amount = -'.$comp_amount.',
                     		ec = ').$row['ec'].',
-                    		date = \''.$row['last_pay_date'].(''.'\' + interval '.$interval.',
+                    		date = \''.$row['last_pay_date'].('\' + interval '.$interval.',
                                 deposit_id = ').$row['id'];
                                 (db_query($q));
                                 $q = 'update hm2_deposits set amount = amount + '.$comp_amount.',
@@ -1574,7 +1574,7 @@ function count_earning($u_id)
                         }
 
                         pay_direct_earning($row['id'], $inc,
-                            'date = \''.$row['last_pay_date'].(''.'\' + interval '.$interval));
+                            'date = \''.$row['last_pay_date'].('\' + interval '.$interval));
                     }
                 }
 
@@ -1606,7 +1606,7 @@ function count_earning($u_id)
       		type=\'release_deposit\',
       		actual_amount = '.$row1['actual_amount'].',
                       ec = '.$row1['ec'].',
-      		date = \''.$row1['deposit_date'].(''.'\' + interval '.$q_days.' day,
+      		date = \''.$row1['deposit_date'].('\' + interval '.$q_days.' day,
                       deposit_id = ').$row1['id'];
                     (db_query($q));
                 }

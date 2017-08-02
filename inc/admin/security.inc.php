@@ -63,8 +63,8 @@ E-mail:<br>
       array_push($dirs, './tmpl');
   }
 
-  if (!file_exists('./tmpl_c/.htaccess')) {
-      array_push($dirs, './tmpl_c');
+  if (!file_exists(CACHE_PATH.'/.htaccess')) {
+      array_push($dirs, CACHE_PATH);
   }
 
   if (0 < count($dirs)) {

@@ -42,7 +42,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
       $fd = fopen($infile, 'w');
       fwrite($fd, $balance);
       fclose($fd);
-      $atippath = './tmpl_c/';
+      $atippath = CACHE_PATH;
       $gpg_path = escapeshellcmd($settings['gpg_path']);
       $passphrase = decode_pass_for_mysql($settings['md5altphrase_ebullion']);
       $atip_status_url = $settings['site_url'];

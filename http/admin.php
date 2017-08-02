@@ -1320,13 +1320,13 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
 
         $pubring_gpg = $_FILES['pubring_gpg'];
         if ((0 < $pubring_gpg['size'] and $pubring_gpg['error'] == 0)) {
-            copy($pubring_gpg['tmp_name'], './tmpl_c/pubring.gpg');
+            copy($pubring_gpg['tmp_name'], CACHE_PATH.'/pubring.gpg');
             unlink($pubring_gpg['tmp_name']);
         }
 
         $secring_gpg = $_FILES['secring_gpg'];
         if ((0 < $secring_gpg['size'] and $secring_gpg['error'] == 0)) {
-            copy($secring_gpg['tmp_name'], './tmpl_c/secring.gpg');
+            copy($secring_gpg['tmp_name'], CACHE_PATH.'/secring.gpg');
             unlink($secring_gpg['tmp_name']);
         }
 

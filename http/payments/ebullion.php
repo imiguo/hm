@@ -69,7 +69,7 @@ if ($frm['a'] == 'pay_withdraw') {
 }
 
 $gpg_path = escapeshellcmd($settings['gpg_path']);
-$atippath = './tmpl_c';
+$atippath = CACHE_PATH;
 $passphrase = decode_pass_for_mysql($settings['md5altphrase_ebullion']);
 $xmlfile = tempnam('', 'xml.cert.');
 $tmpfile = tempnam('', 'xml.tmp.');

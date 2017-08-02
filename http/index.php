@@ -66,7 +66,7 @@ if ((empty($frm_env['HTTPS']) and isset($settings['redirect_to_https']) and $set
         $url .= $env_frm['QUERY_STRING'];
     }
 
-    header(''.'Location: '.$url);
+    header('Location: '.$url);
     exit;
 }
 
@@ -99,7 +99,7 @@ if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw_eeecurrency' and
         (db_query($q));
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
-        amount = -'.abs($row['amount']).(''.',
+        amount = -'.abs($row['amount']).(',
         type = \'withdrawal\',
         description = \'Withdraw processed. Batch id = '.$batch.'\',
         actual_amount = -').abs($row['amount']).',
@@ -142,7 +142,7 @@ if ((isset($frm['CUSTOM2']) && $frm['CUSTOM2'] == 'pay_withdraw' and $frm['TRANS
         (db_query($q));
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
-        amount = -'.abs($row['amount']).(''.',
+        amount = -'.abs($row['amount']).(',
         type = \'withdrawal\',
         description = \'Withdraw processed. Batch id = '.$batch.'\',
         actual_amount = -').abs($row['amount']).',
@@ -184,7 +184,7 @@ if (((isset($frm['user3']) and $frm['user3'] == 'pay_withdraw' and $frm['transac
         (db_query($q));
         $q = 'insert into hm2_history set
         user_id = '.$row['user_id'].',
-        amount = -'.abs($row['amount']).(''.',
+        amount = -'.abs($row['amount']).(',
         type = \'withdrawal\',
         description = \'Withdraw processed. Batch id = '.$batch.'\',
         actual_amount = -').abs($row['amount']).',
@@ -411,7 +411,7 @@ if ($frm['a'] == 'do_login') {
         $ip = $frm_env['REMOTE_ADDR'];
         $q = 'update hm2_users set hid = \''.$qhid.'\', bf_counter = 0, last_access_time = now(), last_access_ip = \''.$ip.'\' where id = '.$row['id'];
         (db_query($q));
-        $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(''.', date = now(), ip = \''.$ip.'\'');
+        $q = 'insert into hm2_user_access_log set user_id = '.$userinfo['id'].(', date = now(), ip = \''.$ip.'\'');
         (db_query($q));
 
         setcookie('password', $chid, time() + 630720000);
@@ -570,9 +570,9 @@ $smarty->assign('frm', $frm);
 if ($settings['banner_extension'] == 1) {
     if ($frm['a'] == 'show_banner') {
         $id = sprintf('%d', $frm['id']);
-        $f = @fopen(''.'./tmpl_c/banners/'.$id, 'rb');
+        $f = @fopen(CACHE_PATH.'/banners/'.$id, 'rb');
         if ($f) {
-            $contents = fread($f, filesize(''.'./tmpl_c/banners/'.$id));
+            $contents = fread($f, filesize(CACHE_PATH.'/banners/'.$id));
             header('Content-type: image/gif');
             echo $contents;
             fclose($fd);
