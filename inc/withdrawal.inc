@@ -214,7 +214,7 @@ if ($frm['action'] == 'preview') {
             $q = 'select hm2_deposits.id, hm2_types.hold from hm2_deposits, hm2_types where user_id = '.$userinfo[id].' and hm2_types.id = hm2_deposits.type_id and ec='.$ec;
         }
 
-      $sth = db_query($q);
+        $sth = db_query($q);
         $deps = [];
         $deps[0] = 0;
         while ($row = mysql_fetch_array($sth)) {
@@ -464,7 +464,7 @@ if ($frm['action'] == 'preview') {
           ';
         }
 
-      $sth = db_query($q);
+        $sth = db_query($q);
         $deps = [];
         $deps[0] = 0;
         while ($row = mysql_fetch_array($sth)) {
