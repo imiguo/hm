@@ -69,7 +69,6 @@ while (list($kk, $vv) = each($frm_cookie)) {
 }
 
 $frm_env = array_merge($_ENV, $_SERVER);
-$frm_env['HTTP_HOST'] = preg_replace('/^'.SUBDOMAIN.'\./', '', $frm_env['HTTP_HOST']);
 $frm_env['HTTP_HOST'] = preg_replace('/^www\./', '', $frm_env['HTTP_HOST']);
 
 $referer = isset($frm_env['HTTP_REFERER']) ? $frm_env['HTTP_REFERER'] : null;
