@@ -13,7 +13,6 @@ ini_set('error_reporting', 'E_ALL & ~E_NOTICE & ~E_DEPRECATED');
 
 require 'function.inc.php';
 
-global $frm;
 if (!extension_loaded('gd')) {
     $prefix = (PHP_SHLIB_SUFFIX == 'dll' ? 'php_' : '');
     dl($prefix.'gd.'.PHP_SHLIB_SUFFIX);
@@ -62,15 +61,15 @@ while (list($kk, $vv) = each($frm_cookie)) {
 }
 
 $frm_env = array_merge($_ENV, $_SERVER);
-$referer = isset($frm_env['HTTP_REFERER']) ? $frm_env['HTTP_REFERER'] : null;
 $frm_env['HTTP_HOST'] = preg_replace('/^'.SUBDOMAIN.'\./', '', $frm_env['HTTP_HOST']);
 $frm_env['HTTP_HOST'] = preg_replace('/^www\./', '', $frm_env['HTTP_HOST']);
+
+$referer = isset($frm_env['HTTP_REFERER']) ? $frm_env['HTTP_REFERER'] : null;
 $host = $frm_env['HTTP_HOST'];
 if (!strpos($referer, '//'.$host)) {
     setcookie('CameFrom', $referer, time() + 630720000);
 }
 
-$settings = get_settings();
 $transtype = [
     'withdraw_pending'             => 'Withdrawal request',
     'add_funds'                    => 'Transfer from external processings',
@@ -102,6 +101,8 @@ $exchange_systems = [
     10 => ['name' => 'Payeer', 'sfx' => 'payeer'],
     11 => ['name' => 'BitCoin', 'sfx' => 'bitcoin'],
 ];
+
+$settings = get_settings();
 foreach ($exchange_systems as $id => $data) {
     if (isset($settings['def_payee_account_'.$data['sfx']]) and $settings['def_payee_account_'.$data['sfx']] != '' and $settings['def_payee_account_'.$data['sfx']] != '0') {
         $exchange_systems[$id]['status'] = 1;
@@ -111,7 +112,6 @@ foreach ($exchange_systems as $id => $data) {
         continue;
     }
 }
-
 $settings['site_url'] = (is_SSL() ? 'https://' : 'http://').$_SERVER['HTTP_HOST'];
 
 $ip = $frm_env['REMOTE_ADDR'];
