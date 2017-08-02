@@ -91,11 +91,6 @@ if ($ref) {
     }
 }
 
-$mddomain = $frm_env['HTTP_HOST'];
-$mddomain = preg_replace('/^www\\./', '', $mddomain);
-$mdscriptname = $frm_env['SCRIPT_NAME'];
-$mdscriptname = preg_replace('/index\\.php/', '', $mdscriptname);
-
 $smarty->assign('settings', $settings);
 
 if ($frm['a'] == 'do_login') {
