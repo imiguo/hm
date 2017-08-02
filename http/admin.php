@@ -34,7 +34,6 @@ while ($row = mysql_fetch_array($sth)) {
     ];
 }
 
-define('THE_GC_SCRIPT_V2005_04_01', 'answer');
 if ($frm['a'] == 'showprogramstat') {
     $login = quote($frm['login']);
     $q = 'select * from hm2_users where id = 1 and username = \''.$login.'\' and stat_password <> \'\'';
