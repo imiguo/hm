@@ -12,9 +12,6 @@
 require '../lib/config.inc.php';
 require '../lib/function.php';
 
-$userinfo = [];
-$settings = [];
-
 $smarty = app('smarty');
 $smarty->default_modifiers = ['escape'];
 
@@ -102,9 +99,9 @@ $mdscriptname = preg_replace('/index\\.php/', '', $mdscriptname);
 $smarty->assign('settings', $settings);
 
 if ($frm['a'] == 'do_login') {
-    do_login();
+    do_login($userinfo);
 } else {
-    do_login_else();
+    do_login_else($userinfo);
 }
 
 if (($userinfo['logged'] == 1 and $userinfo['should_count'] == 1)) {

@@ -13,6 +13,14 @@ ini_set('error_reporting', 'E_ALL & ~E_NOTICE & ~E_DEPRECATED');
 
 require 'function.inc.php';
 
+global $frm;
+global $frm_cookie;
+global $settings;
+global $frm_env;
+global $env_frm;
+global $exchange_systems;
+global $stats;
+
 if (!extension_loaded('gd')) {
     $prefix = (PHP_SHLIB_SUFFIX == 'dll' ? 'php_' : '');
     dl($prefix.'gd.'.PHP_SHLIB_SUFFIX);

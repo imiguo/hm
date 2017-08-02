@@ -75,17 +75,16 @@ function custom2_pay_withdraw_eeecurrency()
     $sth = db_query($q);
     while ($row = mysql_fetch_array($sth)) {
         $q = 'delete from hm2_history where id = '.$id;
-        (db_query($q));
-        $q = 'insert into hm2_history set
-        user_id = '.$row['user_id'].',
-        amount = -'.abs($row['amount']).(',
-        type = \'withdrawal\',
-        description = \'Withdraw processed. Batch id = '.$batch.'\',
-        actual_amount = -').abs($row['amount']).',
-        ec = 8,
-        date = now()
-        ';
-        (db_query($q));
+            db_query($q);
+            $q = 'insert into hm2_history set
+            user_id = '.$row['user_id'].',
+            amount = -'.abs($row['amount']).(',
+            type = \'withdrawal\',
+            description = \'Withdraw processed. Batch id = '.$batch.'\',
+            actual_amount = -').abs($row['amount']).',
+            ec = 8,
+            date = now()';
+        db_query($q);
         $q = 'select * from hm2_users where id = '.$row['user_id'];
         $sth = db_query($q);
         $userinfo = mysql_fetch_array($sth);
@@ -282,15 +281,13 @@ function show_info_box()
     }
 }
 
-function do_login()
+function do_login(&$userinfo)
 {
     global $frm;
     global $settings;
     global $frm_env;
     $username = quote($frm['username']);
     $password = quote($frm['password']);
-    $lpassword = $password;
-    $lusername = $username;
     $password = md5($password);
     $add_opt_in_check = '';
     if ($settings['use_opt_in'] == 1) {
@@ -327,7 +324,6 @@ function do_login()
             header('Location: ?a=login&say=invalid_login&username='.$frm['username']);
             exit;
         }
-
         if ($row['password'] != $password) {
             $q = 'update hm2_users set bf_counter = bf_counter + 1 where id = '.$row['id'];
             db_query($q);
@@ -366,7 +362,7 @@ function do_login()
     }
 }
 
-function do_login_else()
+function do_login_else(&$userinfo)
 {
     global $frm_cookie;
     global $settings;
