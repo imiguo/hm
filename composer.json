@@ -4,7 +4,8 @@
         "vlucas/phpdotenv": "^2.4",
         "smarty/smarty": "^3.1",
         "klein/klein": "^2.1",
-        "illuminate/container": "^5.4"
+        "illuminate/container": "^5.4",
+        "filp/whoops": "^2.1"
     },
     "autoload": {
         "classmap": ["classes/"]

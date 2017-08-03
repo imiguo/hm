@@ -11,11 +11,11 @@
 
 define('APP_PATH', __DIR__);
 
-define('THEME', $_SERVER['THEME'] ?? env('THEME') ?: 'default');
+define('CACHE_PATH', APP_PATH.'/tmpl_c');
+
+define('THEME', theme(env('THEME')));
 
 define('TMPL_PATH', dirname(APP_PATH).'/templates/'.THEME.'/tmpl');
-
-define('CACHE_PATH', APP_PATH.'/tmpl_c');
 
 if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
     define('HTTPS', true);

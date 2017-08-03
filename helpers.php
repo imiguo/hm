@@ -59,11 +59,54 @@ if (!function_exists('mysql_real_escape_string')) {
     }
 }
 
-if (function_exists('dd')) {
-    function shutdown_print_error()
+if (function_exists('dd') ) {
+    // function shutdown_print_error()
+    // {
+    //     $error = error_get_last();
+    //     $error && dd($error);
+    // }
+    // register_shutdown_function('shutdown_print_error');
+}
+
+if (!function_exists('theme_list')) {
+    function theme_list()
     {
-        $error = error_get_last();
-        $error && dd($error);
+        $themes = [];
+        foreach (glob(APP_PATH.'/../templates/*') as $file) {
+            $themes[] = basename($file);
+        }
+        return $themes;
     }
-    register_shutdown_function('shutdown_print_error');
+}
+
+if (!function_exists('old_theme')) {
+    function old_theme()
+    {
+        $cacheThemeFile = CACHE_PATH.'/theme';
+        if (is_file($cacheThemeFile)) {
+            return file_get_contents($cacheThemeFile);
+        }
+        return false;
+    }
+}
+
+if (!function_exists('theme')) {
+    function theme($theme)
+    {
+        if ($theme == 'random') {
+            return array_rand(array_flip(theme_list()));
+        }
+        if ($theme == 'next') {
+            $themes = theme_list();
+            if ($oldTheme = old_theme()) {
+                try {
+                    return $themes[(array_flip($themes)[$oldTheme] + 1) % count($themes)];
+                } catch (Exception $e) {
+
+                }
+            }
+            return current($themes);
+        }
+        return $theme ?: 'default';
+    }
 }
