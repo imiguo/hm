@@ -15,7 +15,7 @@ $klein->respond(['GET', 'POST'], '/', function () {
     include APP_PATH.'/http/index.php';
 });
 
-$klein->respond(['GET', 'POST'], '/admin', function () {
+$klein->respond(['GET', 'POST'], env('ADMIN_ROUTE', '/admin'), function () {
     include APP_PATH.'/http/admin.php';
 });
 
