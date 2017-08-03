@@ -22,7 +22,7 @@ if (HTTPS) {
 $userinfo = [];
 $userinfo['logged'] = 0;
 
-/**
+/*
  * @action showprogramstat
  */
 if ($frm['a'] == 'showprogramstat') {
@@ -30,7 +30,7 @@ if ($frm['a'] == 'showprogramstat') {
     exit;
 }
 
-/**
+/*
  * @action logout
  */
 if ($frm['a'] == 'logout') {
@@ -43,7 +43,7 @@ $username = quote($frm_cookie['username']);
 $password = $frm_cookie['password'];
 try_auth($password, $userinfo);
 
-/**
+/*
  * @action startup_bonus_set
  */
 if (($frm['a'] == 'startup_bonus' and $frm['act'] == 'set')) {
@@ -51,7 +51,7 @@ if (($frm['a'] == 'startup_bonus' and $frm['act'] == 'set')) {
     exit;
 }
 
-/**
+/*
  * @action exchange_rates_save
  */
 if (($frm['a'] == 'exchange_rates' and $frm['action'] == 'save')) {
@@ -59,7 +59,7 @@ if (($frm['a'] == 'exchange_rates' and $frm['action'] == 'save')) {
     exit;
 }
 
-/**
+/*
  * @action test_egold_settings
  */
 if ($frm['a'] == 'test_egold_settings') {
@@ -67,7 +67,7 @@ if ($frm['a'] == 'test_egold_settings') {
     exit;
 }
 
-/**
+/*
  * @action test_evocash_settings
  */
 if ($frm['a'] == 'test_evocash_settings') {
@@ -75,7 +75,7 @@ if ($frm['a'] == 'test_evocash_settings') {
     exit;
 }
 
-/**
+/*
  * @action test_intgold_settings
  */
 if ($frm['a'] == 'test_intgold_settings') {
@@ -83,7 +83,7 @@ if ($frm['a'] == 'test_intgold_settings') {
     exit;
 }
 
-/**
+/*
  * @action test_eeecurrency_settings
  */
 if ($frm['a'] == 'test_eeecurrency_settings') {
@@ -91,7 +91,7 @@ if ($frm['a'] == 'test_eeecurrency_settings') {
     exit;
 }
 
-/**
+/*
  * @action test_ebullion_settings
  */
 if ($frm['a'] == 'test_ebullion_settings') {
@@ -106,7 +106,7 @@ if ($userinfo['should_count'] == 1) {
     count_earning(-1);
 }
 
-/**
+/*
  * @action affilates_remove_ref
  */
 if (($frm['a'] == 'affilates' and $frm['action'] == 'remove_ref')) {
@@ -118,7 +118,7 @@ if (($frm['a'] == 'affilates' and $frm['action'] == 'remove_ref')) {
     exit;
 }
 
-/**
+/*
  * @action affilates_change_upline
  */
 if (($frm['a'] == 'affilates' and $frm['action'] == 'change_upline')) {
@@ -137,7 +137,7 @@ if (($frm['a'] == 'affilates' and $frm['action'] == 'change_upline')) {
     exit;
 }
 
-/**
+/*
  * @action pending_deposit_details_movetoproblem
  */
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetoproblem')) {
@@ -148,7 +148,7 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetoproblem
     exit;
 }
 
-/**
+/*
  * @action pending_deposit_details_movetonew
  */
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetonew')) {
@@ -159,7 +159,7 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetonew')) 
     exit;
 }
 
-/**
+/*
  * @action pending_deposit_details_delete
  */
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'delete')) {
@@ -170,7 +170,7 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'delete')) {
     exit;
 }
 
-/**
+/*
  * @action pending_deposit_details_movetodeposit_movetoaccount_yes
  */
 if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodeposit' or $frm['action'] == 'movetoaccount')) and $frm['confirm'] == 'yes')) {
@@ -285,7 +285,7 @@ if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodepos
     exit;
 }
 
-/**
+/*
  * @action mass
  */
 if ($frm['a'] == 'mass') {
@@ -623,7 +623,7 @@ if ($frm['a'] == 'mass') {
     }
 }
 
-/**
+/*
  * @action auto-pay-settings
  */
 if (($frm['a'] == 'auto-pay-settings' and $frm['action'] == 'auto-pay-settings')) {
@@ -704,7 +704,7 @@ if (($frm['a'] == 'auto-pay-settings' and $frm['action'] == 'auto-pay-settings')
     exit;
 }
 
-/**
+/*
  * @action referal_change
  */
 if (($frm['a'] == 'referal' and $frm['action'] == 'change')) {
@@ -760,7 +760,7 @@ if (($frm['a'] == 'referal' and $frm['action'] == 'change')) {
     exit;
 }
 
-/**
+/*
  * @action deleterate
  */
 if ($frm['a'] == 'deleterate') {
@@ -777,7 +777,7 @@ if ($frm['a'] == 'deleterate') {
     exit;
 }
 
-/**
+/*
  * @action newsletter_newsletter
  */
 if (($frm['a'] == 'newsletter' and $frm['action'] == 'newsletter')) {
@@ -845,7 +845,7 @@ obj.appendChild(menu);
     exit;
 }
 
-/**
+/*
  * @action edit_emails_update_statuses
  */
 if (($frm['a'] == 'edit_emails' and $frm['action'] == 'update_statuses')) {
@@ -863,7 +863,7 @@ if (($frm['a'] == 'edit_emails' and $frm['action'] == 'update_statuses')) {
     exit;
 }
 
-/**
+/*
  * @action send_bonuce_send_bonuce_confirm
  */
 if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['action'] == 'confirm'))) {
@@ -1003,7 +1003,7 @@ Reply-To: '.$settings['system_email']);
     }
 }
 
-/**
+/*
  * @action send_penality_send_penality
  */
 if (($frm['a'] == 'send_penality' and $frm['action'] == 'send_penality')) {
@@ -1060,7 +1060,7 @@ if (($frm['a'] == 'send_penality' and $frm['action'] == 'send_penality')) {
     exit;
 }
 
-/**
+/*
  * @action info_box
  */
 if (($frm['a'] == 'info_box' and $frm['action'] == 'info_box')) {
@@ -1095,7 +1095,7 @@ if (($frm['a'] == 'info_box' and $frm['action'] == 'info_box')) {
     }
 }
 
-/**
+/*
  * @action settings
  */
 if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
@@ -1293,7 +1293,7 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
     exit;
 }
 
-/**
+/*
  * @action rm_withdraw
  */
 if ($frm['a'] == 'rm_withdraw') {
@@ -1304,7 +1304,7 @@ if ($frm['a'] == 'rm_withdraw') {
     exit;
 }
 
-/**
+/*
  * @action releasedeposits
  */
 if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
@@ -1390,7 +1390,7 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
     exit;
 }
 
-/**
+/*
  * @action addbonuse_confirm
  */
 if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action'] == 'confirm'))) {
@@ -1502,7 +1502,7 @@ Reply-To: '.$settings['system_email']);
     }
 }
 
-/**
+/*
  * @action addpenality
  */
 if (($frm['a'] == 'addpenality' and $frm['action'] == 'addpenality')) {
@@ -1535,7 +1535,7 @@ if (($frm['a'] == 'addpenality' and $frm['action'] == 'addpenality')) {
     exit;
 }
 
-/**
+/*
  * @action deleteaccount
  */
 if ($frm['a'] == 'deleteaccount') {
@@ -1546,7 +1546,7 @@ if ($frm['a'] == 'deleteaccount') {
     exit;
 }
 
-/**
+/*
  * @action editaccount
  */
 if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
@@ -1706,7 +1706,7 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     exit;
 }
 
-/**
+/*
  * @action members_modify_status
  */
 if (($frm['a'] == 'members' and $frm['action'] == 'modify_status')) {
@@ -1723,7 +1723,7 @@ if (($frm['a'] == 'members' and $frm['action'] == 'modify_status')) {
     exit;
 }
 
-/**
+/*
  * @action members_activate
  */
 if (($frm['a'] == 'members' and $frm['action'] == 'activate')) {
@@ -1737,7 +1737,7 @@ if (($frm['a'] == 'members' and $frm['action'] == 'activate')) {
     exit;
 }
 
-/**
+/*
  * @action add_hyip
  */
 if ($frm['action'] == 'add_hyip') {
@@ -1839,7 +1839,7 @@ if ($frm['action'] == 'add_hyip') {
     exit;
 }
 
-/**
+/*
  * @action edit_hyip
  */
 if ($frm['action'] == 'edit_hyip') {
@@ -1956,7 +1956,7 @@ if ($frm['action'] == 'edit_hyip') {
     exit;
 }
 
-/**
+/*
  * @action thistory_download_csv
  */
 if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
@@ -2028,7 +2028,7 @@ if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
     exit;
 }
 
-/**
+/*
  * @action add_processing
  */
 if (($frm['a'] == 'add_processing' and $frm[action] == 'add_processing')) {
@@ -2074,7 +2074,7 @@ if (($frm['a'] == 'add_processing' and $frm[action] == 'add_processing')) {
     exit;
 }
 
-/**
+/*
  * @action edit_processing
  */
 if (($frm['a'] == 'edit_processing' and $frm[action] == 'edit_processing')) {
@@ -2112,7 +2112,7 @@ if (($frm['a'] == 'edit_processing' and $frm[action] == 'edit_processing')) {
     exit;
 }
 
-/**
+/*
  * @action update_processings
  */
 if ($frm['a'] == 'update_processings') {
@@ -2132,7 +2132,7 @@ if ($frm['a'] == 'update_processings') {
     exit;
 }
 
-/**
+/*
  * @action delete_processing
  */
 if ($frm['a'] == 'delete_processing') {
