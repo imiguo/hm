@@ -12,8 +12,8 @@
 require __DIR__.'/vendor/autoload.php';
 require __DIR__.'/helpers.php';
 
-$whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops = new \Whoops\Run();
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
 $whoops->register();
 
 use Illuminate\Database\Capsule\Manager as Capsule;

@@ -59,7 +59,7 @@ if (!function_exists('mysql_real_escape_string')) {
     }
 }
 
-if (function_exists('dd') ) {
+if (function_exists('dd')) {
     // function shutdown_print_error()
     // {
     //     $error = error_get_last();
@@ -75,6 +75,7 @@ if (!function_exists('theme_list')) {
         foreach (glob(APP_PATH.'/../templates/*') as $file) {
             $themes[] = basename($file);
         }
+
         return $themes;
     }
 }
@@ -86,6 +87,7 @@ if (!function_exists('old_theme')) {
         if (is_file($cacheThemeFile)) {
             return file_get_contents($cacheThemeFile);
         }
+
         return false;
     }
 }
@@ -102,11 +104,12 @@ if (!function_exists('theme')) {
                 try {
                     return $themes[(array_flip($themes)[$oldTheme] + 1) % count($themes)];
                 } catch (Exception $e) {
-
                 }
             }
+
             return current($themes);
         }
+
         return $theme ?: 'default';
     }
 }
