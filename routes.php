@@ -41,9 +41,7 @@ $klein->respond(['GET', 'POST'], '/payments/[:payment]', function ($request) {
 
 $klein->onHttpError(function ($code, $router) {
     if ($code >= 400 && $code < 500) {
-        $router->response()->body(
-            'Oh no, a bad error happened that caused a '.$code
-        );
+        $router->response()->redirect('/');
     } elseif ($code >= 500 && $code <= 599) {
         error_log('uhhh, something bad happened');
     }
