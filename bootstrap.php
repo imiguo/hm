@@ -12,15 +12,21 @@
 require __DIR__.'/vendor/autoload.php';
 require __DIR__.'/helpers.php';
 
-$whoops = new \Whoops\Run();
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
-$whoops->register();
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $environmentFile = env('APP_ENV') ? '.env.'.env('APP_ENV') : '.env';
 $dotenv = new Dotenv\Dotenv(__DIR__, $environmentFile);
 $dotenv->load();
+
+$whoops = new \Whoops\Run();
+if (env('APP_DEBUG')) {
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+} else {
+    $whoops->pushHandler(function() {
+        require __DIR__.'/http/500.php';
+    });
+}
+$whoops->register();
 
 require __DIR__.'/constants.php';
 
