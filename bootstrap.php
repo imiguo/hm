@@ -22,7 +22,7 @@ $whoops = new \Whoops\Run();
 if (env('APP_DEBUG')) {
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
 } else {
-    $whoops->pushHandler(function() {
+    $whoops->pushHandler(function () {
         require __DIR__.'/http/500.php';
     });
 }
