@@ -22,11 +22,17 @@ if (HTTPS) {
 $userinfo = [];
 $userinfo['logged'] = 0;
 
+/**
+ * @action showprogramstat
+ */
 if ($frm['a'] == 'showprogramstat') {
     show_program_stat();
     exit;
 }
 
+/**
+ * @action logout
+ */
 if ($frm['a'] == 'logout') {
     setcookie('password', '', time() - 86400);
     header('Location: /');
@@ -37,36 +43,57 @@ $username = quote($frm_cookie['username']);
 $password = $frm_cookie['password'];
 try_auth($password, $userinfo);
 
+/**
+ * @action startup_bonus_set
+ */
 if (($frm['a'] == 'startup_bonus' and $frm['act'] == 'set')) {
     startup_bonus();
     exit;
 }
 
+/**
+ * @action exchange_rates_save
+ */
 if (($frm['a'] == 'exchange_rates' and $frm['action'] == 'save')) {
     save_exchange_rates();
     exit;
 }
 
+/**
+ * @action test_egold_settings
+ */
 if ($frm['a'] == 'test_egold_settings') {
     include APP_PATH.'/inc/admin/auto_pay_settings_test.inc.php';
     exit;
 }
 
+/**
+ * @action test_evocash_settings
+ */
 if ($frm['a'] == 'test_evocash_settings') {
     include APP_PATH.'/inc/admin/auto_pay_settings_evocash_test.inc.php';
     exit;
 }
 
+/**
+ * @action test_intgold_settings
+ */
 if ($frm['a'] == 'test_intgold_settings') {
     include APP_PATH.'/inc/admin/auto_pay_settings_intgold_test.inc.php';
     exit;
 }
 
+/**
+ * @action test_eeecurrency_settings
+ */
 if ($frm['a'] == 'test_eeecurrency_settings') {
     include APP_PATH.'/inc/admin/auto_pay_settings_eeecurrency_test.inc.php';
     exit;
 }
 
+/**
+ * @action test_ebullion_settings
+ */
 if ($frm['a'] == 'test_ebullion_settings') {
     include APP_PATH.'/inc/admin/auto_pay_settings_ebullion_test.inc.php';
     exit;
@@ -79,6 +106,9 @@ if ($userinfo['should_count'] == 1) {
     count_earning(-1);
 }
 
+/**
+ * @action affilates_remove_ref
+ */
 if (($frm['a'] == 'affilates' and $frm['action'] == 'remove_ref')) {
     $u_id = sprintf('%d', $frm['u_id']);
     $ref = sprintf('%d', $frm['ref']);
@@ -88,6 +118,9 @@ if (($frm['a'] == 'affilates' and $frm['action'] == 'remove_ref')) {
     exit;
 }
 
+/**
+ * @action affilates_change_upline
+ */
 if (($frm['a'] == 'affilates' and $frm['action'] == 'change_upline')) {
     $u_id = sprintf('%d', $frm['u_id']);
     $upline = quote($frm['upline']);
@@ -104,6 +137,9 @@ if (($frm['a'] == 'affilates' and $frm['action'] == 'change_upline')) {
     exit;
 }
 
+/**
+ * @action pending_deposit_details_movetoproblem
+ */
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetoproblem')) {
     $id = sprintf('%d', $frm['id']);
     $q = 'update hm2_pending_deposits set status=\'problem\' where id = '.$id;
@@ -112,6 +148,9 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetoproblem
     exit;
 }
 
+/**
+ * @action pending_deposit_details_movetonew
+ */
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetonew')) {
     $id = sprintf('%d', $frm['id']);
     $q = 'update hm2_pending_deposits set status=\'new\' where id = '.$id;
@@ -120,6 +159,9 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'movetonew')) 
     exit;
 }
 
+/**
+ * @action pending_deposit_details_delete
+ */
 if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'delete')) {
     $id = sprintf('%d', $frm['id']);
     $q = 'delete from hm2_pending_deposits where id = '.$id;
@@ -128,6 +170,9 @@ if (($frm['a'] == 'pending_deposit_details' and $frm['action'] == 'delete')) {
     exit;
 }
 
+/**
+ * @action pending_deposit_details_movetodeposit_movetoaccount_yes
+ */
 if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodeposit' or $frm['action'] == 'movetoaccount')) and $frm['confirm'] == 'yes')) {
     $deposit_id = $id = sprintf('%d', $frm['id']);
     $q = 'select
@@ -240,6 +285,9 @@ if ((($frm['a'] == 'pending_deposit_details' and ($frm['action'] == 'movetodepos
     exit;
 }
 
+/**
+ * @action mass
+ */
 if ($frm['a'] == 'mass') {
     if ($frm['action2'] == 'massremove') {
         $ids = $frm['pend'];
@@ -575,6 +623,9 @@ if ($frm['a'] == 'mass') {
     }
 }
 
+/**
+ * @action auto-pay-settings
+ */
 if (($frm['a'] == 'auto-pay-settings' and $frm['action'] == 'auto-pay-settings')) {
     if ($settings['demomode'] != 1) {
         if (($userinfo['transaction_code'] != '' and $userinfo['transaction_code'] != $frm['alternative_passphrase'])) {
@@ -653,6 +704,9 @@ if (($frm['a'] == 'auto-pay-settings' and $frm['action'] == 'auto-pay-settings')
     exit;
 }
 
+/**
+ * @action referal_change
+ */
 if (($frm['a'] == 'referal' and $frm['action'] == 'change')) {
     if ($settings['demomode'] == 1) {
     } else {
@@ -706,6 +760,9 @@ if (($frm['a'] == 'referal' and $frm['action'] == 'change')) {
     exit;
 }
 
+/**
+ * @action deleterate
+ */
 if ($frm['a'] == 'deleterate') {
     $id = sprintf('%d', $frm['id']);
     if (($id < 3 and $settings['demomode'] == 1)) {
@@ -720,6 +777,9 @@ if ($frm['a'] == 'deleterate') {
     exit;
 }
 
+/**
+ * @action newsletter_newsletter
+ */
 if (($frm['a'] == 'newsletter' and $frm['action'] == 'newsletter')) {
     if ($frm['to'] == 'user') {
         $q = 'select * from hm2_users where username = \''.quote($frm['username']).'\'';
@@ -785,6 +845,9 @@ obj.appendChild(menu);
     exit;
 }
 
+/**
+ * @action edit_emails_update_statuses
+ */
 if (($frm['a'] == 'edit_emails' and $frm['action'] == 'update_statuses')) {
     $q = 'update hm2_emails set status = 0';
     db_query($q);
@@ -800,6 +863,9 @@ if (($frm['a'] == 'edit_emails' and $frm['action'] == 'update_statuses')) {
     exit;
 }
 
+/**
+ * @action send_bonuce_send_bonuce_confirm
+ */
 if (($frm['a'] == 'send_bonuce' and ($frm['action'] == 'send_bonuce' or $frm['action'] == 'confirm'))) {
     $amount = sprintf('%0.2f', $frm['amount']);
     if ($amount == 0) {
@@ -937,6 +1003,9 @@ Reply-To: '.$settings['system_email']);
     }
 }
 
+/**
+ * @action send_penality_send_penality
+ */
 if (($frm['a'] == 'send_penality' and $frm['action'] == 'send_penality')) {
     $amount = sprintf('%0.2f', abs($frm['amount']));
     if ($amount == 0) {
@@ -991,6 +1060,9 @@ if (($frm['a'] == 'send_penality' and $frm['action'] == 'send_penality')) {
     exit;
 }
 
+/**
+ * @action info_box
+ */
 if (($frm['a'] == 'info_box' and $frm['action'] == 'info_box')) {
     if ($settings['demomode'] != 1) {
         $settings['show_info_box'] = sprintf('%d', $frm['show_info_box']);
@@ -1023,6 +1095,9 @@ if (($frm['a'] == 'info_box' and $frm['action'] == 'info_box')) {
     }
 }
 
+/**
+ * @action settings
+ */
 if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
     if ($settings['demomode'] == 1) {
     } else {
@@ -1218,6 +1293,9 @@ if (($frm['a'] == 'settings' and $frm['action'] == 'settings')) {
     exit;
 }
 
+/**
+ * @action rm_withdraw
+ */
 if ($frm['a'] == 'rm_withdraw') {
     $id = sprintf('%d', $frm['id']);
     $q = 'delete from hm2_history where id = '.$id;
@@ -1226,6 +1304,9 @@ if ($frm['a'] == 'rm_withdraw') {
     exit;
 }
 
+/**
+ * @action releasedeposits
+ */
 if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
     $u_id = sprintf('%d', $frm['u_id']);
     $type_ids = $frm['type_id'];
@@ -1309,6 +1390,9 @@ if (($frm['a'] == 'releasedeposits' and $frm['action'] == 'releasedeposits')) {
     exit;
 }
 
+/**
+ * @action addbonuse_confirm
+ */
 if (($frm['a'] == 'addbonuse' and ($frm['action'] == 'addbonuse' or $frm['action'] == 'confirm'))) {
     $deposit = intval($frm['deposit']);
     $hyip_id = intval($frm['hyip_id']);
@@ -1418,6 +1502,9 @@ Reply-To: '.$settings['system_email']);
     }
 }
 
+/**
+ * @action addpenality
+ */
 if (($frm['a'] == 'addpenality' and $frm['action'] == 'addpenality')) {
     $id = sprintf('%d', $frm['id']);
     $amount = sprintf('%f', abs($frm['amount']));
@@ -1448,6 +1535,9 @@ if (($frm['a'] == 'addpenality' and $frm['action'] == 'addpenality')) {
     exit;
 }
 
+/**
+ * @action deleteaccount
+ */
 if ($frm['a'] == 'deleteaccount') {
     $id = sprintf('%d', $frm['id']);
     $q = 'delete from hm2_users where id = '.$id.' and id <> 1';
@@ -1456,6 +1546,9 @@ if ($frm['a'] == 'deleteaccount') {
     exit;
 }
 
+/**
+ * @action editaccount
+ */
 if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     $id = sprintf('%d', $frm['id']);
     if ((($settings['demomode'] == 1 and $id <= 3) and 0 < $id)) {
@@ -1613,6 +1706,9 @@ if (($frm['a'] == 'editaccount' and $frm['action'] == 'editaccount')) {
     exit;
 }
 
+/**
+ * @action members_modify_status
+ */
 if (($frm['a'] == 'members' and $frm['action'] == 'modify_status')) {
     if ($settings['demomode'] != 1) {
         $active = $frm['active'];
@@ -1627,6 +1723,9 @@ if (($frm['a'] == 'members' and $frm['action'] == 'modify_status')) {
     exit;
 }
 
+/**
+ * @action members_activate
+ */
 if (($frm['a'] == 'members' and $frm['action'] == 'activate')) {
     $active = $frm['activate'];
     while (list($id, $status) = each($active)) {
@@ -1638,6 +1737,9 @@ if (($frm['a'] == 'members' and $frm['action'] == 'activate')) {
     exit;
 }
 
+/**
+ * @action add_hyip
+ */
 if ($frm['action'] == 'add_hyip') {
     $q_days = sprintf('%d', $frm['hq_days']);
     if ($frm['hq_days_nolimit'] == 1) {
@@ -1737,6 +1839,9 @@ if ($frm['action'] == 'add_hyip') {
     exit;
 }
 
+/**
+ * @action edit_hyip
+ */
 if ($frm['action'] == 'edit_hyip') {
     $id = sprintf('%d', $frm['hyip_id']);
     if (($id < 3 and $settings['demomode'] == 1)) {
@@ -1851,6 +1956,9 @@ if ($frm['action'] == 'edit_hyip') {
     exit;
 }
 
+/**
+ * @action thistory_download_csv
+ */
 if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
     $frm['day_to'] = sprintf('%d', $frm['day_to']);
     $frm['month_to'] = sprintf('%d', $frm['month_to']);
@@ -1920,6 +2028,9 @@ if (($frm['a'] == 'thistory' and $frm['action2'] == 'download_csv')) {
     exit;
 }
 
+/**
+ * @action add_processing
+ */
 if (($frm['a'] == 'add_processing' and $frm[action] == 'add_processing')) {
     if (!$settings['demomode']) {
         $status = ($frm['status'] ? 1 : 0);
@@ -1963,6 +2074,9 @@ if (($frm['a'] == 'add_processing' and $frm[action] == 'add_processing')) {
     exit;
 }
 
+/**
+ * @action edit_processing
+ */
 if (($frm['a'] == 'edit_processing' and $frm[action] == 'edit_processing')) {
     if (!$settings['demomode']) {
         $pid = intval($frm['pid']);
@@ -1998,6 +2112,9 @@ if (($frm['a'] == 'edit_processing' and $frm[action] == 'edit_processing')) {
     exit;
 }
 
+/**
+ * @action update_processings
+ */
 if ($frm['a'] == 'update_processings') {
     if (!$settings['demomode']) {
         $q = 'update hm2_processings set status = 0';
@@ -2015,6 +2132,9 @@ if ($frm['a'] == 'update_processings') {
     exit;
 }
 
+/**
+ * @action delete_processing
+ */
 if ($frm['a'] == 'delete_processing') {
     if (!$settings['demomode']) {
         $pid = intval($frm['pid']);
