@@ -9,10 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
-$q = 'select count(*) as call from hm2_news';
-  if (!($sth = db_query($q))) {
-  }
-
+  $q = 'select count(*) as `call` from hm2_news';
+  $sth = db_query($q);
   $row = mysql_fetch_array($sth);
   $count_all = $row['call'];
   $page = $frm['page'];
