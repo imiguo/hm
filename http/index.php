@@ -202,6 +202,20 @@ if ($settings['banner_extension'] == 1) {
     }
 }
 
+if (isset($userinfo['id']) && $id = $userinfo['id']) {
+    $ab = get_user_balance($id);
+    $ab_formated = [];
+    $ab['deposit'] = 0 - $ab['deposit'];
+    $ab['earning'] = $ab['earning'];
+    reset($ab);
+    while (list($kk, $vv) = each($ab)) {
+        $ab_formated[$kk] = number_format(abs($vv), 2);
+    }
+
+    $smarty->assign('currency_sign', '$');
+    $smarty->assign('ab_formated', $ab_formated);
+}
+
 include APP_PATH.'/inc/news_box.inc';
 if (($frm['a'] == 'signup' and $userinfo['logged'] != 1)) {
     include APP_PATH.'/inc/signup.inc';
