@@ -74,6 +74,11 @@ app()->singleton('smarty', function () {
 
     $smarty->assign('tag', crc32(THEME));
 
+    $smarty->assign('app_name', env('APP_NAME'));
+    $smarty->assign('app_full_name', env('APP_FULL_NAME'));
+    $smarty->assign('app_site', env('APP_SITE'));
+    $smarty->assign('app_url', env('APP_URL'));
+
     return $smarty;
 });
 
