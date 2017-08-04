@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-include 'lib/config.inc.php';
+include APP_PATH.'/lib/config.inc.php';
 
 if ($frm['a'] == 'pay_withdraw') {
     $batch = $frm['ATIP_TRANSACTION_ID'];

@@ -344,7 +344,7 @@ checkrates(3,1);
 checkrates(4,1);
 </script>
 ';
-  include 'inc/admin/calendar.inc.php';
+  include APP_PATH.'/inc/admin/calendar.inc.php';
   echo '
 <br>';
   echo start_info_table('100%');

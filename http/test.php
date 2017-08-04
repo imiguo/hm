@@ -22,10 +22,6 @@ ini_set('display_errors', '1');
 
 function mail_test()
 {
-    if (!db_open()) {
-        echo 'Cannot connect mysql';
-        exit();
-    }
     $info['username'] = 'entimm';
     $info['password'] = '********';
     $info['name'] = 'enjoy';

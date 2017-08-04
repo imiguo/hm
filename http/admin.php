@@ -11,8 +11,8 @@
 
 $frm['a'] = '';
 
-include '../lib/config.inc.php';
-require '../lib/admin.inc.php';
+include APP_PATH.'/lib/config.inc.php';
+require APP_PATH.'/lib/admin.inc.php';
 
 global $frm;
 if (HTTPS) {

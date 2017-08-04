@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-require '../lib/config.inc.php';
+require APP_PATH.'/lib/config.inc.php';
 
 $smarty = app('smarty');
 

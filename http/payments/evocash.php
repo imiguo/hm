@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-include 'lib/config.inc.php';
+include APP_PATH.'/lib/config.inc.php';
 
 $mymd5 = $settings['md5altphrase_evocash'];
 if ($frm['a'] == 'pay_withdraw') {
