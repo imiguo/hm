@@ -16,11 +16,6 @@ if ($frm['action'] == 'confirm') {
 }
 
 if ($frm['action'] == 'edit_account') {
-    if (($settings['demomode'] == 1 and $userinfo['id'] < 3)) {
-        header('Location: ?a=edit_account');
-        exit();
-    }
-
     $errors = [];
     if ($frm['action2'] != 'confirm') {
         if ($frm['fullname'] == '') {
@@ -121,9 +116,12 @@ if ($frm['action'] == 'edit_account') {
         $fullname = quote($frm['fullname']);
         $password = quote($frm['password']);
         $enc_password = md5($password);
+        $email = quote($frm['email']);
+
         $egold = quote($frm['egold_account']);
         $perfectmoney = quote($frm['perfectmoney_account']);
-        $email = quote($frm['email']);
+        $payeer = quote($frm['payeer_account']);
+        $bitcoin = quote($frm['bitcoin_account']);
         $evocash = quote($frm['evocash_account']);
         $intgold = quote($frm['intgold_account']);
         $stormpay = quote($frm['stormpay_account']);
@@ -132,12 +130,14 @@ if ($frm['action'] == 'edit_account') {
         $goldmoney = quote($frm['goldmoney_account']);
         $eeecurrency = quote($frm['eeecurrency_account']);
         $pecunix = quote($frm['pecunix_account']);
+
         $address = quote($frm['address']);
         $city = quote($frm['city']);
         $state = quote($frm['state']);
         $zip = quote($frm['zip']);
         $country = quote($frm['country']);
         $transaction_code = quote($frm['transaction_code']);
+
         if (($userinfo['email'] != $frm['email'] and $settings['usercanchangeemail'] == 1)) {
             $q = 'update hm2_users set email = \''.$email.'\' where id > 1 and id = '.$userinfo['id'];
             db_query($q);
@@ -150,6 +150,16 @@ if ($frm['action'] == 'edit_account') {
 
         if (($userinfo['perfectmoney_account'] != $frm['perfectmoney_account'] and $settings['usercanchangeperfectmoneyacc'])) {
             $q = 'update hm2_users set perfectmoney_account = \''.$perfectmoney.'\' where id > 1 and id = '.$userinfo['id'];
+            db_query($q);
+        }
+
+        if (($userinfo['payeer_account'] != $frm['payeer_account'] and $settings['usercanchangepayeeracc'])) {
+            $q = 'update hm2_users set payeer_account = \''.$payeer.'\' where id > 1 and id = '.$userinfo['id'];
+            db_query($q);
+        }
+
+        if (($userinfo['bitcoin_account'] != $frm['bitcoin_account'] and $settings['usercanchangebitcoinacc'])) {
+            $q = 'update hm2_users set bitcoin_account = \''.$bitcoin.'\' where id > 1 and id = '.$userinfo['id'];
             db_query($q);
         }
 

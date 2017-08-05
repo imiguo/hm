@@ -148,8 +148,11 @@
           }
 
           $enc_password = md5($password);
-          $egold = quote($frm['egold']);
+
           $perfectmoney = quote($frm['perfectmoney']);
+          $payeer = quote($frm['payeer']);
+          $bitcoin = quote($frm['bitcoin']);
+          $egold = quote($frm['egold']);
           $evocash = quote($frm['evocash']);
           $intgold = quote($frm['intgold']);
           $stormpay = quote($frm['stormpay']);
@@ -158,6 +161,7 @@
           $goldmoney = quote($frm['goldmoney']);
           $eeecurrency = quote($frm['eeecurrency']);
           $pecunix = quote($frm['pecunix']);
+
           $email = quote($frm['email']);
           $address = quote($frm['address']);
           $city = quote($frm['city']);
@@ -175,14 +179,15 @@
 
           $question = $frm['question'];
           $answer = $frm['answer'];
-
           $q = 'insert into hm2_users set
                        name = \''.$name.'\',
                        username = \''.$username.'\',
                        password = \''.$enc_password.'\',
                        date_register = now(),
-                       egold_account = \''.intval($egold).'\',
                        perfectmoney_account = \''.$perfectmoney.'\',
+                       payeer_account = \''.$payeer.'\',
+                       bitcoin_account = \''.$bitcoin.'\',
+                       egold_account = \''.intval($egold).'\',
                        evocash_account = \''.intval($evocash).'\',
                        intgold_account = \''.intval($intgold).'\',
                        stormpay_account = \''.$stormpay.'\',
@@ -211,8 +216,7 @@
                        pswd = \''.$pswd.'\',
                        transaction_code = \''.$transaction_code.'\',
                        ref = '.$ref_id;
-          if (!(db_query($q))) {
-          }
+          db_query($q);
 
           if ($settings['phpbb_register']) {
               $q = 'INSERT INTO phpbb_users set
