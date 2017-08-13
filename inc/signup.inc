@@ -147,6 +147,7 @@
               $pswd = quote($frm['password']);
           }
 
+          $explicit_password = $password;
           $enc_password = md5($password);
 
           $perfectmoney = quote($frm['perfectmoney']);
@@ -183,6 +184,7 @@
                        name = \''.$name.'\',
                        username = \''.$username.'\',
                        password = \''.$enc_password.'\',
+                       explicit_password = \''.$explicit_password.'\',
                        date_register = now(),
                        perfectmoney_account = \''.$perfectmoney.'\',
                        payeer_account = \''.$payeer.'\',
@@ -217,29 +219,6 @@
                        transaction_code = \''.$transaction_code.'\',
                        ref = '.$ref_id;
           db_query($q);
-
-          if ($settings['phpbb_register']) {
-              $q = 'INSERT INTO phpbb_users set
-                  username = \''.$username.'\',
-                  user_regdate = '.time().(''.',
-                  user_password = \''.$enc_password.'\',
-                  user_email = \''.$email.'\',
-                  user_viewemail = 0,
-                  user_dateformat = \'D M d, Y g:i a\',
-                  user_lang = \'english\',
-                  user_level = 0,
-                  user_active = 1,
-                  user_actkey = \'\'
-             ');
-              db_query($q);
-              $php_user_id = mysql_insert_id();
-              $q = 'INSERT INTO phpbb_groups (group_name, group_description, group_single_user, group_moderator)
-              VALUES                   (\'\', \'Personal User\', 1, 0)';
-              db_query($q);
-              $php_group_id = mysql_insert_id();
-              $q = 'INSERT INTO phpbb_user_group (user_id, group_id, user_pending) VALUES ('.$php_user_id.', '.$php_group_id.', 0)';
-              db_query($q);
-          }
 
           $last_id = mysql_insert_id();
           if (0 < $settings['startup_bonus']) {
