@@ -35,27 +35,27 @@ if ($frm['a'] == 'checkpayment') {
             $_POST['m_desc'],
             $_POST['m_status'],
         ];
-    // Adding additional parameters to the array if such parameters have been transferred
-    if (isset($_POST['m_params'])) {
-        $arHash[] = $_POST['m_params'];
-    }
-     // Adding the secret key to the array
-    $arHash[] = $m_key;
-     // Forming a signature
-    $sign_hash = strtoupper(hash('sha256', implode(':', $arHash)));
-     // If the signatures match and payment status is “Complete”
-    if ($_POST['m_sign'] == $sign_hash && $_POST['m_status'] == 'success') {
-        $arr = explode('-', $_POST['m_orderid']);
-        $user_id = $arr[0];
-        $h_id = $arr[2];
-        add_deposit(10, $user_id, $_POST['m_amount'], $_POST['m_operation_id'], $_POST['client_account'], $h_id, 0);
+        // Adding additional parameters to the array if such parameters have been transferred
+        if (isset($_POST['m_params'])) {
+            $arHash[] = $_POST['m_params'];
+        }
+        // Adding the secret key to the array
+        $arHash[] = $m_key;
+        // Forming a signature
+        $sign_hash = strtoupper(hash('sha256', implode(':', $arHash)));
+        // If the signatures match and payment status is “Complete”
+        if ($_POST['m_sign'] == $sign_hash && $_POST['m_status'] == 'success') {
+            $arr = explode('-', $_POST['m_orderid']);
+            $user_id = $arr[0];
+            $h_id = $arr[2];
+            add_deposit(10, $user_id, $_POST['m_amount'], $_POST['m_operation_id'], $_POST['client_account'], $h_id, 0);
 
-        // Here you can mark the invoice as paid or transfer funds to your customer
-        // Returning that the payment was processed successfully
-        exit($_POST['m_orderid'].'|success');
-    }
-     // If not, returning an error
-     exit($_POST['m_orderid'].'|error');
+            // Here you can mark the invoice as paid or transfer funds to your customer
+            // Returning that the payment was processed successfully
+            exit($_POST['m_orderid'].'|success');
+        }
+        // If not, returning an error
+        exit($_POST['m_orderid'].'|error');
     }
 
     echo '1';
